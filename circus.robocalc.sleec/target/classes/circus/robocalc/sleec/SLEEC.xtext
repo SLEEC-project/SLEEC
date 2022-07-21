@@ -1,0 +1,83 @@
+grammar circus.robocalc.sleec.SLEEC with org.eclipse.xtext.common.Terminals
+
+generate sLEEC "http://www.robocalc.circus/sleec/SLEEC"
+
+Specification:
+	defBlock=Defblock ruleBlock=RuleBlock
+;
+
+Defblock:
+	'def_start' definitions+=Definition+ 'def_end'
+;
+
+Definition:
+	{Event} 'event' name=ID | {Measure} 'measure' name=ID ':' type=Type | {Const} 'constant' name=ID '=' value=Value
+;
+
+Value:
+	INT
+;
+
+Type:
+	{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=Literal (',' scaleParams+=Literal)* ')'
+;
+
+Literal:
+	ID
+;
+
+RuleBlock:
+	'rule_start' rules+=Rule+ 'rule_end'	
+;
+
+Rule:
+	name=ID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
+;
+
+Trigger:
+	event=[Event] ('and' expr=MBoolExpr)?
+;
+
+MBoolExpr:
+	BoolComp
+;
+
+BoolComp returns MBoolExpr:
+	Not ({BoolComp.left=current} op=BoolOp right=Not)*
+;
+
+Not returns MBoolExpr:
+	{Not} 'not' left=RelComp | RelComp
+;
+
+RelComp returns MBoolExpr:
+	Atom ({RelComp.left=current} op=RelOp right=Atom)*
+;
+
+Atom returns MBoolExpr:
+	measure=[Measure] | '(' MBoolExpr ')'
+;
+
+Response:
+	not?='not' event=[Event] ('within' time=Time ('otherwise' response=Response)?)?
+;
+
+Time:
+	value=Value unit=TimeUnit
+;
+
+Defeater:
+	'unless' expr=MBoolExpr ('then' response=Response)?
+;
+
+enum RelOp:
+	LESS_THAN='<' | GREATER_THAN='>' | NOT_EQUAL='<>' | LESS_EQUAL='<=' | GREATER_EQUAL='>=' | EQUAL='='
+;
+
+enum BoolOp:
+	AND='and' | OR='or'
+;
+
+enum TimeUnit:
+	SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days' | WEEKS='weeks' | MONTHS='months' | YEARS='years'
+;
