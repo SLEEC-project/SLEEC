@@ -68,7 +68,7 @@ RelComp returns MBoolExpr:
 ;
 
 Atom returns MBoolExpr:
-	measure=[Measure] | '(' MBoolExpr ')'
+	measure=[Measure] | '(' MBoolExpr ')' | value=Value
 ;
 
 Response:
