@@ -11,11 +11,24 @@ Defblock:
 ;
 
 Definition:
-	{Event} 'event' name=ID | {Measure} 'measure' name=ID ':' type=Type | {Const} 'constant' name=ID '=' value=Value
+	Event | Measure | Constant
+;
+
+Event:
+	'event' name=ID
+;
+
+Measure:
+	 'measure' name=ID ':' type=Type
+;
+
+Constant:
+	'constant' name=ID '=' value=INT
 ;
 
 Value:
-	INT
+	// value = (INT | [Constant])
+	{Value} INT | value=[Constant]
 ;
 
 Type:
