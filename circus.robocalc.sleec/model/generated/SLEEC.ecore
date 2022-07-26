@@ -14,6 +14,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="Definition">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Event" eSuperTypes="#//Definition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Measure" eSuperTypes="#//Definition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Constant" eSuperTypes="#//Definition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Value">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Constant"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="RuleBlock">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
@@ -35,19 +45,18 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MBoolExpr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="measure" eType="#//Measure"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//MBoolExpr"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Response">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="not" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="event" eType="#//Event"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="time" eType="#//Time" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//Event"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="time" eType="#//Value"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="response" eType="#//Response"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Time">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="#//TimeUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="not" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Defeater">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expr" eType="#//MBoolExpr"
@@ -66,22 +75,6 @@
   <eClassifiers xsi:type="ecore:EEnum" name="BoolOp">
     <eLiterals name="AND" literal="and"/>
     <eLiterals name="OR" value="1" literal="or"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="TimeUnit">
-    <eLiterals name="SECONDS" literal="seconds"/>
-    <eLiterals name="MINUTES" value="1" literal="minutes"/>
-    <eLiterals name="HOURS" value="2" literal="hours"/>
-    <eLiterals name="DAYS" value="3" literal="days"/>
-    <eLiterals name="WEEKS" value="4" literal="weeks"/>
-    <eLiterals name="MONTHS" value="5" literal="months"/>
-    <eLiterals name="YEARS" value="6" literal="years"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Event" eSuperTypes="#//Definition"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Measure" eSuperTypes="#//Definition">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Const" eSuperTypes="#//Definition">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Boolean" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="Numeric" eSuperTypes="#//Type"/>

@@ -6,6 +6,7 @@ package circus.robocalc.sleec.sLEEC.impl;
 import circus.robocalc.sleec.sLEEC.MBoolExpr;
 import circus.robocalc.sleec.sLEEC.Measure;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
+import circus.robocalc.sleec.sLEEC.Value;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -25,6 +26,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getMeasure <em>Measure</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getValue <em>Value</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getLeft <em>Left</em>}</li>
  * </ul>
  *
@@ -41,6 +43,16 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
    * @ordered
    */
   protected Measure measure;
+
+  /**
+   * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getValue()
+   * @generated
+   * @ordered
+   */
+  protected Value value;
 
   /**
    * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
@@ -124,6 +136,56 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
    * @generated
    */
   @Override
+  public Value getValue()
+  {
+    return value;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetValue(Value newValue, NotificationChain msgs)
+  {
+    Value oldValue = value;
+    value = newValue;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SLEECPackage.MBOOL_EXPR__VALUE, oldValue, newValue);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setValue(Value newValue)
+  {
+    if (newValue != value)
+    {
+      NotificationChain msgs = null;
+      if (value != null)
+        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.MBOOL_EXPR__VALUE, null, msgs);
+      if (newValue != null)
+        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.MBOOL_EXPR__VALUE, null, msgs);
+      msgs = basicSetValue(newValue, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.MBOOL_EXPR__VALUE, newValue, newValue));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public MBoolExpr getLeft()
   {
     return left;
@@ -178,6 +240,8 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
   {
     switch (featureID)
     {
+      case SLEECPackage.MBOOL_EXPR__VALUE:
+        return basicSetValue(null, msgs);
       case SLEECPackage.MBOOL_EXPR__LEFT:
         return basicSetLeft(null, msgs);
     }
@@ -197,6 +261,8 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
       case SLEECPackage.MBOOL_EXPR__MEASURE:
         if (resolve) return getMeasure();
         return basicGetMeasure();
+      case SLEECPackage.MBOOL_EXPR__VALUE:
+        return getValue();
       case SLEECPackage.MBOOL_EXPR__LEFT:
         return getLeft();
     }
@@ -215,6 +281,9 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
     {
       case SLEECPackage.MBOOL_EXPR__MEASURE:
         setMeasure((Measure)newValue);
+        return;
+      case SLEECPackage.MBOOL_EXPR__VALUE:
+        setValue((Value)newValue);
         return;
       case SLEECPackage.MBOOL_EXPR__LEFT:
         setLeft((MBoolExpr)newValue);
@@ -236,6 +305,9 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
       case SLEECPackage.MBOOL_EXPR__MEASURE:
         setMeasure((Measure)null);
         return;
+      case SLEECPackage.MBOOL_EXPR__VALUE:
+        setValue((Value)null);
+        return;
       case SLEECPackage.MBOOL_EXPR__LEFT:
         setLeft((MBoolExpr)null);
         return;
@@ -255,6 +327,8 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
     {
       case SLEECPackage.MBOOL_EXPR__MEASURE:
         return measure != null;
+      case SLEECPackage.MBOOL_EXPR__VALUE:
+        return value != null;
       case SLEECPackage.MBOOL_EXPR__LEFT:
         return left != null;
     }

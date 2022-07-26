@@ -4,7 +4,7 @@
 package circus.robocalc.sleec.serializer;
 
 import circus.robocalc.sleec.sLEEC.BoolComp;
-import circus.robocalc.sleec.sLEEC.Const;
+import circus.robocalc.sleec.sLEEC.Constant;
 import circus.robocalc.sleec.sLEEC.Defblock;
 import circus.robocalc.sleec.sLEEC.Defeater;
 import circus.robocalc.sleec.sLEEC.Event;
@@ -19,8 +19,8 @@ import circus.robocalc.sleec.sLEEC.RuleBlock;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
 import circus.robocalc.sleec.sLEEC.Specification;
-import circus.robocalc.sleec.sLEEC.Time;
 import circus.robocalc.sleec.sLEEC.Trigger;
+import circus.robocalc.sleec.sLEEC.Value;
 import circus.robocalc.sleec.services.SLEECGrammarAccess;
 import com.google.inject.Inject;
 import java.util.Set;
@@ -54,8 +54,8 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case SLEECPackage.BOOLEAN:
 				sequence_Type(context, (circus.robocalc.sleec.sLEEC.Boolean) semanticObject); 
 				return; 
-			case SLEECPackage.CONST:
-				sequence_Definition(context, (Const) semanticObject); 
+			case SLEECPackage.CONSTANT:
+				sequence_Constant(context, (Constant) semanticObject); 
 				return; 
 			case SLEECPackage.DEFBLOCK:
 				sequence_Defblock(context, (Defblock) semanticObject); 
@@ -64,13 +64,13 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				sequence_Defeater(context, (Defeater) semanticObject); 
 				return; 
 			case SLEECPackage.EVENT:
-				sequence_Definition(context, (Event) semanticObject); 
+				sequence_Event(context, (Event) semanticObject); 
 				return; 
 			case SLEECPackage.MBOOL_EXPR:
 				sequence_Atom(context, (MBoolExpr) semanticObject); 
 				return; 
 			case SLEECPackage.MEASURE:
-				sequence_Definition(context, (Measure) semanticObject); 
+				sequence_Measure(context, (Measure) semanticObject); 
 				return; 
 			case SLEECPackage.NOT:
 				sequence_Not(context, (Not) semanticObject); 
@@ -96,11 +96,11 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case SLEECPackage.SPECIFICATION:
 				sequence_Specification(context, (Specification) semanticObject); 
 				return; 
-			case SLEECPackage.TIME:
-				sequence_Time(context, (Time) semanticObject); 
-				return; 
 			case SLEECPackage.TRIGGER:
 				sequence_Trigger(context, (Trigger) semanticObject); 
+				return; 
+			case SLEECPackage.VALUE:
+				sequence_Value(context, (Value) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -118,16 +118,10 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Atom returns MBoolExpr
 	 *
 	 * Constraint:
-	 *     measure=[Measure|ID]
+	 *     (measure=[Measure|ID] | value=Value)
 	 */
 	protected void sequence_Atom(ISerializationContext context, MBoolExpr semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.MBOOL_EXPR__MEASURE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.MBOOL_EXPR__MEASURE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getAtomAccess().getMeasureMeasureIDTerminalRuleCall_0_0_1(), semanticObject.eGet(SLEECPackage.Literals.MBOOL_EXPR__MEASURE, false));
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -163,6 +157,28 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     Definition returns Constant
+	 *     Constant returns Constant
+	 *
+	 * Constraint:
+	 *     (name=ID value=INT)
+	 */
+	protected void sequence_Constant(ISerializationContext context, Constant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.DEFINITION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.DEFINITION__NAME));
+			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getConstantAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getConstantAccess().getValueINTTerminalRuleCall_3_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Defblock returns Defblock
 	 *
 	 * Constraint:
@@ -187,39 +203,19 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     Definition returns Const
-	 *
-	 * Constraint:
-	 *     (name=ID value=Value)
-	 */
-	protected void sequence_Definition(ISerializationContext context, Const semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.DEFINITION__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.DEFINITION__NAME));
-			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.CONST__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.CONST__VALUE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getDefinitionAccess().getNameIDTerminalRuleCall_2_2_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getDefinitionAccess().getValueValueParserRuleCall_2_4_0(), semanticObject.getValue());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     Definition returns Event
+	 *     Event returns Event
 	 *
 	 * Constraint:
 	 *     name=ID
 	 */
-	protected void sequence_Definition(ISerializationContext context, Event semanticObject) {
+	protected void sequence_Event(ISerializationContext context, Event semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.DEFINITION__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.DEFINITION__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getDefinitionAccess().getNameIDTerminalRuleCall_0_2_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getEventAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
@@ -227,11 +223,12 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	/**
 	 * Contexts:
 	 *     Definition returns Measure
+	 *     Measure returns Measure
 	 *
 	 * Constraint:
 	 *     (name=ID type=Type)
 	 */
-	protected void sequence_Definition(ISerializationContext context, Measure semanticObject) {
+	protected void sequence_Measure(ISerializationContext context, Measure semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.DEFINITION__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.DEFINITION__NAME));
@@ -239,8 +236,8 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.MEASURE__TYPE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getDefinitionAccess().getNameIDTerminalRuleCall_1_2_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getDefinitionAccess().getTypeTypeParserRuleCall_1_4_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getMeasureAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getMeasureAccess().getTypeTypeParserRuleCall_3_0(), semanticObject.getType());
 		feeder.finish();
 	}
 	
@@ -304,7 +301,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Response returns Response
 	 *
 	 * Constraint:
-	 *     (not?='not' event=[Event|ID] (time=Time response=Response?)?)
+	 *     ((name=[Event|ID] (time=Value response=Response?)?) | (not?='not' name=[Event|ID] time=Value))
 	 */
 	protected void sequence_Response(ISerializationContext context, Response semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -328,7 +325,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Rule returns Rule
 	 *
 	 * Constraint:
-	 *     (name=ID trigger=Trigger response=Response defeaters+=Defeater*)
+	 *     (name=QualifiedName trigger=Trigger response=Response defeaters+=Defeater*)
 	 */
 	protected void sequence_Rule(ISerializationContext context, Rule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -352,27 +349,6 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getSpecificationAccess().getDefBlockDefblockParserRuleCall_0_0(), semanticObject.getDefBlock());
 		feeder.accept(grammarAccess.getSpecificationAccess().getRuleBlockRuleBlockParserRuleCall_1_0(), semanticObject.getRuleBlock());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Time returns Time
-	 *
-	 * Constraint:
-	 *     (value=Value unit=TimeUnit)
-	 */
-	protected void sequence_Time(ISerializationContext context, Time semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.TIME__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.TIME__VALUE));
-			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.TIME__UNIT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.TIME__UNIT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getTimeAccess().getValueValueParserRuleCall_0_0(), semanticObject.getValue());
-		feeder.accept(grammarAccess.getTimeAccess().getUnitTimeUnitEnumRuleCall_1_0(), semanticObject.getUnit());
 		feeder.finish();
 	}
 	
@@ -421,6 +397,18 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     (scaleParams+=Literal scaleParams+=Literal*)
 	 */
 	protected void sequence_Type(ISerializationContext context, Scale semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Value returns Value
+	 *
+	 * Constraint:
+	 *     value=[Constant|ID]?
+	 */
+	protected void sequence_Value(ISerializationContext context, Value semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

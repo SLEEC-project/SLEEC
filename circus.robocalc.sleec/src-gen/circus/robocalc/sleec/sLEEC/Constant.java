@@ -6,42 +6,42 @@ package circus.robocalc.sleec.sLEEC;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Const</b></em>'.
+ * A representation of the model object '<em><b>Constant</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link circus.robocalc.sleec.sLEEC.Const#getValue <em>Value</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.Constant#getValue <em>Value</em>}</li>
  * </ul>
  *
- * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getConst()
+ * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getConstant()
  * @model
  * @generated
  */
-public interface Const extends Definition
+public interface Constant extends Definition
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' attribute.
-   * @see #setValue(String)
-   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getConst_Value()
+   * @see #setValue(int)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getConstant_Value()
    * @model
    * @generated
    */
-  String getValue();
+  int getValue();
 
   /**
-   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Const#getValue <em>Value</em>}' attribute.
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Constant#getValue <em>Value</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Value</em>' attribute.
    * @see #getValue()
    * @generated
    */
-  void setValue(String value);
+  void setValue(int value);
 
-} // Const
+} // Constant

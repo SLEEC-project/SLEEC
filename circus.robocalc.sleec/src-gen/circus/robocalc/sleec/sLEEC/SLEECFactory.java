@@ -51,6 +51,42 @@ public interface SLEECFactory extends EFactory
   Definition createDefinition();
 
   /**
+   * Returns a new object of class '<em>Event</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Event</em>'.
+   * @generated
+   */
+  Event createEvent();
+
+  /**
+   * Returns a new object of class '<em>Measure</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Measure</em>'.
+   * @generated
+   */
+  Measure createMeasure();
+
+  /**
+   * Returns a new object of class '<em>Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Constant</em>'.
+   * @generated
+   */
+  Constant createConstant();
+
+  /**
+   * Returns a new object of class '<em>Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Value</em>'.
+   * @generated
+   */
+  Value createValue();
+
+  /**
    * Returns a new object of class '<em>Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -105,15 +141,6 @@ public interface SLEECFactory extends EFactory
   Response createResponse();
 
   /**
-   * Returns a new object of class '<em>Time</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Time</em>'.
-   * @generated
-   */
-  Time createTime();
-
-  /**
    * Returns a new object of class '<em>Defeater</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -121,33 +148,6 @@ public interface SLEECFactory extends EFactory
    * @generated
    */
   Defeater createDefeater();
-
-  /**
-   * Returns a new object of class '<em>Event</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Event</em>'.
-   * @generated
-   */
-  Event createEvent();
-
-  /**
-   * Returns a new object of class '<em>Measure</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Measure</em>'.
-   * @generated
-   */
-  Measure createMeasure();
-
-  /**
-   * Returns a new object of class '<em>Const</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Const</em>'.
-   * @generated
-   */
-  Const createConst();
 
   /**
    * Returns a new object of class '<em>Boolean</em>'.

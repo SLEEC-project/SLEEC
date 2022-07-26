@@ -3,7 +3,7 @@
  */
 package circus.robocalc.sleec.sLEEC.impl;
 
-import circus.robocalc.sleec.sLEEC.Const;
+import circus.robocalc.sleec.sLEEC.Constant;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -14,18 +14,18 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Const</b></em>'.
+ * An implementation of the model object '<em><b>Constant</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ConstImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ConstantImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ConstImpl extends DefinitionImpl implements Const
+public class ConstantImpl extends DefinitionImpl implements Constant
 {
   /**
    * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -35,7 +35,7 @@ public class ConstImpl extends DefinitionImpl implements Const
    * @generated
    * @ordered
    */
-  protected static final String VALUE_EDEFAULT = null;
+  protected static final int VALUE_EDEFAULT = 0;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -45,14 +45,14 @@ public class ConstImpl extends DefinitionImpl implements Const
    * @generated
    * @ordered
    */
-  protected String value = VALUE_EDEFAULT;
+  protected int value = VALUE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ConstImpl()
+  protected ConstantImpl()
   {
     super();
   }
@@ -65,7 +65,7 @@ public class ConstImpl extends DefinitionImpl implements Const
   @Override
   protected EClass eStaticClass()
   {
-    return SLEECPackage.Literals.CONST;
+    return SLEECPackage.Literals.CONSTANT;
   }
 
   /**
@@ -74,7 +74,7 @@ public class ConstImpl extends DefinitionImpl implements Const
    * @generated
    */
   @Override
-  public String getValue()
+  public int getValue()
   {
     return value;
   }
@@ -85,12 +85,12 @@ public class ConstImpl extends DefinitionImpl implements Const
    * @generated
    */
   @Override
-  public void setValue(String newValue)
+  public void setValue(int newValue)
   {
-    String oldValue = value;
+    int oldValue = value;
     value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.CONST__VALUE, oldValue, value));
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.CONSTANT__VALUE, oldValue, value));
   }
 
   /**
@@ -103,7 +103,7 @@ public class ConstImpl extends DefinitionImpl implements Const
   {
     switch (featureID)
     {
-      case SLEECPackage.CONST__VALUE:
+      case SLEECPackage.CONSTANT__VALUE:
         return getValue();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -119,8 +119,8 @@ public class ConstImpl extends DefinitionImpl implements Const
   {
     switch (featureID)
     {
-      case SLEECPackage.CONST__VALUE:
-        setValue((String)newValue);
+      case SLEECPackage.CONSTANT__VALUE:
+        setValue((Integer)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -136,7 +136,7 @@ public class ConstImpl extends DefinitionImpl implements Const
   {
     switch (featureID)
     {
-      case SLEECPackage.CONST__VALUE:
+      case SLEECPackage.CONSTANT__VALUE:
         setValue(VALUE_EDEFAULT);
         return;
     }
@@ -153,8 +153,8 @@ public class ConstImpl extends DefinitionImpl implements Const
   {
     switch (featureID)
     {
-      case SLEECPackage.CONST__VALUE:
-        return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+      case SLEECPackage.CONSTANT__VALUE:
+        return value != VALUE_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -176,4 +176,4 @@ public class ConstImpl extends DefinitionImpl implements Const
     return result.toString();
   }
 
-} //ConstImpl
+} //ConstantImpl

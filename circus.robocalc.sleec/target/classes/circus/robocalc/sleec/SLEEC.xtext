@@ -11,11 +11,24 @@ Defblock:
 ;
 
 Definition:
-	{Event} 'event' name=ID | {Measure} 'measure' name=ID ':' type=Type | {Const} 'constant' name=ID '=' value=Value
+	Event | Measure | Constant
+;
+
+Event:
+	'event' name=ID
+;
+
+Measure:
+	 'measure' name=ID ':' type=Type
+;
+
+Constant:
+	'constant' name=ID '=' value=INT
 ;
 
 Value:
-	INT
+	// value = (INT | [Constant])
+	{Value} INT | value=[Constant]
 ;
 
 Type:
@@ -31,7 +44,7 @@ RuleBlock:
 ;
 
 Rule:
-	name=ID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
+	name=QualifiedName 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
 ;
 
 Trigger:
@@ -55,15 +68,11 @@ RelComp returns MBoolExpr:
 ;
 
 Atom returns MBoolExpr:
-	measure=[Measure] | '(' MBoolExpr ')'
+	measure=[Measure] | '(' MBoolExpr ')' | value=Value
 ;
 
 Response:
-	not?='not' event=[Event] ('within' time=Time ('otherwise' response=Response)?)?
-;
-
-Time:
-	value=Value unit=TimeUnit
+	name=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' name=[Event] 'within' time=Value
 ;
 
 Defeater:
@@ -78,6 +87,6 @@ enum BoolOp:
 	AND='and' | OR='or'
 ;
 
-enum TimeUnit:
-	SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days' | WEEKS='weeks' | MONTHS='months' | YEARS='years'
+QualifiedName:
+	ID ('.' ID)*
 ;
