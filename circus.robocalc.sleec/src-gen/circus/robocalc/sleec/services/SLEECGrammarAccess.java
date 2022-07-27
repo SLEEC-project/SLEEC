@@ -596,14 +596,14 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final RuleCall cValueValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
 		//Atom returns MBoolExpr:
-		//    measure=[Measure] | '(' MBoolExpr ')' | value=Value
+		//    ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//measure=[Measure] | '(' MBoolExpr ')' | value=Value
+		//->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//measure=[Measure]
+		//->measure=[Measure]
 		public Assignment getMeasureAssignment_0() { return cMeasureAssignment_0; }
 		
 		//[Measure]
@@ -624,7 +624,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//')'
 		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
 		
-		//value=Value
+		//->value=Value
 		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
 		
 		//Value
@@ -1145,7 +1145,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Atom returns MBoolExpr:
-	//    measure=[Measure] | '(' MBoolExpr ')' | value=Value
+	//    ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value
 	//;
 	public AtomElements getAtomAccess() {
 		return pAtom;

@@ -1015,6 +1015,7 @@ ruleAtom returns [EObject current=null]
 }:
 	(
 		(
+			(RULE_ID)=>
 			(
 				{
 					if ($current==null) {
@@ -1048,6 +1049,7 @@ ruleAtom returns [EObject current=null]
 		)
 		    |
 		(
+			(RULE_INT | RULE_ID)=>
 			(
 				{
 					newCompositeNode(grammarAccess.getAtomAccess().getValueValueParserRuleCall_2_0());

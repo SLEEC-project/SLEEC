@@ -5,6 +5,7 @@ grammar InternalSLEEC;
 
 options {
 	superClass=AbstractInternalContentAssistParser;
+	backtrack=true;
 }
 
 @lexer::header {
