@@ -11,12 +11,13 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 
 @ExtendWith(InjectionExtension)
 @InjectWith(SLEECInjectorProvider)
 class SLEECParsingTest {
-	@Inject
-	ParseHelper<Specification> parseHelper
+	@Inject ParseHelper<Specification> parseHelper
+	@Inject ValidationTestHelper validationTestHelper
 	
 	@Test
 	def void basic_test() {
@@ -333,4 +334,49 @@ class SLEECParsingTest {
 		val errors = result.eResource.errors
 		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors:«errors.join(", ")»''')
 	}
+	
+	@Test
+	def void test_relop_arg_type() {
+		var result = parseHelper.parse('''
+			def_start
+				event e0
+				event e1
+				measure m0: numeric
+			def_end
+			rule_start
+				Rule1 when e0 and m0 < 1 then e1
+			rule_end
+		''')
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors:«errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_boolop_arg_type() {
+		var result = parseHelper.parse('''
+			def_start
+				event e0
+				event e1
+				measure m0: boolean
+				measure m1: numeric
+				measure m2: scale(s0, s1)
+			def_end
+			rule_start
+				Rule1 when e0 and m0 and (m1 > 3) then e1
+				Rule2 when e0 and (m1 > 3) or (m1 < 1) then e1
+				// Rule3 when e0 and m1 and m0 then e1
+			rule_end
+		''')
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors:«errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	/* 
+	 * TODO
+	 * scale checking on relational operators
+	 */
 }
