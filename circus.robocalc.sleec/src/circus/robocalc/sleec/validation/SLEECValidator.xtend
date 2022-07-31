@@ -13,6 +13,9 @@ import circus.robocalc.sleec.sLEEC.SLEECPackage
 import circus.robocalc.sleec.sLEEC.Scale
 import circus.robocalc.sleec.sLEEC.Value
 import org.eclipse.xtext.validation.Check
+import circus.robocalc.sleec.sLEEC.Event
+import circus.robocalc.sleec.sLEEC.Measure
+import circus.robocalc.sleec.sLEEC.Constant
 import circus.robocalc.sleec.sLEEC.ScaleParam
 
 /** 
@@ -49,5 +52,26 @@ class SLEECValidator extends AbstractSLEECValidator {
 	def private isScale(MBoolExpr e) {
 		return e instanceof ScaleParam ||
 			e.measure.type instanceof Scale
+	}
+	
+	@Check
+	def chechEventName(Event e) {
+		if(!Character.isUpperCase(e.name.charAt(0)))
+			warning("Event identifier should begin with capital letter", SLEECPackage.Literals.DEFINITION__NAME, "invalidName")
+	}
+	
+	@Check
+	def checkMeasureName(Measure m) {
+		if(!Character.isLowerCase(m.name.charAt(0)))
+			warning("Measure identifier should begin with lower case letter", SLEECPackage.Literals.DEFINITION__NAME, "invalidName")
+	}
+	
+	@Check
+	def checkContantName(Constant c) {
+		for(var i = 0; i < c.name.length; i++) {
+			if(Character.isLowerCase(c.name.charAt(i))) {
+				warning("Constant identifier should be in all capitals.", SLEECPackage.Literals.DEFINITION__NAME, "invalidName")
+			}
+		}
 	}
 }

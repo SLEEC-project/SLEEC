@@ -23,8 +23,8 @@ class SLEECParsingTest {
 	def void basic_test() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
+				event E0
+				event E1
 			def_end
 			rule_start
 				Rule1 when a then b
@@ -39,11 +39,11 @@ class SLEECParsingTest {
 	def void test_within() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
+				event E0
+				event E1
 			def_end
 			rule_start
-				Rule1 when e0 then e1 within 2
+				Rule1 when E0 then E1 within 2
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -55,12 +55,12 @@ class SLEECParsingTest {
 	def void test_tigger_event() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
-				event e2
+				event E0
+				event E1
+				event E2
 			def_end
 			rule_start
-				Rule1 when e1 and e2 then e3
+				Rule1 when E1 and E2 then E3
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -72,12 +72,12 @@ class SLEECParsingTest {
 	def void test_boolean() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
+				event E0
+				event E1
 				measure m0: boolean
 			def_end
 			rule_start
-				Rule1 when e0 and m0 then e1
+				Rule1 when E0 and m0 then E1
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -89,14 +89,14 @@ class SLEECParsingTest {
 	def void test_bool_op() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
+				event E0
+				event E1
 				measure m0: boolean
 				measure m1: boolean
 			def_end
 			rule_start
-				Rule1 when e0 and m0 or m1 then e1
-				Rule2 when e0 and m0 and m1 then e1
+				Rule1 when E0 and m0 or m1 then E1
+				Rule2 when E0 and m0 and m1 then E1
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -109,13 +109,13 @@ class SLEECParsingTest {
 		// rules 1 and 3 should be different and rules 1 and 2 should be the same
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
+				event E0
+				event E1
 			def_end
 			rule_start
-				Rule1 when e0 and not m0 or m1 then e1
-				Rule3 when e0 and not (m0 or m1) then e1
-				Rule2 when e0 and not (m0 and not m1) then e1
+				Rule1 when E0 and not m0 or m1 then E1
+				Rule3 when E0 and not (m0 or m1) then E1
+				Rule2 when E0 and not (m0 and not m1) then E1
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -127,13 +127,13 @@ class SLEECParsingTest {
 	def void test_numeric() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
+				event E0
+				event E1
 				measure m0: numeric
 				measure m1: numeric
 			def_end
 			rule_start
-				Rule1 when e0 then e1
+				Rule1 when E0 then E1
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -145,13 +145,13 @@ class SLEECParsingTest {
 	def void test_relop() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
+				event E0
+				event E1
 				measure m0: numeric
 				measure m1: numeric
 			def_end
 			rule_start
-				Rule1 when e0 and m0 > m1 then e1
+				Rule1 when E0 and m0 > m1 then E1
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -163,14 +163,14 @@ class SLEECParsingTest {
 	def void test_const() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
+				event E0
+				event E1
 				measure m0: numeric
-				constant c0 = 1
+				constant C0 = 1
 			def_end
 			rule_start
-				Rule1 when e0 and m0 > c0 then e1
-				Rule2 when e0 then e1 within c0
+				Rule1 when E0 and m0 > C0 then E1
+				Rule2 when E0 then E1 within C0
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -183,12 +183,12 @@ class SLEECParsingTest {
 		var result = parseHelper.parse('''
 			def_start
 				measure m0: scale(s0, s1, s2)
-				event e0
-				event e1
+				event E0
+				event E1
 			def_end
 			rule_start
-				Rule1 when e0 and m0 > s0 then e1
-				Rule2 when e0 and m0 = s1 then e1
+				Rule1 when E0 and m0 > s0 then E1
+				Rule2 when E0 and m0 = s1 then E1
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -200,11 +200,11 @@ class SLEECParsingTest {
 	def void test_precidence() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
+				event E0
 				event d1
 			def_end
 			rule_start
-				Rule1 when e0 and 0 < 1 and 0 <> 0 or not 1 = 1 then e1
+				Rule1 when E0 and 0 < 1 and 0 <> 0 or not 1 = 1 then E1
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -219,15 +219,15 @@ class SLEECParsingTest {
 	def void test_otherwise() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
-				event e2
-				event e3
+				event E0
+				event E1
+				event E2
+				event E3
 			def_end
 			rule_start
-				Rule1 when e0 then e1 within 1 otherwise e2
-				Rule2 when e0 then e1 within 1 otherwise e2 within 0
-				Rule3 when e0 then e1 within 0 otherwise e2 within 2 unless e3
+				Rule1 when E0 then E1 within 1 otherwise E2
+				Rule2 when E0 then E1 within 1 otherwise E2 within 0
+				Rule3 when E0 then E1 within 0 otherwise E2 within 2 unless E3
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -239,13 +239,13 @@ class SLEECParsingTest {
 	def void test_not_response() {
 		val result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
-				event e2
+				event E0
+				event E1
+				event E2
 			def_end
 			rule_start
-				Rule1 when e0 then not e1 within 0
-				Rule1 when e0 then e1 within 1 otherwise not e2 within 3
+				Rule1 when E0 then not E1 within 0
+				Rule1 when E0 then E1 within 1 otherwise not E2 within 3
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -257,13 +257,13 @@ class SLEECParsingTest {
 	def void test_extension() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
-				event e2
+				event E0
+				event E1
+				event E2
 			def_end
 			rule_start
-				Rule1 when e0 then e1 within 1
-				Rul1.a when e0 then e1 within 1 otherwise e2
+				Rule1 when E0 then E1 within 1
+				Rul1.a when E0 then E1 within 1 otherwise E2
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -275,15 +275,15 @@ class SLEECParsingTest {
 	def void test_defeaters() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
-				event e2
+				event E0
+				event E1
+				event E2
 				measure m0: boolean
 				measure m1: boolean
 			def_end
 			rule_start
-				Rule1 when e0 then e1
-					unless m0 then e2
+				Rule1 when E0 then E1
+					unless m0 then E2
 					unless m1
 			rule_end
 		''')
@@ -296,21 +296,21 @@ class SLEECParsingTest {
 	def void test_complex() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
-				event e2
-				event e3
-				event e4
-				event e5
+				event E0
+				event E1
+				event E2
+				event E3
+				event E4
+				event E5
 				measure m0: boolean
 				measure m1: numeric
 				measure m2: scale(s0, s1)
-				constant c0 = 5
-				constant c1 = 7
+				constant C0 = 5
+				constant C1 = 7
 			def_end
 			rule_start
-				Rule1 when e0 and m0 and (m1 < c0 or m2 > s0) or m1 < 5 then e1 within c0 otherwise not e2 within c1
-					unless m1 <> c0 and (m0 or m1 < 5) then e3 within c1 otherwise e4 within 3 otherwise e5
+				Rule1 when E0 and m0 and (m1 < C0 or m2 > s0) or m1 < 5 then E1 within C0 otherwise not E2 within C1
+					unless m1 <> C0 and (m0 or m1 < 5) then E3 within C1 otherwise E4 within 3 otherwise E5
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -322,12 +322,12 @@ class SLEECParsingTest {
 	def void test_comment() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
+				event E0
+				event E1
 			def_end
 			rule_start
-				// Rule1 when e0 then e2
-				Rule1 when e0 then e1
+				// Rule1 when E0 then E2
+				Rule1 when E0 then E1
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -339,12 +339,12 @@ class SLEECParsingTest {
 	def void test_relop_arg_type() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
+				event E0
+				event E1
 				measure m0: numeric
 			def_end
 			rule_start
-				Rule1 when e0 and m0 < 1 then e1
+				Rule1 when E0 and m0 < 1 then E1
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -357,16 +357,16 @@ class SLEECParsingTest {
 	def void test_boolop_arg_type() {
 		var result = parseHelper.parse('''
 			def_start
-				event e0
-				event e1
+				event E0
+				event E1
 				measure m0: boolean
 				measure m1: numeric
 				measure m2: scale(s0, s1)
 			def_end
 			rule_start
-				Rule1 when e0 and m0 and (m1 > 3) then e1
-				Rule2 when e0 and (m1 > 3) or (m1 < 1) then e1
-				// Rule3 when e0 and m1 and m0 then e1
+				Rule1 when E0 and m0 and (m1 > 3) then E1
+				Rule2 when E0 and (m1 > 3) or (m1 < 1) then E1
+				// Rule3 when E0 and m1 and m0 then E1
 			rule_end
 		''')
 		Assertions.assertNotNull(result)

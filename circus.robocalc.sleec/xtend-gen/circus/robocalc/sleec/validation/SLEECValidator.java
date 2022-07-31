@@ -4,7 +4,10 @@
 package circus.robocalc.sleec.validation;
 
 import circus.robocalc.sleec.sLEEC.BoolComp;
+import circus.robocalc.sleec.sLEEC.Constant;
+import circus.robocalc.sleec.sLEEC.Event;
 import circus.robocalc.sleec.sLEEC.MBoolExpr;
+import circus.robocalc.sleec.sLEEC.Measure;
 import circus.robocalc.sleec.sLEEC.Not;
 import circus.robocalc.sleec.sLEEC.Numeric;
 import circus.robocalc.sleec.sLEEC.RelComp;
@@ -52,5 +55,33 @@ public class SLEECValidator extends AbstractSLEECValidator {
   private boolean isScale(final MBoolExpr e) {
     return ((e instanceof ScaleParam) || 
       (e.getMeasure().getType() instanceof Scale));
+  }
+  
+  @Check
+  public void chechEventName(final Event e) {
+    boolean _isUpperCase = Character.isUpperCase(e.getName().charAt(0));
+    boolean _not = (!_isUpperCase);
+    if (_not) {
+      this.warning("Event identifier should begin with capital letter", SLEECPackage.Literals.DEFINITION__NAME, "invalidName");
+    }
+  }
+  
+  @Check
+  public void checkMeasureName(final Measure m) {
+    boolean _isLowerCase = Character.isLowerCase(m.getName().charAt(0));
+    boolean _not = (!_isLowerCase);
+    if (_not) {
+      this.warning("Measure identifier should begin with lower case letter", SLEECPackage.Literals.DEFINITION__NAME, "invalidName");
+    }
+  }
+  
+  @Check
+  public void checkContantName(final Constant c) {
+    for (int i = 0; (i < c.getName().length()); i++) {
+      boolean _isLowerCase = Character.isLowerCase(c.getName().charAt(i));
+      if (_isLowerCase) {
+        this.warning("Constant identifier should be in all capitals.", SLEECPackage.Literals.DEFINITION__NAME, "invalidName");
+      }
+    }
   }
 }
