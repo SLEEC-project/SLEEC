@@ -236,7 +236,7 @@ public interface SLEECPackage extends EPackage
   int CONSTANT__NAME = DEFINITION__NAME;
 
   /**
-   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -264,13 +264,31 @@ public interface SLEECPackage extends EPackage
   int VALUE = 6;
 
   /**
+   * The feature id for the '<em><b>Int</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE__INT = 0;
+
+  /**
+   * The feature id for the '<em><b>Float</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE__FLOAT = 1;
+
+  /**
    * The feature id for the '<em><b>Value</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VALUE__VALUE = 0;
+  int VALUE__VALUE = 2;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -279,7 +297,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VALUE_FEATURE_COUNT = 1;
+  int VALUE_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.TypeImpl <em>Type</em>}' class.
@@ -999,15 +1017,15 @@ public interface SLEECPackage extends EPackage
   EClass getConstant();
 
   /**
-   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Constant#getValue <em>Value</em>}'.
+   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.Constant#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
+   * @return the meta object for the containment reference '<em>Value</em>'.
    * @see circus.robocalc.sleec.sLEEC.Constant#getValue()
    * @see #getConstant()
    * @generated
    */
-  EAttribute getConstant_Value();
+  EReference getConstant_Value();
 
   /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Value <em>Value</em>}'.
@@ -1018,6 +1036,28 @@ public interface SLEECPackage extends EPackage
    * @generated
    */
   EClass getValue();
+
+  /**
+   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Value#getInt <em>Int</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Int</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Value#getInt()
+   * @see #getValue()
+   * @generated
+   */
+  EAttribute getValue_Int();
+
+  /**
+   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Value#getFloat <em>Float</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Float</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Value#getFloat()
+   * @see #getValue()
+   * @generated
+   */
+  EAttribute getValue_Float();
 
   /**
    * Returns the meta object for the reference '{@link circus.robocalc.sleec.sLEEC.Value#getValue <em>Value</em>}'.
@@ -1567,12 +1607,12 @@ public interface SLEECPackage extends EPackage
     EClass CONSTANT = eINSTANCE.getConstant();
 
     /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CONSTANT__VALUE = eINSTANCE.getConstant_Value();
+    EReference CONSTANT__VALUE = eINSTANCE.getConstant_Value();
 
     /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.ValueImpl <em>Value</em>}' class.
@@ -1583,6 +1623,22 @@ public interface SLEECPackage extends EPackage
      * @generated
      */
     EClass VALUE = eINSTANCE.getValue();
+
+    /**
+     * The meta object literal for the '<em><b>Int</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VALUE__INT = eINSTANCE.getValue_Int();
+
+    /**
+     * The meta object literal for the '<em><b>Float</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VALUE__FLOAT = eINSTANCE.getValue_Float();
 
     /**
      * The meta object literal for the '<em><b>Value</b></em>' reference feature.

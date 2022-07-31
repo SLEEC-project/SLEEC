@@ -23,6 +23,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ValueImpl#getInt <em>Int</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ValueImpl#getFloat <em>Float</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ValueImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
@@ -30,6 +32,46 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class ValueImpl extends MinimalEObjectImpl.Container implements Value
 {
+  /**
+   * The default value of the '{@link #getInt() <em>Int</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInt()
+   * @generated
+   * @ordered
+   */
+  protected static final int INT_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getInt() <em>Int</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInt()
+   * @generated
+   * @ordered
+   */
+  protected int int_ = INT_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getFloat() <em>Float</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFloat()
+   * @generated
+   * @ordered
+   */
+  protected static final float FLOAT_EDEFAULT = 0.0F;
+
+  /**
+   * The cached value of the '{@link #getFloat() <em>Float</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFloat()
+   * @generated
+   * @ordered
+   */
+  protected float float_ = FLOAT_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' reference.
    * <!-- begin-user-doc -->
@@ -59,6 +101,56 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
   protected EClass eStaticClass()
   {
     return SLEECPackage.Literals.VALUE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public int getInt()
+  {
+    return int_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setInt(int newInt)
+  {
+    int oldInt = int_;
+    int_ = newInt;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.VALUE__INT, oldInt, int_));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public float getFloat()
+  {
+    return float_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setFloat(float newFloat)
+  {
+    float oldFloat = float_;
+    float_ = newFloat;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.VALUE__FLOAT, oldFloat, float_));
   }
 
   /**
@@ -116,6 +208,10 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
   {
     switch (featureID)
     {
+      case SLEECPackage.VALUE__INT:
+        return getInt();
+      case SLEECPackage.VALUE__FLOAT:
+        return getFloat();
       case SLEECPackage.VALUE__VALUE:
         if (resolve) return getValue();
         return basicGetValue();
@@ -133,6 +229,12 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
   {
     switch (featureID)
     {
+      case SLEECPackage.VALUE__INT:
+        setInt((Integer)newValue);
+        return;
+      case SLEECPackage.VALUE__FLOAT:
+        setFloat((Float)newValue);
+        return;
       case SLEECPackage.VALUE__VALUE:
         setValue((Constant)newValue);
         return;
@@ -150,6 +252,12 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
   {
     switch (featureID)
     {
+      case SLEECPackage.VALUE__INT:
+        setInt(INT_EDEFAULT);
+        return;
+      case SLEECPackage.VALUE__FLOAT:
+        setFloat(FLOAT_EDEFAULT);
+        return;
       case SLEECPackage.VALUE__VALUE:
         setValue((Constant)null);
         return;
@@ -167,10 +275,33 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
   {
     switch (featureID)
     {
+      case SLEECPackage.VALUE__INT:
+        return int_ != INT_EDEFAULT;
+      case SLEECPackage.VALUE__FLOAT:
+        return float_ != FLOAT_EDEFAULT;
       case SLEECPackage.VALUE__VALUE:
         return value != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (int: ");
+    result.append(int_);
+    result.append(", float: ");
+    result.append(float_);
+    result.append(')');
+    return result.toString();
   }
 
 } //ValueImpl

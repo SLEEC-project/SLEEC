@@ -165,7 +165,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Constant returns Constant
 	 *
 	 * Constraint:
-	 *     (name=ID value=INT)
+	 *     (name=ID value=Value)
 	 */
 	protected void sequence_Constant(ISerializationContext context, Constant semanticObject) {
 		if (errorAcceptor != null) {
@@ -176,7 +176,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getConstantAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getConstantAccess().getValueINTTerminalRuleCall_3_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getConstantAccess().getValueValueParserRuleCall_3_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
@@ -428,7 +428,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Value returns Value
 	 *
 	 * Constraint:
-	 *     value=[Constant|ID]?
+	 *     (int=INT | float=FLOAT | value=[Constant|ID])
 	 */
 	protected void sequence_Value(ISerializationContext context, Value semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

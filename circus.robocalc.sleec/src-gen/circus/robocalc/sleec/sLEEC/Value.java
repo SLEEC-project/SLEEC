@@ -14,6 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.Value#getInt <em>Int</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.Value#getFloat <em>Float</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Value#getValue <em>Value</em>}</li>
  * </ul>
  *
@@ -23,6 +25,50 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Value extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Int</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Int</em>' attribute.
+   * @see #setInt(int)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getValue_Int()
+   * @model
+   * @generated
+   */
+  int getInt();
+
+  /**
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Value#getInt <em>Int</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Int</em>' attribute.
+   * @see #getInt()
+   * @generated
+   */
+  void setInt(int value);
+
+  /**
+   * Returns the value of the '<em><b>Float</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Float</em>' attribute.
+   * @see #setFloat(float)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getValue_Float()
+   * @model
+   * @generated
+   */
+  float getFloat();
+
+  /**
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Value#getFloat <em>Float</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Float</em>' attribute.
+   * @see #getFloat()
+   * @generated
+   */
+  void setFloat(float value);
+
   /**
    * Returns the value of the '<em><b>Value</b></em>' reference.
    * <!-- begin-user-doc -->

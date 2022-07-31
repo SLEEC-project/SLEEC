@@ -358,19 +358,20 @@ ruleConstant returns [EObject current=null]
 		}
 		(
 			(
-				lv_value_3_0=RULE_INT
 				{
-					newLeafNode(lv_value_3_0, grammarAccess.getConstantAccess().getValueINTTerminalRuleCall_3_0());
+					newCompositeNode(grammarAccess.getConstantAccess().getValueValueParserRuleCall_3_0());
 				}
+				lv_value_3_0=ruleValue
 				{
 					if ($current==null) {
-						$current = createModelElement(grammarAccess.getConstantRule());
+						$current = createModelElementForParent(grammarAccess.getConstantRule());
 					}
-					setWithLastConsumed(
+					set(
 						$current,
 						"value",
 						lv_value_3_0,
-						"org.eclipse.xtext.common.Terminals.INT");
+						"circus.robocalc.sleec.SLEEC.Value");
+					afterParserOrEnumRuleCall();
 				}
 			)
 		)
@@ -395,16 +396,40 @@ ruleValue returns [EObject current=null]
 	(
 		(
 			(
+				lv_int_0_0=RULE_INT
 				{
-					$current = forceCreateModelElement(
-						grammarAccess.getValueAccess().getValueAction_0_0(),
-						$current);
+					newLeafNode(lv_int_0_0, grammarAccess.getValueAccess().getIntINTTerminalRuleCall_0_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getValueRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"int",
+						lv_int_0_0,
+						"org.eclipse.xtext.common.Terminals.INT");
 				}
 			)
-			this_INT_1=RULE_INT
-			{
-				newLeafNode(this_INT_1, grammarAccess.getValueAccess().getINTTerminalRuleCall_0_1());
-			}
+		)
+		    |
+		(
+			(
+				lv_float_1_0=RULE_FLOAT
+				{
+					newLeafNode(lv_float_1_0, grammarAccess.getValueAccess().getFloatFLOATTerminalRuleCall_1_0());
+				}
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getValueRule());
+					}
+					setWithLastConsumed(
+						$current,
+						"float",
+						lv_float_1_0,
+						"circus.robocalc.sleec.SLEEC.FLOAT");
+				}
+			)
 		)
 		    |
 		(
@@ -416,7 +441,7 @@ ruleValue returns [EObject current=null]
 				}
 				otherlv_2=RULE_ID
 				{
-					newLeafNode(otherlv_2, grammarAccess.getValueAccess().getValueConstantCrossReference_1_0());
+					newLeafNode(otherlv_2, grammarAccess.getValueAccess().getValueConstantCrossReference_2_0());
 				}
 			)
 		)
@@ -1060,7 +1085,7 @@ ruleAtom returns [EObject current=null]
 		)
 		    |
 		(
-			(RULE_INT | RULE_ID)=>
+			(RULE_INT | RULE_FLOAT | RULE_ID)=>
 			(
 				{
 					newCompositeNode(grammarAccess.getAtomAccess().getValueValueParserRuleCall_2_0());
@@ -1426,6 +1451,8 @@ ruleBoolOp returns [Enumerator current=null]
 		)
 	)
 ;
+
+RULE_FLOAT : RULE_INT '.' RULE_INT;
 
 RULE_ID : '^'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 

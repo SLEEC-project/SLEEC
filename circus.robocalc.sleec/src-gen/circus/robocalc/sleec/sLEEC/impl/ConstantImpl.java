@@ -5,10 +5,13 @@ package circus.robocalc.sleec.sLEEC.impl;
 
 import circus.robocalc.sleec.sLEEC.Constant;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
+import circus.robocalc.sleec.sLEEC.Value;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
@@ -28,24 +31,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class ConstantImpl extends DefinitionImpl implements Constant
 {
   /**
-   * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+   * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getValue()
    * @generated
    * @ordered
    */
-  protected static final int VALUE_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getValue()
-   * @generated
-   * @ordered
-   */
-  protected int value = VALUE_EDEFAULT;
+  protected Value value;
 
   /**
    * <!-- begin-user-doc -->
@@ -74,7 +67,7 @@ public class ConstantImpl extends DefinitionImpl implements Constant
    * @generated
    */
   @Override
-  public int getValue()
+  public Value getValue()
   {
     return value;
   }
@@ -84,13 +77,54 @@ public class ConstantImpl extends DefinitionImpl implements Constant
    * <!-- end-user-doc -->
    * @generated
    */
-  @Override
-  public void setValue(int newValue)
+  public NotificationChain basicSetValue(Value newValue, NotificationChain msgs)
   {
-    int oldValue = value;
+    Value oldValue = value;
     value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.CONSTANT__VALUE, oldValue, value));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SLEECPackage.CONSTANT__VALUE, oldValue, newValue);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setValue(Value newValue)
+  {
+    if (newValue != value)
+    {
+      NotificationChain msgs = null;
+      if (value != null)
+        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.CONSTANT__VALUE, null, msgs);
+      if (newValue != null)
+        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.CONSTANT__VALUE, null, msgs);
+      msgs = basicSetValue(newValue, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.CONSTANT__VALUE, newValue, newValue));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case SLEECPackage.CONSTANT__VALUE:
+        return basicSetValue(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -120,7 +154,7 @@ public class ConstantImpl extends DefinitionImpl implements Constant
     switch (featureID)
     {
       case SLEECPackage.CONSTANT__VALUE:
-        setValue((Integer)newValue);
+        setValue((Value)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -137,7 +171,7 @@ public class ConstantImpl extends DefinitionImpl implements Constant
     switch (featureID)
     {
       case SLEECPackage.CONSTANT__VALUE:
-        setValue(VALUE_EDEFAULT);
+        setValue((Value)null);
         return;
     }
     super.eUnset(featureID);
@@ -154,26 +188,9 @@ public class ConstantImpl extends DefinitionImpl implements Constant
     switch (featureID)
     {
       case SLEECPackage.CONSTANT__VALUE:
-        return value != VALUE_EDEFAULT;
+        return value != null;
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (value: ");
-    result.append(value);
-    result.append(')');
-    return result.toString();
   }
 
 } //ConstantImpl

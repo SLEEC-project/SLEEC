@@ -44,7 +44,6 @@ public class SLEECParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getEventAccess().getGroup(), "rule__Event__Group__0");
 			builder.put(grammarAccess.getMeasureAccess().getGroup(), "rule__Measure__Group__0");
 			builder.put(grammarAccess.getConstantAccess().getGroup(), "rule__Constant__Group__0");
-			builder.put(grammarAccess.getValueAccess().getGroup_0(), "rule__Value__Group_0__0");
 			builder.put(grammarAccess.getTypeAccess().getGroup_0(), "rule__Type__Group_0__0");
 			builder.put(grammarAccess.getTypeAccess().getGroup_1(), "rule__Type__Group_1__0");
 			builder.put(grammarAccess.getTypeAccess().getGroup_2(), "rule__Type__Group_2__0");
@@ -75,7 +74,9 @@ public class SLEECParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getMeasureAccess().getTypeAssignment_3(), "rule__Measure__TypeAssignment_3");
 			builder.put(grammarAccess.getConstantAccess().getNameAssignment_1(), "rule__Constant__NameAssignment_1");
 			builder.put(grammarAccess.getConstantAccess().getValueAssignment_3(), "rule__Constant__ValueAssignment_3");
-			builder.put(grammarAccess.getValueAccess().getValueAssignment_1(), "rule__Value__ValueAssignment_1");
+			builder.put(grammarAccess.getValueAccess().getIntAssignment_0(), "rule__Value__IntAssignment_0");
+			builder.put(grammarAccess.getValueAccess().getFloatAssignment_1(), "rule__Value__FloatAssignment_1");
+			builder.put(grammarAccess.getValueAccess().getValueAssignment_2(), "rule__Value__ValueAssignment_2");
 			builder.put(grammarAccess.getTypeAccess().getScaleParamsAssignment_2_3(), "rule__Type__ScaleParamsAssignment_2_3");
 			builder.put(grammarAccess.getTypeAccess().getScaleParamsAssignment_2_4_1(), "rule__Type__ScaleParamsAssignment_2_4_1");
 			builder.put(grammarAccess.getScaleParamAccess().getNameAssignment(), "rule__ScaleParam__NameAssignment");

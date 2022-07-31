@@ -33,9 +33,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Measure/type"/>
     </genClasses>
     <genClasses ecoreClass="SLEEC.ecore#//Constant">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//Constant/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Constant/value"/>
     </genClasses>
     <genClasses ecoreClass="SLEEC.ecore#//Value">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//Value/int"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//Value/float"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Value/value"/>
     </genClasses>
     <genClasses ecoreClass="SLEEC.ecore#//Type"/>
