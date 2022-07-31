@@ -25,6 +25,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Constant"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Type"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ScaleParam">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RuleBlock">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
         eType="#//Rule" containment="true"/>
@@ -47,6 +50,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="measure" eType="#//Measure"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="scaleParam" eType="#//ScaleParam"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//MBoolExpr"
         containment="true"/>
   </eClassifiers>
@@ -79,8 +83,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Boolean" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="Numeric" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="Scale" eSuperTypes="#//Type">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scaleParams" unique="false"
-        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="scaleParams" upperBound="-1"
+        eType="#//ScaleParam" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BoolComp" eSuperTypes="#//MBoolExpr">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="#//BoolOp"/>

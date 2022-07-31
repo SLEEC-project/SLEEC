@@ -19,6 +19,7 @@ import circus.robocalc.sleec.sLEEC.Rule;
 import circus.robocalc.sleec.sLEEC.RuleBlock;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
+import circus.robocalc.sleec.sLEEC.ScaleParam;
 import circus.robocalc.sleec.sLEEC.Specification;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
@@ -148,6 +149,13 @@ public class SLEECSwitch<T> extends Switch<T>
       {
         Type type = (Type)theEObject;
         T result = caseType(type);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SLEECPackage.SCALE_PARAM:
+      {
+        ScaleParam scaleParam = (ScaleParam)theEObject;
+        T result = caseScaleParam(scaleParam);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -369,6 +377,22 @@ public class SLEECSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseType(Type object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Scale Param</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Scale Param</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseScaleParam(ScaleParam object)
   {
     return null;
   }

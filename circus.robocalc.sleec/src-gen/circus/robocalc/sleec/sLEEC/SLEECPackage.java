@@ -301,6 +301,34 @@ public interface SLEECPackage extends EPackage
   int TYPE_FEATURE_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.ScaleParamImpl <em>Scale Param</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see circus.robocalc.sleec.sLEEC.impl.ScaleParamImpl
+   * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getScaleParam()
+   * @generated
+   */
+  int SCALE_PARAM = 8;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCALE_PARAM__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>Scale Param</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCALE_PARAM_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.RuleBlockImpl <em>Rule Block</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -308,7 +336,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getRuleBlock()
    * @generated
    */
-  int RULE_BLOCK = 8;
+  int RULE_BLOCK = 9;
 
   /**
    * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -336,7 +364,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getRule()
    * @generated
    */
-  int RULE = 9;
+  int RULE = 10;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -391,7 +419,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getTrigger()
    * @generated
    */
-  int TRIGGER = 10;
+  int TRIGGER = 11;
 
   /**
    * The feature id for the '<em><b>Event</b></em>' reference.
@@ -428,7 +456,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getMBoolExpr()
    * @generated
    */
-  int MBOOL_EXPR = 11;
+  int MBOOL_EXPR = 12;
 
   /**
    * The feature id for the '<em><b>Measure</b></em>' reference.
@@ -449,13 +477,22 @@ public interface SLEECPackage extends EPackage
   int MBOOL_EXPR__VALUE = 1;
 
   /**
+   * The feature id for the '<em><b>Scale Param</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MBOOL_EXPR__SCALE_PARAM = 2;
+
+  /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MBOOL_EXPR__LEFT = 2;
+  int MBOOL_EXPR__LEFT = 3;
 
   /**
    * The number of structural features of the '<em>MBool Expr</em>' class.
@@ -464,7 +501,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MBOOL_EXPR_FEATURE_COUNT = 3;
+  int MBOOL_EXPR_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl <em>Response</em>}' class.
@@ -474,7 +511,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getResponse()
    * @generated
    */
-  int RESPONSE = 12;
+  int RESPONSE = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' reference.
@@ -529,7 +566,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getDefeater()
    * @generated
    */
-  int DEFEATER = 13;
+  int DEFEATER = 14;
 
   /**
    * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -566,7 +603,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getBoolean()
    * @generated
    */
-  int BOOLEAN = 14;
+  int BOOLEAN = 15;
 
   /**
    * The number of structural features of the '<em>Boolean</em>' class.
@@ -585,7 +622,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getNumeric()
    * @generated
    */
-  int NUMERIC = 15;
+  int NUMERIC = 16;
 
   /**
    * The number of structural features of the '<em>Numeric</em>' class.
@@ -604,10 +641,10 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getScale()
    * @generated
    */
-  int SCALE = 16;
+  int SCALE = 17;
 
   /**
-   * The feature id for the '<em><b>Scale Params</b></em>' attribute list.
+   * The feature id for the '<em><b>Scale Params</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -632,7 +669,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getBoolComp()
    * @generated
    */
-  int BOOL_COMP = 17;
+  int BOOL_COMP = 18;
 
   /**
    * The feature id for the '<em><b>Measure</b></em>' reference.
@@ -651,6 +688,15 @@ public interface SLEECPackage extends EPackage
    * @ordered
    */
   int BOOL_COMP__VALUE = MBOOL_EXPR__VALUE;
+
+  /**
+   * The feature id for the '<em><b>Scale Param</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOL_COMP__SCALE_PARAM = MBOOL_EXPR__SCALE_PARAM;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -696,7 +742,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getNot()
    * @generated
    */
-  int NOT = 18;
+  int NOT = 19;
 
   /**
    * The feature id for the '<em><b>Measure</b></em>' reference.
@@ -715,6 +761,15 @@ public interface SLEECPackage extends EPackage
    * @ordered
    */
   int NOT__VALUE = MBOOL_EXPR__VALUE;
+
+  /**
+   * The feature id for the '<em><b>Scale Param</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NOT__SCALE_PARAM = MBOOL_EXPR__SCALE_PARAM;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -742,7 +797,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getRelComp()
    * @generated
    */
-  int REL_COMP = 19;
+  int REL_COMP = 20;
 
   /**
    * The feature id for the '<em><b>Measure</b></em>' reference.
@@ -761,6 +816,15 @@ public interface SLEECPackage extends EPackage
    * @ordered
    */
   int REL_COMP__VALUE = MBOOL_EXPR__VALUE;
+
+  /**
+   * The feature id for the '<em><b>Scale Param</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REL_COMP__SCALE_PARAM = MBOOL_EXPR__SCALE_PARAM;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -806,7 +870,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getRelOp()
    * @generated
    */
-  int REL_OP = 20;
+  int REL_OP = 21;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.BoolOp <em>Bool Op</em>}' enum.
@@ -816,7 +880,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getBoolOp()
    * @generated
    */
-  int BOOL_OP = 21;
+  int BOOL_OP = 22;
 
 
   /**
@@ -977,6 +1041,27 @@ public interface SLEECPackage extends EPackage
   EClass getType();
 
   /**
+   * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.ScaleParam <em>Scale Param</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Scale Param</em>'.
+   * @see circus.robocalc.sleec.sLEEC.ScaleParam
+   * @generated
+   */
+  EClass getScaleParam();
+
+  /**
+   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.ScaleParam#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see circus.robocalc.sleec.sLEEC.ScaleParam#getName()
+   * @see #getScaleParam()
+   * @generated
+   */
+  EAttribute getScaleParam_Name();
+
+  /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.RuleBlock <em>Rule Block</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1116,6 +1201,17 @@ public interface SLEECPackage extends EPackage
   EReference getMBoolExpr_Value();
 
   /**
+   * Returns the meta object for the reference '{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getScaleParam <em>Scale Param</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Scale Param</em>'.
+   * @see circus.robocalc.sleec.sLEEC.MBoolExpr#getScaleParam()
+   * @see #getMBoolExpr()
+   * @generated
+   */
+  EReference getMBoolExpr_ScaleParam();
+
+  /**
    * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1243,15 +1339,15 @@ public interface SLEECPackage extends EPackage
   EClass getScale();
 
   /**
-   * Returns the meta object for the attribute list '{@link circus.robocalc.sleec.sLEEC.Scale#getScaleParams <em>Scale Params</em>}'.
+   * Returns the meta object for the containment reference list '{@link circus.robocalc.sleec.sLEEC.Scale#getScaleParams <em>Scale Params</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Scale Params</em>'.
+   * @return the meta object for the containment reference list '<em>Scale Params</em>'.
    * @see circus.robocalc.sleec.sLEEC.Scale#getScaleParams()
    * @see #getScale()
    * @generated
    */
-  EAttribute getScale_ScaleParams();
+  EReference getScale_ScaleParams();
 
   /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.BoolComp <em>Bool Comp</em>}'.
@@ -1507,6 +1603,24 @@ public interface SLEECPackage extends EPackage
     EClass TYPE = eINSTANCE.getType();
 
     /**
+     * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.ScaleParamImpl <em>Scale Param</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see circus.robocalc.sleec.sLEEC.impl.ScaleParamImpl
+     * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getScaleParam()
+     * @generated
+     */
+    EClass SCALE_PARAM = eINSTANCE.getScaleParam();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SCALE_PARAM__NAME = eINSTANCE.getScaleParam_Name();
+
+    /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.RuleBlockImpl <em>Rule Block</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1619,6 +1733,14 @@ public interface SLEECPackage extends EPackage
     EReference MBOOL_EXPR__VALUE = eINSTANCE.getMBoolExpr_Value();
 
     /**
+     * The meta object literal for the '<em><b>Scale Param</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MBOOL_EXPR__SCALE_PARAM = eINSTANCE.getMBoolExpr_ScaleParam();
+
+    /**
      * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1725,12 +1847,12 @@ public interface SLEECPackage extends EPackage
     EClass SCALE = eINSTANCE.getScale();
 
     /**
-     * The meta object literal for the '<em><b>Scale Params</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Scale Params</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute SCALE__SCALE_PARAMS = eINSTANCE.getScale_ScaleParams();
+    EReference SCALE__SCALE_PARAMS = eINSTANCE.getScale_ScaleParams();
 
     /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.BoolCompImpl <em>Bool Comp</em>}' class.

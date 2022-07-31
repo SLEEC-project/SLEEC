@@ -486,9 +486,9 @@ ruleType returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getTypeAccess().getScaleParamsLiteralParserRuleCall_2_3_0());
+						newCompositeNode(grammarAccess.getTypeAccess().getScaleParamsScaleParamParserRuleCall_2_3_0());
 					}
-					lv_scaleParams_7_0=ruleLiteral
+					lv_scaleParams_7_0=ruleScaleParam
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getTypeRule());
@@ -497,7 +497,7 @@ ruleType returns [EObject current=null]
 							$current,
 							"scaleParams",
 							lv_scaleParams_7_0,
-							"circus.robocalc.sleec.SLEEC.Literal");
+							"circus.robocalc.sleec.SLEEC.ScaleParam");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -510,9 +510,9 @@ ruleType returns [EObject current=null]
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getTypeAccess().getScaleParamsLiteralParserRuleCall_2_4_1_0());
+							newCompositeNode(grammarAccess.getTypeAccess().getScaleParamsScaleParamParserRuleCall_2_4_1_0());
 						}
-						lv_scaleParams_9_0=ruleLiteral
+						lv_scaleParams_9_0=ruleScaleParam
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getTypeRule());
@@ -521,7 +521,7 @@ ruleType returns [EObject current=null]
 								$current,
 								"scaleParams",
 								lv_scaleParams_9_0,
-								"circus.robocalc.sleec.SLEEC.Literal");
+								"circus.robocalc.sleec.SLEEC.ScaleParam");
 							afterParserOrEnumRuleCall();
 						}
 					)
@@ -535,28 +535,39 @@ ruleType returns [EObject current=null]
 	)
 ;
 
-// Entry rule entryRuleLiteral
-entryRuleLiteral returns [String current=null]:
-	{ newCompositeNode(grammarAccess.getLiteralRule()); }
-	iv_ruleLiteral=ruleLiteral
-	{ $current=$iv_ruleLiteral.current.getText(); }
+// Entry rule entryRuleScaleParam
+entryRuleScaleParam returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getScaleParamRule()); }
+	iv_ruleScaleParam=ruleScaleParam
+	{ $current=$iv_ruleScaleParam.current; }
 	EOF;
 
-// Rule Literal
-ruleLiteral returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
+// Rule ScaleParam
+ruleScaleParam returns [EObject current=null]
 @init {
 	enterRule();
 }
 @after {
 	leaveRule();
 }:
-	this_ID_0=RULE_ID
-	{
-		$current.merge(this_ID_0);
-	}
-	{
-		newLeafNode(this_ID_0, grammarAccess.getLiteralAccess().getIDTerminalRuleCall());
-	}
+	(
+		(
+			lv_name_0_0=RULE_ID
+			{
+				newLeafNode(lv_name_0_0, grammarAccess.getScaleParamAccess().getNameIDTerminalRuleCall_0());
+			}
+			{
+				if ($current==null) {
+					$current = createModelElement(grammarAccess.getScaleParamRule());
+				}
+				setWithLastConsumed(
+					$current,
+					"name",
+					lv_name_0_0,
+					"org.eclipse.xtext.common.Terminals.ID");
+			}
+		)
+	)
 ;
 
 // Entry rule entryRuleRuleBlock
@@ -1065,6 +1076,21 @@ ruleAtom returns [EObject current=null]
 						lv_value_4_0,
 						"circus.robocalc.sleec.SLEEC.Value");
 					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		    |
+		(
+			(RULE_ID)=>
+			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getAtomRule());
+					}
+				}
+				otherlv_5=RULE_ID
+				{
+					newLeafNode(otherlv_5, grammarAccess.getAtomAccess().getScaleParamScaleParamCrossReference_3_0());
 				}
 			)
 		)

@@ -23,7 +23,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalSLEECParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'<'", "'>'", "'<>'", "'<='", "'>='", "'='", "'and'", "'or'", "'def_start'", "'def_end'", "'event'", "'measure'", "':'", "'constant'", "'boolean'", "'numeric'", "'scale'", "'('", "')'", "','", "'rule_start'", "'rule_end'", "'when'", "'then'", "'not'", "'within'", "'otherwise'", "'unless'", "'.'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_ID", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'<'", "'>'", "'<>'", "'<='", "'>='", "'='", "'and'", "'or'", "'def_start'", "'def_end'", "'event'", "'measure'", "':'", "'constant'", "'boolean'", "'numeric'", "'scale'", "'('", "')'", "','", "'rule_start'", "'rule_end'", "'when'", "'then'", "'not'", "'within'", "'otherwise'", "'unless'", "'.'"
     };
     public static final int RULE_STRING=6;
     public static final int RULE_SL_COMMENT=8;
@@ -47,13 +47,13 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
     public static final int T__30=30;
     public static final int T__31=31;
     public static final int T__32=32;
-    public static final int RULE_ID=4;
+    public static final int RULE_ID=5;
     public static final int RULE_WS=9;
     public static final int RULE_ANY_OTHER=10;
     public static final int T__26=26;
     public static final int T__27=27;
     public static final int T__28=28;
-    public static final int RULE_INT=5;
+    public static final int RULE_INT=4;
     public static final int T__29=29;
     public static final int T__22=22;
     public static final int RULE_ML_COMMENT=7;
@@ -778,23 +778,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "ruleType"
 
 
-    // $ANTLR start "entryRuleLiteral"
-    // InternalSLEEC.g:254:1: entryRuleLiteral : ruleLiteral EOF ;
-    public final void entryRuleLiteral() throws RecognitionException {
+    // $ANTLR start "entryRuleScaleParam"
+    // InternalSLEEC.g:254:1: entryRuleScaleParam : ruleScaleParam EOF ;
+    public final void entryRuleScaleParam() throws RecognitionException {
         try {
-            // InternalSLEEC.g:255:1: ( ruleLiteral EOF )
-            // InternalSLEEC.g:256:1: ruleLiteral EOF
+            // InternalSLEEC.g:255:1: ( ruleScaleParam EOF )
+            // InternalSLEEC.g:256:1: ruleScaleParam EOF
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getLiteralRule()); 
+               before(grammarAccess.getScaleParamRule()); 
             }
             pushFollow(FOLLOW_1);
-            ruleLiteral();
+            ruleScaleParam();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getLiteralRule()); 
+               after(grammarAccess.getScaleParamRule()); 
             }
             match(input,EOF,FOLLOW_2); if (state.failed) return ;
 
@@ -809,28 +809,38 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "entryRuleLiteral"
+    // $ANTLR end "entryRuleScaleParam"
 
 
-    // $ANTLR start "ruleLiteral"
-    // InternalSLEEC.g:263:1: ruleLiteral : ( RULE_ID ) ;
-    public final void ruleLiteral() throws RecognitionException {
+    // $ANTLR start "ruleScaleParam"
+    // InternalSLEEC.g:263:1: ruleScaleParam : ( ( rule__ScaleParam__NameAssignment ) ) ;
+    public final void ruleScaleParam() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:267:2: ( ( RULE_ID ) )
-            // InternalSLEEC.g:268:2: ( RULE_ID )
+            // InternalSLEEC.g:267:2: ( ( ( rule__ScaleParam__NameAssignment ) ) )
+            // InternalSLEEC.g:268:2: ( ( rule__ScaleParam__NameAssignment ) )
             {
-            // InternalSLEEC.g:268:2: ( RULE_ID )
-            // InternalSLEEC.g:269:3: RULE_ID
+            // InternalSLEEC.g:268:2: ( ( rule__ScaleParam__NameAssignment ) )
+            // InternalSLEEC.g:269:3: ( rule__ScaleParam__NameAssignment )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getLiteralAccess().getIDTerminalRuleCall()); 
+               before(grammarAccess.getScaleParamAccess().getNameAssignment()); 
             }
-            match(input,RULE_ID,FOLLOW_2); if (state.failed) return ;
+            // InternalSLEEC.g:270:3: ( rule__ScaleParam__NameAssignment )
+            // InternalSLEEC.g:270:4: rule__ScaleParam__NameAssignment
+            {
+            pushFollow(FOLLOW_2);
+            rule__ScaleParam__NameAssignment();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getLiteralAccess().getIDTerminalRuleCall()); 
+               after(grammarAccess.getScaleParamAccess().getNameAssignment()); 
             }
 
             }
@@ -850,7 +860,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "ruleLiteral"
+    // $ANTLR end "ruleScaleParam"
 
 
     // $ANTLR start "entryRuleRuleBlock"
@@ -2256,7 +2266,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
             if ( (LA4_0==35) ) {
                 alt4=1;
             }
-            else if ( ((LA4_0>=RULE_ID && LA4_0<=RULE_INT)||LA4_0==28) ) {
+            else if ( ((LA4_0>=RULE_INT && LA4_0<=RULE_ID)||LA4_0==28) ) {
                 alt4=2;
             }
             else {
@@ -2337,14 +2347,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atom__Alternatives"
-    // InternalSLEEC.g:681:1: rule__Atom__Alternatives : ( ( ( rule__Atom__MeasureAssignment_0 ) ) | ( ( rule__Atom__Group_1__0 ) ) | ( ( rule__Atom__ValueAssignment_2 ) ) );
+    // InternalSLEEC.g:681:1: rule__Atom__Alternatives : ( ( ( rule__Atom__MeasureAssignment_0 ) ) | ( ( rule__Atom__Group_1__0 ) ) | ( ( rule__Atom__ValueAssignment_2 ) ) | ( ( rule__Atom__ScaleParamAssignment_3 ) ) );
     public final void rule__Atom__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:685:1: ( ( ( rule__Atom__MeasureAssignment_0 ) ) | ( ( rule__Atom__Group_1__0 ) ) | ( ( rule__Atom__ValueAssignment_2 ) ) )
-            int alt5=3;
+            // InternalSLEEC.g:685:1: ( ( ( rule__Atom__MeasureAssignment_0 ) ) | ( ( rule__Atom__Group_1__0 ) ) | ( ( rule__Atom__ValueAssignment_2 ) ) | ( ( rule__Atom__ScaleParamAssignment_3 ) ) )
+            int alt5=4;
             switch ( input.LA(1) ) {
             case RULE_ID:
                 {
@@ -2353,8 +2363,11 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
                 if ( (synpred7_InternalSLEEC()) ) {
                     alt5=1;
                 }
-                else if ( (true) ) {
+                else if ( (synpred9_InternalSLEEC()) ) {
                     alt5=3;
+                }
+                else if ( (true) ) {
+                    alt5=4;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -2471,6 +2484,35 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
                     }
                     break;
+                case 4 :
+                    // InternalSLEEC.g:704:2: ( ( rule__Atom__ScaleParamAssignment_3 ) )
+                    {
+                    // InternalSLEEC.g:704:2: ( ( rule__Atom__ScaleParamAssignment_3 ) )
+                    // InternalSLEEC.g:705:3: ( rule__Atom__ScaleParamAssignment_3 )
+                    {
+                    if ( state.backtracking==0 ) {
+                       before(grammarAccess.getAtomAccess().getScaleParamAssignment_3()); 
+                    }
+                    // InternalSLEEC.g:706:3: ( rule__Atom__ScaleParamAssignment_3 )
+                    // InternalSLEEC.g:706:4: rule__Atom__ScaleParamAssignment_3
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__Atom__ScaleParamAssignment_3();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+
+                    }
+
+                    if ( state.backtracking==0 ) {
+                       after(grammarAccess.getAtomAccess().getScaleParamAssignment_3()); 
+                    }
+
+                    }
+
+
+                    }
+                    break;
 
             }
         }
@@ -2489,13 +2531,13 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Alternatives"
-    // InternalSLEEC.g:708:1: rule__Response__Alternatives : ( ( ( rule__Response__Group_0__0 ) ) | ( ( rule__Response__Group_1__0 ) ) );
+    // InternalSLEEC.g:714:1: rule__Response__Alternatives : ( ( ( rule__Response__Group_0__0 ) ) | ( ( rule__Response__Group_1__0 ) ) );
     public final void rule__Response__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:712:1: ( ( ( rule__Response__Group_0__0 ) ) | ( ( rule__Response__Group_1__0 ) ) )
+            // InternalSLEEC.g:718:1: ( ( ( rule__Response__Group_0__0 ) ) | ( ( rule__Response__Group_1__0 ) ) )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -2514,16 +2556,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
             }
             switch (alt6) {
                 case 1 :
-                    // InternalSLEEC.g:713:2: ( ( rule__Response__Group_0__0 ) )
+                    // InternalSLEEC.g:719:2: ( ( rule__Response__Group_0__0 ) )
                     {
-                    // InternalSLEEC.g:713:2: ( ( rule__Response__Group_0__0 ) )
-                    // InternalSLEEC.g:714:3: ( rule__Response__Group_0__0 )
+                    // InternalSLEEC.g:719:2: ( ( rule__Response__Group_0__0 ) )
+                    // InternalSLEEC.g:720:3: ( rule__Response__Group_0__0 )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getResponseAccess().getGroup_0()); 
                     }
-                    // InternalSLEEC.g:715:3: ( rule__Response__Group_0__0 )
-                    // InternalSLEEC.g:715:4: rule__Response__Group_0__0
+                    // InternalSLEEC.g:721:3: ( rule__Response__Group_0__0 )
+                    // InternalSLEEC.g:721:4: rule__Response__Group_0__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Response__Group_0__0();
@@ -2543,16 +2585,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalSLEEC.g:719:2: ( ( rule__Response__Group_1__0 ) )
+                    // InternalSLEEC.g:725:2: ( ( rule__Response__Group_1__0 ) )
                     {
-                    // InternalSLEEC.g:719:2: ( ( rule__Response__Group_1__0 ) )
-                    // InternalSLEEC.g:720:3: ( rule__Response__Group_1__0 )
+                    // InternalSLEEC.g:725:2: ( ( rule__Response__Group_1__0 ) )
+                    // InternalSLEEC.g:726:3: ( rule__Response__Group_1__0 )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getResponseAccess().getGroup_1()); 
                     }
-                    // InternalSLEEC.g:721:3: ( rule__Response__Group_1__0 )
-                    // InternalSLEEC.g:721:4: rule__Response__Group_1__0
+                    // InternalSLEEC.g:727:3: ( rule__Response__Group_1__0 )
+                    // InternalSLEEC.g:727:4: rule__Response__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Response__Group_1__0();
@@ -2589,13 +2631,13 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelOp__Alternatives"
-    // InternalSLEEC.g:729:1: rule__RelOp__Alternatives : ( ( ( '<' ) ) | ( ( '>' ) ) | ( ( '<>' ) ) | ( ( '<=' ) ) | ( ( '>=' ) ) | ( ( '=' ) ) );
+    // InternalSLEEC.g:735:1: rule__RelOp__Alternatives : ( ( ( '<' ) ) | ( ( '>' ) ) | ( ( '<>' ) ) | ( ( '<=' ) ) | ( ( '>=' ) ) | ( ( '=' ) ) );
     public final void rule__RelOp__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:733:1: ( ( ( '<' ) ) | ( ( '>' ) ) | ( ( '<>' ) ) | ( ( '<=' ) ) | ( ( '>=' ) ) | ( ( '=' ) ) )
+            // InternalSLEEC.g:739:1: ( ( ( '<' ) ) | ( ( '>' ) ) | ( ( '<>' ) ) | ( ( '<=' ) ) | ( ( '>=' ) ) | ( ( '=' ) ) )
             int alt7=6;
             switch ( input.LA(1) ) {
             case 11:
@@ -2638,16 +2680,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
             switch (alt7) {
                 case 1 :
-                    // InternalSLEEC.g:734:2: ( ( '<' ) )
+                    // InternalSLEEC.g:740:2: ( ( '<' ) )
                     {
-                    // InternalSLEEC.g:734:2: ( ( '<' ) )
-                    // InternalSLEEC.g:735:3: ( '<' )
+                    // InternalSLEEC.g:740:2: ( ( '<' ) )
+                    // InternalSLEEC.g:741:3: ( '<' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getRelOpAccess().getLESS_THANEnumLiteralDeclaration_0()); 
                     }
-                    // InternalSLEEC.g:736:3: ( '<' )
-                    // InternalSLEEC.g:736:4: '<'
+                    // InternalSLEEC.g:742:3: ( '<' )
+                    // InternalSLEEC.g:742:4: '<'
                     {
                     match(input,11,FOLLOW_2); if (state.failed) return ;
 
@@ -2663,16 +2705,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalSLEEC.g:740:2: ( ( '>' ) )
+                    // InternalSLEEC.g:746:2: ( ( '>' ) )
                     {
-                    // InternalSLEEC.g:740:2: ( ( '>' ) )
-                    // InternalSLEEC.g:741:3: ( '>' )
+                    // InternalSLEEC.g:746:2: ( ( '>' ) )
+                    // InternalSLEEC.g:747:3: ( '>' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getRelOpAccess().getGREATER_THANEnumLiteralDeclaration_1()); 
                     }
-                    // InternalSLEEC.g:742:3: ( '>' )
-                    // InternalSLEEC.g:742:4: '>'
+                    // InternalSLEEC.g:748:3: ( '>' )
+                    // InternalSLEEC.g:748:4: '>'
                     {
                     match(input,12,FOLLOW_2); if (state.failed) return ;
 
@@ -2688,16 +2730,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalSLEEC.g:746:2: ( ( '<>' ) )
+                    // InternalSLEEC.g:752:2: ( ( '<>' ) )
                     {
-                    // InternalSLEEC.g:746:2: ( ( '<>' ) )
-                    // InternalSLEEC.g:747:3: ( '<>' )
+                    // InternalSLEEC.g:752:2: ( ( '<>' ) )
+                    // InternalSLEEC.g:753:3: ( '<>' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getRelOpAccess().getNOT_EQUALEnumLiteralDeclaration_2()); 
                     }
-                    // InternalSLEEC.g:748:3: ( '<>' )
-                    // InternalSLEEC.g:748:4: '<>'
+                    // InternalSLEEC.g:754:3: ( '<>' )
+                    // InternalSLEEC.g:754:4: '<>'
                     {
                     match(input,13,FOLLOW_2); if (state.failed) return ;
 
@@ -2713,16 +2755,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // InternalSLEEC.g:752:2: ( ( '<=' ) )
+                    // InternalSLEEC.g:758:2: ( ( '<=' ) )
                     {
-                    // InternalSLEEC.g:752:2: ( ( '<=' ) )
-                    // InternalSLEEC.g:753:3: ( '<=' )
+                    // InternalSLEEC.g:758:2: ( ( '<=' ) )
+                    // InternalSLEEC.g:759:3: ( '<=' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getRelOpAccess().getLESS_EQUALEnumLiteralDeclaration_3()); 
                     }
-                    // InternalSLEEC.g:754:3: ( '<=' )
-                    // InternalSLEEC.g:754:4: '<='
+                    // InternalSLEEC.g:760:3: ( '<=' )
+                    // InternalSLEEC.g:760:4: '<='
                     {
                     match(input,14,FOLLOW_2); if (state.failed) return ;
 
@@ -2738,16 +2780,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // InternalSLEEC.g:758:2: ( ( '>=' ) )
+                    // InternalSLEEC.g:764:2: ( ( '>=' ) )
                     {
-                    // InternalSLEEC.g:758:2: ( ( '>=' ) )
-                    // InternalSLEEC.g:759:3: ( '>=' )
+                    // InternalSLEEC.g:764:2: ( ( '>=' ) )
+                    // InternalSLEEC.g:765:3: ( '>=' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getRelOpAccess().getGREATER_EQUALEnumLiteralDeclaration_4()); 
                     }
-                    // InternalSLEEC.g:760:3: ( '>=' )
-                    // InternalSLEEC.g:760:4: '>='
+                    // InternalSLEEC.g:766:3: ( '>=' )
+                    // InternalSLEEC.g:766:4: '>='
                     {
                     match(input,15,FOLLOW_2); if (state.failed) return ;
 
@@ -2763,16 +2805,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // InternalSLEEC.g:764:2: ( ( '=' ) )
+                    // InternalSLEEC.g:770:2: ( ( '=' ) )
                     {
-                    // InternalSLEEC.g:764:2: ( ( '=' ) )
-                    // InternalSLEEC.g:765:3: ( '=' )
+                    // InternalSLEEC.g:770:2: ( ( '=' ) )
+                    // InternalSLEEC.g:771:3: ( '=' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getRelOpAccess().getEQUALEnumLiteralDeclaration_5()); 
                     }
-                    // InternalSLEEC.g:766:3: ( '=' )
-                    // InternalSLEEC.g:766:4: '='
+                    // InternalSLEEC.g:772:3: ( '=' )
+                    // InternalSLEEC.g:772:4: '='
                     {
                     match(input,16,FOLLOW_2); if (state.failed) return ;
 
@@ -2805,13 +2847,13 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolOp__Alternatives"
-    // InternalSLEEC.g:774:1: rule__BoolOp__Alternatives : ( ( ( 'and' ) ) | ( ( 'or' ) ) );
+    // InternalSLEEC.g:780:1: rule__BoolOp__Alternatives : ( ( ( 'and' ) ) | ( ( 'or' ) ) );
     public final void rule__BoolOp__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:778:1: ( ( ( 'and' ) ) | ( ( 'or' ) ) )
+            // InternalSLEEC.g:784:1: ( ( ( 'and' ) ) | ( ( 'or' ) ) )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -2830,16 +2872,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
             }
             switch (alt8) {
                 case 1 :
-                    // InternalSLEEC.g:779:2: ( ( 'and' ) )
+                    // InternalSLEEC.g:785:2: ( ( 'and' ) )
                     {
-                    // InternalSLEEC.g:779:2: ( ( 'and' ) )
-                    // InternalSLEEC.g:780:3: ( 'and' )
+                    // InternalSLEEC.g:785:2: ( ( 'and' ) )
+                    // InternalSLEEC.g:786:3: ( 'and' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getBoolOpAccess().getANDEnumLiteralDeclaration_0()); 
                     }
-                    // InternalSLEEC.g:781:3: ( 'and' )
-                    // InternalSLEEC.g:781:4: 'and'
+                    // InternalSLEEC.g:787:3: ( 'and' )
+                    // InternalSLEEC.g:787:4: 'and'
                     {
                     match(input,17,FOLLOW_2); if (state.failed) return ;
 
@@ -2855,16 +2897,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalSLEEC.g:785:2: ( ( 'or' ) )
+                    // InternalSLEEC.g:791:2: ( ( 'or' ) )
                     {
-                    // InternalSLEEC.g:785:2: ( ( 'or' ) )
-                    // InternalSLEEC.g:786:3: ( 'or' )
+                    // InternalSLEEC.g:791:2: ( ( 'or' ) )
+                    // InternalSLEEC.g:792:3: ( 'or' )
                     {
                     if ( state.backtracking==0 ) {
                        before(grammarAccess.getBoolOpAccess().getOREnumLiteralDeclaration_1()); 
                     }
-                    // InternalSLEEC.g:787:3: ( 'or' )
-                    // InternalSLEEC.g:787:4: 'or'
+                    // InternalSLEEC.g:793:3: ( 'or' )
+                    // InternalSLEEC.g:793:4: 'or'
                     {
                     match(input,18,FOLLOW_2); if (state.failed) return ;
 
@@ -2897,14 +2939,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Specification__Group__0"
-    // InternalSLEEC.g:795:1: rule__Specification__Group__0 : rule__Specification__Group__0__Impl rule__Specification__Group__1 ;
+    // InternalSLEEC.g:801:1: rule__Specification__Group__0 : rule__Specification__Group__0__Impl rule__Specification__Group__1 ;
     public final void rule__Specification__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:799:1: ( rule__Specification__Group__0__Impl rule__Specification__Group__1 )
-            // InternalSLEEC.g:800:2: rule__Specification__Group__0__Impl rule__Specification__Group__1
+            // InternalSLEEC.g:805:1: ( rule__Specification__Group__0__Impl rule__Specification__Group__1 )
+            // InternalSLEEC.g:806:2: rule__Specification__Group__0__Impl rule__Specification__Group__1
             {
             pushFollow(FOLLOW_3);
             rule__Specification__Group__0__Impl();
@@ -2935,23 +2977,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Specification__Group__0__Impl"
-    // InternalSLEEC.g:807:1: rule__Specification__Group__0__Impl : ( ( rule__Specification__DefBlockAssignment_0 ) ) ;
+    // InternalSLEEC.g:813:1: rule__Specification__Group__0__Impl : ( ( rule__Specification__DefBlockAssignment_0 ) ) ;
     public final void rule__Specification__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:811:1: ( ( ( rule__Specification__DefBlockAssignment_0 ) ) )
-            // InternalSLEEC.g:812:1: ( ( rule__Specification__DefBlockAssignment_0 ) )
+            // InternalSLEEC.g:817:1: ( ( ( rule__Specification__DefBlockAssignment_0 ) ) )
+            // InternalSLEEC.g:818:1: ( ( rule__Specification__DefBlockAssignment_0 ) )
             {
-            // InternalSLEEC.g:812:1: ( ( rule__Specification__DefBlockAssignment_0 ) )
-            // InternalSLEEC.g:813:2: ( rule__Specification__DefBlockAssignment_0 )
+            // InternalSLEEC.g:818:1: ( ( rule__Specification__DefBlockAssignment_0 ) )
+            // InternalSLEEC.g:819:2: ( rule__Specification__DefBlockAssignment_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSpecificationAccess().getDefBlockAssignment_0()); 
             }
-            // InternalSLEEC.g:814:2: ( rule__Specification__DefBlockAssignment_0 )
-            // InternalSLEEC.g:814:3: rule__Specification__DefBlockAssignment_0
+            // InternalSLEEC.g:820:2: ( rule__Specification__DefBlockAssignment_0 )
+            // InternalSLEEC.g:820:3: rule__Specification__DefBlockAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__Specification__DefBlockAssignment_0();
@@ -2986,14 +3028,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Specification__Group__1"
-    // InternalSLEEC.g:822:1: rule__Specification__Group__1 : rule__Specification__Group__1__Impl ;
+    // InternalSLEEC.g:828:1: rule__Specification__Group__1 : rule__Specification__Group__1__Impl ;
     public final void rule__Specification__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:826:1: ( rule__Specification__Group__1__Impl )
-            // InternalSLEEC.g:827:2: rule__Specification__Group__1__Impl
+            // InternalSLEEC.g:832:1: ( rule__Specification__Group__1__Impl )
+            // InternalSLEEC.g:833:2: rule__Specification__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Specification__Group__1__Impl();
@@ -3019,23 +3061,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Specification__Group__1__Impl"
-    // InternalSLEEC.g:833:1: rule__Specification__Group__1__Impl : ( ( rule__Specification__RuleBlockAssignment_1 ) ) ;
+    // InternalSLEEC.g:839:1: rule__Specification__Group__1__Impl : ( ( rule__Specification__RuleBlockAssignment_1 ) ) ;
     public final void rule__Specification__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:837:1: ( ( ( rule__Specification__RuleBlockAssignment_1 ) ) )
-            // InternalSLEEC.g:838:1: ( ( rule__Specification__RuleBlockAssignment_1 ) )
+            // InternalSLEEC.g:843:1: ( ( ( rule__Specification__RuleBlockAssignment_1 ) ) )
+            // InternalSLEEC.g:844:1: ( ( rule__Specification__RuleBlockAssignment_1 ) )
             {
-            // InternalSLEEC.g:838:1: ( ( rule__Specification__RuleBlockAssignment_1 ) )
-            // InternalSLEEC.g:839:2: ( rule__Specification__RuleBlockAssignment_1 )
+            // InternalSLEEC.g:844:1: ( ( rule__Specification__RuleBlockAssignment_1 ) )
+            // InternalSLEEC.g:845:2: ( rule__Specification__RuleBlockAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSpecificationAccess().getRuleBlockAssignment_1()); 
             }
-            // InternalSLEEC.g:840:2: ( rule__Specification__RuleBlockAssignment_1 )
-            // InternalSLEEC.g:840:3: rule__Specification__RuleBlockAssignment_1
+            // InternalSLEEC.g:846:2: ( rule__Specification__RuleBlockAssignment_1 )
+            // InternalSLEEC.g:846:3: rule__Specification__RuleBlockAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Specification__RuleBlockAssignment_1();
@@ -3070,14 +3112,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defblock__Group__0"
-    // InternalSLEEC.g:849:1: rule__Defblock__Group__0 : rule__Defblock__Group__0__Impl rule__Defblock__Group__1 ;
+    // InternalSLEEC.g:855:1: rule__Defblock__Group__0 : rule__Defblock__Group__0__Impl rule__Defblock__Group__1 ;
     public final void rule__Defblock__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:853:1: ( rule__Defblock__Group__0__Impl rule__Defblock__Group__1 )
-            // InternalSLEEC.g:854:2: rule__Defblock__Group__0__Impl rule__Defblock__Group__1
+            // InternalSLEEC.g:859:1: ( rule__Defblock__Group__0__Impl rule__Defblock__Group__1 )
+            // InternalSLEEC.g:860:2: rule__Defblock__Group__0__Impl rule__Defblock__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__Defblock__Group__0__Impl();
@@ -3108,17 +3150,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defblock__Group__0__Impl"
-    // InternalSLEEC.g:861:1: rule__Defblock__Group__0__Impl : ( 'def_start' ) ;
+    // InternalSLEEC.g:867:1: rule__Defblock__Group__0__Impl : ( 'def_start' ) ;
     public final void rule__Defblock__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:865:1: ( ( 'def_start' ) )
-            // InternalSLEEC.g:866:1: ( 'def_start' )
+            // InternalSLEEC.g:871:1: ( ( 'def_start' ) )
+            // InternalSLEEC.g:872:1: ( 'def_start' )
             {
-            // InternalSLEEC.g:866:1: ( 'def_start' )
-            // InternalSLEEC.g:867:2: 'def_start'
+            // InternalSLEEC.g:872:1: ( 'def_start' )
+            // InternalSLEEC.g:873:2: 'def_start'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefblockAccess().getDef_startKeyword_0()); 
@@ -3149,14 +3191,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defblock__Group__1"
-    // InternalSLEEC.g:876:1: rule__Defblock__Group__1 : rule__Defblock__Group__1__Impl rule__Defblock__Group__2 ;
+    // InternalSLEEC.g:882:1: rule__Defblock__Group__1 : rule__Defblock__Group__1__Impl rule__Defblock__Group__2 ;
     public final void rule__Defblock__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:880:1: ( rule__Defblock__Group__1__Impl rule__Defblock__Group__2 )
-            // InternalSLEEC.g:881:2: rule__Defblock__Group__1__Impl rule__Defblock__Group__2
+            // InternalSLEEC.g:886:1: ( rule__Defblock__Group__1__Impl rule__Defblock__Group__2 )
+            // InternalSLEEC.g:887:2: rule__Defblock__Group__1__Impl rule__Defblock__Group__2
             {
             pushFollow(FOLLOW_5);
             rule__Defblock__Group__1__Impl();
@@ -3187,26 +3229,26 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defblock__Group__1__Impl"
-    // InternalSLEEC.g:888:1: rule__Defblock__Group__1__Impl : ( ( ( rule__Defblock__DefinitionsAssignment_1 ) ) ( ( rule__Defblock__DefinitionsAssignment_1 )* ) ) ;
+    // InternalSLEEC.g:894:1: rule__Defblock__Group__1__Impl : ( ( ( rule__Defblock__DefinitionsAssignment_1 ) ) ( ( rule__Defblock__DefinitionsAssignment_1 )* ) ) ;
     public final void rule__Defblock__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:892:1: ( ( ( ( rule__Defblock__DefinitionsAssignment_1 ) ) ( ( rule__Defblock__DefinitionsAssignment_1 )* ) ) )
-            // InternalSLEEC.g:893:1: ( ( ( rule__Defblock__DefinitionsAssignment_1 ) ) ( ( rule__Defblock__DefinitionsAssignment_1 )* ) )
+            // InternalSLEEC.g:898:1: ( ( ( ( rule__Defblock__DefinitionsAssignment_1 ) ) ( ( rule__Defblock__DefinitionsAssignment_1 )* ) ) )
+            // InternalSLEEC.g:899:1: ( ( ( rule__Defblock__DefinitionsAssignment_1 ) ) ( ( rule__Defblock__DefinitionsAssignment_1 )* ) )
             {
-            // InternalSLEEC.g:893:1: ( ( ( rule__Defblock__DefinitionsAssignment_1 ) ) ( ( rule__Defblock__DefinitionsAssignment_1 )* ) )
-            // InternalSLEEC.g:894:2: ( ( rule__Defblock__DefinitionsAssignment_1 ) ) ( ( rule__Defblock__DefinitionsAssignment_1 )* )
+            // InternalSLEEC.g:899:1: ( ( ( rule__Defblock__DefinitionsAssignment_1 ) ) ( ( rule__Defblock__DefinitionsAssignment_1 )* ) )
+            // InternalSLEEC.g:900:2: ( ( rule__Defblock__DefinitionsAssignment_1 ) ) ( ( rule__Defblock__DefinitionsAssignment_1 )* )
             {
-            // InternalSLEEC.g:894:2: ( ( rule__Defblock__DefinitionsAssignment_1 ) )
-            // InternalSLEEC.g:895:3: ( rule__Defblock__DefinitionsAssignment_1 )
+            // InternalSLEEC.g:900:2: ( ( rule__Defblock__DefinitionsAssignment_1 ) )
+            // InternalSLEEC.g:901:3: ( rule__Defblock__DefinitionsAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefblockAccess().getDefinitionsAssignment_1()); 
             }
-            // InternalSLEEC.g:896:3: ( rule__Defblock__DefinitionsAssignment_1 )
-            // InternalSLEEC.g:896:4: rule__Defblock__DefinitionsAssignment_1
+            // InternalSLEEC.g:902:3: ( rule__Defblock__DefinitionsAssignment_1 )
+            // InternalSLEEC.g:902:4: rule__Defblock__DefinitionsAssignment_1
             {
             pushFollow(FOLLOW_6);
             rule__Defblock__DefinitionsAssignment_1();
@@ -3222,13 +3264,13 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // InternalSLEEC.g:899:2: ( ( rule__Defblock__DefinitionsAssignment_1 )* )
-            // InternalSLEEC.g:900:3: ( rule__Defblock__DefinitionsAssignment_1 )*
+            // InternalSLEEC.g:905:2: ( ( rule__Defblock__DefinitionsAssignment_1 )* )
+            // InternalSLEEC.g:906:3: ( rule__Defblock__DefinitionsAssignment_1 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefblockAccess().getDefinitionsAssignment_1()); 
             }
-            // InternalSLEEC.g:901:3: ( rule__Defblock__DefinitionsAssignment_1 )*
+            // InternalSLEEC.g:907:3: ( rule__Defblock__DefinitionsAssignment_1 )*
             loop9:
             do {
                 int alt9=2;
@@ -3241,7 +3283,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
                 switch (alt9) {
             	case 1 :
-            	    // InternalSLEEC.g:901:4: rule__Defblock__DefinitionsAssignment_1
+            	    // InternalSLEEC.g:907:4: rule__Defblock__DefinitionsAssignment_1
             	    {
             	    pushFollow(FOLLOW_6);
             	    rule__Defblock__DefinitionsAssignment_1();
@@ -3285,14 +3327,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defblock__Group__2"
-    // InternalSLEEC.g:910:1: rule__Defblock__Group__2 : rule__Defblock__Group__2__Impl ;
+    // InternalSLEEC.g:916:1: rule__Defblock__Group__2 : rule__Defblock__Group__2__Impl ;
     public final void rule__Defblock__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:914:1: ( rule__Defblock__Group__2__Impl )
-            // InternalSLEEC.g:915:2: rule__Defblock__Group__2__Impl
+            // InternalSLEEC.g:920:1: ( rule__Defblock__Group__2__Impl )
+            // InternalSLEEC.g:921:2: rule__Defblock__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Defblock__Group__2__Impl();
@@ -3318,17 +3360,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defblock__Group__2__Impl"
-    // InternalSLEEC.g:921:1: rule__Defblock__Group__2__Impl : ( 'def_end' ) ;
+    // InternalSLEEC.g:927:1: rule__Defblock__Group__2__Impl : ( 'def_end' ) ;
     public final void rule__Defblock__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:925:1: ( ( 'def_end' ) )
-            // InternalSLEEC.g:926:1: ( 'def_end' )
+            // InternalSLEEC.g:931:1: ( ( 'def_end' ) )
+            // InternalSLEEC.g:932:1: ( 'def_end' )
             {
-            // InternalSLEEC.g:926:1: ( 'def_end' )
-            // InternalSLEEC.g:927:2: 'def_end'
+            // InternalSLEEC.g:932:1: ( 'def_end' )
+            // InternalSLEEC.g:933:2: 'def_end'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefblockAccess().getDef_endKeyword_2()); 
@@ -3359,14 +3401,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Event__Group__0"
-    // InternalSLEEC.g:937:1: rule__Event__Group__0 : rule__Event__Group__0__Impl rule__Event__Group__1 ;
+    // InternalSLEEC.g:943:1: rule__Event__Group__0 : rule__Event__Group__0__Impl rule__Event__Group__1 ;
     public final void rule__Event__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:941:1: ( rule__Event__Group__0__Impl rule__Event__Group__1 )
-            // InternalSLEEC.g:942:2: rule__Event__Group__0__Impl rule__Event__Group__1
+            // InternalSLEEC.g:947:1: ( rule__Event__Group__0__Impl rule__Event__Group__1 )
+            // InternalSLEEC.g:948:2: rule__Event__Group__0__Impl rule__Event__Group__1
             {
             pushFollow(FOLLOW_7);
             rule__Event__Group__0__Impl();
@@ -3397,17 +3439,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Event__Group__0__Impl"
-    // InternalSLEEC.g:949:1: rule__Event__Group__0__Impl : ( 'event' ) ;
+    // InternalSLEEC.g:955:1: rule__Event__Group__0__Impl : ( 'event' ) ;
     public final void rule__Event__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:953:1: ( ( 'event' ) )
-            // InternalSLEEC.g:954:1: ( 'event' )
+            // InternalSLEEC.g:959:1: ( ( 'event' ) )
+            // InternalSLEEC.g:960:1: ( 'event' )
             {
-            // InternalSLEEC.g:954:1: ( 'event' )
-            // InternalSLEEC.g:955:2: 'event'
+            // InternalSLEEC.g:960:1: ( 'event' )
+            // InternalSLEEC.g:961:2: 'event'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getEventAccess().getEventKeyword_0()); 
@@ -3438,14 +3480,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Event__Group__1"
-    // InternalSLEEC.g:964:1: rule__Event__Group__1 : rule__Event__Group__1__Impl ;
+    // InternalSLEEC.g:970:1: rule__Event__Group__1 : rule__Event__Group__1__Impl ;
     public final void rule__Event__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:968:1: ( rule__Event__Group__1__Impl )
-            // InternalSLEEC.g:969:2: rule__Event__Group__1__Impl
+            // InternalSLEEC.g:974:1: ( rule__Event__Group__1__Impl )
+            // InternalSLEEC.g:975:2: rule__Event__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Event__Group__1__Impl();
@@ -3471,23 +3513,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Event__Group__1__Impl"
-    // InternalSLEEC.g:975:1: rule__Event__Group__1__Impl : ( ( rule__Event__NameAssignment_1 ) ) ;
+    // InternalSLEEC.g:981:1: rule__Event__Group__1__Impl : ( ( rule__Event__NameAssignment_1 ) ) ;
     public final void rule__Event__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:979:1: ( ( ( rule__Event__NameAssignment_1 ) ) )
-            // InternalSLEEC.g:980:1: ( ( rule__Event__NameAssignment_1 ) )
+            // InternalSLEEC.g:985:1: ( ( ( rule__Event__NameAssignment_1 ) ) )
+            // InternalSLEEC.g:986:1: ( ( rule__Event__NameAssignment_1 ) )
             {
-            // InternalSLEEC.g:980:1: ( ( rule__Event__NameAssignment_1 ) )
-            // InternalSLEEC.g:981:2: ( rule__Event__NameAssignment_1 )
+            // InternalSLEEC.g:986:1: ( ( rule__Event__NameAssignment_1 ) )
+            // InternalSLEEC.g:987:2: ( rule__Event__NameAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getEventAccess().getNameAssignment_1()); 
             }
-            // InternalSLEEC.g:982:2: ( rule__Event__NameAssignment_1 )
-            // InternalSLEEC.g:982:3: rule__Event__NameAssignment_1
+            // InternalSLEEC.g:988:2: ( rule__Event__NameAssignment_1 )
+            // InternalSLEEC.g:988:3: rule__Event__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Event__NameAssignment_1();
@@ -3522,14 +3564,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Measure__Group__0"
-    // InternalSLEEC.g:991:1: rule__Measure__Group__0 : rule__Measure__Group__0__Impl rule__Measure__Group__1 ;
+    // InternalSLEEC.g:997:1: rule__Measure__Group__0 : rule__Measure__Group__0__Impl rule__Measure__Group__1 ;
     public final void rule__Measure__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:995:1: ( rule__Measure__Group__0__Impl rule__Measure__Group__1 )
-            // InternalSLEEC.g:996:2: rule__Measure__Group__0__Impl rule__Measure__Group__1
+            // InternalSLEEC.g:1001:1: ( rule__Measure__Group__0__Impl rule__Measure__Group__1 )
+            // InternalSLEEC.g:1002:2: rule__Measure__Group__0__Impl rule__Measure__Group__1
             {
             pushFollow(FOLLOW_7);
             rule__Measure__Group__0__Impl();
@@ -3560,17 +3602,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Measure__Group__0__Impl"
-    // InternalSLEEC.g:1003:1: rule__Measure__Group__0__Impl : ( 'measure' ) ;
+    // InternalSLEEC.g:1009:1: rule__Measure__Group__0__Impl : ( 'measure' ) ;
     public final void rule__Measure__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1007:1: ( ( 'measure' ) )
-            // InternalSLEEC.g:1008:1: ( 'measure' )
+            // InternalSLEEC.g:1013:1: ( ( 'measure' ) )
+            // InternalSLEEC.g:1014:1: ( 'measure' )
             {
-            // InternalSLEEC.g:1008:1: ( 'measure' )
-            // InternalSLEEC.g:1009:2: 'measure'
+            // InternalSLEEC.g:1014:1: ( 'measure' )
+            // InternalSLEEC.g:1015:2: 'measure'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMeasureAccess().getMeasureKeyword_0()); 
@@ -3601,14 +3643,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Measure__Group__1"
-    // InternalSLEEC.g:1018:1: rule__Measure__Group__1 : rule__Measure__Group__1__Impl rule__Measure__Group__2 ;
+    // InternalSLEEC.g:1024:1: rule__Measure__Group__1 : rule__Measure__Group__1__Impl rule__Measure__Group__2 ;
     public final void rule__Measure__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1022:1: ( rule__Measure__Group__1__Impl rule__Measure__Group__2 )
-            // InternalSLEEC.g:1023:2: rule__Measure__Group__1__Impl rule__Measure__Group__2
+            // InternalSLEEC.g:1028:1: ( rule__Measure__Group__1__Impl rule__Measure__Group__2 )
+            // InternalSLEEC.g:1029:2: rule__Measure__Group__1__Impl rule__Measure__Group__2
             {
             pushFollow(FOLLOW_8);
             rule__Measure__Group__1__Impl();
@@ -3639,23 +3681,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Measure__Group__1__Impl"
-    // InternalSLEEC.g:1030:1: rule__Measure__Group__1__Impl : ( ( rule__Measure__NameAssignment_1 ) ) ;
+    // InternalSLEEC.g:1036:1: rule__Measure__Group__1__Impl : ( ( rule__Measure__NameAssignment_1 ) ) ;
     public final void rule__Measure__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1034:1: ( ( ( rule__Measure__NameAssignment_1 ) ) )
-            // InternalSLEEC.g:1035:1: ( ( rule__Measure__NameAssignment_1 ) )
+            // InternalSLEEC.g:1040:1: ( ( ( rule__Measure__NameAssignment_1 ) ) )
+            // InternalSLEEC.g:1041:1: ( ( rule__Measure__NameAssignment_1 ) )
             {
-            // InternalSLEEC.g:1035:1: ( ( rule__Measure__NameAssignment_1 ) )
-            // InternalSLEEC.g:1036:2: ( rule__Measure__NameAssignment_1 )
+            // InternalSLEEC.g:1041:1: ( ( rule__Measure__NameAssignment_1 ) )
+            // InternalSLEEC.g:1042:2: ( rule__Measure__NameAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMeasureAccess().getNameAssignment_1()); 
             }
-            // InternalSLEEC.g:1037:2: ( rule__Measure__NameAssignment_1 )
-            // InternalSLEEC.g:1037:3: rule__Measure__NameAssignment_1
+            // InternalSLEEC.g:1043:2: ( rule__Measure__NameAssignment_1 )
+            // InternalSLEEC.g:1043:3: rule__Measure__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Measure__NameAssignment_1();
@@ -3690,14 +3732,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Measure__Group__2"
-    // InternalSLEEC.g:1045:1: rule__Measure__Group__2 : rule__Measure__Group__2__Impl rule__Measure__Group__3 ;
+    // InternalSLEEC.g:1051:1: rule__Measure__Group__2 : rule__Measure__Group__2__Impl rule__Measure__Group__3 ;
     public final void rule__Measure__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1049:1: ( rule__Measure__Group__2__Impl rule__Measure__Group__3 )
-            // InternalSLEEC.g:1050:2: rule__Measure__Group__2__Impl rule__Measure__Group__3
+            // InternalSLEEC.g:1055:1: ( rule__Measure__Group__2__Impl rule__Measure__Group__3 )
+            // InternalSLEEC.g:1056:2: rule__Measure__Group__2__Impl rule__Measure__Group__3
             {
             pushFollow(FOLLOW_9);
             rule__Measure__Group__2__Impl();
@@ -3728,17 +3770,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Measure__Group__2__Impl"
-    // InternalSLEEC.g:1057:1: rule__Measure__Group__2__Impl : ( ':' ) ;
+    // InternalSLEEC.g:1063:1: rule__Measure__Group__2__Impl : ( ':' ) ;
     public final void rule__Measure__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1061:1: ( ( ':' ) )
-            // InternalSLEEC.g:1062:1: ( ':' )
+            // InternalSLEEC.g:1067:1: ( ( ':' ) )
+            // InternalSLEEC.g:1068:1: ( ':' )
             {
-            // InternalSLEEC.g:1062:1: ( ':' )
-            // InternalSLEEC.g:1063:2: ':'
+            // InternalSLEEC.g:1068:1: ( ':' )
+            // InternalSLEEC.g:1069:2: ':'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMeasureAccess().getColonKeyword_2()); 
@@ -3769,14 +3811,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Measure__Group__3"
-    // InternalSLEEC.g:1072:1: rule__Measure__Group__3 : rule__Measure__Group__3__Impl ;
+    // InternalSLEEC.g:1078:1: rule__Measure__Group__3 : rule__Measure__Group__3__Impl ;
     public final void rule__Measure__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1076:1: ( rule__Measure__Group__3__Impl )
-            // InternalSLEEC.g:1077:2: rule__Measure__Group__3__Impl
+            // InternalSLEEC.g:1082:1: ( rule__Measure__Group__3__Impl )
+            // InternalSLEEC.g:1083:2: rule__Measure__Group__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Measure__Group__3__Impl();
@@ -3802,23 +3844,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Measure__Group__3__Impl"
-    // InternalSLEEC.g:1083:1: rule__Measure__Group__3__Impl : ( ( rule__Measure__TypeAssignment_3 ) ) ;
+    // InternalSLEEC.g:1089:1: rule__Measure__Group__3__Impl : ( ( rule__Measure__TypeAssignment_3 ) ) ;
     public final void rule__Measure__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1087:1: ( ( ( rule__Measure__TypeAssignment_3 ) ) )
-            // InternalSLEEC.g:1088:1: ( ( rule__Measure__TypeAssignment_3 ) )
+            // InternalSLEEC.g:1093:1: ( ( ( rule__Measure__TypeAssignment_3 ) ) )
+            // InternalSLEEC.g:1094:1: ( ( rule__Measure__TypeAssignment_3 ) )
             {
-            // InternalSLEEC.g:1088:1: ( ( rule__Measure__TypeAssignment_3 ) )
-            // InternalSLEEC.g:1089:2: ( rule__Measure__TypeAssignment_3 )
+            // InternalSLEEC.g:1094:1: ( ( rule__Measure__TypeAssignment_3 ) )
+            // InternalSLEEC.g:1095:2: ( rule__Measure__TypeAssignment_3 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMeasureAccess().getTypeAssignment_3()); 
             }
-            // InternalSLEEC.g:1090:2: ( rule__Measure__TypeAssignment_3 )
-            // InternalSLEEC.g:1090:3: rule__Measure__TypeAssignment_3
+            // InternalSLEEC.g:1096:2: ( rule__Measure__TypeAssignment_3 )
+            // InternalSLEEC.g:1096:3: rule__Measure__TypeAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__Measure__TypeAssignment_3();
@@ -3853,14 +3895,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group__0"
-    // InternalSLEEC.g:1099:1: rule__Constant__Group__0 : rule__Constant__Group__0__Impl rule__Constant__Group__1 ;
+    // InternalSLEEC.g:1105:1: rule__Constant__Group__0 : rule__Constant__Group__0__Impl rule__Constant__Group__1 ;
     public final void rule__Constant__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1103:1: ( rule__Constant__Group__0__Impl rule__Constant__Group__1 )
-            // InternalSLEEC.g:1104:2: rule__Constant__Group__0__Impl rule__Constant__Group__1
+            // InternalSLEEC.g:1109:1: ( rule__Constant__Group__0__Impl rule__Constant__Group__1 )
+            // InternalSLEEC.g:1110:2: rule__Constant__Group__0__Impl rule__Constant__Group__1
             {
             pushFollow(FOLLOW_7);
             rule__Constant__Group__0__Impl();
@@ -3891,17 +3933,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group__0__Impl"
-    // InternalSLEEC.g:1111:1: rule__Constant__Group__0__Impl : ( 'constant' ) ;
+    // InternalSLEEC.g:1117:1: rule__Constant__Group__0__Impl : ( 'constant' ) ;
     public final void rule__Constant__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1115:1: ( ( 'constant' ) )
-            // InternalSLEEC.g:1116:1: ( 'constant' )
+            // InternalSLEEC.g:1121:1: ( ( 'constant' ) )
+            // InternalSLEEC.g:1122:1: ( 'constant' )
             {
-            // InternalSLEEC.g:1116:1: ( 'constant' )
-            // InternalSLEEC.g:1117:2: 'constant'
+            // InternalSLEEC.g:1122:1: ( 'constant' )
+            // InternalSLEEC.g:1123:2: 'constant'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getConstantKeyword_0()); 
@@ -3932,14 +3974,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group__1"
-    // InternalSLEEC.g:1126:1: rule__Constant__Group__1 : rule__Constant__Group__1__Impl rule__Constant__Group__2 ;
+    // InternalSLEEC.g:1132:1: rule__Constant__Group__1 : rule__Constant__Group__1__Impl rule__Constant__Group__2 ;
     public final void rule__Constant__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1130:1: ( rule__Constant__Group__1__Impl rule__Constant__Group__2 )
-            // InternalSLEEC.g:1131:2: rule__Constant__Group__1__Impl rule__Constant__Group__2
+            // InternalSLEEC.g:1136:1: ( rule__Constant__Group__1__Impl rule__Constant__Group__2 )
+            // InternalSLEEC.g:1137:2: rule__Constant__Group__1__Impl rule__Constant__Group__2
             {
             pushFollow(FOLLOW_10);
             rule__Constant__Group__1__Impl();
@@ -3970,23 +4012,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group__1__Impl"
-    // InternalSLEEC.g:1138:1: rule__Constant__Group__1__Impl : ( ( rule__Constant__NameAssignment_1 ) ) ;
+    // InternalSLEEC.g:1144:1: rule__Constant__Group__1__Impl : ( ( rule__Constant__NameAssignment_1 ) ) ;
     public final void rule__Constant__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1142:1: ( ( ( rule__Constant__NameAssignment_1 ) ) )
-            // InternalSLEEC.g:1143:1: ( ( rule__Constant__NameAssignment_1 ) )
+            // InternalSLEEC.g:1148:1: ( ( ( rule__Constant__NameAssignment_1 ) ) )
+            // InternalSLEEC.g:1149:1: ( ( rule__Constant__NameAssignment_1 ) )
             {
-            // InternalSLEEC.g:1143:1: ( ( rule__Constant__NameAssignment_1 ) )
-            // InternalSLEEC.g:1144:2: ( rule__Constant__NameAssignment_1 )
+            // InternalSLEEC.g:1149:1: ( ( rule__Constant__NameAssignment_1 ) )
+            // InternalSLEEC.g:1150:2: ( rule__Constant__NameAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getNameAssignment_1()); 
             }
-            // InternalSLEEC.g:1145:2: ( rule__Constant__NameAssignment_1 )
-            // InternalSLEEC.g:1145:3: rule__Constant__NameAssignment_1
+            // InternalSLEEC.g:1151:2: ( rule__Constant__NameAssignment_1 )
+            // InternalSLEEC.g:1151:3: rule__Constant__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Constant__NameAssignment_1();
@@ -4021,14 +4063,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group__2"
-    // InternalSLEEC.g:1153:1: rule__Constant__Group__2 : rule__Constant__Group__2__Impl rule__Constant__Group__3 ;
+    // InternalSLEEC.g:1159:1: rule__Constant__Group__2 : rule__Constant__Group__2__Impl rule__Constant__Group__3 ;
     public final void rule__Constant__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1157:1: ( rule__Constant__Group__2__Impl rule__Constant__Group__3 )
-            // InternalSLEEC.g:1158:2: rule__Constant__Group__2__Impl rule__Constant__Group__3
+            // InternalSLEEC.g:1163:1: ( rule__Constant__Group__2__Impl rule__Constant__Group__3 )
+            // InternalSLEEC.g:1164:2: rule__Constant__Group__2__Impl rule__Constant__Group__3
             {
             pushFollow(FOLLOW_11);
             rule__Constant__Group__2__Impl();
@@ -4059,17 +4101,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group__2__Impl"
-    // InternalSLEEC.g:1165:1: rule__Constant__Group__2__Impl : ( '=' ) ;
+    // InternalSLEEC.g:1171:1: rule__Constant__Group__2__Impl : ( '=' ) ;
     public final void rule__Constant__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1169:1: ( ( '=' ) )
-            // InternalSLEEC.g:1170:1: ( '=' )
+            // InternalSLEEC.g:1175:1: ( ( '=' ) )
+            // InternalSLEEC.g:1176:1: ( '=' )
             {
-            // InternalSLEEC.g:1170:1: ( '=' )
-            // InternalSLEEC.g:1171:2: '='
+            // InternalSLEEC.g:1176:1: ( '=' )
+            // InternalSLEEC.g:1177:2: '='
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getEqualsSignKeyword_2()); 
@@ -4100,14 +4142,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group__3"
-    // InternalSLEEC.g:1180:1: rule__Constant__Group__3 : rule__Constant__Group__3__Impl ;
+    // InternalSLEEC.g:1186:1: rule__Constant__Group__3 : rule__Constant__Group__3__Impl ;
     public final void rule__Constant__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1184:1: ( rule__Constant__Group__3__Impl )
-            // InternalSLEEC.g:1185:2: rule__Constant__Group__3__Impl
+            // InternalSLEEC.g:1190:1: ( rule__Constant__Group__3__Impl )
+            // InternalSLEEC.g:1191:2: rule__Constant__Group__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Constant__Group__3__Impl();
@@ -4133,23 +4175,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__Group__3__Impl"
-    // InternalSLEEC.g:1191:1: rule__Constant__Group__3__Impl : ( ( rule__Constant__ValueAssignment_3 ) ) ;
+    // InternalSLEEC.g:1197:1: rule__Constant__Group__3__Impl : ( ( rule__Constant__ValueAssignment_3 ) ) ;
     public final void rule__Constant__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1195:1: ( ( ( rule__Constant__ValueAssignment_3 ) ) )
-            // InternalSLEEC.g:1196:1: ( ( rule__Constant__ValueAssignment_3 ) )
+            // InternalSLEEC.g:1201:1: ( ( ( rule__Constant__ValueAssignment_3 ) ) )
+            // InternalSLEEC.g:1202:1: ( ( rule__Constant__ValueAssignment_3 ) )
             {
-            // InternalSLEEC.g:1196:1: ( ( rule__Constant__ValueAssignment_3 ) )
-            // InternalSLEEC.g:1197:2: ( rule__Constant__ValueAssignment_3 )
+            // InternalSLEEC.g:1202:1: ( ( rule__Constant__ValueAssignment_3 ) )
+            // InternalSLEEC.g:1203:2: ( rule__Constant__ValueAssignment_3 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getValueAssignment_3()); 
             }
-            // InternalSLEEC.g:1198:2: ( rule__Constant__ValueAssignment_3 )
-            // InternalSLEEC.g:1198:3: rule__Constant__ValueAssignment_3
+            // InternalSLEEC.g:1204:2: ( rule__Constant__ValueAssignment_3 )
+            // InternalSLEEC.g:1204:3: rule__Constant__ValueAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__Constant__ValueAssignment_3();
@@ -4184,14 +4226,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Value__Group_0__0"
-    // InternalSLEEC.g:1207:1: rule__Value__Group_0__0 : rule__Value__Group_0__0__Impl rule__Value__Group_0__1 ;
+    // InternalSLEEC.g:1213:1: rule__Value__Group_0__0 : rule__Value__Group_0__0__Impl rule__Value__Group_0__1 ;
     public final void rule__Value__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1211:1: ( rule__Value__Group_0__0__Impl rule__Value__Group_0__1 )
-            // InternalSLEEC.g:1212:2: rule__Value__Group_0__0__Impl rule__Value__Group_0__1
+            // InternalSLEEC.g:1217:1: ( rule__Value__Group_0__0__Impl rule__Value__Group_0__1 )
+            // InternalSLEEC.g:1218:2: rule__Value__Group_0__0__Impl rule__Value__Group_0__1
             {
             pushFollow(FOLLOW_11);
             rule__Value__Group_0__0__Impl();
@@ -4222,23 +4264,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Value__Group_0__0__Impl"
-    // InternalSLEEC.g:1219:1: rule__Value__Group_0__0__Impl : ( () ) ;
+    // InternalSLEEC.g:1225:1: rule__Value__Group_0__0__Impl : ( () ) ;
     public final void rule__Value__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1223:1: ( ( () ) )
-            // InternalSLEEC.g:1224:1: ( () )
+            // InternalSLEEC.g:1229:1: ( ( () ) )
+            // InternalSLEEC.g:1230:1: ( () )
             {
-            // InternalSLEEC.g:1224:1: ( () )
-            // InternalSLEEC.g:1225:2: ()
+            // InternalSLEEC.g:1230:1: ( () )
+            // InternalSLEEC.g:1231:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValueAccess().getValueAction_0_0()); 
             }
-            // InternalSLEEC.g:1226:2: ()
-            // InternalSLEEC.g:1226:3: 
+            // InternalSLEEC.g:1232:2: ()
+            // InternalSLEEC.g:1232:3: 
             {
             }
 
@@ -4263,14 +4305,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Value__Group_0__1"
-    // InternalSLEEC.g:1234:1: rule__Value__Group_0__1 : rule__Value__Group_0__1__Impl ;
+    // InternalSLEEC.g:1240:1: rule__Value__Group_0__1 : rule__Value__Group_0__1__Impl ;
     public final void rule__Value__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1238:1: ( rule__Value__Group_0__1__Impl )
-            // InternalSLEEC.g:1239:2: rule__Value__Group_0__1__Impl
+            // InternalSLEEC.g:1244:1: ( rule__Value__Group_0__1__Impl )
+            // InternalSLEEC.g:1245:2: rule__Value__Group_0__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Value__Group_0__1__Impl();
@@ -4296,17 +4338,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Value__Group_0__1__Impl"
-    // InternalSLEEC.g:1245:1: rule__Value__Group_0__1__Impl : ( RULE_INT ) ;
+    // InternalSLEEC.g:1251:1: rule__Value__Group_0__1__Impl : ( RULE_INT ) ;
     public final void rule__Value__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1249:1: ( ( RULE_INT ) )
-            // InternalSLEEC.g:1250:1: ( RULE_INT )
+            // InternalSLEEC.g:1255:1: ( ( RULE_INT ) )
+            // InternalSLEEC.g:1256:1: ( RULE_INT )
             {
-            // InternalSLEEC.g:1250:1: ( RULE_INT )
-            // InternalSLEEC.g:1251:2: RULE_INT
+            // InternalSLEEC.g:1256:1: ( RULE_INT )
+            // InternalSLEEC.g:1257:2: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValueAccess().getINTTerminalRuleCall_0_1()); 
@@ -4337,14 +4379,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_0__0"
-    // InternalSLEEC.g:1261:1: rule__Type__Group_0__0 : rule__Type__Group_0__0__Impl rule__Type__Group_0__1 ;
+    // InternalSLEEC.g:1267:1: rule__Type__Group_0__0 : rule__Type__Group_0__0__Impl rule__Type__Group_0__1 ;
     public final void rule__Type__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1265:1: ( rule__Type__Group_0__0__Impl rule__Type__Group_0__1 )
-            // InternalSLEEC.g:1266:2: rule__Type__Group_0__0__Impl rule__Type__Group_0__1
+            // InternalSLEEC.g:1271:1: ( rule__Type__Group_0__0__Impl rule__Type__Group_0__1 )
+            // InternalSLEEC.g:1272:2: rule__Type__Group_0__0__Impl rule__Type__Group_0__1
             {
             pushFollow(FOLLOW_12);
             rule__Type__Group_0__0__Impl();
@@ -4375,23 +4417,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_0__0__Impl"
-    // InternalSLEEC.g:1273:1: rule__Type__Group_0__0__Impl : ( () ) ;
+    // InternalSLEEC.g:1279:1: rule__Type__Group_0__0__Impl : ( () ) ;
     public final void rule__Type__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1277:1: ( ( () ) )
-            // InternalSLEEC.g:1278:1: ( () )
+            // InternalSLEEC.g:1283:1: ( ( () ) )
+            // InternalSLEEC.g:1284:1: ( () )
             {
-            // InternalSLEEC.g:1278:1: ( () )
-            // InternalSLEEC.g:1279:2: ()
+            // InternalSLEEC.g:1284:1: ( () )
+            // InternalSLEEC.g:1285:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getBooleanAction_0_0()); 
             }
-            // InternalSLEEC.g:1280:2: ()
-            // InternalSLEEC.g:1280:3: 
+            // InternalSLEEC.g:1286:2: ()
+            // InternalSLEEC.g:1286:3: 
             {
             }
 
@@ -4416,14 +4458,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_0__1"
-    // InternalSLEEC.g:1288:1: rule__Type__Group_0__1 : rule__Type__Group_0__1__Impl ;
+    // InternalSLEEC.g:1294:1: rule__Type__Group_0__1 : rule__Type__Group_0__1__Impl ;
     public final void rule__Type__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1292:1: ( rule__Type__Group_0__1__Impl )
-            // InternalSLEEC.g:1293:2: rule__Type__Group_0__1__Impl
+            // InternalSLEEC.g:1298:1: ( rule__Type__Group_0__1__Impl )
+            // InternalSLEEC.g:1299:2: rule__Type__Group_0__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Type__Group_0__1__Impl();
@@ -4449,17 +4491,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_0__1__Impl"
-    // InternalSLEEC.g:1299:1: rule__Type__Group_0__1__Impl : ( 'boolean' ) ;
+    // InternalSLEEC.g:1305:1: rule__Type__Group_0__1__Impl : ( 'boolean' ) ;
     public final void rule__Type__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1303:1: ( ( 'boolean' ) )
-            // InternalSLEEC.g:1304:1: ( 'boolean' )
+            // InternalSLEEC.g:1309:1: ( ( 'boolean' ) )
+            // InternalSLEEC.g:1310:1: ( 'boolean' )
             {
-            // InternalSLEEC.g:1304:1: ( 'boolean' )
-            // InternalSLEEC.g:1305:2: 'boolean'
+            // InternalSLEEC.g:1310:1: ( 'boolean' )
+            // InternalSLEEC.g:1311:2: 'boolean'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getBooleanKeyword_0_1()); 
@@ -4490,14 +4532,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_1__0"
-    // InternalSLEEC.g:1315:1: rule__Type__Group_1__0 : rule__Type__Group_1__0__Impl rule__Type__Group_1__1 ;
+    // InternalSLEEC.g:1321:1: rule__Type__Group_1__0 : rule__Type__Group_1__0__Impl rule__Type__Group_1__1 ;
     public final void rule__Type__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1319:1: ( rule__Type__Group_1__0__Impl rule__Type__Group_1__1 )
-            // InternalSLEEC.g:1320:2: rule__Type__Group_1__0__Impl rule__Type__Group_1__1
+            // InternalSLEEC.g:1325:1: ( rule__Type__Group_1__0__Impl rule__Type__Group_1__1 )
+            // InternalSLEEC.g:1326:2: rule__Type__Group_1__0__Impl rule__Type__Group_1__1
             {
             pushFollow(FOLLOW_13);
             rule__Type__Group_1__0__Impl();
@@ -4528,23 +4570,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_1__0__Impl"
-    // InternalSLEEC.g:1327:1: rule__Type__Group_1__0__Impl : ( () ) ;
+    // InternalSLEEC.g:1333:1: rule__Type__Group_1__0__Impl : ( () ) ;
     public final void rule__Type__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1331:1: ( ( () ) )
-            // InternalSLEEC.g:1332:1: ( () )
+            // InternalSLEEC.g:1337:1: ( ( () ) )
+            // InternalSLEEC.g:1338:1: ( () )
             {
-            // InternalSLEEC.g:1332:1: ( () )
-            // InternalSLEEC.g:1333:2: ()
+            // InternalSLEEC.g:1338:1: ( () )
+            // InternalSLEEC.g:1339:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getNumericAction_1_0()); 
             }
-            // InternalSLEEC.g:1334:2: ()
-            // InternalSLEEC.g:1334:3: 
+            // InternalSLEEC.g:1340:2: ()
+            // InternalSLEEC.g:1340:3: 
             {
             }
 
@@ -4569,14 +4611,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_1__1"
-    // InternalSLEEC.g:1342:1: rule__Type__Group_1__1 : rule__Type__Group_1__1__Impl ;
+    // InternalSLEEC.g:1348:1: rule__Type__Group_1__1 : rule__Type__Group_1__1__Impl ;
     public final void rule__Type__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1346:1: ( rule__Type__Group_1__1__Impl )
-            // InternalSLEEC.g:1347:2: rule__Type__Group_1__1__Impl
+            // InternalSLEEC.g:1352:1: ( rule__Type__Group_1__1__Impl )
+            // InternalSLEEC.g:1353:2: rule__Type__Group_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Type__Group_1__1__Impl();
@@ -4602,17 +4644,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_1__1__Impl"
-    // InternalSLEEC.g:1353:1: rule__Type__Group_1__1__Impl : ( 'numeric' ) ;
+    // InternalSLEEC.g:1359:1: rule__Type__Group_1__1__Impl : ( 'numeric' ) ;
     public final void rule__Type__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1357:1: ( ( 'numeric' ) )
-            // InternalSLEEC.g:1358:1: ( 'numeric' )
+            // InternalSLEEC.g:1363:1: ( ( 'numeric' ) )
+            // InternalSLEEC.g:1364:1: ( 'numeric' )
             {
-            // InternalSLEEC.g:1358:1: ( 'numeric' )
-            // InternalSLEEC.g:1359:2: 'numeric'
+            // InternalSLEEC.g:1364:1: ( 'numeric' )
+            // InternalSLEEC.g:1365:2: 'numeric'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getNumericKeyword_1_1()); 
@@ -4643,14 +4685,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__0"
-    // InternalSLEEC.g:1369:1: rule__Type__Group_2__0 : rule__Type__Group_2__0__Impl rule__Type__Group_2__1 ;
+    // InternalSLEEC.g:1375:1: rule__Type__Group_2__0 : rule__Type__Group_2__0__Impl rule__Type__Group_2__1 ;
     public final void rule__Type__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1373:1: ( rule__Type__Group_2__0__Impl rule__Type__Group_2__1 )
-            // InternalSLEEC.g:1374:2: rule__Type__Group_2__0__Impl rule__Type__Group_2__1
+            // InternalSLEEC.g:1379:1: ( rule__Type__Group_2__0__Impl rule__Type__Group_2__1 )
+            // InternalSLEEC.g:1380:2: rule__Type__Group_2__0__Impl rule__Type__Group_2__1
             {
             pushFollow(FOLLOW_9);
             rule__Type__Group_2__0__Impl();
@@ -4681,23 +4723,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__0__Impl"
-    // InternalSLEEC.g:1381:1: rule__Type__Group_2__0__Impl : ( () ) ;
+    // InternalSLEEC.g:1387:1: rule__Type__Group_2__0__Impl : ( () ) ;
     public final void rule__Type__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1385:1: ( ( () ) )
-            // InternalSLEEC.g:1386:1: ( () )
+            // InternalSLEEC.g:1391:1: ( ( () ) )
+            // InternalSLEEC.g:1392:1: ( () )
             {
-            // InternalSLEEC.g:1386:1: ( () )
-            // InternalSLEEC.g:1387:2: ()
+            // InternalSLEEC.g:1392:1: ( () )
+            // InternalSLEEC.g:1393:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getScaleAction_2_0()); 
             }
-            // InternalSLEEC.g:1388:2: ()
-            // InternalSLEEC.g:1388:3: 
+            // InternalSLEEC.g:1394:2: ()
+            // InternalSLEEC.g:1394:3: 
             {
             }
 
@@ -4722,14 +4764,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__1"
-    // InternalSLEEC.g:1396:1: rule__Type__Group_2__1 : rule__Type__Group_2__1__Impl rule__Type__Group_2__2 ;
+    // InternalSLEEC.g:1402:1: rule__Type__Group_2__1 : rule__Type__Group_2__1__Impl rule__Type__Group_2__2 ;
     public final void rule__Type__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1400:1: ( rule__Type__Group_2__1__Impl rule__Type__Group_2__2 )
-            // InternalSLEEC.g:1401:2: rule__Type__Group_2__1__Impl rule__Type__Group_2__2
+            // InternalSLEEC.g:1406:1: ( rule__Type__Group_2__1__Impl rule__Type__Group_2__2 )
+            // InternalSLEEC.g:1407:2: rule__Type__Group_2__1__Impl rule__Type__Group_2__2
             {
             pushFollow(FOLLOW_14);
             rule__Type__Group_2__1__Impl();
@@ -4760,17 +4802,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__1__Impl"
-    // InternalSLEEC.g:1408:1: rule__Type__Group_2__1__Impl : ( 'scale' ) ;
+    // InternalSLEEC.g:1414:1: rule__Type__Group_2__1__Impl : ( 'scale' ) ;
     public final void rule__Type__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1412:1: ( ( 'scale' ) )
-            // InternalSLEEC.g:1413:1: ( 'scale' )
+            // InternalSLEEC.g:1418:1: ( ( 'scale' ) )
+            // InternalSLEEC.g:1419:1: ( 'scale' )
             {
-            // InternalSLEEC.g:1413:1: ( 'scale' )
-            // InternalSLEEC.g:1414:2: 'scale'
+            // InternalSLEEC.g:1419:1: ( 'scale' )
+            // InternalSLEEC.g:1420:2: 'scale'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getScaleKeyword_2_1()); 
@@ -4801,14 +4843,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__2"
-    // InternalSLEEC.g:1423:1: rule__Type__Group_2__2 : rule__Type__Group_2__2__Impl rule__Type__Group_2__3 ;
+    // InternalSLEEC.g:1429:1: rule__Type__Group_2__2 : rule__Type__Group_2__2__Impl rule__Type__Group_2__3 ;
     public final void rule__Type__Group_2__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1427:1: ( rule__Type__Group_2__2__Impl rule__Type__Group_2__3 )
-            // InternalSLEEC.g:1428:2: rule__Type__Group_2__2__Impl rule__Type__Group_2__3
+            // InternalSLEEC.g:1433:1: ( rule__Type__Group_2__2__Impl rule__Type__Group_2__3 )
+            // InternalSLEEC.g:1434:2: rule__Type__Group_2__2__Impl rule__Type__Group_2__3
             {
             pushFollow(FOLLOW_7);
             rule__Type__Group_2__2__Impl();
@@ -4839,17 +4881,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__2__Impl"
-    // InternalSLEEC.g:1435:1: rule__Type__Group_2__2__Impl : ( '(' ) ;
+    // InternalSLEEC.g:1441:1: rule__Type__Group_2__2__Impl : ( '(' ) ;
     public final void rule__Type__Group_2__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1439:1: ( ( '(' ) )
-            // InternalSLEEC.g:1440:1: ( '(' )
+            // InternalSLEEC.g:1445:1: ( ( '(' ) )
+            // InternalSLEEC.g:1446:1: ( '(' )
             {
-            // InternalSLEEC.g:1440:1: ( '(' )
-            // InternalSLEEC.g:1441:2: '('
+            // InternalSLEEC.g:1446:1: ( '(' )
+            // InternalSLEEC.g:1447:2: '('
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getLeftParenthesisKeyword_2_2()); 
@@ -4880,14 +4922,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__3"
-    // InternalSLEEC.g:1450:1: rule__Type__Group_2__3 : rule__Type__Group_2__3__Impl rule__Type__Group_2__4 ;
+    // InternalSLEEC.g:1456:1: rule__Type__Group_2__3 : rule__Type__Group_2__3__Impl rule__Type__Group_2__4 ;
     public final void rule__Type__Group_2__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1454:1: ( rule__Type__Group_2__3__Impl rule__Type__Group_2__4 )
-            // InternalSLEEC.g:1455:2: rule__Type__Group_2__3__Impl rule__Type__Group_2__4
+            // InternalSLEEC.g:1460:1: ( rule__Type__Group_2__3__Impl rule__Type__Group_2__4 )
+            // InternalSLEEC.g:1461:2: rule__Type__Group_2__3__Impl rule__Type__Group_2__4
             {
             pushFollow(FOLLOW_15);
             rule__Type__Group_2__3__Impl();
@@ -4918,23 +4960,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__3__Impl"
-    // InternalSLEEC.g:1462:1: rule__Type__Group_2__3__Impl : ( ( rule__Type__ScaleParamsAssignment_2_3 ) ) ;
+    // InternalSLEEC.g:1468:1: rule__Type__Group_2__3__Impl : ( ( rule__Type__ScaleParamsAssignment_2_3 ) ) ;
     public final void rule__Type__Group_2__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1466:1: ( ( ( rule__Type__ScaleParamsAssignment_2_3 ) ) )
-            // InternalSLEEC.g:1467:1: ( ( rule__Type__ScaleParamsAssignment_2_3 ) )
+            // InternalSLEEC.g:1472:1: ( ( ( rule__Type__ScaleParamsAssignment_2_3 ) ) )
+            // InternalSLEEC.g:1473:1: ( ( rule__Type__ScaleParamsAssignment_2_3 ) )
             {
-            // InternalSLEEC.g:1467:1: ( ( rule__Type__ScaleParamsAssignment_2_3 ) )
-            // InternalSLEEC.g:1468:2: ( rule__Type__ScaleParamsAssignment_2_3 )
+            // InternalSLEEC.g:1473:1: ( ( rule__Type__ScaleParamsAssignment_2_3 ) )
+            // InternalSLEEC.g:1474:2: ( rule__Type__ScaleParamsAssignment_2_3 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getScaleParamsAssignment_2_3()); 
             }
-            // InternalSLEEC.g:1469:2: ( rule__Type__ScaleParamsAssignment_2_3 )
-            // InternalSLEEC.g:1469:3: rule__Type__ScaleParamsAssignment_2_3
+            // InternalSLEEC.g:1475:2: ( rule__Type__ScaleParamsAssignment_2_3 )
+            // InternalSLEEC.g:1475:3: rule__Type__ScaleParamsAssignment_2_3
             {
             pushFollow(FOLLOW_2);
             rule__Type__ScaleParamsAssignment_2_3();
@@ -4969,14 +5011,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__4"
-    // InternalSLEEC.g:1477:1: rule__Type__Group_2__4 : rule__Type__Group_2__4__Impl rule__Type__Group_2__5 ;
+    // InternalSLEEC.g:1483:1: rule__Type__Group_2__4 : rule__Type__Group_2__4__Impl rule__Type__Group_2__5 ;
     public final void rule__Type__Group_2__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1481:1: ( rule__Type__Group_2__4__Impl rule__Type__Group_2__5 )
-            // InternalSLEEC.g:1482:2: rule__Type__Group_2__4__Impl rule__Type__Group_2__5
+            // InternalSLEEC.g:1487:1: ( rule__Type__Group_2__4__Impl rule__Type__Group_2__5 )
+            // InternalSLEEC.g:1488:2: rule__Type__Group_2__4__Impl rule__Type__Group_2__5
             {
             pushFollow(FOLLOW_15);
             rule__Type__Group_2__4__Impl();
@@ -5007,22 +5049,22 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__4__Impl"
-    // InternalSLEEC.g:1489:1: rule__Type__Group_2__4__Impl : ( ( rule__Type__Group_2_4__0 )* ) ;
+    // InternalSLEEC.g:1495:1: rule__Type__Group_2__4__Impl : ( ( rule__Type__Group_2_4__0 )* ) ;
     public final void rule__Type__Group_2__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1493:1: ( ( ( rule__Type__Group_2_4__0 )* ) )
-            // InternalSLEEC.g:1494:1: ( ( rule__Type__Group_2_4__0 )* )
+            // InternalSLEEC.g:1499:1: ( ( ( rule__Type__Group_2_4__0 )* ) )
+            // InternalSLEEC.g:1500:1: ( ( rule__Type__Group_2_4__0 )* )
             {
-            // InternalSLEEC.g:1494:1: ( ( rule__Type__Group_2_4__0 )* )
-            // InternalSLEEC.g:1495:2: ( rule__Type__Group_2_4__0 )*
+            // InternalSLEEC.g:1500:1: ( ( rule__Type__Group_2_4__0 )* )
+            // InternalSLEEC.g:1501:2: ( rule__Type__Group_2_4__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getGroup_2_4()); 
             }
-            // InternalSLEEC.g:1496:2: ( rule__Type__Group_2_4__0 )*
+            // InternalSLEEC.g:1502:2: ( rule__Type__Group_2_4__0 )*
             loop10:
             do {
                 int alt10=2;
@@ -5035,7 +5077,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
                 switch (alt10) {
             	case 1 :
-            	    // InternalSLEEC.g:1496:3: rule__Type__Group_2_4__0
+            	    // InternalSLEEC.g:1502:3: rule__Type__Group_2_4__0
             	    {
             	    pushFollow(FOLLOW_16);
             	    rule__Type__Group_2_4__0();
@@ -5076,14 +5118,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__5"
-    // InternalSLEEC.g:1504:1: rule__Type__Group_2__5 : rule__Type__Group_2__5__Impl ;
+    // InternalSLEEC.g:1510:1: rule__Type__Group_2__5 : rule__Type__Group_2__5__Impl ;
     public final void rule__Type__Group_2__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1508:1: ( rule__Type__Group_2__5__Impl )
-            // InternalSLEEC.g:1509:2: rule__Type__Group_2__5__Impl
+            // InternalSLEEC.g:1514:1: ( rule__Type__Group_2__5__Impl )
+            // InternalSLEEC.g:1515:2: rule__Type__Group_2__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Type__Group_2__5__Impl();
@@ -5109,17 +5151,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2__5__Impl"
-    // InternalSLEEC.g:1515:1: rule__Type__Group_2__5__Impl : ( ')' ) ;
+    // InternalSLEEC.g:1521:1: rule__Type__Group_2__5__Impl : ( ')' ) ;
     public final void rule__Type__Group_2__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1519:1: ( ( ')' ) )
-            // InternalSLEEC.g:1520:1: ( ')' )
+            // InternalSLEEC.g:1525:1: ( ( ')' ) )
+            // InternalSLEEC.g:1526:1: ( ')' )
             {
-            // InternalSLEEC.g:1520:1: ( ')' )
-            // InternalSLEEC.g:1521:2: ')'
+            // InternalSLEEC.g:1526:1: ( ')' )
+            // InternalSLEEC.g:1527:2: ')'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getRightParenthesisKeyword_2_5()); 
@@ -5150,14 +5192,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2_4__0"
-    // InternalSLEEC.g:1531:1: rule__Type__Group_2_4__0 : rule__Type__Group_2_4__0__Impl rule__Type__Group_2_4__1 ;
+    // InternalSLEEC.g:1537:1: rule__Type__Group_2_4__0 : rule__Type__Group_2_4__0__Impl rule__Type__Group_2_4__1 ;
     public final void rule__Type__Group_2_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1535:1: ( rule__Type__Group_2_4__0__Impl rule__Type__Group_2_4__1 )
-            // InternalSLEEC.g:1536:2: rule__Type__Group_2_4__0__Impl rule__Type__Group_2_4__1
+            // InternalSLEEC.g:1541:1: ( rule__Type__Group_2_4__0__Impl rule__Type__Group_2_4__1 )
+            // InternalSLEEC.g:1542:2: rule__Type__Group_2_4__0__Impl rule__Type__Group_2_4__1
             {
             pushFollow(FOLLOW_7);
             rule__Type__Group_2_4__0__Impl();
@@ -5188,17 +5230,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2_4__0__Impl"
-    // InternalSLEEC.g:1543:1: rule__Type__Group_2_4__0__Impl : ( ',' ) ;
+    // InternalSLEEC.g:1549:1: rule__Type__Group_2_4__0__Impl : ( ',' ) ;
     public final void rule__Type__Group_2_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1547:1: ( ( ',' ) )
-            // InternalSLEEC.g:1548:1: ( ',' )
+            // InternalSLEEC.g:1553:1: ( ( ',' ) )
+            // InternalSLEEC.g:1554:1: ( ',' )
             {
-            // InternalSLEEC.g:1548:1: ( ',' )
-            // InternalSLEEC.g:1549:2: ','
+            // InternalSLEEC.g:1554:1: ( ',' )
+            // InternalSLEEC.g:1555:2: ','
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getCommaKeyword_2_4_0()); 
@@ -5229,14 +5271,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2_4__1"
-    // InternalSLEEC.g:1558:1: rule__Type__Group_2_4__1 : rule__Type__Group_2_4__1__Impl ;
+    // InternalSLEEC.g:1564:1: rule__Type__Group_2_4__1 : rule__Type__Group_2_4__1__Impl ;
     public final void rule__Type__Group_2_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1562:1: ( rule__Type__Group_2_4__1__Impl )
-            // InternalSLEEC.g:1563:2: rule__Type__Group_2_4__1__Impl
+            // InternalSLEEC.g:1568:1: ( rule__Type__Group_2_4__1__Impl )
+            // InternalSLEEC.g:1569:2: rule__Type__Group_2_4__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Type__Group_2_4__1__Impl();
@@ -5262,23 +5304,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_2_4__1__Impl"
-    // InternalSLEEC.g:1569:1: rule__Type__Group_2_4__1__Impl : ( ( rule__Type__ScaleParamsAssignment_2_4_1 ) ) ;
+    // InternalSLEEC.g:1575:1: rule__Type__Group_2_4__1__Impl : ( ( rule__Type__ScaleParamsAssignment_2_4_1 ) ) ;
     public final void rule__Type__Group_2_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1573:1: ( ( ( rule__Type__ScaleParamsAssignment_2_4_1 ) ) )
-            // InternalSLEEC.g:1574:1: ( ( rule__Type__ScaleParamsAssignment_2_4_1 ) )
+            // InternalSLEEC.g:1579:1: ( ( ( rule__Type__ScaleParamsAssignment_2_4_1 ) ) )
+            // InternalSLEEC.g:1580:1: ( ( rule__Type__ScaleParamsAssignment_2_4_1 ) )
             {
-            // InternalSLEEC.g:1574:1: ( ( rule__Type__ScaleParamsAssignment_2_4_1 ) )
-            // InternalSLEEC.g:1575:2: ( rule__Type__ScaleParamsAssignment_2_4_1 )
+            // InternalSLEEC.g:1580:1: ( ( rule__Type__ScaleParamsAssignment_2_4_1 ) )
+            // InternalSLEEC.g:1581:2: ( rule__Type__ScaleParamsAssignment_2_4_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeAccess().getScaleParamsAssignment_2_4_1()); 
             }
-            // InternalSLEEC.g:1576:2: ( rule__Type__ScaleParamsAssignment_2_4_1 )
-            // InternalSLEEC.g:1576:3: rule__Type__ScaleParamsAssignment_2_4_1
+            // InternalSLEEC.g:1582:2: ( rule__Type__ScaleParamsAssignment_2_4_1 )
+            // InternalSLEEC.g:1582:3: rule__Type__ScaleParamsAssignment_2_4_1
             {
             pushFollow(FOLLOW_2);
             rule__Type__ScaleParamsAssignment_2_4_1();
@@ -5313,14 +5355,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RuleBlock__Group__0"
-    // InternalSLEEC.g:1585:1: rule__RuleBlock__Group__0 : rule__RuleBlock__Group__0__Impl rule__RuleBlock__Group__1 ;
+    // InternalSLEEC.g:1591:1: rule__RuleBlock__Group__0 : rule__RuleBlock__Group__0__Impl rule__RuleBlock__Group__1 ;
     public final void rule__RuleBlock__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1589:1: ( rule__RuleBlock__Group__0__Impl rule__RuleBlock__Group__1 )
-            // InternalSLEEC.g:1590:2: rule__RuleBlock__Group__0__Impl rule__RuleBlock__Group__1
+            // InternalSLEEC.g:1595:1: ( rule__RuleBlock__Group__0__Impl rule__RuleBlock__Group__1 )
+            // InternalSLEEC.g:1596:2: rule__RuleBlock__Group__0__Impl rule__RuleBlock__Group__1
             {
             pushFollow(FOLLOW_7);
             rule__RuleBlock__Group__0__Impl();
@@ -5351,17 +5393,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RuleBlock__Group__0__Impl"
-    // InternalSLEEC.g:1597:1: rule__RuleBlock__Group__0__Impl : ( 'rule_start' ) ;
+    // InternalSLEEC.g:1603:1: rule__RuleBlock__Group__0__Impl : ( 'rule_start' ) ;
     public final void rule__RuleBlock__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1601:1: ( ( 'rule_start' ) )
-            // InternalSLEEC.g:1602:1: ( 'rule_start' )
+            // InternalSLEEC.g:1607:1: ( ( 'rule_start' ) )
+            // InternalSLEEC.g:1608:1: ( 'rule_start' )
             {
-            // InternalSLEEC.g:1602:1: ( 'rule_start' )
-            // InternalSLEEC.g:1603:2: 'rule_start'
+            // InternalSLEEC.g:1608:1: ( 'rule_start' )
+            // InternalSLEEC.g:1609:2: 'rule_start'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleBlockAccess().getRule_startKeyword_0()); 
@@ -5392,14 +5434,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RuleBlock__Group__1"
-    // InternalSLEEC.g:1612:1: rule__RuleBlock__Group__1 : rule__RuleBlock__Group__1__Impl rule__RuleBlock__Group__2 ;
+    // InternalSLEEC.g:1618:1: rule__RuleBlock__Group__1 : rule__RuleBlock__Group__1__Impl rule__RuleBlock__Group__2 ;
     public final void rule__RuleBlock__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1616:1: ( rule__RuleBlock__Group__1__Impl rule__RuleBlock__Group__2 )
-            // InternalSLEEC.g:1617:2: rule__RuleBlock__Group__1__Impl rule__RuleBlock__Group__2
+            // InternalSLEEC.g:1622:1: ( rule__RuleBlock__Group__1__Impl rule__RuleBlock__Group__2 )
+            // InternalSLEEC.g:1623:2: rule__RuleBlock__Group__1__Impl rule__RuleBlock__Group__2
             {
             pushFollow(FOLLOW_17);
             rule__RuleBlock__Group__1__Impl();
@@ -5430,26 +5472,26 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RuleBlock__Group__1__Impl"
-    // InternalSLEEC.g:1624:1: rule__RuleBlock__Group__1__Impl : ( ( ( rule__RuleBlock__RulesAssignment_1 ) ) ( ( rule__RuleBlock__RulesAssignment_1 )* ) ) ;
+    // InternalSLEEC.g:1630:1: rule__RuleBlock__Group__1__Impl : ( ( ( rule__RuleBlock__RulesAssignment_1 ) ) ( ( rule__RuleBlock__RulesAssignment_1 )* ) ) ;
     public final void rule__RuleBlock__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1628:1: ( ( ( ( rule__RuleBlock__RulesAssignment_1 ) ) ( ( rule__RuleBlock__RulesAssignment_1 )* ) ) )
-            // InternalSLEEC.g:1629:1: ( ( ( rule__RuleBlock__RulesAssignment_1 ) ) ( ( rule__RuleBlock__RulesAssignment_1 )* ) )
+            // InternalSLEEC.g:1634:1: ( ( ( ( rule__RuleBlock__RulesAssignment_1 ) ) ( ( rule__RuleBlock__RulesAssignment_1 )* ) ) )
+            // InternalSLEEC.g:1635:1: ( ( ( rule__RuleBlock__RulesAssignment_1 ) ) ( ( rule__RuleBlock__RulesAssignment_1 )* ) )
             {
-            // InternalSLEEC.g:1629:1: ( ( ( rule__RuleBlock__RulesAssignment_1 ) ) ( ( rule__RuleBlock__RulesAssignment_1 )* ) )
-            // InternalSLEEC.g:1630:2: ( ( rule__RuleBlock__RulesAssignment_1 ) ) ( ( rule__RuleBlock__RulesAssignment_1 )* )
+            // InternalSLEEC.g:1635:1: ( ( ( rule__RuleBlock__RulesAssignment_1 ) ) ( ( rule__RuleBlock__RulesAssignment_1 )* ) )
+            // InternalSLEEC.g:1636:2: ( ( rule__RuleBlock__RulesAssignment_1 ) ) ( ( rule__RuleBlock__RulesAssignment_1 )* )
             {
-            // InternalSLEEC.g:1630:2: ( ( rule__RuleBlock__RulesAssignment_1 ) )
-            // InternalSLEEC.g:1631:3: ( rule__RuleBlock__RulesAssignment_1 )
+            // InternalSLEEC.g:1636:2: ( ( rule__RuleBlock__RulesAssignment_1 ) )
+            // InternalSLEEC.g:1637:3: ( rule__RuleBlock__RulesAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleBlockAccess().getRulesAssignment_1()); 
             }
-            // InternalSLEEC.g:1632:3: ( rule__RuleBlock__RulesAssignment_1 )
-            // InternalSLEEC.g:1632:4: rule__RuleBlock__RulesAssignment_1
+            // InternalSLEEC.g:1638:3: ( rule__RuleBlock__RulesAssignment_1 )
+            // InternalSLEEC.g:1638:4: rule__RuleBlock__RulesAssignment_1
             {
             pushFollow(FOLLOW_18);
             rule__RuleBlock__RulesAssignment_1();
@@ -5465,13 +5507,13 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // InternalSLEEC.g:1635:2: ( ( rule__RuleBlock__RulesAssignment_1 )* )
-            // InternalSLEEC.g:1636:3: ( rule__RuleBlock__RulesAssignment_1 )*
+            // InternalSLEEC.g:1641:2: ( ( rule__RuleBlock__RulesAssignment_1 )* )
+            // InternalSLEEC.g:1642:3: ( rule__RuleBlock__RulesAssignment_1 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleBlockAccess().getRulesAssignment_1()); 
             }
-            // InternalSLEEC.g:1637:3: ( rule__RuleBlock__RulesAssignment_1 )*
+            // InternalSLEEC.g:1643:3: ( rule__RuleBlock__RulesAssignment_1 )*
             loop11:
             do {
                 int alt11=2;
@@ -5484,7 +5526,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
                 switch (alt11) {
             	case 1 :
-            	    // InternalSLEEC.g:1637:4: rule__RuleBlock__RulesAssignment_1
+            	    // InternalSLEEC.g:1643:4: rule__RuleBlock__RulesAssignment_1
             	    {
             	    pushFollow(FOLLOW_18);
             	    rule__RuleBlock__RulesAssignment_1();
@@ -5528,14 +5570,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RuleBlock__Group__2"
-    // InternalSLEEC.g:1646:1: rule__RuleBlock__Group__2 : rule__RuleBlock__Group__2__Impl ;
+    // InternalSLEEC.g:1652:1: rule__RuleBlock__Group__2 : rule__RuleBlock__Group__2__Impl ;
     public final void rule__RuleBlock__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1650:1: ( rule__RuleBlock__Group__2__Impl )
-            // InternalSLEEC.g:1651:2: rule__RuleBlock__Group__2__Impl
+            // InternalSLEEC.g:1656:1: ( rule__RuleBlock__Group__2__Impl )
+            // InternalSLEEC.g:1657:2: rule__RuleBlock__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__RuleBlock__Group__2__Impl();
@@ -5561,17 +5603,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RuleBlock__Group__2__Impl"
-    // InternalSLEEC.g:1657:1: rule__RuleBlock__Group__2__Impl : ( 'rule_end' ) ;
+    // InternalSLEEC.g:1663:1: rule__RuleBlock__Group__2__Impl : ( 'rule_end' ) ;
     public final void rule__RuleBlock__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1661:1: ( ( 'rule_end' ) )
-            // InternalSLEEC.g:1662:1: ( 'rule_end' )
+            // InternalSLEEC.g:1667:1: ( ( 'rule_end' ) )
+            // InternalSLEEC.g:1668:1: ( 'rule_end' )
             {
-            // InternalSLEEC.g:1662:1: ( 'rule_end' )
-            // InternalSLEEC.g:1663:2: 'rule_end'
+            // InternalSLEEC.g:1668:1: ( 'rule_end' )
+            // InternalSLEEC.g:1669:2: 'rule_end'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleBlockAccess().getRule_endKeyword_2()); 
@@ -5602,14 +5644,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__0"
-    // InternalSLEEC.g:1673:1: rule__Rule__Group__0 : rule__Rule__Group__0__Impl rule__Rule__Group__1 ;
+    // InternalSLEEC.g:1679:1: rule__Rule__Group__0 : rule__Rule__Group__0__Impl rule__Rule__Group__1 ;
     public final void rule__Rule__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1677:1: ( rule__Rule__Group__0__Impl rule__Rule__Group__1 )
-            // InternalSLEEC.g:1678:2: rule__Rule__Group__0__Impl rule__Rule__Group__1
+            // InternalSLEEC.g:1683:1: ( rule__Rule__Group__0__Impl rule__Rule__Group__1 )
+            // InternalSLEEC.g:1684:2: rule__Rule__Group__0__Impl rule__Rule__Group__1
             {
             pushFollow(FOLLOW_19);
             rule__Rule__Group__0__Impl();
@@ -5640,23 +5682,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__0__Impl"
-    // InternalSLEEC.g:1685:1: rule__Rule__Group__0__Impl : ( ( rule__Rule__NameAssignment_0 ) ) ;
+    // InternalSLEEC.g:1691:1: rule__Rule__Group__0__Impl : ( ( rule__Rule__NameAssignment_0 ) ) ;
     public final void rule__Rule__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1689:1: ( ( ( rule__Rule__NameAssignment_0 ) ) )
-            // InternalSLEEC.g:1690:1: ( ( rule__Rule__NameAssignment_0 ) )
+            // InternalSLEEC.g:1695:1: ( ( ( rule__Rule__NameAssignment_0 ) ) )
+            // InternalSLEEC.g:1696:1: ( ( rule__Rule__NameAssignment_0 ) )
             {
-            // InternalSLEEC.g:1690:1: ( ( rule__Rule__NameAssignment_0 ) )
-            // InternalSLEEC.g:1691:2: ( rule__Rule__NameAssignment_0 )
+            // InternalSLEEC.g:1696:1: ( ( rule__Rule__NameAssignment_0 ) )
+            // InternalSLEEC.g:1697:2: ( rule__Rule__NameAssignment_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleAccess().getNameAssignment_0()); 
             }
-            // InternalSLEEC.g:1692:2: ( rule__Rule__NameAssignment_0 )
-            // InternalSLEEC.g:1692:3: rule__Rule__NameAssignment_0
+            // InternalSLEEC.g:1698:2: ( rule__Rule__NameAssignment_0 )
+            // InternalSLEEC.g:1698:3: rule__Rule__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__Rule__NameAssignment_0();
@@ -5691,14 +5733,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__1"
-    // InternalSLEEC.g:1700:1: rule__Rule__Group__1 : rule__Rule__Group__1__Impl rule__Rule__Group__2 ;
+    // InternalSLEEC.g:1706:1: rule__Rule__Group__1 : rule__Rule__Group__1__Impl rule__Rule__Group__2 ;
     public final void rule__Rule__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1704:1: ( rule__Rule__Group__1__Impl rule__Rule__Group__2 )
-            // InternalSLEEC.g:1705:2: rule__Rule__Group__1__Impl rule__Rule__Group__2
+            // InternalSLEEC.g:1710:1: ( rule__Rule__Group__1__Impl rule__Rule__Group__2 )
+            // InternalSLEEC.g:1711:2: rule__Rule__Group__1__Impl rule__Rule__Group__2
             {
             pushFollow(FOLLOW_7);
             rule__Rule__Group__1__Impl();
@@ -5729,17 +5771,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__1__Impl"
-    // InternalSLEEC.g:1712:1: rule__Rule__Group__1__Impl : ( 'when' ) ;
+    // InternalSLEEC.g:1718:1: rule__Rule__Group__1__Impl : ( 'when' ) ;
     public final void rule__Rule__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1716:1: ( ( 'when' ) )
-            // InternalSLEEC.g:1717:1: ( 'when' )
+            // InternalSLEEC.g:1722:1: ( ( 'when' ) )
+            // InternalSLEEC.g:1723:1: ( 'when' )
             {
-            // InternalSLEEC.g:1717:1: ( 'when' )
-            // InternalSLEEC.g:1718:2: 'when'
+            // InternalSLEEC.g:1723:1: ( 'when' )
+            // InternalSLEEC.g:1724:2: 'when'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleAccess().getWhenKeyword_1()); 
@@ -5770,14 +5812,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__2"
-    // InternalSLEEC.g:1727:1: rule__Rule__Group__2 : rule__Rule__Group__2__Impl rule__Rule__Group__3 ;
+    // InternalSLEEC.g:1733:1: rule__Rule__Group__2 : rule__Rule__Group__2__Impl rule__Rule__Group__3 ;
     public final void rule__Rule__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1731:1: ( rule__Rule__Group__2__Impl rule__Rule__Group__3 )
-            // InternalSLEEC.g:1732:2: rule__Rule__Group__2__Impl rule__Rule__Group__3
+            // InternalSLEEC.g:1737:1: ( rule__Rule__Group__2__Impl rule__Rule__Group__3 )
+            // InternalSLEEC.g:1738:2: rule__Rule__Group__2__Impl rule__Rule__Group__3
             {
             pushFollow(FOLLOW_20);
             rule__Rule__Group__2__Impl();
@@ -5808,23 +5850,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__2__Impl"
-    // InternalSLEEC.g:1739:1: rule__Rule__Group__2__Impl : ( ( rule__Rule__TriggerAssignment_2 ) ) ;
+    // InternalSLEEC.g:1745:1: rule__Rule__Group__2__Impl : ( ( rule__Rule__TriggerAssignment_2 ) ) ;
     public final void rule__Rule__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1743:1: ( ( ( rule__Rule__TriggerAssignment_2 ) ) )
-            // InternalSLEEC.g:1744:1: ( ( rule__Rule__TriggerAssignment_2 ) )
+            // InternalSLEEC.g:1749:1: ( ( ( rule__Rule__TriggerAssignment_2 ) ) )
+            // InternalSLEEC.g:1750:1: ( ( rule__Rule__TriggerAssignment_2 ) )
             {
-            // InternalSLEEC.g:1744:1: ( ( rule__Rule__TriggerAssignment_2 ) )
-            // InternalSLEEC.g:1745:2: ( rule__Rule__TriggerAssignment_2 )
+            // InternalSLEEC.g:1750:1: ( ( rule__Rule__TriggerAssignment_2 ) )
+            // InternalSLEEC.g:1751:2: ( rule__Rule__TriggerAssignment_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleAccess().getTriggerAssignment_2()); 
             }
-            // InternalSLEEC.g:1746:2: ( rule__Rule__TriggerAssignment_2 )
-            // InternalSLEEC.g:1746:3: rule__Rule__TriggerAssignment_2
+            // InternalSLEEC.g:1752:2: ( rule__Rule__TriggerAssignment_2 )
+            // InternalSLEEC.g:1752:3: rule__Rule__TriggerAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__Rule__TriggerAssignment_2();
@@ -5859,14 +5901,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__3"
-    // InternalSLEEC.g:1754:1: rule__Rule__Group__3 : rule__Rule__Group__3__Impl rule__Rule__Group__4 ;
+    // InternalSLEEC.g:1760:1: rule__Rule__Group__3 : rule__Rule__Group__3__Impl rule__Rule__Group__4 ;
     public final void rule__Rule__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1758:1: ( rule__Rule__Group__3__Impl rule__Rule__Group__4 )
-            // InternalSLEEC.g:1759:2: rule__Rule__Group__3__Impl rule__Rule__Group__4
+            // InternalSLEEC.g:1764:1: ( rule__Rule__Group__3__Impl rule__Rule__Group__4 )
+            // InternalSLEEC.g:1765:2: rule__Rule__Group__3__Impl rule__Rule__Group__4
             {
             pushFollow(FOLLOW_21);
             rule__Rule__Group__3__Impl();
@@ -5897,17 +5939,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__3__Impl"
-    // InternalSLEEC.g:1766:1: rule__Rule__Group__3__Impl : ( 'then' ) ;
+    // InternalSLEEC.g:1772:1: rule__Rule__Group__3__Impl : ( 'then' ) ;
     public final void rule__Rule__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1770:1: ( ( 'then' ) )
-            // InternalSLEEC.g:1771:1: ( 'then' )
+            // InternalSLEEC.g:1776:1: ( ( 'then' ) )
+            // InternalSLEEC.g:1777:1: ( 'then' )
             {
-            // InternalSLEEC.g:1771:1: ( 'then' )
-            // InternalSLEEC.g:1772:2: 'then'
+            // InternalSLEEC.g:1777:1: ( 'then' )
+            // InternalSLEEC.g:1778:2: 'then'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleAccess().getThenKeyword_3()); 
@@ -5938,14 +5980,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__4"
-    // InternalSLEEC.g:1781:1: rule__Rule__Group__4 : rule__Rule__Group__4__Impl rule__Rule__Group__5 ;
+    // InternalSLEEC.g:1787:1: rule__Rule__Group__4 : rule__Rule__Group__4__Impl rule__Rule__Group__5 ;
     public final void rule__Rule__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1785:1: ( rule__Rule__Group__4__Impl rule__Rule__Group__5 )
-            // InternalSLEEC.g:1786:2: rule__Rule__Group__4__Impl rule__Rule__Group__5
+            // InternalSLEEC.g:1791:1: ( rule__Rule__Group__4__Impl rule__Rule__Group__5 )
+            // InternalSLEEC.g:1792:2: rule__Rule__Group__4__Impl rule__Rule__Group__5
             {
             pushFollow(FOLLOW_22);
             rule__Rule__Group__4__Impl();
@@ -5976,23 +6018,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__4__Impl"
-    // InternalSLEEC.g:1793:1: rule__Rule__Group__4__Impl : ( ( rule__Rule__ResponseAssignment_4 ) ) ;
+    // InternalSLEEC.g:1799:1: rule__Rule__Group__4__Impl : ( ( rule__Rule__ResponseAssignment_4 ) ) ;
     public final void rule__Rule__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1797:1: ( ( ( rule__Rule__ResponseAssignment_4 ) ) )
-            // InternalSLEEC.g:1798:1: ( ( rule__Rule__ResponseAssignment_4 ) )
+            // InternalSLEEC.g:1803:1: ( ( ( rule__Rule__ResponseAssignment_4 ) ) )
+            // InternalSLEEC.g:1804:1: ( ( rule__Rule__ResponseAssignment_4 ) )
             {
-            // InternalSLEEC.g:1798:1: ( ( rule__Rule__ResponseAssignment_4 ) )
-            // InternalSLEEC.g:1799:2: ( rule__Rule__ResponseAssignment_4 )
+            // InternalSLEEC.g:1804:1: ( ( rule__Rule__ResponseAssignment_4 ) )
+            // InternalSLEEC.g:1805:2: ( rule__Rule__ResponseAssignment_4 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleAccess().getResponseAssignment_4()); 
             }
-            // InternalSLEEC.g:1800:2: ( rule__Rule__ResponseAssignment_4 )
-            // InternalSLEEC.g:1800:3: rule__Rule__ResponseAssignment_4
+            // InternalSLEEC.g:1806:2: ( rule__Rule__ResponseAssignment_4 )
+            // InternalSLEEC.g:1806:3: rule__Rule__ResponseAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__Rule__ResponseAssignment_4();
@@ -6027,14 +6069,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__5"
-    // InternalSLEEC.g:1808:1: rule__Rule__Group__5 : rule__Rule__Group__5__Impl ;
+    // InternalSLEEC.g:1814:1: rule__Rule__Group__5 : rule__Rule__Group__5__Impl ;
     public final void rule__Rule__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1812:1: ( rule__Rule__Group__5__Impl )
-            // InternalSLEEC.g:1813:2: rule__Rule__Group__5__Impl
+            // InternalSLEEC.g:1818:1: ( rule__Rule__Group__5__Impl )
+            // InternalSLEEC.g:1819:2: rule__Rule__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Rule__Group__5__Impl();
@@ -6060,22 +6102,22 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__Group__5__Impl"
-    // InternalSLEEC.g:1819:1: rule__Rule__Group__5__Impl : ( ( rule__Rule__DefeatersAssignment_5 )* ) ;
+    // InternalSLEEC.g:1825:1: rule__Rule__Group__5__Impl : ( ( rule__Rule__DefeatersAssignment_5 )* ) ;
     public final void rule__Rule__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1823:1: ( ( ( rule__Rule__DefeatersAssignment_5 )* ) )
-            // InternalSLEEC.g:1824:1: ( ( rule__Rule__DefeatersAssignment_5 )* )
+            // InternalSLEEC.g:1829:1: ( ( ( rule__Rule__DefeatersAssignment_5 )* ) )
+            // InternalSLEEC.g:1830:1: ( ( rule__Rule__DefeatersAssignment_5 )* )
             {
-            // InternalSLEEC.g:1824:1: ( ( rule__Rule__DefeatersAssignment_5 )* )
-            // InternalSLEEC.g:1825:2: ( rule__Rule__DefeatersAssignment_5 )*
+            // InternalSLEEC.g:1830:1: ( ( rule__Rule__DefeatersAssignment_5 )* )
+            // InternalSLEEC.g:1831:2: ( rule__Rule__DefeatersAssignment_5 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleAccess().getDefeatersAssignment_5()); 
             }
-            // InternalSLEEC.g:1826:2: ( rule__Rule__DefeatersAssignment_5 )*
+            // InternalSLEEC.g:1832:2: ( rule__Rule__DefeatersAssignment_5 )*
             loop12:
             do {
                 int alt12=2;
@@ -6088,7 +6130,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
                 switch (alt12) {
             	case 1 :
-            	    // InternalSLEEC.g:1826:3: rule__Rule__DefeatersAssignment_5
+            	    // InternalSLEEC.g:1832:3: rule__Rule__DefeatersAssignment_5
             	    {
             	    pushFollow(FOLLOW_23);
             	    rule__Rule__DefeatersAssignment_5();
@@ -6129,14 +6171,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Trigger__Group__0"
-    // InternalSLEEC.g:1835:1: rule__Trigger__Group__0 : rule__Trigger__Group__0__Impl rule__Trigger__Group__1 ;
+    // InternalSLEEC.g:1841:1: rule__Trigger__Group__0 : rule__Trigger__Group__0__Impl rule__Trigger__Group__1 ;
     public final void rule__Trigger__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1839:1: ( rule__Trigger__Group__0__Impl rule__Trigger__Group__1 )
-            // InternalSLEEC.g:1840:2: rule__Trigger__Group__0__Impl rule__Trigger__Group__1
+            // InternalSLEEC.g:1845:1: ( rule__Trigger__Group__0__Impl rule__Trigger__Group__1 )
+            // InternalSLEEC.g:1846:2: rule__Trigger__Group__0__Impl rule__Trigger__Group__1
             {
             pushFollow(FOLLOW_24);
             rule__Trigger__Group__0__Impl();
@@ -6167,23 +6209,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Trigger__Group__0__Impl"
-    // InternalSLEEC.g:1847:1: rule__Trigger__Group__0__Impl : ( ( rule__Trigger__EventAssignment_0 ) ) ;
+    // InternalSLEEC.g:1853:1: rule__Trigger__Group__0__Impl : ( ( rule__Trigger__EventAssignment_0 ) ) ;
     public final void rule__Trigger__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1851:1: ( ( ( rule__Trigger__EventAssignment_0 ) ) )
-            // InternalSLEEC.g:1852:1: ( ( rule__Trigger__EventAssignment_0 ) )
+            // InternalSLEEC.g:1857:1: ( ( ( rule__Trigger__EventAssignment_0 ) ) )
+            // InternalSLEEC.g:1858:1: ( ( rule__Trigger__EventAssignment_0 ) )
             {
-            // InternalSLEEC.g:1852:1: ( ( rule__Trigger__EventAssignment_0 ) )
-            // InternalSLEEC.g:1853:2: ( rule__Trigger__EventAssignment_0 )
+            // InternalSLEEC.g:1858:1: ( ( rule__Trigger__EventAssignment_0 ) )
+            // InternalSLEEC.g:1859:2: ( rule__Trigger__EventAssignment_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTriggerAccess().getEventAssignment_0()); 
             }
-            // InternalSLEEC.g:1854:2: ( rule__Trigger__EventAssignment_0 )
-            // InternalSLEEC.g:1854:3: rule__Trigger__EventAssignment_0
+            // InternalSLEEC.g:1860:2: ( rule__Trigger__EventAssignment_0 )
+            // InternalSLEEC.g:1860:3: rule__Trigger__EventAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__Trigger__EventAssignment_0();
@@ -6218,14 +6260,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Trigger__Group__1"
-    // InternalSLEEC.g:1862:1: rule__Trigger__Group__1 : rule__Trigger__Group__1__Impl ;
+    // InternalSLEEC.g:1868:1: rule__Trigger__Group__1 : rule__Trigger__Group__1__Impl ;
     public final void rule__Trigger__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1866:1: ( rule__Trigger__Group__1__Impl )
-            // InternalSLEEC.g:1867:2: rule__Trigger__Group__1__Impl
+            // InternalSLEEC.g:1872:1: ( rule__Trigger__Group__1__Impl )
+            // InternalSLEEC.g:1873:2: rule__Trigger__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Trigger__Group__1__Impl();
@@ -6251,22 +6293,22 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Trigger__Group__1__Impl"
-    // InternalSLEEC.g:1873:1: rule__Trigger__Group__1__Impl : ( ( rule__Trigger__Group_1__0 )? ) ;
+    // InternalSLEEC.g:1879:1: rule__Trigger__Group__1__Impl : ( ( rule__Trigger__Group_1__0 )? ) ;
     public final void rule__Trigger__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1877:1: ( ( ( rule__Trigger__Group_1__0 )? ) )
-            // InternalSLEEC.g:1878:1: ( ( rule__Trigger__Group_1__0 )? )
+            // InternalSLEEC.g:1883:1: ( ( ( rule__Trigger__Group_1__0 )? ) )
+            // InternalSLEEC.g:1884:1: ( ( rule__Trigger__Group_1__0 )? )
             {
-            // InternalSLEEC.g:1878:1: ( ( rule__Trigger__Group_1__0 )? )
-            // InternalSLEEC.g:1879:2: ( rule__Trigger__Group_1__0 )?
+            // InternalSLEEC.g:1884:1: ( ( rule__Trigger__Group_1__0 )? )
+            // InternalSLEEC.g:1885:2: ( rule__Trigger__Group_1__0 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTriggerAccess().getGroup_1()); 
             }
-            // InternalSLEEC.g:1880:2: ( rule__Trigger__Group_1__0 )?
+            // InternalSLEEC.g:1886:2: ( rule__Trigger__Group_1__0 )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -6275,7 +6317,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
             }
             switch (alt13) {
                 case 1 :
-                    // InternalSLEEC.g:1880:3: rule__Trigger__Group_1__0
+                    // InternalSLEEC.g:1886:3: rule__Trigger__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Trigger__Group_1__0();
@@ -6313,14 +6355,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Trigger__Group_1__0"
-    // InternalSLEEC.g:1889:1: rule__Trigger__Group_1__0 : rule__Trigger__Group_1__0__Impl rule__Trigger__Group_1__1 ;
+    // InternalSLEEC.g:1895:1: rule__Trigger__Group_1__0 : rule__Trigger__Group_1__0__Impl rule__Trigger__Group_1__1 ;
     public final void rule__Trigger__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1893:1: ( rule__Trigger__Group_1__0__Impl rule__Trigger__Group_1__1 )
-            // InternalSLEEC.g:1894:2: rule__Trigger__Group_1__0__Impl rule__Trigger__Group_1__1
+            // InternalSLEEC.g:1899:1: ( rule__Trigger__Group_1__0__Impl rule__Trigger__Group_1__1 )
+            // InternalSLEEC.g:1900:2: rule__Trigger__Group_1__0__Impl rule__Trigger__Group_1__1
             {
             pushFollow(FOLLOW_25);
             rule__Trigger__Group_1__0__Impl();
@@ -6351,17 +6393,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Trigger__Group_1__0__Impl"
-    // InternalSLEEC.g:1901:1: rule__Trigger__Group_1__0__Impl : ( 'and' ) ;
+    // InternalSLEEC.g:1907:1: rule__Trigger__Group_1__0__Impl : ( 'and' ) ;
     public final void rule__Trigger__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1905:1: ( ( 'and' ) )
-            // InternalSLEEC.g:1906:1: ( 'and' )
+            // InternalSLEEC.g:1911:1: ( ( 'and' ) )
+            // InternalSLEEC.g:1912:1: ( 'and' )
             {
-            // InternalSLEEC.g:1906:1: ( 'and' )
-            // InternalSLEEC.g:1907:2: 'and'
+            // InternalSLEEC.g:1912:1: ( 'and' )
+            // InternalSLEEC.g:1913:2: 'and'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTriggerAccess().getAndKeyword_1_0()); 
@@ -6392,14 +6434,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Trigger__Group_1__1"
-    // InternalSLEEC.g:1916:1: rule__Trigger__Group_1__1 : rule__Trigger__Group_1__1__Impl ;
+    // InternalSLEEC.g:1922:1: rule__Trigger__Group_1__1 : rule__Trigger__Group_1__1__Impl ;
     public final void rule__Trigger__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1920:1: ( rule__Trigger__Group_1__1__Impl )
-            // InternalSLEEC.g:1921:2: rule__Trigger__Group_1__1__Impl
+            // InternalSLEEC.g:1926:1: ( rule__Trigger__Group_1__1__Impl )
+            // InternalSLEEC.g:1927:2: rule__Trigger__Group_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Trigger__Group_1__1__Impl();
@@ -6425,23 +6467,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Trigger__Group_1__1__Impl"
-    // InternalSLEEC.g:1927:1: rule__Trigger__Group_1__1__Impl : ( ( rule__Trigger__ExprAssignment_1_1 ) ) ;
+    // InternalSLEEC.g:1933:1: rule__Trigger__Group_1__1__Impl : ( ( rule__Trigger__ExprAssignment_1_1 ) ) ;
     public final void rule__Trigger__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1931:1: ( ( ( rule__Trigger__ExprAssignment_1_1 ) ) )
-            // InternalSLEEC.g:1932:1: ( ( rule__Trigger__ExprAssignment_1_1 ) )
+            // InternalSLEEC.g:1937:1: ( ( ( rule__Trigger__ExprAssignment_1_1 ) ) )
+            // InternalSLEEC.g:1938:1: ( ( rule__Trigger__ExprAssignment_1_1 ) )
             {
-            // InternalSLEEC.g:1932:1: ( ( rule__Trigger__ExprAssignment_1_1 ) )
-            // InternalSLEEC.g:1933:2: ( rule__Trigger__ExprAssignment_1_1 )
+            // InternalSLEEC.g:1938:1: ( ( rule__Trigger__ExprAssignment_1_1 ) )
+            // InternalSLEEC.g:1939:2: ( rule__Trigger__ExprAssignment_1_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTriggerAccess().getExprAssignment_1_1()); 
             }
-            // InternalSLEEC.g:1934:2: ( rule__Trigger__ExprAssignment_1_1 )
-            // InternalSLEEC.g:1934:3: rule__Trigger__ExprAssignment_1_1
+            // InternalSLEEC.g:1940:2: ( rule__Trigger__ExprAssignment_1_1 )
+            // InternalSLEEC.g:1940:3: rule__Trigger__ExprAssignment_1_1
             {
             pushFollow(FOLLOW_2);
             rule__Trigger__ExprAssignment_1_1();
@@ -6476,14 +6518,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__Group__0"
-    // InternalSLEEC.g:1943:1: rule__BoolComp__Group__0 : rule__BoolComp__Group__0__Impl rule__BoolComp__Group__1 ;
+    // InternalSLEEC.g:1949:1: rule__BoolComp__Group__0 : rule__BoolComp__Group__0__Impl rule__BoolComp__Group__1 ;
     public final void rule__BoolComp__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1947:1: ( rule__BoolComp__Group__0__Impl rule__BoolComp__Group__1 )
-            // InternalSLEEC.g:1948:2: rule__BoolComp__Group__0__Impl rule__BoolComp__Group__1
+            // InternalSLEEC.g:1953:1: ( rule__BoolComp__Group__0__Impl rule__BoolComp__Group__1 )
+            // InternalSLEEC.g:1954:2: rule__BoolComp__Group__0__Impl rule__BoolComp__Group__1
             {
             pushFollow(FOLLOW_26);
             rule__BoolComp__Group__0__Impl();
@@ -6514,17 +6556,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__Group__0__Impl"
-    // InternalSLEEC.g:1955:1: rule__BoolComp__Group__0__Impl : ( ruleNot ) ;
+    // InternalSLEEC.g:1961:1: rule__BoolComp__Group__0__Impl : ( ruleNot ) ;
     public final void rule__BoolComp__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1959:1: ( ( ruleNot ) )
-            // InternalSLEEC.g:1960:1: ( ruleNot )
+            // InternalSLEEC.g:1965:1: ( ( ruleNot ) )
+            // InternalSLEEC.g:1966:1: ( ruleNot )
             {
-            // InternalSLEEC.g:1960:1: ( ruleNot )
-            // InternalSLEEC.g:1961:2: ruleNot
+            // InternalSLEEC.g:1966:1: ( ruleNot )
+            // InternalSLEEC.g:1967:2: ruleNot
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getBoolCompAccess().getNotParserRuleCall_0()); 
@@ -6559,14 +6601,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__Group__1"
-    // InternalSLEEC.g:1970:1: rule__BoolComp__Group__1 : rule__BoolComp__Group__1__Impl ;
+    // InternalSLEEC.g:1976:1: rule__BoolComp__Group__1 : rule__BoolComp__Group__1__Impl ;
     public final void rule__BoolComp__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1974:1: ( rule__BoolComp__Group__1__Impl )
-            // InternalSLEEC.g:1975:2: rule__BoolComp__Group__1__Impl
+            // InternalSLEEC.g:1980:1: ( rule__BoolComp__Group__1__Impl )
+            // InternalSLEEC.g:1981:2: rule__BoolComp__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__BoolComp__Group__1__Impl();
@@ -6592,22 +6634,22 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__Group__1__Impl"
-    // InternalSLEEC.g:1981:1: rule__BoolComp__Group__1__Impl : ( ( rule__BoolComp__Group_1__0 )* ) ;
+    // InternalSLEEC.g:1987:1: rule__BoolComp__Group__1__Impl : ( ( rule__BoolComp__Group_1__0 )* ) ;
     public final void rule__BoolComp__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:1985:1: ( ( ( rule__BoolComp__Group_1__0 )* ) )
-            // InternalSLEEC.g:1986:1: ( ( rule__BoolComp__Group_1__0 )* )
+            // InternalSLEEC.g:1991:1: ( ( ( rule__BoolComp__Group_1__0 )* ) )
+            // InternalSLEEC.g:1992:1: ( ( rule__BoolComp__Group_1__0 )* )
             {
-            // InternalSLEEC.g:1986:1: ( ( rule__BoolComp__Group_1__0 )* )
-            // InternalSLEEC.g:1987:2: ( rule__BoolComp__Group_1__0 )*
+            // InternalSLEEC.g:1992:1: ( ( rule__BoolComp__Group_1__0 )* )
+            // InternalSLEEC.g:1993:2: ( rule__BoolComp__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getBoolCompAccess().getGroup_1()); 
             }
-            // InternalSLEEC.g:1988:2: ( rule__BoolComp__Group_1__0 )*
+            // InternalSLEEC.g:1994:2: ( rule__BoolComp__Group_1__0 )*
             loop14:
             do {
                 int alt14=2;
@@ -6620,7 +6662,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
                 switch (alt14) {
             	case 1 :
-            	    // InternalSLEEC.g:1988:3: rule__BoolComp__Group_1__0
+            	    // InternalSLEEC.g:1994:3: rule__BoolComp__Group_1__0
             	    {
             	    pushFollow(FOLLOW_27);
             	    rule__BoolComp__Group_1__0();
@@ -6661,14 +6703,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__Group_1__0"
-    // InternalSLEEC.g:1997:1: rule__BoolComp__Group_1__0 : rule__BoolComp__Group_1__0__Impl rule__BoolComp__Group_1__1 ;
+    // InternalSLEEC.g:2003:1: rule__BoolComp__Group_1__0 : rule__BoolComp__Group_1__0__Impl rule__BoolComp__Group_1__1 ;
     public final void rule__BoolComp__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2001:1: ( rule__BoolComp__Group_1__0__Impl rule__BoolComp__Group_1__1 )
-            // InternalSLEEC.g:2002:2: rule__BoolComp__Group_1__0__Impl rule__BoolComp__Group_1__1
+            // InternalSLEEC.g:2007:1: ( rule__BoolComp__Group_1__0__Impl rule__BoolComp__Group_1__1 )
+            // InternalSLEEC.g:2008:2: rule__BoolComp__Group_1__0__Impl rule__BoolComp__Group_1__1
             {
             pushFollow(FOLLOW_26);
             rule__BoolComp__Group_1__0__Impl();
@@ -6699,23 +6741,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__Group_1__0__Impl"
-    // InternalSLEEC.g:2009:1: rule__BoolComp__Group_1__0__Impl : ( () ) ;
+    // InternalSLEEC.g:2015:1: rule__BoolComp__Group_1__0__Impl : ( () ) ;
     public final void rule__BoolComp__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2013:1: ( ( () ) )
-            // InternalSLEEC.g:2014:1: ( () )
+            // InternalSLEEC.g:2019:1: ( ( () ) )
+            // InternalSLEEC.g:2020:1: ( () )
             {
-            // InternalSLEEC.g:2014:1: ( () )
-            // InternalSLEEC.g:2015:2: ()
+            // InternalSLEEC.g:2020:1: ( () )
+            // InternalSLEEC.g:2021:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getBoolCompAccess().getBoolCompLeftAction_1_0()); 
             }
-            // InternalSLEEC.g:2016:2: ()
-            // InternalSLEEC.g:2016:3: 
+            // InternalSLEEC.g:2022:2: ()
+            // InternalSLEEC.g:2022:3: 
             {
             }
 
@@ -6740,14 +6782,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__Group_1__1"
-    // InternalSLEEC.g:2024:1: rule__BoolComp__Group_1__1 : rule__BoolComp__Group_1__1__Impl rule__BoolComp__Group_1__2 ;
+    // InternalSLEEC.g:2030:1: rule__BoolComp__Group_1__1 : rule__BoolComp__Group_1__1__Impl rule__BoolComp__Group_1__2 ;
     public final void rule__BoolComp__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2028:1: ( rule__BoolComp__Group_1__1__Impl rule__BoolComp__Group_1__2 )
-            // InternalSLEEC.g:2029:2: rule__BoolComp__Group_1__1__Impl rule__BoolComp__Group_1__2
+            // InternalSLEEC.g:2034:1: ( rule__BoolComp__Group_1__1__Impl rule__BoolComp__Group_1__2 )
+            // InternalSLEEC.g:2035:2: rule__BoolComp__Group_1__1__Impl rule__BoolComp__Group_1__2
             {
             pushFollow(FOLLOW_25);
             rule__BoolComp__Group_1__1__Impl();
@@ -6778,23 +6820,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__Group_1__1__Impl"
-    // InternalSLEEC.g:2036:1: rule__BoolComp__Group_1__1__Impl : ( ( rule__BoolComp__OpAssignment_1_1 ) ) ;
+    // InternalSLEEC.g:2042:1: rule__BoolComp__Group_1__1__Impl : ( ( rule__BoolComp__OpAssignment_1_1 ) ) ;
     public final void rule__BoolComp__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2040:1: ( ( ( rule__BoolComp__OpAssignment_1_1 ) ) )
-            // InternalSLEEC.g:2041:1: ( ( rule__BoolComp__OpAssignment_1_1 ) )
+            // InternalSLEEC.g:2046:1: ( ( ( rule__BoolComp__OpAssignment_1_1 ) ) )
+            // InternalSLEEC.g:2047:1: ( ( rule__BoolComp__OpAssignment_1_1 ) )
             {
-            // InternalSLEEC.g:2041:1: ( ( rule__BoolComp__OpAssignment_1_1 ) )
-            // InternalSLEEC.g:2042:2: ( rule__BoolComp__OpAssignment_1_1 )
+            // InternalSLEEC.g:2047:1: ( ( rule__BoolComp__OpAssignment_1_1 ) )
+            // InternalSLEEC.g:2048:2: ( rule__BoolComp__OpAssignment_1_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getBoolCompAccess().getOpAssignment_1_1()); 
             }
-            // InternalSLEEC.g:2043:2: ( rule__BoolComp__OpAssignment_1_1 )
-            // InternalSLEEC.g:2043:3: rule__BoolComp__OpAssignment_1_1
+            // InternalSLEEC.g:2049:2: ( rule__BoolComp__OpAssignment_1_1 )
+            // InternalSLEEC.g:2049:3: rule__BoolComp__OpAssignment_1_1
             {
             pushFollow(FOLLOW_2);
             rule__BoolComp__OpAssignment_1_1();
@@ -6829,14 +6871,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__Group_1__2"
-    // InternalSLEEC.g:2051:1: rule__BoolComp__Group_1__2 : rule__BoolComp__Group_1__2__Impl ;
+    // InternalSLEEC.g:2057:1: rule__BoolComp__Group_1__2 : rule__BoolComp__Group_1__2__Impl ;
     public final void rule__BoolComp__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2055:1: ( rule__BoolComp__Group_1__2__Impl )
-            // InternalSLEEC.g:2056:2: rule__BoolComp__Group_1__2__Impl
+            // InternalSLEEC.g:2061:1: ( rule__BoolComp__Group_1__2__Impl )
+            // InternalSLEEC.g:2062:2: rule__BoolComp__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__BoolComp__Group_1__2__Impl();
@@ -6862,23 +6904,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__Group_1__2__Impl"
-    // InternalSLEEC.g:2062:1: rule__BoolComp__Group_1__2__Impl : ( ( rule__BoolComp__RightAssignment_1_2 ) ) ;
+    // InternalSLEEC.g:2068:1: rule__BoolComp__Group_1__2__Impl : ( ( rule__BoolComp__RightAssignment_1_2 ) ) ;
     public final void rule__BoolComp__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2066:1: ( ( ( rule__BoolComp__RightAssignment_1_2 ) ) )
-            // InternalSLEEC.g:2067:1: ( ( rule__BoolComp__RightAssignment_1_2 ) )
+            // InternalSLEEC.g:2072:1: ( ( ( rule__BoolComp__RightAssignment_1_2 ) ) )
+            // InternalSLEEC.g:2073:1: ( ( rule__BoolComp__RightAssignment_1_2 ) )
             {
-            // InternalSLEEC.g:2067:1: ( ( rule__BoolComp__RightAssignment_1_2 ) )
-            // InternalSLEEC.g:2068:2: ( rule__BoolComp__RightAssignment_1_2 )
+            // InternalSLEEC.g:2073:1: ( ( rule__BoolComp__RightAssignment_1_2 ) )
+            // InternalSLEEC.g:2074:2: ( rule__BoolComp__RightAssignment_1_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getBoolCompAccess().getRightAssignment_1_2()); 
             }
-            // InternalSLEEC.g:2069:2: ( rule__BoolComp__RightAssignment_1_2 )
-            // InternalSLEEC.g:2069:3: rule__BoolComp__RightAssignment_1_2
+            // InternalSLEEC.g:2075:2: ( rule__BoolComp__RightAssignment_1_2 )
+            // InternalSLEEC.g:2075:3: rule__BoolComp__RightAssignment_1_2
             {
             pushFollow(FOLLOW_2);
             rule__BoolComp__RightAssignment_1_2();
@@ -6913,14 +6955,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Not__Group_0__0"
-    // InternalSLEEC.g:2078:1: rule__Not__Group_0__0 : rule__Not__Group_0__0__Impl rule__Not__Group_0__1 ;
+    // InternalSLEEC.g:2084:1: rule__Not__Group_0__0 : rule__Not__Group_0__0__Impl rule__Not__Group_0__1 ;
     public final void rule__Not__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2082:1: ( rule__Not__Group_0__0__Impl rule__Not__Group_0__1 )
-            // InternalSLEEC.g:2083:2: rule__Not__Group_0__0__Impl rule__Not__Group_0__1
+            // InternalSLEEC.g:2088:1: ( rule__Not__Group_0__0__Impl rule__Not__Group_0__1 )
+            // InternalSLEEC.g:2089:2: rule__Not__Group_0__0__Impl rule__Not__Group_0__1
             {
             pushFollow(FOLLOW_28);
             rule__Not__Group_0__0__Impl();
@@ -6951,23 +6993,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Not__Group_0__0__Impl"
-    // InternalSLEEC.g:2090:1: rule__Not__Group_0__0__Impl : ( () ) ;
+    // InternalSLEEC.g:2096:1: rule__Not__Group_0__0__Impl : ( () ) ;
     public final void rule__Not__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2094:1: ( ( () ) )
-            // InternalSLEEC.g:2095:1: ( () )
+            // InternalSLEEC.g:2100:1: ( ( () ) )
+            // InternalSLEEC.g:2101:1: ( () )
             {
-            // InternalSLEEC.g:2095:1: ( () )
-            // InternalSLEEC.g:2096:2: ()
+            // InternalSLEEC.g:2101:1: ( () )
+            // InternalSLEEC.g:2102:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNotAccess().getNotAction_0_0()); 
             }
-            // InternalSLEEC.g:2097:2: ()
-            // InternalSLEEC.g:2097:3: 
+            // InternalSLEEC.g:2103:2: ()
+            // InternalSLEEC.g:2103:3: 
             {
             }
 
@@ -6992,14 +7034,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Not__Group_0__1"
-    // InternalSLEEC.g:2105:1: rule__Not__Group_0__1 : rule__Not__Group_0__1__Impl rule__Not__Group_0__2 ;
+    // InternalSLEEC.g:2111:1: rule__Not__Group_0__1 : rule__Not__Group_0__1__Impl rule__Not__Group_0__2 ;
     public final void rule__Not__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2109:1: ( rule__Not__Group_0__1__Impl rule__Not__Group_0__2 )
-            // InternalSLEEC.g:2110:2: rule__Not__Group_0__1__Impl rule__Not__Group_0__2
+            // InternalSLEEC.g:2115:1: ( rule__Not__Group_0__1__Impl rule__Not__Group_0__2 )
+            // InternalSLEEC.g:2116:2: rule__Not__Group_0__1__Impl rule__Not__Group_0__2
             {
             pushFollow(FOLLOW_25);
             rule__Not__Group_0__1__Impl();
@@ -7030,17 +7072,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Not__Group_0__1__Impl"
-    // InternalSLEEC.g:2117:1: rule__Not__Group_0__1__Impl : ( 'not' ) ;
+    // InternalSLEEC.g:2123:1: rule__Not__Group_0__1__Impl : ( 'not' ) ;
     public final void rule__Not__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2121:1: ( ( 'not' ) )
-            // InternalSLEEC.g:2122:1: ( 'not' )
+            // InternalSLEEC.g:2127:1: ( ( 'not' ) )
+            // InternalSLEEC.g:2128:1: ( 'not' )
             {
-            // InternalSLEEC.g:2122:1: ( 'not' )
-            // InternalSLEEC.g:2123:2: 'not'
+            // InternalSLEEC.g:2128:1: ( 'not' )
+            // InternalSLEEC.g:2129:2: 'not'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNotAccess().getNotKeyword_0_1()); 
@@ -7071,14 +7113,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Not__Group_0__2"
-    // InternalSLEEC.g:2132:1: rule__Not__Group_0__2 : rule__Not__Group_0__2__Impl ;
+    // InternalSLEEC.g:2138:1: rule__Not__Group_0__2 : rule__Not__Group_0__2__Impl ;
     public final void rule__Not__Group_0__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2136:1: ( rule__Not__Group_0__2__Impl )
-            // InternalSLEEC.g:2137:2: rule__Not__Group_0__2__Impl
+            // InternalSLEEC.g:2142:1: ( rule__Not__Group_0__2__Impl )
+            // InternalSLEEC.g:2143:2: rule__Not__Group_0__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Not__Group_0__2__Impl();
@@ -7104,23 +7146,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Not__Group_0__2__Impl"
-    // InternalSLEEC.g:2143:1: rule__Not__Group_0__2__Impl : ( ( rule__Not__LeftAssignment_0_2 ) ) ;
+    // InternalSLEEC.g:2149:1: rule__Not__Group_0__2__Impl : ( ( rule__Not__LeftAssignment_0_2 ) ) ;
     public final void rule__Not__Group_0__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2147:1: ( ( ( rule__Not__LeftAssignment_0_2 ) ) )
-            // InternalSLEEC.g:2148:1: ( ( rule__Not__LeftAssignment_0_2 ) )
+            // InternalSLEEC.g:2153:1: ( ( ( rule__Not__LeftAssignment_0_2 ) ) )
+            // InternalSLEEC.g:2154:1: ( ( rule__Not__LeftAssignment_0_2 ) )
             {
-            // InternalSLEEC.g:2148:1: ( ( rule__Not__LeftAssignment_0_2 ) )
-            // InternalSLEEC.g:2149:2: ( rule__Not__LeftAssignment_0_2 )
+            // InternalSLEEC.g:2154:1: ( ( rule__Not__LeftAssignment_0_2 ) )
+            // InternalSLEEC.g:2155:2: ( rule__Not__LeftAssignment_0_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNotAccess().getLeftAssignment_0_2()); 
             }
-            // InternalSLEEC.g:2150:2: ( rule__Not__LeftAssignment_0_2 )
-            // InternalSLEEC.g:2150:3: rule__Not__LeftAssignment_0_2
+            // InternalSLEEC.g:2156:2: ( rule__Not__LeftAssignment_0_2 )
+            // InternalSLEEC.g:2156:3: rule__Not__LeftAssignment_0_2
             {
             pushFollow(FOLLOW_2);
             rule__Not__LeftAssignment_0_2();
@@ -7155,14 +7197,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__Group__0"
-    // InternalSLEEC.g:2159:1: rule__RelComp__Group__0 : rule__RelComp__Group__0__Impl rule__RelComp__Group__1 ;
+    // InternalSLEEC.g:2165:1: rule__RelComp__Group__0 : rule__RelComp__Group__0__Impl rule__RelComp__Group__1 ;
     public final void rule__RelComp__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2163:1: ( rule__RelComp__Group__0__Impl rule__RelComp__Group__1 )
-            // InternalSLEEC.g:2164:2: rule__RelComp__Group__0__Impl rule__RelComp__Group__1
+            // InternalSLEEC.g:2169:1: ( rule__RelComp__Group__0__Impl rule__RelComp__Group__1 )
+            // InternalSLEEC.g:2170:2: rule__RelComp__Group__0__Impl rule__RelComp__Group__1
             {
             pushFollow(FOLLOW_29);
             rule__RelComp__Group__0__Impl();
@@ -7193,17 +7235,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__Group__0__Impl"
-    // InternalSLEEC.g:2171:1: rule__RelComp__Group__0__Impl : ( ruleAtom ) ;
+    // InternalSLEEC.g:2177:1: rule__RelComp__Group__0__Impl : ( ruleAtom ) ;
     public final void rule__RelComp__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2175:1: ( ( ruleAtom ) )
-            // InternalSLEEC.g:2176:1: ( ruleAtom )
+            // InternalSLEEC.g:2181:1: ( ( ruleAtom ) )
+            // InternalSLEEC.g:2182:1: ( ruleAtom )
             {
-            // InternalSLEEC.g:2176:1: ( ruleAtom )
-            // InternalSLEEC.g:2177:2: ruleAtom
+            // InternalSLEEC.g:2182:1: ( ruleAtom )
+            // InternalSLEEC.g:2183:2: ruleAtom
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRelCompAccess().getAtomParserRuleCall_0()); 
@@ -7238,14 +7280,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__Group__1"
-    // InternalSLEEC.g:2186:1: rule__RelComp__Group__1 : rule__RelComp__Group__1__Impl ;
+    // InternalSLEEC.g:2192:1: rule__RelComp__Group__1 : rule__RelComp__Group__1__Impl ;
     public final void rule__RelComp__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2190:1: ( rule__RelComp__Group__1__Impl )
-            // InternalSLEEC.g:2191:2: rule__RelComp__Group__1__Impl
+            // InternalSLEEC.g:2196:1: ( rule__RelComp__Group__1__Impl )
+            // InternalSLEEC.g:2197:2: rule__RelComp__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__RelComp__Group__1__Impl();
@@ -7271,22 +7313,22 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__Group__1__Impl"
-    // InternalSLEEC.g:2197:1: rule__RelComp__Group__1__Impl : ( ( rule__RelComp__Group_1__0 )* ) ;
+    // InternalSLEEC.g:2203:1: rule__RelComp__Group__1__Impl : ( ( rule__RelComp__Group_1__0 )* ) ;
     public final void rule__RelComp__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2201:1: ( ( ( rule__RelComp__Group_1__0 )* ) )
-            // InternalSLEEC.g:2202:1: ( ( rule__RelComp__Group_1__0 )* )
+            // InternalSLEEC.g:2207:1: ( ( ( rule__RelComp__Group_1__0 )* ) )
+            // InternalSLEEC.g:2208:1: ( ( rule__RelComp__Group_1__0 )* )
             {
-            // InternalSLEEC.g:2202:1: ( ( rule__RelComp__Group_1__0 )* )
-            // InternalSLEEC.g:2203:2: ( rule__RelComp__Group_1__0 )*
+            // InternalSLEEC.g:2208:1: ( ( rule__RelComp__Group_1__0 )* )
+            // InternalSLEEC.g:2209:2: ( rule__RelComp__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRelCompAccess().getGroup_1()); 
             }
-            // InternalSLEEC.g:2204:2: ( rule__RelComp__Group_1__0 )*
+            // InternalSLEEC.g:2210:2: ( rule__RelComp__Group_1__0 )*
             loop15:
             do {
                 int alt15=2;
@@ -7299,7 +7341,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
                 switch (alt15) {
             	case 1 :
-            	    // InternalSLEEC.g:2204:3: rule__RelComp__Group_1__0
+            	    // InternalSLEEC.g:2210:3: rule__RelComp__Group_1__0
             	    {
             	    pushFollow(FOLLOW_30);
             	    rule__RelComp__Group_1__0();
@@ -7340,14 +7382,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__Group_1__0"
-    // InternalSLEEC.g:2213:1: rule__RelComp__Group_1__0 : rule__RelComp__Group_1__0__Impl rule__RelComp__Group_1__1 ;
+    // InternalSLEEC.g:2219:1: rule__RelComp__Group_1__0 : rule__RelComp__Group_1__0__Impl rule__RelComp__Group_1__1 ;
     public final void rule__RelComp__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2217:1: ( rule__RelComp__Group_1__0__Impl rule__RelComp__Group_1__1 )
-            // InternalSLEEC.g:2218:2: rule__RelComp__Group_1__0__Impl rule__RelComp__Group_1__1
+            // InternalSLEEC.g:2223:1: ( rule__RelComp__Group_1__0__Impl rule__RelComp__Group_1__1 )
+            // InternalSLEEC.g:2224:2: rule__RelComp__Group_1__0__Impl rule__RelComp__Group_1__1
             {
             pushFollow(FOLLOW_29);
             rule__RelComp__Group_1__0__Impl();
@@ -7378,23 +7420,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__Group_1__0__Impl"
-    // InternalSLEEC.g:2225:1: rule__RelComp__Group_1__0__Impl : ( () ) ;
+    // InternalSLEEC.g:2231:1: rule__RelComp__Group_1__0__Impl : ( () ) ;
     public final void rule__RelComp__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2229:1: ( ( () ) )
-            // InternalSLEEC.g:2230:1: ( () )
+            // InternalSLEEC.g:2235:1: ( ( () ) )
+            // InternalSLEEC.g:2236:1: ( () )
             {
-            // InternalSLEEC.g:2230:1: ( () )
-            // InternalSLEEC.g:2231:2: ()
+            // InternalSLEEC.g:2236:1: ( () )
+            // InternalSLEEC.g:2237:2: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRelCompAccess().getRelCompLeftAction_1_0()); 
             }
-            // InternalSLEEC.g:2232:2: ()
-            // InternalSLEEC.g:2232:3: 
+            // InternalSLEEC.g:2238:2: ()
+            // InternalSLEEC.g:2238:3: 
             {
             }
 
@@ -7419,14 +7461,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__Group_1__1"
-    // InternalSLEEC.g:2240:1: rule__RelComp__Group_1__1 : rule__RelComp__Group_1__1__Impl rule__RelComp__Group_1__2 ;
+    // InternalSLEEC.g:2246:1: rule__RelComp__Group_1__1 : rule__RelComp__Group_1__1__Impl rule__RelComp__Group_1__2 ;
     public final void rule__RelComp__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2244:1: ( rule__RelComp__Group_1__1__Impl rule__RelComp__Group_1__2 )
-            // InternalSLEEC.g:2245:2: rule__RelComp__Group_1__1__Impl rule__RelComp__Group_1__2
+            // InternalSLEEC.g:2250:1: ( rule__RelComp__Group_1__1__Impl rule__RelComp__Group_1__2 )
+            // InternalSLEEC.g:2251:2: rule__RelComp__Group_1__1__Impl rule__RelComp__Group_1__2
             {
             pushFollow(FOLLOW_25);
             rule__RelComp__Group_1__1__Impl();
@@ -7457,23 +7499,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__Group_1__1__Impl"
-    // InternalSLEEC.g:2252:1: rule__RelComp__Group_1__1__Impl : ( ( rule__RelComp__OpAssignment_1_1 ) ) ;
+    // InternalSLEEC.g:2258:1: rule__RelComp__Group_1__1__Impl : ( ( rule__RelComp__OpAssignment_1_1 ) ) ;
     public final void rule__RelComp__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2256:1: ( ( ( rule__RelComp__OpAssignment_1_1 ) ) )
-            // InternalSLEEC.g:2257:1: ( ( rule__RelComp__OpAssignment_1_1 ) )
+            // InternalSLEEC.g:2262:1: ( ( ( rule__RelComp__OpAssignment_1_1 ) ) )
+            // InternalSLEEC.g:2263:1: ( ( rule__RelComp__OpAssignment_1_1 ) )
             {
-            // InternalSLEEC.g:2257:1: ( ( rule__RelComp__OpAssignment_1_1 ) )
-            // InternalSLEEC.g:2258:2: ( rule__RelComp__OpAssignment_1_1 )
+            // InternalSLEEC.g:2263:1: ( ( rule__RelComp__OpAssignment_1_1 ) )
+            // InternalSLEEC.g:2264:2: ( rule__RelComp__OpAssignment_1_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRelCompAccess().getOpAssignment_1_1()); 
             }
-            // InternalSLEEC.g:2259:2: ( rule__RelComp__OpAssignment_1_1 )
-            // InternalSLEEC.g:2259:3: rule__RelComp__OpAssignment_1_1
+            // InternalSLEEC.g:2265:2: ( rule__RelComp__OpAssignment_1_1 )
+            // InternalSLEEC.g:2265:3: rule__RelComp__OpAssignment_1_1
             {
             pushFollow(FOLLOW_2);
             rule__RelComp__OpAssignment_1_1();
@@ -7508,14 +7550,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__Group_1__2"
-    // InternalSLEEC.g:2267:1: rule__RelComp__Group_1__2 : rule__RelComp__Group_1__2__Impl ;
+    // InternalSLEEC.g:2273:1: rule__RelComp__Group_1__2 : rule__RelComp__Group_1__2__Impl ;
     public final void rule__RelComp__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2271:1: ( rule__RelComp__Group_1__2__Impl )
-            // InternalSLEEC.g:2272:2: rule__RelComp__Group_1__2__Impl
+            // InternalSLEEC.g:2277:1: ( rule__RelComp__Group_1__2__Impl )
+            // InternalSLEEC.g:2278:2: rule__RelComp__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__RelComp__Group_1__2__Impl();
@@ -7541,23 +7583,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__Group_1__2__Impl"
-    // InternalSLEEC.g:2278:1: rule__RelComp__Group_1__2__Impl : ( ( rule__RelComp__RightAssignment_1_2 ) ) ;
+    // InternalSLEEC.g:2284:1: rule__RelComp__Group_1__2__Impl : ( ( rule__RelComp__RightAssignment_1_2 ) ) ;
     public final void rule__RelComp__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2282:1: ( ( ( rule__RelComp__RightAssignment_1_2 ) ) )
-            // InternalSLEEC.g:2283:1: ( ( rule__RelComp__RightAssignment_1_2 ) )
+            // InternalSLEEC.g:2288:1: ( ( ( rule__RelComp__RightAssignment_1_2 ) ) )
+            // InternalSLEEC.g:2289:1: ( ( rule__RelComp__RightAssignment_1_2 ) )
             {
-            // InternalSLEEC.g:2283:1: ( ( rule__RelComp__RightAssignment_1_2 ) )
-            // InternalSLEEC.g:2284:2: ( rule__RelComp__RightAssignment_1_2 )
+            // InternalSLEEC.g:2289:1: ( ( rule__RelComp__RightAssignment_1_2 ) )
+            // InternalSLEEC.g:2290:2: ( rule__RelComp__RightAssignment_1_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRelCompAccess().getRightAssignment_1_2()); 
             }
-            // InternalSLEEC.g:2285:2: ( rule__RelComp__RightAssignment_1_2 )
-            // InternalSLEEC.g:2285:3: rule__RelComp__RightAssignment_1_2
+            // InternalSLEEC.g:2291:2: ( rule__RelComp__RightAssignment_1_2 )
+            // InternalSLEEC.g:2291:3: rule__RelComp__RightAssignment_1_2
             {
             pushFollow(FOLLOW_2);
             rule__RelComp__RightAssignment_1_2();
@@ -7592,14 +7634,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atom__Group_1__0"
-    // InternalSLEEC.g:2294:1: rule__Atom__Group_1__0 : rule__Atom__Group_1__0__Impl rule__Atom__Group_1__1 ;
+    // InternalSLEEC.g:2300:1: rule__Atom__Group_1__0 : rule__Atom__Group_1__0__Impl rule__Atom__Group_1__1 ;
     public final void rule__Atom__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2298:1: ( rule__Atom__Group_1__0__Impl rule__Atom__Group_1__1 )
-            // InternalSLEEC.g:2299:2: rule__Atom__Group_1__0__Impl rule__Atom__Group_1__1
+            // InternalSLEEC.g:2304:1: ( rule__Atom__Group_1__0__Impl rule__Atom__Group_1__1 )
+            // InternalSLEEC.g:2305:2: rule__Atom__Group_1__0__Impl rule__Atom__Group_1__1
             {
             pushFollow(FOLLOW_25);
             rule__Atom__Group_1__0__Impl();
@@ -7630,17 +7672,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atom__Group_1__0__Impl"
-    // InternalSLEEC.g:2306:1: rule__Atom__Group_1__0__Impl : ( '(' ) ;
+    // InternalSLEEC.g:2312:1: rule__Atom__Group_1__0__Impl : ( '(' ) ;
     public final void rule__Atom__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2310:1: ( ( '(' ) )
-            // InternalSLEEC.g:2311:1: ( '(' )
+            // InternalSLEEC.g:2316:1: ( ( '(' ) )
+            // InternalSLEEC.g:2317:1: ( '(' )
             {
-            // InternalSLEEC.g:2311:1: ( '(' )
-            // InternalSLEEC.g:2312:2: '('
+            // InternalSLEEC.g:2317:1: ( '(' )
+            // InternalSLEEC.g:2318:2: '('
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAtomAccess().getLeftParenthesisKeyword_1_0()); 
@@ -7671,14 +7713,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atom__Group_1__1"
-    // InternalSLEEC.g:2321:1: rule__Atom__Group_1__1 : rule__Atom__Group_1__1__Impl rule__Atom__Group_1__2 ;
+    // InternalSLEEC.g:2327:1: rule__Atom__Group_1__1 : rule__Atom__Group_1__1__Impl rule__Atom__Group_1__2 ;
     public final void rule__Atom__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2325:1: ( rule__Atom__Group_1__1__Impl rule__Atom__Group_1__2 )
-            // InternalSLEEC.g:2326:2: rule__Atom__Group_1__1__Impl rule__Atom__Group_1__2
+            // InternalSLEEC.g:2331:1: ( rule__Atom__Group_1__1__Impl rule__Atom__Group_1__2 )
+            // InternalSLEEC.g:2332:2: rule__Atom__Group_1__1__Impl rule__Atom__Group_1__2
             {
             pushFollow(FOLLOW_31);
             rule__Atom__Group_1__1__Impl();
@@ -7709,17 +7751,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atom__Group_1__1__Impl"
-    // InternalSLEEC.g:2333:1: rule__Atom__Group_1__1__Impl : ( ruleMBoolExpr ) ;
+    // InternalSLEEC.g:2339:1: rule__Atom__Group_1__1__Impl : ( ruleMBoolExpr ) ;
     public final void rule__Atom__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2337:1: ( ( ruleMBoolExpr ) )
-            // InternalSLEEC.g:2338:1: ( ruleMBoolExpr )
+            // InternalSLEEC.g:2343:1: ( ( ruleMBoolExpr ) )
+            // InternalSLEEC.g:2344:1: ( ruleMBoolExpr )
             {
-            // InternalSLEEC.g:2338:1: ( ruleMBoolExpr )
-            // InternalSLEEC.g:2339:2: ruleMBoolExpr
+            // InternalSLEEC.g:2344:1: ( ruleMBoolExpr )
+            // InternalSLEEC.g:2345:2: ruleMBoolExpr
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAtomAccess().getMBoolExprParserRuleCall_1_1()); 
@@ -7754,14 +7796,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atom__Group_1__2"
-    // InternalSLEEC.g:2348:1: rule__Atom__Group_1__2 : rule__Atom__Group_1__2__Impl ;
+    // InternalSLEEC.g:2354:1: rule__Atom__Group_1__2 : rule__Atom__Group_1__2__Impl ;
     public final void rule__Atom__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2352:1: ( rule__Atom__Group_1__2__Impl )
-            // InternalSLEEC.g:2353:2: rule__Atom__Group_1__2__Impl
+            // InternalSLEEC.g:2358:1: ( rule__Atom__Group_1__2__Impl )
+            // InternalSLEEC.g:2359:2: rule__Atom__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Atom__Group_1__2__Impl();
@@ -7787,17 +7829,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atom__Group_1__2__Impl"
-    // InternalSLEEC.g:2359:1: rule__Atom__Group_1__2__Impl : ( ')' ) ;
+    // InternalSLEEC.g:2365:1: rule__Atom__Group_1__2__Impl : ( ')' ) ;
     public final void rule__Atom__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2363:1: ( ( ')' ) )
-            // InternalSLEEC.g:2364:1: ( ')' )
+            // InternalSLEEC.g:2369:1: ( ( ')' ) )
+            // InternalSLEEC.g:2370:1: ( ')' )
             {
-            // InternalSLEEC.g:2364:1: ( ')' )
-            // InternalSLEEC.g:2365:2: ')'
+            // InternalSLEEC.g:2370:1: ( ')' )
+            // InternalSLEEC.g:2371:2: ')'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAtomAccess().getRightParenthesisKeyword_1_2()); 
@@ -7828,14 +7870,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0__0"
-    // InternalSLEEC.g:2375:1: rule__Response__Group_0__0 : rule__Response__Group_0__0__Impl rule__Response__Group_0__1 ;
+    // InternalSLEEC.g:2381:1: rule__Response__Group_0__0 : rule__Response__Group_0__0__Impl rule__Response__Group_0__1 ;
     public final void rule__Response__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2379:1: ( rule__Response__Group_0__0__Impl rule__Response__Group_0__1 )
-            // InternalSLEEC.g:2380:2: rule__Response__Group_0__0__Impl rule__Response__Group_0__1
+            // InternalSLEEC.g:2385:1: ( rule__Response__Group_0__0__Impl rule__Response__Group_0__1 )
+            // InternalSLEEC.g:2386:2: rule__Response__Group_0__0__Impl rule__Response__Group_0__1
             {
             pushFollow(FOLLOW_32);
             rule__Response__Group_0__0__Impl();
@@ -7866,23 +7908,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0__0__Impl"
-    // InternalSLEEC.g:2387:1: rule__Response__Group_0__0__Impl : ( ( rule__Response__NameAssignment_0_0 ) ) ;
+    // InternalSLEEC.g:2393:1: rule__Response__Group_0__0__Impl : ( ( rule__Response__NameAssignment_0_0 ) ) ;
     public final void rule__Response__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2391:1: ( ( ( rule__Response__NameAssignment_0_0 ) ) )
-            // InternalSLEEC.g:2392:1: ( ( rule__Response__NameAssignment_0_0 ) )
+            // InternalSLEEC.g:2397:1: ( ( ( rule__Response__NameAssignment_0_0 ) ) )
+            // InternalSLEEC.g:2398:1: ( ( rule__Response__NameAssignment_0_0 ) )
             {
-            // InternalSLEEC.g:2392:1: ( ( rule__Response__NameAssignment_0_0 ) )
-            // InternalSLEEC.g:2393:2: ( rule__Response__NameAssignment_0_0 )
+            // InternalSLEEC.g:2398:1: ( ( rule__Response__NameAssignment_0_0 ) )
+            // InternalSLEEC.g:2399:2: ( rule__Response__NameAssignment_0_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getNameAssignment_0_0()); 
             }
-            // InternalSLEEC.g:2394:2: ( rule__Response__NameAssignment_0_0 )
-            // InternalSLEEC.g:2394:3: rule__Response__NameAssignment_0_0
+            // InternalSLEEC.g:2400:2: ( rule__Response__NameAssignment_0_0 )
+            // InternalSLEEC.g:2400:3: rule__Response__NameAssignment_0_0
             {
             pushFollow(FOLLOW_2);
             rule__Response__NameAssignment_0_0();
@@ -7917,14 +7959,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0__1"
-    // InternalSLEEC.g:2402:1: rule__Response__Group_0__1 : rule__Response__Group_0__1__Impl ;
+    // InternalSLEEC.g:2408:1: rule__Response__Group_0__1 : rule__Response__Group_0__1__Impl ;
     public final void rule__Response__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2406:1: ( rule__Response__Group_0__1__Impl )
-            // InternalSLEEC.g:2407:2: rule__Response__Group_0__1__Impl
+            // InternalSLEEC.g:2412:1: ( rule__Response__Group_0__1__Impl )
+            // InternalSLEEC.g:2413:2: rule__Response__Group_0__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Response__Group_0__1__Impl();
@@ -7950,22 +7992,22 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0__1__Impl"
-    // InternalSLEEC.g:2413:1: rule__Response__Group_0__1__Impl : ( ( rule__Response__Group_0_1__0 )? ) ;
+    // InternalSLEEC.g:2419:1: rule__Response__Group_0__1__Impl : ( ( rule__Response__Group_0_1__0 )? ) ;
     public final void rule__Response__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2417:1: ( ( ( rule__Response__Group_0_1__0 )? ) )
-            // InternalSLEEC.g:2418:1: ( ( rule__Response__Group_0_1__0 )? )
+            // InternalSLEEC.g:2423:1: ( ( ( rule__Response__Group_0_1__0 )? ) )
+            // InternalSLEEC.g:2424:1: ( ( rule__Response__Group_0_1__0 )? )
             {
-            // InternalSLEEC.g:2418:1: ( ( rule__Response__Group_0_1__0 )? )
-            // InternalSLEEC.g:2419:2: ( rule__Response__Group_0_1__0 )?
+            // InternalSLEEC.g:2424:1: ( ( rule__Response__Group_0_1__0 )? )
+            // InternalSLEEC.g:2425:2: ( rule__Response__Group_0_1__0 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getGroup_0_1()); 
             }
-            // InternalSLEEC.g:2420:2: ( rule__Response__Group_0_1__0 )?
+            // InternalSLEEC.g:2426:2: ( rule__Response__Group_0_1__0 )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -7974,7 +8016,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
             }
             switch (alt16) {
                 case 1 :
-                    // InternalSLEEC.g:2420:3: rule__Response__Group_0_1__0
+                    // InternalSLEEC.g:2426:3: rule__Response__Group_0_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Response__Group_0_1__0();
@@ -8012,16 +8054,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0_1__0"
-    // InternalSLEEC.g:2429:1: rule__Response__Group_0_1__0 : rule__Response__Group_0_1__0__Impl rule__Response__Group_0_1__1 ;
+    // InternalSLEEC.g:2435:1: rule__Response__Group_0_1__0 : rule__Response__Group_0_1__0__Impl rule__Response__Group_0_1__1 ;
     public final void rule__Response__Group_0_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2433:1: ( rule__Response__Group_0_1__0__Impl rule__Response__Group_0_1__1 )
-            // InternalSLEEC.g:2434:2: rule__Response__Group_0_1__0__Impl rule__Response__Group_0_1__1
+            // InternalSLEEC.g:2439:1: ( rule__Response__Group_0_1__0__Impl rule__Response__Group_0_1__1 )
+            // InternalSLEEC.g:2440:2: rule__Response__Group_0_1__0__Impl rule__Response__Group_0_1__1
             {
-            pushFollow(FOLLOW_25);
+            pushFollow(FOLLOW_33);
             rule__Response__Group_0_1__0__Impl();
 
             state._fsp--;
@@ -8050,17 +8092,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0_1__0__Impl"
-    // InternalSLEEC.g:2441:1: rule__Response__Group_0_1__0__Impl : ( 'within' ) ;
+    // InternalSLEEC.g:2447:1: rule__Response__Group_0_1__0__Impl : ( 'within' ) ;
     public final void rule__Response__Group_0_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2445:1: ( ( 'within' ) )
-            // InternalSLEEC.g:2446:1: ( 'within' )
+            // InternalSLEEC.g:2451:1: ( ( 'within' ) )
+            // InternalSLEEC.g:2452:1: ( 'within' )
             {
-            // InternalSLEEC.g:2446:1: ( 'within' )
-            // InternalSLEEC.g:2447:2: 'within'
+            // InternalSLEEC.g:2452:1: ( 'within' )
+            // InternalSLEEC.g:2453:2: 'within'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getWithinKeyword_0_1_0()); 
@@ -8091,16 +8133,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0_1__1"
-    // InternalSLEEC.g:2456:1: rule__Response__Group_0_1__1 : rule__Response__Group_0_1__1__Impl rule__Response__Group_0_1__2 ;
+    // InternalSLEEC.g:2462:1: rule__Response__Group_0_1__1 : rule__Response__Group_0_1__1__Impl rule__Response__Group_0_1__2 ;
     public final void rule__Response__Group_0_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2460:1: ( rule__Response__Group_0_1__1__Impl rule__Response__Group_0_1__2 )
-            // InternalSLEEC.g:2461:2: rule__Response__Group_0_1__1__Impl rule__Response__Group_0_1__2
+            // InternalSLEEC.g:2466:1: ( rule__Response__Group_0_1__1__Impl rule__Response__Group_0_1__2 )
+            // InternalSLEEC.g:2467:2: rule__Response__Group_0_1__1__Impl rule__Response__Group_0_1__2
             {
-            pushFollow(FOLLOW_33);
+            pushFollow(FOLLOW_34);
             rule__Response__Group_0_1__1__Impl();
 
             state._fsp--;
@@ -8129,23 +8171,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0_1__1__Impl"
-    // InternalSLEEC.g:2468:1: rule__Response__Group_0_1__1__Impl : ( ( rule__Response__TimeAssignment_0_1_1 ) ) ;
+    // InternalSLEEC.g:2474:1: rule__Response__Group_0_1__1__Impl : ( ( rule__Response__TimeAssignment_0_1_1 ) ) ;
     public final void rule__Response__Group_0_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2472:1: ( ( ( rule__Response__TimeAssignment_0_1_1 ) ) )
-            // InternalSLEEC.g:2473:1: ( ( rule__Response__TimeAssignment_0_1_1 ) )
+            // InternalSLEEC.g:2478:1: ( ( ( rule__Response__TimeAssignment_0_1_1 ) ) )
+            // InternalSLEEC.g:2479:1: ( ( rule__Response__TimeAssignment_0_1_1 ) )
             {
-            // InternalSLEEC.g:2473:1: ( ( rule__Response__TimeAssignment_0_1_1 ) )
-            // InternalSLEEC.g:2474:2: ( rule__Response__TimeAssignment_0_1_1 )
+            // InternalSLEEC.g:2479:1: ( ( rule__Response__TimeAssignment_0_1_1 ) )
+            // InternalSLEEC.g:2480:2: ( rule__Response__TimeAssignment_0_1_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getTimeAssignment_0_1_1()); 
             }
-            // InternalSLEEC.g:2475:2: ( rule__Response__TimeAssignment_0_1_1 )
-            // InternalSLEEC.g:2475:3: rule__Response__TimeAssignment_0_1_1
+            // InternalSLEEC.g:2481:2: ( rule__Response__TimeAssignment_0_1_1 )
+            // InternalSLEEC.g:2481:3: rule__Response__TimeAssignment_0_1_1
             {
             pushFollow(FOLLOW_2);
             rule__Response__TimeAssignment_0_1_1();
@@ -8180,14 +8222,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0_1__2"
-    // InternalSLEEC.g:2483:1: rule__Response__Group_0_1__2 : rule__Response__Group_0_1__2__Impl ;
+    // InternalSLEEC.g:2489:1: rule__Response__Group_0_1__2 : rule__Response__Group_0_1__2__Impl ;
     public final void rule__Response__Group_0_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2487:1: ( rule__Response__Group_0_1__2__Impl )
-            // InternalSLEEC.g:2488:2: rule__Response__Group_0_1__2__Impl
+            // InternalSLEEC.g:2493:1: ( rule__Response__Group_0_1__2__Impl )
+            // InternalSLEEC.g:2494:2: rule__Response__Group_0_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Response__Group_0_1__2__Impl();
@@ -8213,22 +8255,22 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0_1__2__Impl"
-    // InternalSLEEC.g:2494:1: rule__Response__Group_0_1__2__Impl : ( ( rule__Response__Group_0_1_2__0 )? ) ;
+    // InternalSLEEC.g:2500:1: rule__Response__Group_0_1__2__Impl : ( ( rule__Response__Group_0_1_2__0 )? ) ;
     public final void rule__Response__Group_0_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2498:1: ( ( ( rule__Response__Group_0_1_2__0 )? ) )
-            // InternalSLEEC.g:2499:1: ( ( rule__Response__Group_0_1_2__0 )? )
+            // InternalSLEEC.g:2504:1: ( ( ( rule__Response__Group_0_1_2__0 )? ) )
+            // InternalSLEEC.g:2505:1: ( ( rule__Response__Group_0_1_2__0 )? )
             {
-            // InternalSLEEC.g:2499:1: ( ( rule__Response__Group_0_1_2__0 )? )
-            // InternalSLEEC.g:2500:2: ( rule__Response__Group_0_1_2__0 )?
+            // InternalSLEEC.g:2505:1: ( ( rule__Response__Group_0_1_2__0 )? )
+            // InternalSLEEC.g:2506:2: ( rule__Response__Group_0_1_2__0 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getGroup_0_1_2()); 
             }
-            // InternalSLEEC.g:2501:2: ( rule__Response__Group_0_1_2__0 )?
+            // InternalSLEEC.g:2507:2: ( rule__Response__Group_0_1_2__0 )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -8237,7 +8279,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
             }
             switch (alt17) {
                 case 1 :
-                    // InternalSLEEC.g:2501:3: rule__Response__Group_0_1_2__0
+                    // InternalSLEEC.g:2507:3: rule__Response__Group_0_1_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Response__Group_0_1_2__0();
@@ -8275,14 +8317,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0_1_2__0"
-    // InternalSLEEC.g:2510:1: rule__Response__Group_0_1_2__0 : rule__Response__Group_0_1_2__0__Impl rule__Response__Group_0_1_2__1 ;
+    // InternalSLEEC.g:2516:1: rule__Response__Group_0_1_2__0 : rule__Response__Group_0_1_2__0__Impl rule__Response__Group_0_1_2__1 ;
     public final void rule__Response__Group_0_1_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2514:1: ( rule__Response__Group_0_1_2__0__Impl rule__Response__Group_0_1_2__1 )
-            // InternalSLEEC.g:2515:2: rule__Response__Group_0_1_2__0__Impl rule__Response__Group_0_1_2__1
+            // InternalSLEEC.g:2520:1: ( rule__Response__Group_0_1_2__0__Impl rule__Response__Group_0_1_2__1 )
+            // InternalSLEEC.g:2521:2: rule__Response__Group_0_1_2__0__Impl rule__Response__Group_0_1_2__1
             {
             pushFollow(FOLLOW_21);
             rule__Response__Group_0_1_2__0__Impl();
@@ -8313,17 +8355,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0_1_2__0__Impl"
-    // InternalSLEEC.g:2522:1: rule__Response__Group_0_1_2__0__Impl : ( 'otherwise' ) ;
+    // InternalSLEEC.g:2528:1: rule__Response__Group_0_1_2__0__Impl : ( 'otherwise' ) ;
     public final void rule__Response__Group_0_1_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2526:1: ( ( 'otherwise' ) )
-            // InternalSLEEC.g:2527:1: ( 'otherwise' )
+            // InternalSLEEC.g:2532:1: ( ( 'otherwise' ) )
+            // InternalSLEEC.g:2533:1: ( 'otherwise' )
             {
-            // InternalSLEEC.g:2527:1: ( 'otherwise' )
-            // InternalSLEEC.g:2528:2: 'otherwise'
+            // InternalSLEEC.g:2533:1: ( 'otherwise' )
+            // InternalSLEEC.g:2534:2: 'otherwise'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getOtherwiseKeyword_0_1_2_0()); 
@@ -8354,14 +8396,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0_1_2__1"
-    // InternalSLEEC.g:2537:1: rule__Response__Group_0_1_2__1 : rule__Response__Group_0_1_2__1__Impl ;
+    // InternalSLEEC.g:2543:1: rule__Response__Group_0_1_2__1 : rule__Response__Group_0_1_2__1__Impl ;
     public final void rule__Response__Group_0_1_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2541:1: ( rule__Response__Group_0_1_2__1__Impl )
-            // InternalSLEEC.g:2542:2: rule__Response__Group_0_1_2__1__Impl
+            // InternalSLEEC.g:2547:1: ( rule__Response__Group_0_1_2__1__Impl )
+            // InternalSLEEC.g:2548:2: rule__Response__Group_0_1_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Response__Group_0_1_2__1__Impl();
@@ -8387,23 +8429,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_0_1_2__1__Impl"
-    // InternalSLEEC.g:2548:1: rule__Response__Group_0_1_2__1__Impl : ( ( rule__Response__ResponseAssignment_0_1_2_1 ) ) ;
+    // InternalSLEEC.g:2554:1: rule__Response__Group_0_1_2__1__Impl : ( ( rule__Response__ResponseAssignment_0_1_2_1 ) ) ;
     public final void rule__Response__Group_0_1_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2552:1: ( ( ( rule__Response__ResponseAssignment_0_1_2_1 ) ) )
-            // InternalSLEEC.g:2553:1: ( ( rule__Response__ResponseAssignment_0_1_2_1 ) )
+            // InternalSLEEC.g:2558:1: ( ( ( rule__Response__ResponseAssignment_0_1_2_1 ) ) )
+            // InternalSLEEC.g:2559:1: ( ( rule__Response__ResponseAssignment_0_1_2_1 ) )
             {
-            // InternalSLEEC.g:2553:1: ( ( rule__Response__ResponseAssignment_0_1_2_1 ) )
-            // InternalSLEEC.g:2554:2: ( rule__Response__ResponseAssignment_0_1_2_1 )
+            // InternalSLEEC.g:2559:1: ( ( rule__Response__ResponseAssignment_0_1_2_1 ) )
+            // InternalSLEEC.g:2560:2: ( rule__Response__ResponseAssignment_0_1_2_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getResponseAssignment_0_1_2_1()); 
             }
-            // InternalSLEEC.g:2555:2: ( rule__Response__ResponseAssignment_0_1_2_1 )
-            // InternalSLEEC.g:2555:3: rule__Response__ResponseAssignment_0_1_2_1
+            // InternalSLEEC.g:2561:2: ( rule__Response__ResponseAssignment_0_1_2_1 )
+            // InternalSLEEC.g:2561:3: rule__Response__ResponseAssignment_0_1_2_1
             {
             pushFollow(FOLLOW_2);
             rule__Response__ResponseAssignment_0_1_2_1();
@@ -8438,14 +8480,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_1__0"
-    // InternalSLEEC.g:2564:1: rule__Response__Group_1__0 : rule__Response__Group_1__0__Impl rule__Response__Group_1__1 ;
+    // InternalSLEEC.g:2570:1: rule__Response__Group_1__0 : rule__Response__Group_1__0__Impl rule__Response__Group_1__1 ;
     public final void rule__Response__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2568:1: ( rule__Response__Group_1__0__Impl rule__Response__Group_1__1 )
-            // InternalSLEEC.g:2569:2: rule__Response__Group_1__0__Impl rule__Response__Group_1__1
+            // InternalSLEEC.g:2574:1: ( rule__Response__Group_1__0__Impl rule__Response__Group_1__1 )
+            // InternalSLEEC.g:2575:2: rule__Response__Group_1__0__Impl rule__Response__Group_1__1
             {
             pushFollow(FOLLOW_7);
             rule__Response__Group_1__0__Impl();
@@ -8476,23 +8518,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_1__0__Impl"
-    // InternalSLEEC.g:2576:1: rule__Response__Group_1__0__Impl : ( ( rule__Response__NotAssignment_1_0 ) ) ;
+    // InternalSLEEC.g:2582:1: rule__Response__Group_1__0__Impl : ( ( rule__Response__NotAssignment_1_0 ) ) ;
     public final void rule__Response__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2580:1: ( ( ( rule__Response__NotAssignment_1_0 ) ) )
-            // InternalSLEEC.g:2581:1: ( ( rule__Response__NotAssignment_1_0 ) )
+            // InternalSLEEC.g:2586:1: ( ( ( rule__Response__NotAssignment_1_0 ) ) )
+            // InternalSLEEC.g:2587:1: ( ( rule__Response__NotAssignment_1_0 ) )
             {
-            // InternalSLEEC.g:2581:1: ( ( rule__Response__NotAssignment_1_0 ) )
-            // InternalSLEEC.g:2582:2: ( rule__Response__NotAssignment_1_0 )
+            // InternalSLEEC.g:2587:1: ( ( rule__Response__NotAssignment_1_0 ) )
+            // InternalSLEEC.g:2588:2: ( rule__Response__NotAssignment_1_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getNotAssignment_1_0()); 
             }
-            // InternalSLEEC.g:2583:2: ( rule__Response__NotAssignment_1_0 )
-            // InternalSLEEC.g:2583:3: rule__Response__NotAssignment_1_0
+            // InternalSLEEC.g:2589:2: ( rule__Response__NotAssignment_1_0 )
+            // InternalSLEEC.g:2589:3: rule__Response__NotAssignment_1_0
             {
             pushFollow(FOLLOW_2);
             rule__Response__NotAssignment_1_0();
@@ -8527,14 +8569,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_1__1"
-    // InternalSLEEC.g:2591:1: rule__Response__Group_1__1 : rule__Response__Group_1__1__Impl rule__Response__Group_1__2 ;
+    // InternalSLEEC.g:2597:1: rule__Response__Group_1__1 : rule__Response__Group_1__1__Impl rule__Response__Group_1__2 ;
     public final void rule__Response__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2595:1: ( rule__Response__Group_1__1__Impl rule__Response__Group_1__2 )
-            // InternalSLEEC.g:2596:2: rule__Response__Group_1__1__Impl rule__Response__Group_1__2
+            // InternalSLEEC.g:2601:1: ( rule__Response__Group_1__1__Impl rule__Response__Group_1__2 )
+            // InternalSLEEC.g:2602:2: rule__Response__Group_1__1__Impl rule__Response__Group_1__2
             {
             pushFollow(FOLLOW_32);
             rule__Response__Group_1__1__Impl();
@@ -8565,23 +8607,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_1__1__Impl"
-    // InternalSLEEC.g:2603:1: rule__Response__Group_1__1__Impl : ( ( rule__Response__NameAssignment_1_1 ) ) ;
+    // InternalSLEEC.g:2609:1: rule__Response__Group_1__1__Impl : ( ( rule__Response__NameAssignment_1_1 ) ) ;
     public final void rule__Response__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2607:1: ( ( ( rule__Response__NameAssignment_1_1 ) ) )
-            // InternalSLEEC.g:2608:1: ( ( rule__Response__NameAssignment_1_1 ) )
+            // InternalSLEEC.g:2613:1: ( ( ( rule__Response__NameAssignment_1_1 ) ) )
+            // InternalSLEEC.g:2614:1: ( ( rule__Response__NameAssignment_1_1 ) )
             {
-            // InternalSLEEC.g:2608:1: ( ( rule__Response__NameAssignment_1_1 ) )
-            // InternalSLEEC.g:2609:2: ( rule__Response__NameAssignment_1_1 )
+            // InternalSLEEC.g:2614:1: ( ( rule__Response__NameAssignment_1_1 ) )
+            // InternalSLEEC.g:2615:2: ( rule__Response__NameAssignment_1_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getNameAssignment_1_1()); 
             }
-            // InternalSLEEC.g:2610:2: ( rule__Response__NameAssignment_1_1 )
-            // InternalSLEEC.g:2610:3: rule__Response__NameAssignment_1_1
+            // InternalSLEEC.g:2616:2: ( rule__Response__NameAssignment_1_1 )
+            // InternalSLEEC.g:2616:3: rule__Response__NameAssignment_1_1
             {
             pushFollow(FOLLOW_2);
             rule__Response__NameAssignment_1_1();
@@ -8616,16 +8658,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_1__2"
-    // InternalSLEEC.g:2618:1: rule__Response__Group_1__2 : rule__Response__Group_1__2__Impl rule__Response__Group_1__3 ;
+    // InternalSLEEC.g:2624:1: rule__Response__Group_1__2 : rule__Response__Group_1__2__Impl rule__Response__Group_1__3 ;
     public final void rule__Response__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2622:1: ( rule__Response__Group_1__2__Impl rule__Response__Group_1__3 )
-            // InternalSLEEC.g:2623:2: rule__Response__Group_1__2__Impl rule__Response__Group_1__3
+            // InternalSLEEC.g:2628:1: ( rule__Response__Group_1__2__Impl rule__Response__Group_1__3 )
+            // InternalSLEEC.g:2629:2: rule__Response__Group_1__2__Impl rule__Response__Group_1__3
             {
-            pushFollow(FOLLOW_25);
+            pushFollow(FOLLOW_33);
             rule__Response__Group_1__2__Impl();
 
             state._fsp--;
@@ -8654,17 +8696,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_1__2__Impl"
-    // InternalSLEEC.g:2630:1: rule__Response__Group_1__2__Impl : ( 'within' ) ;
+    // InternalSLEEC.g:2636:1: rule__Response__Group_1__2__Impl : ( 'within' ) ;
     public final void rule__Response__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2634:1: ( ( 'within' ) )
-            // InternalSLEEC.g:2635:1: ( 'within' )
+            // InternalSLEEC.g:2640:1: ( ( 'within' ) )
+            // InternalSLEEC.g:2641:1: ( 'within' )
             {
-            // InternalSLEEC.g:2635:1: ( 'within' )
-            // InternalSLEEC.g:2636:2: 'within'
+            // InternalSLEEC.g:2641:1: ( 'within' )
+            // InternalSLEEC.g:2642:2: 'within'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getWithinKeyword_1_2()); 
@@ -8695,14 +8737,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_1__3"
-    // InternalSLEEC.g:2645:1: rule__Response__Group_1__3 : rule__Response__Group_1__3__Impl ;
+    // InternalSLEEC.g:2651:1: rule__Response__Group_1__3 : rule__Response__Group_1__3__Impl ;
     public final void rule__Response__Group_1__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2649:1: ( rule__Response__Group_1__3__Impl )
-            // InternalSLEEC.g:2650:2: rule__Response__Group_1__3__Impl
+            // InternalSLEEC.g:2655:1: ( rule__Response__Group_1__3__Impl )
+            // InternalSLEEC.g:2656:2: rule__Response__Group_1__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Response__Group_1__3__Impl();
@@ -8728,23 +8770,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__Group_1__3__Impl"
-    // InternalSLEEC.g:2656:1: rule__Response__Group_1__3__Impl : ( ( rule__Response__TimeAssignment_1_3 ) ) ;
+    // InternalSLEEC.g:2662:1: rule__Response__Group_1__3__Impl : ( ( rule__Response__TimeAssignment_1_3 ) ) ;
     public final void rule__Response__Group_1__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2660:1: ( ( ( rule__Response__TimeAssignment_1_3 ) ) )
-            // InternalSLEEC.g:2661:1: ( ( rule__Response__TimeAssignment_1_3 ) )
+            // InternalSLEEC.g:2666:1: ( ( ( rule__Response__TimeAssignment_1_3 ) ) )
+            // InternalSLEEC.g:2667:1: ( ( rule__Response__TimeAssignment_1_3 ) )
             {
-            // InternalSLEEC.g:2661:1: ( ( rule__Response__TimeAssignment_1_3 ) )
-            // InternalSLEEC.g:2662:2: ( rule__Response__TimeAssignment_1_3 )
+            // InternalSLEEC.g:2667:1: ( ( rule__Response__TimeAssignment_1_3 ) )
+            // InternalSLEEC.g:2668:2: ( rule__Response__TimeAssignment_1_3 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getTimeAssignment_1_3()); 
             }
-            // InternalSLEEC.g:2663:2: ( rule__Response__TimeAssignment_1_3 )
-            // InternalSLEEC.g:2663:3: rule__Response__TimeAssignment_1_3
+            // InternalSLEEC.g:2669:2: ( rule__Response__TimeAssignment_1_3 )
+            // InternalSLEEC.g:2669:3: rule__Response__TimeAssignment_1_3
             {
             pushFollow(FOLLOW_2);
             rule__Response__TimeAssignment_1_3();
@@ -8779,14 +8821,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__Group__0"
-    // InternalSLEEC.g:2672:1: rule__Defeater__Group__0 : rule__Defeater__Group__0__Impl rule__Defeater__Group__1 ;
+    // InternalSLEEC.g:2678:1: rule__Defeater__Group__0 : rule__Defeater__Group__0__Impl rule__Defeater__Group__1 ;
     public final void rule__Defeater__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2676:1: ( rule__Defeater__Group__0__Impl rule__Defeater__Group__1 )
-            // InternalSLEEC.g:2677:2: rule__Defeater__Group__0__Impl rule__Defeater__Group__1
+            // InternalSLEEC.g:2682:1: ( rule__Defeater__Group__0__Impl rule__Defeater__Group__1 )
+            // InternalSLEEC.g:2683:2: rule__Defeater__Group__0__Impl rule__Defeater__Group__1
             {
             pushFollow(FOLLOW_25);
             rule__Defeater__Group__0__Impl();
@@ -8817,17 +8859,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__Group__0__Impl"
-    // InternalSLEEC.g:2684:1: rule__Defeater__Group__0__Impl : ( 'unless' ) ;
+    // InternalSLEEC.g:2690:1: rule__Defeater__Group__0__Impl : ( 'unless' ) ;
     public final void rule__Defeater__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2688:1: ( ( 'unless' ) )
-            // InternalSLEEC.g:2689:1: ( 'unless' )
+            // InternalSLEEC.g:2694:1: ( ( 'unless' ) )
+            // InternalSLEEC.g:2695:1: ( 'unless' )
             {
-            // InternalSLEEC.g:2689:1: ( 'unless' )
-            // InternalSLEEC.g:2690:2: 'unless'
+            // InternalSLEEC.g:2695:1: ( 'unless' )
+            // InternalSLEEC.g:2696:2: 'unless'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefeaterAccess().getUnlessKeyword_0()); 
@@ -8858,14 +8900,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__Group__1"
-    // InternalSLEEC.g:2699:1: rule__Defeater__Group__1 : rule__Defeater__Group__1__Impl rule__Defeater__Group__2 ;
+    // InternalSLEEC.g:2705:1: rule__Defeater__Group__1 : rule__Defeater__Group__1__Impl rule__Defeater__Group__2 ;
     public final void rule__Defeater__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2703:1: ( rule__Defeater__Group__1__Impl rule__Defeater__Group__2 )
-            // InternalSLEEC.g:2704:2: rule__Defeater__Group__1__Impl rule__Defeater__Group__2
+            // InternalSLEEC.g:2709:1: ( rule__Defeater__Group__1__Impl rule__Defeater__Group__2 )
+            // InternalSLEEC.g:2710:2: rule__Defeater__Group__1__Impl rule__Defeater__Group__2
             {
             pushFollow(FOLLOW_20);
             rule__Defeater__Group__1__Impl();
@@ -8896,23 +8938,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__Group__1__Impl"
-    // InternalSLEEC.g:2711:1: rule__Defeater__Group__1__Impl : ( ( rule__Defeater__ExprAssignment_1 ) ) ;
+    // InternalSLEEC.g:2717:1: rule__Defeater__Group__1__Impl : ( ( rule__Defeater__ExprAssignment_1 ) ) ;
     public final void rule__Defeater__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2715:1: ( ( ( rule__Defeater__ExprAssignment_1 ) ) )
-            // InternalSLEEC.g:2716:1: ( ( rule__Defeater__ExprAssignment_1 ) )
+            // InternalSLEEC.g:2721:1: ( ( ( rule__Defeater__ExprAssignment_1 ) ) )
+            // InternalSLEEC.g:2722:1: ( ( rule__Defeater__ExprAssignment_1 ) )
             {
-            // InternalSLEEC.g:2716:1: ( ( rule__Defeater__ExprAssignment_1 ) )
-            // InternalSLEEC.g:2717:2: ( rule__Defeater__ExprAssignment_1 )
+            // InternalSLEEC.g:2722:1: ( ( rule__Defeater__ExprAssignment_1 ) )
+            // InternalSLEEC.g:2723:2: ( rule__Defeater__ExprAssignment_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefeaterAccess().getExprAssignment_1()); 
             }
-            // InternalSLEEC.g:2718:2: ( rule__Defeater__ExprAssignment_1 )
-            // InternalSLEEC.g:2718:3: rule__Defeater__ExprAssignment_1
+            // InternalSLEEC.g:2724:2: ( rule__Defeater__ExprAssignment_1 )
+            // InternalSLEEC.g:2724:3: rule__Defeater__ExprAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__Defeater__ExprAssignment_1();
@@ -8947,14 +8989,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__Group__2"
-    // InternalSLEEC.g:2726:1: rule__Defeater__Group__2 : rule__Defeater__Group__2__Impl ;
+    // InternalSLEEC.g:2732:1: rule__Defeater__Group__2 : rule__Defeater__Group__2__Impl ;
     public final void rule__Defeater__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2730:1: ( rule__Defeater__Group__2__Impl )
-            // InternalSLEEC.g:2731:2: rule__Defeater__Group__2__Impl
+            // InternalSLEEC.g:2736:1: ( rule__Defeater__Group__2__Impl )
+            // InternalSLEEC.g:2737:2: rule__Defeater__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Defeater__Group__2__Impl();
@@ -8980,22 +9022,22 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__Group__2__Impl"
-    // InternalSLEEC.g:2737:1: rule__Defeater__Group__2__Impl : ( ( rule__Defeater__Group_2__0 )? ) ;
+    // InternalSLEEC.g:2743:1: rule__Defeater__Group__2__Impl : ( ( rule__Defeater__Group_2__0 )? ) ;
     public final void rule__Defeater__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2741:1: ( ( ( rule__Defeater__Group_2__0 )? ) )
-            // InternalSLEEC.g:2742:1: ( ( rule__Defeater__Group_2__0 )? )
+            // InternalSLEEC.g:2747:1: ( ( ( rule__Defeater__Group_2__0 )? ) )
+            // InternalSLEEC.g:2748:1: ( ( rule__Defeater__Group_2__0 )? )
             {
-            // InternalSLEEC.g:2742:1: ( ( rule__Defeater__Group_2__0 )? )
-            // InternalSLEEC.g:2743:2: ( rule__Defeater__Group_2__0 )?
+            // InternalSLEEC.g:2748:1: ( ( rule__Defeater__Group_2__0 )? )
+            // InternalSLEEC.g:2749:2: ( rule__Defeater__Group_2__0 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefeaterAccess().getGroup_2()); 
             }
-            // InternalSLEEC.g:2744:2: ( rule__Defeater__Group_2__0 )?
+            // InternalSLEEC.g:2750:2: ( rule__Defeater__Group_2__0 )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -9004,7 +9046,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
             }
             switch (alt18) {
                 case 1 :
-                    // InternalSLEEC.g:2744:3: rule__Defeater__Group_2__0
+                    // InternalSLEEC.g:2750:3: rule__Defeater__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Defeater__Group_2__0();
@@ -9042,14 +9084,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__Group_2__0"
-    // InternalSLEEC.g:2753:1: rule__Defeater__Group_2__0 : rule__Defeater__Group_2__0__Impl rule__Defeater__Group_2__1 ;
+    // InternalSLEEC.g:2759:1: rule__Defeater__Group_2__0 : rule__Defeater__Group_2__0__Impl rule__Defeater__Group_2__1 ;
     public final void rule__Defeater__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2757:1: ( rule__Defeater__Group_2__0__Impl rule__Defeater__Group_2__1 )
-            // InternalSLEEC.g:2758:2: rule__Defeater__Group_2__0__Impl rule__Defeater__Group_2__1
+            // InternalSLEEC.g:2763:1: ( rule__Defeater__Group_2__0__Impl rule__Defeater__Group_2__1 )
+            // InternalSLEEC.g:2764:2: rule__Defeater__Group_2__0__Impl rule__Defeater__Group_2__1
             {
             pushFollow(FOLLOW_21);
             rule__Defeater__Group_2__0__Impl();
@@ -9080,17 +9122,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__Group_2__0__Impl"
-    // InternalSLEEC.g:2765:1: rule__Defeater__Group_2__0__Impl : ( 'then' ) ;
+    // InternalSLEEC.g:2771:1: rule__Defeater__Group_2__0__Impl : ( 'then' ) ;
     public final void rule__Defeater__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2769:1: ( ( 'then' ) )
-            // InternalSLEEC.g:2770:1: ( 'then' )
+            // InternalSLEEC.g:2775:1: ( ( 'then' ) )
+            // InternalSLEEC.g:2776:1: ( 'then' )
             {
-            // InternalSLEEC.g:2770:1: ( 'then' )
-            // InternalSLEEC.g:2771:2: 'then'
+            // InternalSLEEC.g:2776:1: ( 'then' )
+            // InternalSLEEC.g:2777:2: 'then'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefeaterAccess().getThenKeyword_2_0()); 
@@ -9121,14 +9163,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__Group_2__1"
-    // InternalSLEEC.g:2780:1: rule__Defeater__Group_2__1 : rule__Defeater__Group_2__1__Impl ;
+    // InternalSLEEC.g:2786:1: rule__Defeater__Group_2__1 : rule__Defeater__Group_2__1__Impl ;
     public final void rule__Defeater__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2784:1: ( rule__Defeater__Group_2__1__Impl )
-            // InternalSLEEC.g:2785:2: rule__Defeater__Group_2__1__Impl
+            // InternalSLEEC.g:2790:1: ( rule__Defeater__Group_2__1__Impl )
+            // InternalSLEEC.g:2791:2: rule__Defeater__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Defeater__Group_2__1__Impl();
@@ -9154,23 +9196,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__Group_2__1__Impl"
-    // InternalSLEEC.g:2791:1: rule__Defeater__Group_2__1__Impl : ( ( rule__Defeater__ResponseAssignment_2_1 ) ) ;
+    // InternalSLEEC.g:2797:1: rule__Defeater__Group_2__1__Impl : ( ( rule__Defeater__ResponseAssignment_2_1 ) ) ;
     public final void rule__Defeater__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2795:1: ( ( ( rule__Defeater__ResponseAssignment_2_1 ) ) )
-            // InternalSLEEC.g:2796:1: ( ( rule__Defeater__ResponseAssignment_2_1 ) )
+            // InternalSLEEC.g:2801:1: ( ( ( rule__Defeater__ResponseAssignment_2_1 ) ) )
+            // InternalSLEEC.g:2802:1: ( ( rule__Defeater__ResponseAssignment_2_1 ) )
             {
-            // InternalSLEEC.g:2796:1: ( ( rule__Defeater__ResponseAssignment_2_1 ) )
-            // InternalSLEEC.g:2797:2: ( rule__Defeater__ResponseAssignment_2_1 )
+            // InternalSLEEC.g:2802:1: ( ( rule__Defeater__ResponseAssignment_2_1 ) )
+            // InternalSLEEC.g:2803:2: ( rule__Defeater__ResponseAssignment_2_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefeaterAccess().getResponseAssignment_2_1()); 
             }
-            // InternalSLEEC.g:2798:2: ( rule__Defeater__ResponseAssignment_2_1 )
-            // InternalSLEEC.g:2798:3: rule__Defeater__ResponseAssignment_2_1
+            // InternalSLEEC.g:2804:2: ( rule__Defeater__ResponseAssignment_2_1 )
+            // InternalSLEEC.g:2804:3: rule__Defeater__ResponseAssignment_2_1
             {
             pushFollow(FOLLOW_2);
             rule__Defeater__ResponseAssignment_2_1();
@@ -9205,16 +9247,16 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__0"
-    // InternalSLEEC.g:2807:1: rule__QualifiedName__Group__0 : rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 ;
+    // InternalSLEEC.g:2813:1: rule__QualifiedName__Group__0 : rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 ;
     public final void rule__QualifiedName__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2811:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
-            // InternalSLEEC.g:2812:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
+            // InternalSLEEC.g:2817:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
+            // InternalSLEEC.g:2818:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
             {
-            pushFollow(FOLLOW_34);
+            pushFollow(FOLLOW_35);
             rule__QualifiedName__Group__0__Impl();
 
             state._fsp--;
@@ -9243,17 +9285,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__0__Impl"
-    // InternalSLEEC.g:2819:1: rule__QualifiedName__Group__0__Impl : ( RULE_ID ) ;
+    // InternalSLEEC.g:2825:1: rule__QualifiedName__Group__0__Impl : ( RULE_ID ) ;
     public final void rule__QualifiedName__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2823:1: ( ( RULE_ID ) )
-            // InternalSLEEC.g:2824:1: ( RULE_ID )
+            // InternalSLEEC.g:2829:1: ( ( RULE_ID ) )
+            // InternalSLEEC.g:2830:1: ( RULE_ID )
             {
-            // InternalSLEEC.g:2824:1: ( RULE_ID )
-            // InternalSLEEC.g:2825:2: RULE_ID
+            // InternalSLEEC.g:2830:1: ( RULE_ID )
+            // InternalSLEEC.g:2831:2: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
@@ -9284,14 +9326,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__1"
-    // InternalSLEEC.g:2834:1: rule__QualifiedName__Group__1 : rule__QualifiedName__Group__1__Impl ;
+    // InternalSLEEC.g:2840:1: rule__QualifiedName__Group__1 : rule__QualifiedName__Group__1__Impl ;
     public final void rule__QualifiedName__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2838:1: ( rule__QualifiedName__Group__1__Impl )
-            // InternalSLEEC.g:2839:2: rule__QualifiedName__Group__1__Impl
+            // InternalSLEEC.g:2844:1: ( rule__QualifiedName__Group__1__Impl )
+            // InternalSLEEC.g:2845:2: rule__QualifiedName__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__QualifiedName__Group__1__Impl();
@@ -9317,22 +9359,22 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__1__Impl"
-    // InternalSLEEC.g:2845:1: rule__QualifiedName__Group__1__Impl : ( ( rule__QualifiedName__Group_1__0 )* ) ;
+    // InternalSLEEC.g:2851:1: rule__QualifiedName__Group__1__Impl : ( ( rule__QualifiedName__Group_1__0 )* ) ;
     public final void rule__QualifiedName__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2849:1: ( ( ( rule__QualifiedName__Group_1__0 )* ) )
-            // InternalSLEEC.g:2850:1: ( ( rule__QualifiedName__Group_1__0 )* )
+            // InternalSLEEC.g:2855:1: ( ( ( rule__QualifiedName__Group_1__0 )* ) )
+            // InternalSLEEC.g:2856:1: ( ( rule__QualifiedName__Group_1__0 )* )
             {
-            // InternalSLEEC.g:2850:1: ( ( rule__QualifiedName__Group_1__0 )* )
-            // InternalSLEEC.g:2851:2: ( rule__QualifiedName__Group_1__0 )*
+            // InternalSLEEC.g:2856:1: ( ( rule__QualifiedName__Group_1__0 )* )
+            // InternalSLEEC.g:2857:2: ( rule__QualifiedName__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameAccess().getGroup_1()); 
             }
-            // InternalSLEEC.g:2852:2: ( rule__QualifiedName__Group_1__0 )*
+            // InternalSLEEC.g:2858:2: ( rule__QualifiedName__Group_1__0 )*
             loop19:
             do {
                 int alt19=2;
@@ -9345,9 +9387,9 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
                 switch (alt19) {
             	case 1 :
-            	    // InternalSLEEC.g:2852:3: rule__QualifiedName__Group_1__0
+            	    // InternalSLEEC.g:2858:3: rule__QualifiedName__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_35);
+            	    pushFollow(FOLLOW_36);
             	    rule__QualifiedName__Group_1__0();
 
             	    state._fsp--;
@@ -9386,14 +9428,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__0"
-    // InternalSLEEC.g:2861:1: rule__QualifiedName__Group_1__0 : rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 ;
+    // InternalSLEEC.g:2867:1: rule__QualifiedName__Group_1__0 : rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 ;
     public final void rule__QualifiedName__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2865:1: ( rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 )
-            // InternalSLEEC.g:2866:2: rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1
+            // InternalSLEEC.g:2871:1: ( rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 )
+            // InternalSLEEC.g:2872:2: rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1
             {
             pushFollow(FOLLOW_7);
             rule__QualifiedName__Group_1__0__Impl();
@@ -9424,17 +9466,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__0__Impl"
-    // InternalSLEEC.g:2873:1: rule__QualifiedName__Group_1__0__Impl : ( '.' ) ;
+    // InternalSLEEC.g:2879:1: rule__QualifiedName__Group_1__0__Impl : ( '.' ) ;
     public final void rule__QualifiedName__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2877:1: ( ( '.' ) )
-            // InternalSLEEC.g:2878:1: ( '.' )
+            // InternalSLEEC.g:2883:1: ( ( '.' ) )
+            // InternalSLEEC.g:2884:1: ( '.' )
             {
-            // InternalSLEEC.g:2878:1: ( '.' )
-            // InternalSLEEC.g:2879:2: '.'
+            // InternalSLEEC.g:2884:1: ( '.' )
+            // InternalSLEEC.g:2885:2: '.'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
@@ -9465,14 +9507,14 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__1"
-    // InternalSLEEC.g:2888:1: rule__QualifiedName__Group_1__1 : rule__QualifiedName__Group_1__1__Impl ;
+    // InternalSLEEC.g:2894:1: rule__QualifiedName__Group_1__1 : rule__QualifiedName__Group_1__1__Impl ;
     public final void rule__QualifiedName__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2892:1: ( rule__QualifiedName__Group_1__1__Impl )
-            // InternalSLEEC.g:2893:2: rule__QualifiedName__Group_1__1__Impl
+            // InternalSLEEC.g:2898:1: ( rule__QualifiedName__Group_1__1__Impl )
+            // InternalSLEEC.g:2899:2: rule__QualifiedName__Group_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__QualifiedName__Group_1__1__Impl();
@@ -9498,17 +9540,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__1__Impl"
-    // InternalSLEEC.g:2899:1: rule__QualifiedName__Group_1__1__Impl : ( RULE_ID ) ;
+    // InternalSLEEC.g:2905:1: rule__QualifiedName__Group_1__1__Impl : ( RULE_ID ) ;
     public final void rule__QualifiedName__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2903:1: ( ( RULE_ID ) )
-            // InternalSLEEC.g:2904:1: ( RULE_ID )
+            // InternalSLEEC.g:2909:1: ( ( RULE_ID ) )
+            // InternalSLEEC.g:2910:1: ( RULE_ID )
             {
-            // InternalSLEEC.g:2904:1: ( RULE_ID )
-            // InternalSLEEC.g:2905:2: RULE_ID
+            // InternalSLEEC.g:2910:1: ( RULE_ID )
+            // InternalSLEEC.g:2911:2: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_1_1()); 
@@ -9539,17 +9581,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Specification__DefBlockAssignment_0"
-    // InternalSLEEC.g:2915:1: rule__Specification__DefBlockAssignment_0 : ( ruleDefblock ) ;
+    // InternalSLEEC.g:2921:1: rule__Specification__DefBlockAssignment_0 : ( ruleDefblock ) ;
     public final void rule__Specification__DefBlockAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2919:1: ( ( ruleDefblock ) )
-            // InternalSLEEC.g:2920:2: ( ruleDefblock )
+            // InternalSLEEC.g:2925:1: ( ( ruleDefblock ) )
+            // InternalSLEEC.g:2926:2: ( ruleDefblock )
             {
-            // InternalSLEEC.g:2920:2: ( ruleDefblock )
-            // InternalSLEEC.g:2921:3: ruleDefblock
+            // InternalSLEEC.g:2926:2: ( ruleDefblock )
+            // InternalSLEEC.g:2927:3: ruleDefblock
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSpecificationAccess().getDefBlockDefblockParserRuleCall_0_0()); 
@@ -9584,17 +9626,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Specification__RuleBlockAssignment_1"
-    // InternalSLEEC.g:2930:1: rule__Specification__RuleBlockAssignment_1 : ( ruleRuleBlock ) ;
+    // InternalSLEEC.g:2936:1: rule__Specification__RuleBlockAssignment_1 : ( ruleRuleBlock ) ;
     public final void rule__Specification__RuleBlockAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2934:1: ( ( ruleRuleBlock ) )
-            // InternalSLEEC.g:2935:2: ( ruleRuleBlock )
+            // InternalSLEEC.g:2940:1: ( ( ruleRuleBlock ) )
+            // InternalSLEEC.g:2941:2: ( ruleRuleBlock )
             {
-            // InternalSLEEC.g:2935:2: ( ruleRuleBlock )
-            // InternalSLEEC.g:2936:3: ruleRuleBlock
+            // InternalSLEEC.g:2941:2: ( ruleRuleBlock )
+            // InternalSLEEC.g:2942:3: ruleRuleBlock
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSpecificationAccess().getRuleBlockRuleBlockParserRuleCall_1_0()); 
@@ -9629,17 +9671,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defblock__DefinitionsAssignment_1"
-    // InternalSLEEC.g:2945:1: rule__Defblock__DefinitionsAssignment_1 : ( ruleDefinition ) ;
+    // InternalSLEEC.g:2951:1: rule__Defblock__DefinitionsAssignment_1 : ( ruleDefinition ) ;
     public final void rule__Defblock__DefinitionsAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2949:1: ( ( ruleDefinition ) )
-            // InternalSLEEC.g:2950:2: ( ruleDefinition )
+            // InternalSLEEC.g:2955:1: ( ( ruleDefinition ) )
+            // InternalSLEEC.g:2956:2: ( ruleDefinition )
             {
-            // InternalSLEEC.g:2950:2: ( ruleDefinition )
-            // InternalSLEEC.g:2951:3: ruleDefinition
+            // InternalSLEEC.g:2956:2: ( ruleDefinition )
+            // InternalSLEEC.g:2957:3: ruleDefinition
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefblockAccess().getDefinitionsDefinitionParserRuleCall_1_0()); 
@@ -9674,17 +9716,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Event__NameAssignment_1"
-    // InternalSLEEC.g:2960:1: rule__Event__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalSLEEC.g:2966:1: rule__Event__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Event__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2964:1: ( ( RULE_ID ) )
-            // InternalSLEEC.g:2965:2: ( RULE_ID )
+            // InternalSLEEC.g:2970:1: ( ( RULE_ID ) )
+            // InternalSLEEC.g:2971:2: ( RULE_ID )
             {
-            // InternalSLEEC.g:2965:2: ( RULE_ID )
-            // InternalSLEEC.g:2966:3: RULE_ID
+            // InternalSLEEC.g:2971:2: ( RULE_ID )
+            // InternalSLEEC.g:2972:3: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getEventAccess().getNameIDTerminalRuleCall_1_0()); 
@@ -9715,17 +9757,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Measure__NameAssignment_1"
-    // InternalSLEEC.g:2975:1: rule__Measure__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalSLEEC.g:2981:1: rule__Measure__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Measure__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2979:1: ( ( RULE_ID ) )
-            // InternalSLEEC.g:2980:2: ( RULE_ID )
+            // InternalSLEEC.g:2985:1: ( ( RULE_ID ) )
+            // InternalSLEEC.g:2986:2: ( RULE_ID )
             {
-            // InternalSLEEC.g:2980:2: ( RULE_ID )
-            // InternalSLEEC.g:2981:3: RULE_ID
+            // InternalSLEEC.g:2986:2: ( RULE_ID )
+            // InternalSLEEC.g:2987:3: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMeasureAccess().getNameIDTerminalRuleCall_1_0()); 
@@ -9756,17 +9798,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Measure__TypeAssignment_3"
-    // InternalSLEEC.g:2990:1: rule__Measure__TypeAssignment_3 : ( ruleType ) ;
+    // InternalSLEEC.g:2996:1: rule__Measure__TypeAssignment_3 : ( ruleType ) ;
     public final void rule__Measure__TypeAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2994:1: ( ( ruleType ) )
-            // InternalSLEEC.g:2995:2: ( ruleType )
+            // InternalSLEEC.g:3000:1: ( ( ruleType ) )
+            // InternalSLEEC.g:3001:2: ( ruleType )
             {
-            // InternalSLEEC.g:2995:2: ( ruleType )
-            // InternalSLEEC.g:2996:3: ruleType
+            // InternalSLEEC.g:3001:2: ( ruleType )
+            // InternalSLEEC.g:3002:3: ruleType
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMeasureAccess().getTypeTypeParserRuleCall_3_0()); 
@@ -9801,17 +9843,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__NameAssignment_1"
-    // InternalSLEEC.g:3005:1: rule__Constant__NameAssignment_1 : ( RULE_ID ) ;
+    // InternalSLEEC.g:3011:1: rule__Constant__NameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Constant__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3009:1: ( ( RULE_ID ) )
-            // InternalSLEEC.g:3010:2: ( RULE_ID )
+            // InternalSLEEC.g:3015:1: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3016:2: ( RULE_ID )
             {
-            // InternalSLEEC.g:3010:2: ( RULE_ID )
-            // InternalSLEEC.g:3011:3: RULE_ID
+            // InternalSLEEC.g:3016:2: ( RULE_ID )
+            // InternalSLEEC.g:3017:3: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getNameIDTerminalRuleCall_1_0()); 
@@ -9842,17 +9884,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__ValueAssignment_3"
-    // InternalSLEEC.g:3020:1: rule__Constant__ValueAssignment_3 : ( RULE_INT ) ;
+    // InternalSLEEC.g:3026:1: rule__Constant__ValueAssignment_3 : ( RULE_INT ) ;
     public final void rule__Constant__ValueAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3024:1: ( ( RULE_INT ) )
-            // InternalSLEEC.g:3025:2: ( RULE_INT )
+            // InternalSLEEC.g:3030:1: ( ( RULE_INT ) )
+            // InternalSLEEC.g:3031:2: ( RULE_INT )
             {
-            // InternalSLEEC.g:3025:2: ( RULE_INT )
-            // InternalSLEEC.g:3026:3: RULE_INT
+            // InternalSLEEC.g:3031:2: ( RULE_INT )
+            // InternalSLEEC.g:3032:3: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getConstantAccess().getValueINTTerminalRuleCall_3_0()); 
@@ -9883,23 +9925,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Value__ValueAssignment_1"
-    // InternalSLEEC.g:3035:1: rule__Value__ValueAssignment_1 : ( ( RULE_ID ) ) ;
+    // InternalSLEEC.g:3041:1: rule__Value__ValueAssignment_1 : ( ( RULE_ID ) ) ;
     public final void rule__Value__ValueAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3039:1: ( ( ( RULE_ID ) ) )
-            // InternalSLEEC.g:3040:2: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3045:1: ( ( ( RULE_ID ) ) )
+            // InternalSLEEC.g:3046:2: ( ( RULE_ID ) )
             {
-            // InternalSLEEC.g:3040:2: ( ( RULE_ID ) )
-            // InternalSLEEC.g:3041:3: ( RULE_ID )
+            // InternalSLEEC.g:3046:2: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3047:3: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValueAccess().getValueConstantCrossReference_1_0()); 
             }
-            // InternalSLEEC.g:3042:3: ( RULE_ID )
-            // InternalSLEEC.g:3043:4: RULE_ID
+            // InternalSLEEC.g:3048:3: ( RULE_ID )
+            // InternalSLEEC.g:3049:4: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValueAccess().getValueConstantIDTerminalRuleCall_1_0_1()); 
@@ -9936,28 +9978,28 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__ScaleParamsAssignment_2_3"
-    // InternalSLEEC.g:3054:1: rule__Type__ScaleParamsAssignment_2_3 : ( ruleLiteral ) ;
+    // InternalSLEEC.g:3060:1: rule__Type__ScaleParamsAssignment_2_3 : ( ruleScaleParam ) ;
     public final void rule__Type__ScaleParamsAssignment_2_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3058:1: ( ( ruleLiteral ) )
-            // InternalSLEEC.g:3059:2: ( ruleLiteral )
+            // InternalSLEEC.g:3064:1: ( ( ruleScaleParam ) )
+            // InternalSLEEC.g:3065:2: ( ruleScaleParam )
             {
-            // InternalSLEEC.g:3059:2: ( ruleLiteral )
-            // InternalSLEEC.g:3060:3: ruleLiteral
+            // InternalSLEEC.g:3065:2: ( ruleScaleParam )
+            // InternalSLEEC.g:3066:3: ruleScaleParam
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getTypeAccess().getScaleParamsLiteralParserRuleCall_2_3_0()); 
+               before(grammarAccess.getTypeAccess().getScaleParamsScaleParamParserRuleCall_2_3_0()); 
             }
             pushFollow(FOLLOW_2);
-            ruleLiteral();
+            ruleScaleParam();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getTypeAccess().getScaleParamsLiteralParserRuleCall_2_3_0()); 
+               after(grammarAccess.getTypeAccess().getScaleParamsScaleParamParserRuleCall_2_3_0()); 
             }
 
             }
@@ -9981,28 +10023,28 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__ScaleParamsAssignment_2_4_1"
-    // InternalSLEEC.g:3069:1: rule__Type__ScaleParamsAssignment_2_4_1 : ( ruleLiteral ) ;
+    // InternalSLEEC.g:3075:1: rule__Type__ScaleParamsAssignment_2_4_1 : ( ruleScaleParam ) ;
     public final void rule__Type__ScaleParamsAssignment_2_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3073:1: ( ( ruleLiteral ) )
-            // InternalSLEEC.g:3074:2: ( ruleLiteral )
+            // InternalSLEEC.g:3079:1: ( ( ruleScaleParam ) )
+            // InternalSLEEC.g:3080:2: ( ruleScaleParam )
             {
-            // InternalSLEEC.g:3074:2: ( ruleLiteral )
-            // InternalSLEEC.g:3075:3: ruleLiteral
+            // InternalSLEEC.g:3080:2: ( ruleScaleParam )
+            // InternalSLEEC.g:3081:3: ruleScaleParam
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getTypeAccess().getScaleParamsLiteralParserRuleCall_2_4_1_0()); 
+               before(grammarAccess.getTypeAccess().getScaleParamsScaleParamParserRuleCall_2_4_1_0()); 
             }
             pushFollow(FOLLOW_2);
-            ruleLiteral();
+            ruleScaleParam();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getTypeAccess().getScaleParamsLiteralParserRuleCall_2_4_1_0()); 
+               after(grammarAccess.getTypeAccess().getScaleParamsScaleParamParserRuleCall_2_4_1_0()); 
             }
 
             }
@@ -10025,18 +10067,59 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Type__ScaleParamsAssignment_2_4_1"
 
 
+    // $ANTLR start "rule__ScaleParam__NameAssignment"
+    // InternalSLEEC.g:3090:1: rule__ScaleParam__NameAssignment : ( RULE_ID ) ;
+    public final void rule__ScaleParam__NameAssignment() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalSLEEC.g:3094:1: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3095:2: ( RULE_ID )
+            {
+            // InternalSLEEC.g:3095:2: ( RULE_ID )
+            // InternalSLEEC.g:3096:3: RULE_ID
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getScaleParamAccess().getNameIDTerminalRuleCall_0()); 
+            }
+            match(input,RULE_ID,FOLLOW_2); if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getScaleParamAccess().getNameIDTerminalRuleCall_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__ScaleParam__NameAssignment"
+
+
     // $ANTLR start "rule__RuleBlock__RulesAssignment_1"
-    // InternalSLEEC.g:3084:1: rule__RuleBlock__RulesAssignment_1 : ( ruleRule ) ;
+    // InternalSLEEC.g:3105:1: rule__RuleBlock__RulesAssignment_1 : ( ruleRule ) ;
     public final void rule__RuleBlock__RulesAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3088:1: ( ( ruleRule ) )
-            // InternalSLEEC.g:3089:2: ( ruleRule )
+            // InternalSLEEC.g:3109:1: ( ( ruleRule ) )
+            // InternalSLEEC.g:3110:2: ( ruleRule )
             {
-            // InternalSLEEC.g:3089:2: ( ruleRule )
-            // InternalSLEEC.g:3090:3: ruleRule
+            // InternalSLEEC.g:3110:2: ( ruleRule )
+            // InternalSLEEC.g:3111:3: ruleRule
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleBlockAccess().getRulesRuleParserRuleCall_1_0()); 
@@ -10071,17 +10154,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__NameAssignment_0"
-    // InternalSLEEC.g:3099:1: rule__Rule__NameAssignment_0 : ( ruleQualifiedName ) ;
+    // InternalSLEEC.g:3120:1: rule__Rule__NameAssignment_0 : ( ruleQualifiedName ) ;
     public final void rule__Rule__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3103:1: ( ( ruleQualifiedName ) )
-            // InternalSLEEC.g:3104:2: ( ruleQualifiedName )
+            // InternalSLEEC.g:3124:1: ( ( ruleQualifiedName ) )
+            // InternalSLEEC.g:3125:2: ( ruleQualifiedName )
             {
-            // InternalSLEEC.g:3104:2: ( ruleQualifiedName )
-            // InternalSLEEC.g:3105:3: ruleQualifiedName
+            // InternalSLEEC.g:3125:2: ( ruleQualifiedName )
+            // InternalSLEEC.g:3126:3: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleAccess().getNameQualifiedNameParserRuleCall_0_0()); 
@@ -10116,17 +10199,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__TriggerAssignment_2"
-    // InternalSLEEC.g:3114:1: rule__Rule__TriggerAssignment_2 : ( ruleTrigger ) ;
+    // InternalSLEEC.g:3135:1: rule__Rule__TriggerAssignment_2 : ( ruleTrigger ) ;
     public final void rule__Rule__TriggerAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3118:1: ( ( ruleTrigger ) )
-            // InternalSLEEC.g:3119:2: ( ruleTrigger )
+            // InternalSLEEC.g:3139:1: ( ( ruleTrigger ) )
+            // InternalSLEEC.g:3140:2: ( ruleTrigger )
             {
-            // InternalSLEEC.g:3119:2: ( ruleTrigger )
-            // InternalSLEEC.g:3120:3: ruleTrigger
+            // InternalSLEEC.g:3140:2: ( ruleTrigger )
+            // InternalSLEEC.g:3141:3: ruleTrigger
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleAccess().getTriggerTriggerParserRuleCall_2_0()); 
@@ -10161,17 +10244,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__ResponseAssignment_4"
-    // InternalSLEEC.g:3129:1: rule__Rule__ResponseAssignment_4 : ( ruleResponse ) ;
+    // InternalSLEEC.g:3150:1: rule__Rule__ResponseAssignment_4 : ( ruleResponse ) ;
     public final void rule__Rule__ResponseAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3133:1: ( ( ruleResponse ) )
-            // InternalSLEEC.g:3134:2: ( ruleResponse )
+            // InternalSLEEC.g:3154:1: ( ( ruleResponse ) )
+            // InternalSLEEC.g:3155:2: ( ruleResponse )
             {
-            // InternalSLEEC.g:3134:2: ( ruleResponse )
-            // InternalSLEEC.g:3135:3: ruleResponse
+            // InternalSLEEC.g:3155:2: ( ruleResponse )
+            // InternalSLEEC.g:3156:3: ruleResponse
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleAccess().getResponseResponseParserRuleCall_4_0()); 
@@ -10206,17 +10289,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Rule__DefeatersAssignment_5"
-    // InternalSLEEC.g:3144:1: rule__Rule__DefeatersAssignment_5 : ( ruleDefeater ) ;
+    // InternalSLEEC.g:3165:1: rule__Rule__DefeatersAssignment_5 : ( ruleDefeater ) ;
     public final void rule__Rule__DefeatersAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3148:1: ( ( ruleDefeater ) )
-            // InternalSLEEC.g:3149:2: ( ruleDefeater )
+            // InternalSLEEC.g:3169:1: ( ( ruleDefeater ) )
+            // InternalSLEEC.g:3170:2: ( ruleDefeater )
             {
-            // InternalSLEEC.g:3149:2: ( ruleDefeater )
-            // InternalSLEEC.g:3150:3: ruleDefeater
+            // InternalSLEEC.g:3170:2: ( ruleDefeater )
+            // InternalSLEEC.g:3171:3: ruleDefeater
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRuleAccess().getDefeatersDefeaterParserRuleCall_5_0()); 
@@ -10251,23 +10334,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Trigger__EventAssignment_0"
-    // InternalSLEEC.g:3159:1: rule__Trigger__EventAssignment_0 : ( ( RULE_ID ) ) ;
+    // InternalSLEEC.g:3180:1: rule__Trigger__EventAssignment_0 : ( ( RULE_ID ) ) ;
     public final void rule__Trigger__EventAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3163:1: ( ( ( RULE_ID ) ) )
-            // InternalSLEEC.g:3164:2: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3184:1: ( ( ( RULE_ID ) ) )
+            // InternalSLEEC.g:3185:2: ( ( RULE_ID ) )
             {
-            // InternalSLEEC.g:3164:2: ( ( RULE_ID ) )
-            // InternalSLEEC.g:3165:3: ( RULE_ID )
+            // InternalSLEEC.g:3185:2: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3186:3: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTriggerAccess().getEventEventCrossReference_0_0()); 
             }
-            // InternalSLEEC.g:3166:3: ( RULE_ID )
-            // InternalSLEEC.g:3167:4: RULE_ID
+            // InternalSLEEC.g:3187:3: ( RULE_ID )
+            // InternalSLEEC.g:3188:4: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTriggerAccess().getEventEventIDTerminalRuleCall_0_0_1()); 
@@ -10304,17 +10387,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Trigger__ExprAssignment_1_1"
-    // InternalSLEEC.g:3178:1: rule__Trigger__ExprAssignment_1_1 : ( ruleMBoolExpr ) ;
+    // InternalSLEEC.g:3199:1: rule__Trigger__ExprAssignment_1_1 : ( ruleMBoolExpr ) ;
     public final void rule__Trigger__ExprAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3182:1: ( ( ruleMBoolExpr ) )
-            // InternalSLEEC.g:3183:2: ( ruleMBoolExpr )
+            // InternalSLEEC.g:3203:1: ( ( ruleMBoolExpr ) )
+            // InternalSLEEC.g:3204:2: ( ruleMBoolExpr )
             {
-            // InternalSLEEC.g:3183:2: ( ruleMBoolExpr )
-            // InternalSLEEC.g:3184:3: ruleMBoolExpr
+            // InternalSLEEC.g:3204:2: ( ruleMBoolExpr )
+            // InternalSLEEC.g:3205:3: ruleMBoolExpr
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTriggerAccess().getExprMBoolExprParserRuleCall_1_1_0()); 
@@ -10349,17 +10432,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__OpAssignment_1_1"
-    // InternalSLEEC.g:3193:1: rule__BoolComp__OpAssignment_1_1 : ( ruleBoolOp ) ;
+    // InternalSLEEC.g:3214:1: rule__BoolComp__OpAssignment_1_1 : ( ruleBoolOp ) ;
     public final void rule__BoolComp__OpAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3197:1: ( ( ruleBoolOp ) )
-            // InternalSLEEC.g:3198:2: ( ruleBoolOp )
+            // InternalSLEEC.g:3218:1: ( ( ruleBoolOp ) )
+            // InternalSLEEC.g:3219:2: ( ruleBoolOp )
             {
-            // InternalSLEEC.g:3198:2: ( ruleBoolOp )
-            // InternalSLEEC.g:3199:3: ruleBoolOp
+            // InternalSLEEC.g:3219:2: ( ruleBoolOp )
+            // InternalSLEEC.g:3220:3: ruleBoolOp
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getBoolCompAccess().getOpBoolOpEnumRuleCall_1_1_0()); 
@@ -10394,17 +10477,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BoolComp__RightAssignment_1_2"
-    // InternalSLEEC.g:3208:1: rule__BoolComp__RightAssignment_1_2 : ( ruleNot ) ;
+    // InternalSLEEC.g:3229:1: rule__BoolComp__RightAssignment_1_2 : ( ruleNot ) ;
     public final void rule__BoolComp__RightAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3212:1: ( ( ruleNot ) )
-            // InternalSLEEC.g:3213:2: ( ruleNot )
+            // InternalSLEEC.g:3233:1: ( ( ruleNot ) )
+            // InternalSLEEC.g:3234:2: ( ruleNot )
             {
-            // InternalSLEEC.g:3213:2: ( ruleNot )
-            // InternalSLEEC.g:3214:3: ruleNot
+            // InternalSLEEC.g:3234:2: ( ruleNot )
+            // InternalSLEEC.g:3235:3: ruleNot
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getBoolCompAccess().getRightNotParserRuleCall_1_2_0()); 
@@ -10439,17 +10522,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Not__LeftAssignment_0_2"
-    // InternalSLEEC.g:3223:1: rule__Not__LeftAssignment_0_2 : ( ruleRelComp ) ;
+    // InternalSLEEC.g:3244:1: rule__Not__LeftAssignment_0_2 : ( ruleRelComp ) ;
     public final void rule__Not__LeftAssignment_0_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3227:1: ( ( ruleRelComp ) )
-            // InternalSLEEC.g:3228:2: ( ruleRelComp )
+            // InternalSLEEC.g:3248:1: ( ( ruleRelComp ) )
+            // InternalSLEEC.g:3249:2: ( ruleRelComp )
             {
-            // InternalSLEEC.g:3228:2: ( ruleRelComp )
-            // InternalSLEEC.g:3229:3: ruleRelComp
+            // InternalSLEEC.g:3249:2: ( ruleRelComp )
+            // InternalSLEEC.g:3250:3: ruleRelComp
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNotAccess().getLeftRelCompParserRuleCall_0_2_0()); 
@@ -10484,17 +10567,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__OpAssignment_1_1"
-    // InternalSLEEC.g:3238:1: rule__RelComp__OpAssignment_1_1 : ( ruleRelOp ) ;
+    // InternalSLEEC.g:3259:1: rule__RelComp__OpAssignment_1_1 : ( ruleRelOp ) ;
     public final void rule__RelComp__OpAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3242:1: ( ( ruleRelOp ) )
-            // InternalSLEEC.g:3243:2: ( ruleRelOp )
+            // InternalSLEEC.g:3263:1: ( ( ruleRelOp ) )
+            // InternalSLEEC.g:3264:2: ( ruleRelOp )
             {
-            // InternalSLEEC.g:3243:2: ( ruleRelOp )
-            // InternalSLEEC.g:3244:3: ruleRelOp
+            // InternalSLEEC.g:3264:2: ( ruleRelOp )
+            // InternalSLEEC.g:3265:3: ruleRelOp
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRelCompAccess().getOpRelOpEnumRuleCall_1_1_0()); 
@@ -10529,17 +10612,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__RelComp__RightAssignment_1_2"
-    // InternalSLEEC.g:3253:1: rule__RelComp__RightAssignment_1_2 : ( ruleAtom ) ;
+    // InternalSLEEC.g:3274:1: rule__RelComp__RightAssignment_1_2 : ( ruleAtom ) ;
     public final void rule__RelComp__RightAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3257:1: ( ( ruleAtom ) )
-            // InternalSLEEC.g:3258:2: ( ruleAtom )
+            // InternalSLEEC.g:3278:1: ( ( ruleAtom ) )
+            // InternalSLEEC.g:3279:2: ( ruleAtom )
             {
-            // InternalSLEEC.g:3258:2: ( ruleAtom )
-            // InternalSLEEC.g:3259:3: ruleAtom
+            // InternalSLEEC.g:3279:2: ( ruleAtom )
+            // InternalSLEEC.g:3280:3: ruleAtom
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getRelCompAccess().getRightAtomParserRuleCall_1_2_0()); 
@@ -10574,23 +10657,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atom__MeasureAssignment_0"
-    // InternalSLEEC.g:3268:1: rule__Atom__MeasureAssignment_0 : ( ( RULE_ID ) ) ;
+    // InternalSLEEC.g:3289:1: rule__Atom__MeasureAssignment_0 : ( ( RULE_ID ) ) ;
     public final void rule__Atom__MeasureAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3272:1: ( ( ( RULE_ID ) ) )
-            // InternalSLEEC.g:3273:2: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3293:1: ( ( ( RULE_ID ) ) )
+            // InternalSLEEC.g:3294:2: ( ( RULE_ID ) )
             {
-            // InternalSLEEC.g:3273:2: ( ( RULE_ID ) )
-            // InternalSLEEC.g:3274:3: ( RULE_ID )
+            // InternalSLEEC.g:3294:2: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3295:3: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAtomAccess().getMeasureMeasureCrossReference_0_0()); 
             }
-            // InternalSLEEC.g:3275:3: ( RULE_ID )
-            // InternalSLEEC.g:3276:4: RULE_ID
+            // InternalSLEEC.g:3296:3: ( RULE_ID )
+            // InternalSLEEC.g:3297:4: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAtomAccess().getMeasureMeasureIDTerminalRuleCall_0_0_1()); 
@@ -10627,17 +10710,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atom__ValueAssignment_2"
-    // InternalSLEEC.g:3287:1: rule__Atom__ValueAssignment_2 : ( ruleValue ) ;
+    // InternalSLEEC.g:3308:1: rule__Atom__ValueAssignment_2 : ( ruleValue ) ;
     public final void rule__Atom__ValueAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3291:1: ( ( ruleValue ) )
-            // InternalSLEEC.g:3292:2: ( ruleValue )
+            // InternalSLEEC.g:3312:1: ( ( ruleValue ) )
+            // InternalSLEEC.g:3313:2: ( ruleValue )
             {
-            // InternalSLEEC.g:3292:2: ( ruleValue )
-            // InternalSLEEC.g:3293:3: ruleValue
+            // InternalSLEEC.g:3313:2: ( ruleValue )
+            // InternalSLEEC.g:3314:3: ruleValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAtomAccess().getValueValueParserRuleCall_2_0()); 
@@ -10671,24 +10754,77 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Atom__ValueAssignment_2"
 
 
+    // $ANTLR start "rule__Atom__ScaleParamAssignment_3"
+    // InternalSLEEC.g:3323:1: rule__Atom__ScaleParamAssignment_3 : ( ( RULE_ID ) ) ;
+    public final void rule__Atom__ScaleParamAssignment_3() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+        	
+        try {
+            // InternalSLEEC.g:3327:1: ( ( ( RULE_ID ) ) )
+            // InternalSLEEC.g:3328:2: ( ( RULE_ID ) )
+            {
+            // InternalSLEEC.g:3328:2: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3329:3: ( RULE_ID )
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getAtomAccess().getScaleParamScaleParamCrossReference_3_0()); 
+            }
+            // InternalSLEEC.g:3330:3: ( RULE_ID )
+            // InternalSLEEC.g:3331:4: RULE_ID
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getAtomAccess().getScaleParamScaleParamIDTerminalRuleCall_3_0_1()); 
+            }
+            match(input,RULE_ID,FOLLOW_2); if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getAtomAccess().getScaleParamScaleParamIDTerminalRuleCall_3_0_1()); 
+            }
+
+            }
+
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getAtomAccess().getScaleParamScaleParamCrossReference_3_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Atom__ScaleParamAssignment_3"
+
+
     // $ANTLR start "rule__Response__NameAssignment_0_0"
-    // InternalSLEEC.g:3302:1: rule__Response__NameAssignment_0_0 : ( ( RULE_ID ) ) ;
+    // InternalSLEEC.g:3342:1: rule__Response__NameAssignment_0_0 : ( ( RULE_ID ) ) ;
     public final void rule__Response__NameAssignment_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3306:1: ( ( ( RULE_ID ) ) )
-            // InternalSLEEC.g:3307:2: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3346:1: ( ( ( RULE_ID ) ) )
+            // InternalSLEEC.g:3347:2: ( ( RULE_ID ) )
             {
-            // InternalSLEEC.g:3307:2: ( ( RULE_ID ) )
-            // InternalSLEEC.g:3308:3: ( RULE_ID )
+            // InternalSLEEC.g:3347:2: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3348:3: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getNameEventCrossReference_0_0_0()); 
             }
-            // InternalSLEEC.g:3309:3: ( RULE_ID )
-            // InternalSLEEC.g:3310:4: RULE_ID
+            // InternalSLEEC.g:3349:3: ( RULE_ID )
+            // InternalSLEEC.g:3350:4: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getNameEventIDTerminalRuleCall_0_0_0_1()); 
@@ -10725,17 +10861,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__TimeAssignment_0_1_1"
-    // InternalSLEEC.g:3321:1: rule__Response__TimeAssignment_0_1_1 : ( ruleValue ) ;
+    // InternalSLEEC.g:3361:1: rule__Response__TimeAssignment_0_1_1 : ( ruleValue ) ;
     public final void rule__Response__TimeAssignment_0_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3325:1: ( ( ruleValue ) )
-            // InternalSLEEC.g:3326:2: ( ruleValue )
+            // InternalSLEEC.g:3365:1: ( ( ruleValue ) )
+            // InternalSLEEC.g:3366:2: ( ruleValue )
             {
-            // InternalSLEEC.g:3326:2: ( ruleValue )
-            // InternalSLEEC.g:3327:3: ruleValue
+            // InternalSLEEC.g:3366:2: ( ruleValue )
+            // InternalSLEEC.g:3367:3: ruleValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getTimeValueParserRuleCall_0_1_1_0()); 
@@ -10770,17 +10906,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__ResponseAssignment_0_1_2_1"
-    // InternalSLEEC.g:3336:1: rule__Response__ResponseAssignment_0_1_2_1 : ( ruleResponse ) ;
+    // InternalSLEEC.g:3376:1: rule__Response__ResponseAssignment_0_1_2_1 : ( ruleResponse ) ;
     public final void rule__Response__ResponseAssignment_0_1_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3340:1: ( ( ruleResponse ) )
-            // InternalSLEEC.g:3341:2: ( ruleResponse )
+            // InternalSLEEC.g:3380:1: ( ( ruleResponse ) )
+            // InternalSLEEC.g:3381:2: ( ruleResponse )
             {
-            // InternalSLEEC.g:3341:2: ( ruleResponse )
-            // InternalSLEEC.g:3342:3: ruleResponse
+            // InternalSLEEC.g:3381:2: ( ruleResponse )
+            // InternalSLEEC.g:3382:3: ruleResponse
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getResponseResponseParserRuleCall_0_1_2_1_0()); 
@@ -10815,23 +10951,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__NotAssignment_1_0"
-    // InternalSLEEC.g:3351:1: rule__Response__NotAssignment_1_0 : ( ( 'not' ) ) ;
+    // InternalSLEEC.g:3391:1: rule__Response__NotAssignment_1_0 : ( ( 'not' ) ) ;
     public final void rule__Response__NotAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3355:1: ( ( ( 'not' ) ) )
-            // InternalSLEEC.g:3356:2: ( ( 'not' ) )
+            // InternalSLEEC.g:3395:1: ( ( ( 'not' ) ) )
+            // InternalSLEEC.g:3396:2: ( ( 'not' ) )
             {
-            // InternalSLEEC.g:3356:2: ( ( 'not' ) )
-            // InternalSLEEC.g:3357:3: ( 'not' )
+            // InternalSLEEC.g:3396:2: ( ( 'not' ) )
+            // InternalSLEEC.g:3397:3: ( 'not' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getNotNotKeyword_1_0_0()); 
             }
-            // InternalSLEEC.g:3358:3: ( 'not' )
-            // InternalSLEEC.g:3359:4: 'not'
+            // InternalSLEEC.g:3398:3: ( 'not' )
+            // InternalSLEEC.g:3399:4: 'not'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getNotNotKeyword_1_0_0()); 
@@ -10868,23 +11004,23 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__NameAssignment_1_1"
-    // InternalSLEEC.g:3370:1: rule__Response__NameAssignment_1_1 : ( ( RULE_ID ) ) ;
+    // InternalSLEEC.g:3410:1: rule__Response__NameAssignment_1_1 : ( ( RULE_ID ) ) ;
     public final void rule__Response__NameAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3374:1: ( ( ( RULE_ID ) ) )
-            // InternalSLEEC.g:3375:2: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3414:1: ( ( ( RULE_ID ) ) )
+            // InternalSLEEC.g:3415:2: ( ( RULE_ID ) )
             {
-            // InternalSLEEC.g:3375:2: ( ( RULE_ID ) )
-            // InternalSLEEC.g:3376:3: ( RULE_ID )
+            // InternalSLEEC.g:3415:2: ( ( RULE_ID ) )
+            // InternalSLEEC.g:3416:3: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getNameEventCrossReference_1_1_0()); 
             }
-            // InternalSLEEC.g:3377:3: ( RULE_ID )
-            // InternalSLEEC.g:3378:4: RULE_ID
+            // InternalSLEEC.g:3417:3: ( RULE_ID )
+            // InternalSLEEC.g:3418:4: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getNameEventIDTerminalRuleCall_1_1_0_1()); 
@@ -10921,17 +11057,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Response__TimeAssignment_1_3"
-    // InternalSLEEC.g:3389:1: rule__Response__TimeAssignment_1_3 : ( ruleValue ) ;
+    // InternalSLEEC.g:3429:1: rule__Response__TimeAssignment_1_3 : ( ruleValue ) ;
     public final void rule__Response__TimeAssignment_1_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3393:1: ( ( ruleValue ) )
-            // InternalSLEEC.g:3394:2: ( ruleValue )
+            // InternalSLEEC.g:3433:1: ( ( ruleValue ) )
+            // InternalSLEEC.g:3434:2: ( ruleValue )
             {
-            // InternalSLEEC.g:3394:2: ( ruleValue )
-            // InternalSLEEC.g:3395:3: ruleValue
+            // InternalSLEEC.g:3434:2: ( ruleValue )
+            // InternalSLEEC.g:3435:3: ruleValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResponseAccess().getTimeValueParserRuleCall_1_3_0()); 
@@ -10966,17 +11102,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__ExprAssignment_1"
-    // InternalSLEEC.g:3404:1: rule__Defeater__ExprAssignment_1 : ( ruleMBoolExpr ) ;
+    // InternalSLEEC.g:3444:1: rule__Defeater__ExprAssignment_1 : ( ruleMBoolExpr ) ;
     public final void rule__Defeater__ExprAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3408:1: ( ( ruleMBoolExpr ) )
-            // InternalSLEEC.g:3409:2: ( ruleMBoolExpr )
+            // InternalSLEEC.g:3448:1: ( ( ruleMBoolExpr ) )
+            // InternalSLEEC.g:3449:2: ( ruleMBoolExpr )
             {
-            // InternalSLEEC.g:3409:2: ( ruleMBoolExpr )
-            // InternalSLEEC.g:3410:3: ruleMBoolExpr
+            // InternalSLEEC.g:3449:2: ( ruleMBoolExpr )
+            // InternalSLEEC.g:3450:3: ruleMBoolExpr
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefeaterAccess().getExprMBoolExprParserRuleCall_1_0()); 
@@ -11011,17 +11147,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Defeater__ResponseAssignment_2_1"
-    // InternalSLEEC.g:3419:1: rule__Defeater__ResponseAssignment_2_1 : ( ruleResponse ) ;
+    // InternalSLEEC.g:3459:1: rule__Defeater__ResponseAssignment_2_1 : ( ruleResponse ) ;
     public final void rule__Defeater__ResponseAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:3423:1: ( ( ruleResponse ) )
-            // InternalSLEEC.g:3424:2: ( ruleResponse )
+            // InternalSLEEC.g:3463:1: ( ( ruleResponse ) )
+            // InternalSLEEC.g:3464:2: ( ruleResponse )
             {
-            // InternalSLEEC.g:3424:2: ( ruleResponse )
-            // InternalSLEEC.g:3425:3: ruleResponse
+            // InternalSLEEC.g:3464:2: ( ruleResponse )
+            // InternalSLEEC.g:3465:3: ruleResponse
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDefeaterAccess().getResponseResponseParserRuleCall_2_1_0()); 
@@ -11084,6 +11220,36 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
     }
     // $ANTLR end synpred7_InternalSLEEC
 
+    // $ANTLR start synpred9_InternalSLEEC
+    public final void synpred9_InternalSLEEC_fragment() throws RecognitionException {   
+        // InternalSLEEC.g:698:2: ( ( ( rule__Atom__ValueAssignment_2 ) ) )
+        // InternalSLEEC.g:698:2: ( ( rule__Atom__ValueAssignment_2 ) )
+        {
+        // InternalSLEEC.g:698:2: ( ( rule__Atom__ValueAssignment_2 ) )
+        // InternalSLEEC.g:699:3: ( rule__Atom__ValueAssignment_2 )
+        {
+        if ( state.backtracking==0 ) {
+           before(grammarAccess.getAtomAccess().getValueAssignment_2()); 
+        }
+        // InternalSLEEC.g:700:3: ( rule__Atom__ValueAssignment_2 )
+        // InternalSLEEC.g:700:4: rule__Atom__ValueAssignment_2
+        {
+        pushFollow(FOLLOW_2);
+        rule__Atom__ValueAssignment_2();
+
+        state._fsp--;
+        if (state.failed) return ;
+
+        }
+
+
+        }
+
+
+        }
+    }
+    // $ANTLR end synpred9_InternalSLEEC
+
     // Delegated rules
 
     public final boolean synpred7_InternalSLEEC() {
@@ -11091,6 +11257,20 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
         int start = input.mark();
         try {
             synpred7_InternalSLEEC_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
+        }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
+    }
+    public final boolean synpred9_InternalSLEEC() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred9_InternalSLEEC_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -11110,21 +11290,21 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000001600000L});
     public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000100000L});
     public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000001600002L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x000000000E000000L});
     public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000004000000L});
     public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000010000000L});
     public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000060000000L});
     public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000040000002L});
     public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000000022L});
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000200000000L});
     public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000800000010L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000800000020L});
     public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000004000000000L});
     public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000004000000002L});
     public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000020000L});
@@ -11136,8 +11316,9 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x000000000001F802L});
     public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000020000000L});
     public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000001000000000L});
-    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000008000000000L});
-    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000008000000002L});
+    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000000000000030L});
+    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000008000000000L});
+    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0000008000000002L});
 
 }

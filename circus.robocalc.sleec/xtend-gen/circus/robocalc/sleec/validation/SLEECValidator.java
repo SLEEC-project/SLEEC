@@ -10,6 +10,7 @@ import circus.robocalc.sleec.sLEEC.Numeric;
 import circus.robocalc.sleec.sLEEC.RelComp;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
+import circus.robocalc.sleec.sLEEC.ScaleParam;
 import circus.robocalc.sleec.sLEEC.Value;
 import org.eclipse.xtext.validation.Check;
 
@@ -21,7 +22,7 @@ import org.eclipse.xtext.validation.Check;
 public class SLEECValidator extends AbstractSLEECValidator {
   @Check
   public void checkRelCompType(final RelComp e) {
-    if (((e.getLeft().getMeasure().getType() instanceof Scale) && (e.getRight().getMeasure().getType() instanceof Scale))) {
+    if ((this.isScale(e.getLeft()) && this.isScale(e.getRight()))) {
       return;
     }
     if (((!this.isNumeric(e.getLeft())) || (!this.isNumeric(e.getRight())))) {
@@ -46,5 +47,10 @@ public class SLEECValidator extends AbstractSLEECValidator {
       (e instanceof BoolComp)) || 
       (e instanceof RelComp)) || 
       (e.getMeasure().getType() instanceof circus.robocalc.sleec.sLEEC.Boolean));
+  }
+  
+  private boolean isScale(final MBoolExpr e) {
+    return ((e instanceof ScaleParam) || 
+      (e.getMeasure().getType() instanceof Scale));
   }
 }

@@ -18,6 +18,7 @@ import circus.robocalc.sleec.sLEEC.Rule;
 import circus.robocalc.sleec.sLEEC.RuleBlock;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
+import circus.robocalc.sleec.sLEEC.ScaleParam;
 import circus.robocalc.sleec.sLEEC.Specification;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Value;
@@ -93,6 +94,9 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case SLEECPackage.SCALE:
 				sequence_Type(context, (Scale) semanticObject); 
 				return; 
+			case SLEECPackage.SCALE_PARAM:
+				sequence_ScaleParam(context, (ScaleParam) semanticObject); 
+				return; 
 			case SLEECPackage.SPECIFICATION:
 				sequence_Specification(context, (Specification) semanticObject); 
 				return; 
@@ -118,7 +122,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Atom returns MBoolExpr
 	 *
 	 * Constraint:
-	 *     (measure=[Measure|ID] | value=Value)
+	 *     (measure=[Measure|ID] | value=Value | scaleParam=[ScaleParam|ID])
 	 */
 	protected void sequence_Atom(ISerializationContext context, MBoolExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -334,6 +338,24 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
+	 *     ScaleParam returns ScaleParam
+	 *
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_ScaleParam(ISerializationContext context, ScaleParam semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.SCALE_PARAM__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.SCALE_PARAM__NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getScaleParamAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Specification returns Specification
 	 *
 	 * Constraint:
@@ -394,7 +416,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Type returns Scale
 	 *
 	 * Constraint:
-	 *     (scaleParams+=Literal scaleParams+=Literal*)
+	 *     (scaleParams+=ScaleParam scaleParams+=ScaleParam*)
 	 */
 	protected void sequence_Type(ISerializationContext context, Scale semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

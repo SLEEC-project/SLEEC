@@ -256,19 +256,19 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Keyword cScaleKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		private final Assignment cScaleParamsAssignment_2_3 = (Assignment)cGroup_2.eContents().get(3);
-		private final RuleCall cScaleParamsLiteralParserRuleCall_2_3_0 = (RuleCall)cScaleParamsAssignment_2_3.eContents().get(0);
+		private final RuleCall cScaleParamsScaleParamParserRuleCall_2_3_0 = (RuleCall)cScaleParamsAssignment_2_3.eContents().get(0);
 		private final Group cGroup_2_4 = (Group)cGroup_2.eContents().get(4);
 		private final Keyword cCommaKeyword_2_4_0 = (Keyword)cGroup_2_4.eContents().get(0);
 		private final Assignment cScaleParamsAssignment_2_4_1 = (Assignment)cGroup_2_4.eContents().get(1);
-		private final RuleCall cScaleParamsLiteralParserRuleCall_2_4_1_0 = (RuleCall)cScaleParamsAssignment_2_4_1.eContents().get(0);
+		private final RuleCall cScaleParamsScaleParamParserRuleCall_2_4_1_0 = (RuleCall)cScaleParamsAssignment_2_4_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_5 = (Keyword)cGroup_2.eContents().get(5);
 		
 		//Type:
-		//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=Literal (',' scaleParams+=Literal)* ')'
+		//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=ScaleParam (',' scaleParams+=ScaleParam)* ')'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=Literal (',' scaleParams+=Literal)* ')'
+		//{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=ScaleParam (',' scaleParams+=ScaleParam)* ')'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{Boolean} 'boolean'
@@ -289,7 +289,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'numeric'
 		public Keyword getNumericKeyword_1_1() { return cNumericKeyword_1_1; }
 		
-		//{Scale} 'scale' '(' scaleParams+=Literal (',' scaleParams+=Literal)* ')'
+		//{Scale} 'scale' '(' scaleParams+=ScaleParam (',' scaleParams+=ScaleParam)* ')'
 		public Group getGroup_2() { return cGroup_2; }
 		
 		//{Scale}
@@ -301,38 +301,42 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'('
 		public Keyword getLeftParenthesisKeyword_2_2() { return cLeftParenthesisKeyword_2_2; }
 		
-		//scaleParams+=Literal
+		//scaleParams+=ScaleParam
 		public Assignment getScaleParamsAssignment_2_3() { return cScaleParamsAssignment_2_3; }
 		
-		//Literal
-		public RuleCall getScaleParamsLiteralParserRuleCall_2_3_0() { return cScaleParamsLiteralParserRuleCall_2_3_0; }
+		//ScaleParam
+		public RuleCall getScaleParamsScaleParamParserRuleCall_2_3_0() { return cScaleParamsScaleParamParserRuleCall_2_3_0; }
 		
-		//(',' scaleParams+=Literal)*
+		//(',' scaleParams+=ScaleParam)*
 		public Group getGroup_2_4() { return cGroup_2_4; }
 		
 		//','
 		public Keyword getCommaKeyword_2_4_0() { return cCommaKeyword_2_4_0; }
 		
-		//scaleParams+=Literal
+		//scaleParams+=ScaleParam
 		public Assignment getScaleParamsAssignment_2_4_1() { return cScaleParamsAssignment_2_4_1; }
 		
-		//Literal
-		public RuleCall getScaleParamsLiteralParserRuleCall_2_4_1_0() { return cScaleParamsLiteralParserRuleCall_2_4_1_0; }
+		//ScaleParam
+		public RuleCall getScaleParamsScaleParamParserRuleCall_2_4_1_0() { return cScaleParamsScaleParamParserRuleCall_2_4_1_0; }
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_2_5() { return cRightParenthesisKeyword_2_5; }
 	}
-	public class LiteralElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Literal");
-		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+	public class ScaleParamElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.ScaleParam");
+		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
-		//Literal:
-		//    ID
+		//ScaleParam:
+		//    name=ID
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
+		//name=ID
+		public Assignment getNameAssignment() { return cNameAssignment; }
+		
 		//ID
-		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
+		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
 	}
 	public class RuleBlockElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.RuleBlock");
@@ -594,13 +598,16 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		private final Assignment cValueAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final RuleCall cValueValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		private final Assignment cScaleParamAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
+		private final CrossReference cScaleParamScaleParamCrossReference_3_0 = (CrossReference)cScaleParamAssignment_3.eContents().get(0);
+		private final RuleCall cScaleParamScaleParamIDTerminalRuleCall_3_0_1 = (RuleCall)cScaleParamScaleParamCrossReference_3_0.eContents().get(1);
 		
 		//Atom returns MBoolExpr:
-		//    ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value
+		//    ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value
+		//->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//->measure=[Measure]
@@ -629,6 +636,15 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		
 		//Value
 		public RuleCall getValueValueParserRuleCall_2_0() { return cValueValueParserRuleCall_2_0; }
+		
+		//->scaleParam=[ScaleParam]
+		public Assignment getScaleParamAssignment_3() { return cScaleParamAssignment_3; }
+		
+		//[ScaleParam]
+		public CrossReference getScaleParamScaleParamCrossReference_3_0() { return cScaleParamScaleParamCrossReference_3_0; }
+		
+		//ID
+		public RuleCall getScaleParamScaleParamIDTerminalRuleCall_3_0_1() { return cScaleParamScaleParamIDTerminalRuleCall_3_0_1; }
 	}
 	public class ResponseElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Response");
@@ -892,7 +908,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	private final ConstantElements pConstant;
 	private final ValueElements pValue;
 	private final TypeElements pType;
-	private final LiteralElements pLiteral;
+	private final ScaleParamElements pScaleParam;
 	private final RuleBlockElements pRuleBlock;
 	private final RuleElements pRule;
 	private final TriggerElements pTrigger;
@@ -924,7 +940,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		this.pConstant = new ConstantElements();
 		this.pValue = new ValueElements();
 		this.pType = new TypeElements();
-		this.pLiteral = new LiteralElements();
+		this.pScaleParam = new ScaleParamElements();
 		this.pRuleBlock = new RuleBlockElements();
 		this.pRule = new RuleElements();
 		this.pTrigger = new TriggerElements();
@@ -1046,7 +1062,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Type:
-	//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=Literal (',' scaleParams+=Literal)* ')'
+	//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=ScaleParam (',' scaleParams+=ScaleParam)* ')'
 	//;
 	public TypeElements getTypeAccess() {
 		return pType;
@@ -1056,15 +1072,15 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getTypeAccess().getRule();
 	}
 	
-	//Literal:
-	//    ID
+	//ScaleParam:
+	//    name=ID
 	//;
-	public LiteralElements getLiteralAccess() {
-		return pLiteral;
+	public ScaleParamElements getScaleParamAccess() {
+		return pScaleParam;
 	}
 	
-	public ParserRule getLiteralRule() {
-		return getLiteralAccess().getRule();
+	public ParserRule getScaleParamRule() {
+		return getScaleParamAccess().getRule();
 	}
 	
 	//RuleBlock:
@@ -1145,7 +1161,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Atom returns MBoolExpr:
-	//    ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value
+	//    ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
 	//;
 	public AtomElements getAtomAccess() {
 		return pAtom;

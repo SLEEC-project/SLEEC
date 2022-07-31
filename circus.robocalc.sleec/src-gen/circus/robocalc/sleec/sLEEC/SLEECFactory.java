@@ -96,6 +96,15 @@ public interface SLEECFactory extends EFactory
   Type createType();
 
   /**
+   * Returns a new object of class '<em>Scale Param</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Scale Param</em>'.
+   * @generated
+   */
+  ScaleParam createScaleParam();
+
+  /**
    * Returns a new object of class '<em>Rule Block</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

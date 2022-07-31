@@ -67,6 +67,7 @@ public class SLEECSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) 'not' left=RelComp
 	 *     (rule start) (ambiguity) measure=[Measure|ID]
+	 *     (rule start) (ambiguity) scaleParam=[ScaleParam|ID]
 	 *     (rule start) (ambiguity) value=Value
 	 *     (rule start) (ambiguity) {BoolComp.left=}
 	 *     (rule start) (ambiguity) {RelComp.left=}

@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getMeasure <em>Measure</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getValue <em>Value</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getScaleParam <em>Scale Param</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getLeft <em>Left</em>}</li>
  * </ul>
  *
@@ -68,6 +69,28 @@ public interface MBoolExpr extends EObject
    * @generated
    */
   void setValue(Value value);
+
+  /**
+   * Returns the value of the '<em><b>Scale Param</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Scale Param</em>' reference.
+   * @see #setScaleParam(ScaleParam)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getMBoolExpr_ScaleParam()
+   * @model
+   * @generated
+   */
+  ScaleParam getScaleParam();
+
+  /**
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getScaleParam <em>Scale Param</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Scale Param</em>' reference.
+   * @see #getScaleParam()
+   * @generated
+   */
+  void setScaleParam(ScaleParam value);
 
   /**
    * Returns the value of the '<em><b>Left</b></em>' containment reference.

@@ -22,6 +22,7 @@ import circus.robocalc.sleec.sLEEC.RuleBlock;
 import circus.robocalc.sleec.sLEEC.SLEECFactory;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
+import circus.robocalc.sleec.sLEEC.ScaleParam;
 import circus.robocalc.sleec.sLEEC.Specification;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
@@ -98,6 +99,13 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   private EClass typeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass scaleParamEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -431,6 +439,28 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
+  public EClass getScaleParam()
+  {
+    return scaleParamEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getScaleParam_Name()
+  {
+    return (EAttribute)scaleParamEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getRuleBlock()
   {
     return ruleBlockEClass;
@@ -574,9 +604,20 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
-  public EReference getMBoolExpr_Left()
+  public EReference getMBoolExpr_ScaleParam()
   {
     return (EReference)mBoolExprEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getMBoolExpr_Left()
+  {
+    return (EReference)mBoolExprEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -706,9 +747,9 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
-  public EAttribute getScale_ScaleParams()
+  public EReference getScale_ScaleParams()
   {
-    return (EAttribute)scaleEClass.getEStructuralFeatures().get(0);
+    return (EReference)scaleEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -864,6 +905,9 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
 
     typeEClass = createEClass(TYPE);
 
+    scaleParamEClass = createEClass(SCALE_PARAM);
+    createEAttribute(scaleParamEClass, SCALE_PARAM__NAME);
+
     ruleBlockEClass = createEClass(RULE_BLOCK);
     createEReference(ruleBlockEClass, RULE_BLOCK__RULES);
 
@@ -880,6 +924,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     mBoolExprEClass = createEClass(MBOOL_EXPR);
     createEReference(mBoolExprEClass, MBOOL_EXPR__MEASURE);
     createEReference(mBoolExprEClass, MBOOL_EXPR__VALUE);
+    createEReference(mBoolExprEClass, MBOOL_EXPR__SCALE_PARAM);
     createEReference(mBoolExprEClass, MBOOL_EXPR__LEFT);
 
     responseEClass = createEClass(RESPONSE);
@@ -897,7 +942,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     numericEClass = createEClass(NUMERIC);
 
     scaleEClass = createEClass(SCALE);
-    createEAttribute(scaleEClass, SCALE__SCALE_PARAMS);
+    createEReference(scaleEClass, SCALE__SCALE_PARAMS);
 
     boolCompEClass = createEClass(BOOL_COMP);
     createEAttribute(boolCompEClass, BOOL_COMP__OP);
@@ -977,6 +1022,9 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
 
     initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+    initEClass(scaleParamEClass, ScaleParam.class, "ScaleParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getScaleParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, ScaleParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(ruleBlockEClass, RuleBlock.class, "RuleBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRuleBlock_Rules(), this.getRule(), null, "rules", null, 0, -1, RuleBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -993,6 +1041,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     initEClass(mBoolExprEClass, MBoolExpr.class, "MBoolExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getMBoolExpr_Measure(), this.getMeasure(), null, "measure", null, 0, 1, MBoolExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMBoolExpr_Value(), this.getValue(), null, "value", null, 0, 1, MBoolExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMBoolExpr_ScaleParam(), this.getScaleParam(), null, "scaleParam", null, 0, 1, MBoolExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMBoolExpr_Left(), this.getMBoolExpr(), null, "left", null, 0, 1, MBoolExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(responseEClass, Response.class, "Response", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1010,7 +1059,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     initEClass(numericEClass, Numeric.class, "Numeric", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(scaleEClass, Scale.class, "Scale", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getScale_ScaleParams(), ecorePackage.getEString(), "scaleParams", null, 0, -1, Scale.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getScale_ScaleParams(), this.getScaleParam(), null, "scaleParams", null, 0, -1, Scale.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(boolCompEClass, BoolComp.class, "BoolComp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getBoolComp_Op(), this.getBoolOp(), "op", null, 0, 1, BoolComp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

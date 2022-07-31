@@ -22,6 +22,7 @@ import circus.robocalc.sleec.sLEEC.RuleBlock;
 import circus.robocalc.sleec.sLEEC.SLEECFactory;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
+import circus.robocalc.sleec.sLEEC.ScaleParam;
 import circus.robocalc.sleec.sLEEC.Specification;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
@@ -96,6 +97,7 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
       case SLEECPackage.CONSTANT: return createConstant();
       case SLEECPackage.VALUE: return createValue();
       case SLEECPackage.TYPE: return createType();
+      case SLEECPackage.SCALE_PARAM: return createScaleParam();
       case SLEECPackage.RULE_BLOCK: return createRuleBlock();
       case SLEECPackage.RULE: return createRule();
       case SLEECPackage.TRIGGER: return createTrigger();
@@ -245,6 +247,18 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
   {
     TypeImpl type = new TypeImpl();
     return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ScaleParam createScaleParam()
+  {
+    ScaleParamImpl scaleParam = new ScaleParamImpl();
+    return scaleParam;
   }
 
   /**

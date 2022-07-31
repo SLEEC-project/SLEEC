@@ -13,6 +13,7 @@ import circus.robocalc.sleec.sLEEC.SLEECPackage
 import circus.robocalc.sleec.sLEEC.Scale
 import circus.robocalc.sleec.sLEEC.Value
 import org.eclipse.xtext.validation.Check
+import circus.robocalc.sleec.sLEEC.ScaleParam
 
 /** 
  * This class contains custom validation rules. 
@@ -21,7 +22,7 @@ import org.eclipse.xtext.validation.Check
 class SLEECValidator extends AbstractSLEECValidator {
 	@Check
 	def checkRelCompType(RelComp e) {
-		if(e.left.measure.type instanceof Scale && e.right.measure.type instanceof Scale)
+		if(isScale(e.left) && isScale(e.right))
 			return;
 		if(!isNumeric(e.left) || !isNumeric(e.right))
 			error("relational operand must have numeric type.", SLEECPackage.Literals.REL_COMP__OP, "relationalOperands")
@@ -43,5 +44,10 @@ class SLEECValidator extends AbstractSLEECValidator {
 			e instanceof BoolComp ||
 			e instanceof RelComp ||
 			e.measure.type instanceof Boolean
+	}
+	
+	def private isScale(MBoolExpr e) {
+		return e instanceof ScaleParam ||
+			e.measure.type instanceof Scale
 	}
 }

@@ -4,52 +4,56 @@
 package circus.robocalc.sleec.sLEEC.impl;
 
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
-import circus.robocalc.sleec.sLEEC.Scale;
 import circus.robocalc.sleec.sLEEC.ScaleParam;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Scale</b></em>'.
+ * An implementation of the model object '<em><b>Scale Param</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ScaleImpl#getScaleParams <em>Scale Params</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ScaleParamImpl#getName <em>Name</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ScaleImpl extends TypeImpl implements Scale
+public class ScaleParamImpl extends MinimalEObjectImpl.Container implements ScaleParam
 {
   /**
-   * The cached value of the '{@link #getScaleParams() <em>Scale Params</em>}' containment reference list.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getScaleParams()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected EList<ScaleParam> scaleParams;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ScaleImpl()
+  protected ScaleParamImpl()
   {
     super();
   }
@@ -62,7 +66,7 @@ public class ScaleImpl extends TypeImpl implements Scale
   @Override
   protected EClass eStaticClass()
   {
-    return SLEECPackage.Literals.SCALE;
+    return SLEECPackage.Literals.SCALE_PARAM;
   }
 
   /**
@@ -71,13 +75,9 @@ public class ScaleImpl extends TypeImpl implements Scale
    * @generated
    */
   @Override
-  public EList<ScaleParam> getScaleParams()
+  public String getName()
   {
-    if (scaleParams == null)
-    {
-      scaleParams = new EObjectContainmentEList<ScaleParam>(ScaleParam.class, this, SLEECPackage.SCALE__SCALE_PARAMS);
-    }
-    return scaleParams;
+    return name;
   }
 
   /**
@@ -86,14 +86,12 @@ public class ScaleImpl extends TypeImpl implements Scale
    * @generated
    */
   @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  public void setName(String newName)
   {
-    switch (featureID)
-    {
-      case SLEECPackage.SCALE__SCALE_PARAMS:
-        return ((InternalEList<?>)getScaleParams()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.SCALE_PARAM__NAME, oldName, name));
   }
 
   /**
@@ -106,8 +104,8 @@ public class ScaleImpl extends TypeImpl implements Scale
   {
     switch (featureID)
     {
-      case SLEECPackage.SCALE__SCALE_PARAMS:
-        return getScaleParams();
+      case SLEECPackage.SCALE_PARAM__NAME:
+        return getName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -117,15 +115,13 @@ public class ScaleImpl extends TypeImpl implements Scale
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case SLEECPackage.SCALE__SCALE_PARAMS:
-        getScaleParams().clear();
-        getScaleParams().addAll((Collection<? extends ScaleParam>)newValue);
+      case SLEECPackage.SCALE_PARAM__NAME:
+        setName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -141,8 +137,8 @@ public class ScaleImpl extends TypeImpl implements Scale
   {
     switch (featureID)
     {
-      case SLEECPackage.SCALE__SCALE_PARAMS:
-        getScaleParams().clear();
+      case SLEECPackage.SCALE_PARAM__NAME:
+        setName(NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -158,10 +154,27 @@ public class ScaleImpl extends TypeImpl implements Scale
   {
     switch (featureID)
     {
-      case SLEECPackage.SCALE__SCALE_PARAMS:
-        return scaleParams != null && !scaleParams.isEmpty();
+      case SLEECPackage.SCALE_PARAM__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
   }
 
-} //ScaleImpl
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
+  }
+
+} //ScaleParamImpl

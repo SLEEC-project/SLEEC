@@ -19,6 +19,7 @@ import circus.robocalc.sleec.sLEEC.Rule;
 import circus.robocalc.sleec.sLEEC.RuleBlock;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
+import circus.robocalc.sleec.sLEEC.ScaleParam;
 import circus.robocalc.sleec.sLEEC.Specification;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
@@ -133,6 +134,11 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
       public Adapter caseType(Type object)
       {
         return createTypeAdapter();
+      }
+      @Override
+      public Adapter caseScaleParam(ScaleParam object)
+      {
+        return createScaleParamAdapter();
       }
       @Override
       public Adapter caseRuleBlock(RuleBlock object)
@@ -332,6 +338,21 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link circus.robocalc.sleec.sLEEC.ScaleParam <em>Scale Param</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see circus.robocalc.sleec.sLEEC.ScaleParam
+   * @generated
+   */
+  public Adapter createScaleParamAdapter()
   {
     return null;
   }

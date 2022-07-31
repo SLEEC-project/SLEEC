@@ -6,6 +6,7 @@ package circus.robocalc.sleec.sLEEC.impl;
 import circus.robocalc.sleec.sLEEC.MBoolExpr;
 import circus.robocalc.sleec.sLEEC.Measure;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
+import circus.robocalc.sleec.sLEEC.ScaleParam;
 import circus.robocalc.sleec.sLEEC.Value;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -27,6 +28,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getMeasure <em>Measure</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getScaleParam <em>Scale Param</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getLeft <em>Left</em>}</li>
  * </ul>
  *
@@ -53,6 +55,16 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
    * @ordered
    */
   protected Value value;
+
+  /**
+   * The cached value of the '{@link #getScaleParam() <em>Scale Param</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getScaleParam()
+   * @generated
+   * @ordered
+   */
+  protected ScaleParam scaleParam;
 
   /**
    * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
@@ -186,6 +198,51 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
    * @generated
    */
   @Override
+  public ScaleParam getScaleParam()
+  {
+    if (scaleParam != null && scaleParam.eIsProxy())
+    {
+      InternalEObject oldScaleParam = (InternalEObject)scaleParam;
+      scaleParam = (ScaleParam)eResolveProxy(oldScaleParam);
+      if (scaleParam != oldScaleParam)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SLEECPackage.MBOOL_EXPR__SCALE_PARAM, oldScaleParam, scaleParam));
+      }
+    }
+    return scaleParam;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ScaleParam basicGetScaleParam()
+  {
+    return scaleParam;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setScaleParam(ScaleParam newScaleParam)
+  {
+    ScaleParam oldScaleParam = scaleParam;
+    scaleParam = newScaleParam;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.MBOOL_EXPR__SCALE_PARAM, oldScaleParam, scaleParam));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public MBoolExpr getLeft()
   {
     return left;
@@ -263,6 +320,9 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
         return basicGetMeasure();
       case SLEECPackage.MBOOL_EXPR__VALUE:
         return getValue();
+      case SLEECPackage.MBOOL_EXPR__SCALE_PARAM:
+        if (resolve) return getScaleParam();
+        return basicGetScaleParam();
       case SLEECPackage.MBOOL_EXPR__LEFT:
         return getLeft();
     }
@@ -284,6 +344,9 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
         return;
       case SLEECPackage.MBOOL_EXPR__VALUE:
         setValue((Value)newValue);
+        return;
+      case SLEECPackage.MBOOL_EXPR__SCALE_PARAM:
+        setScaleParam((ScaleParam)newValue);
         return;
       case SLEECPackage.MBOOL_EXPR__LEFT:
         setLeft((MBoolExpr)newValue);
@@ -308,6 +371,9 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
       case SLEECPackage.MBOOL_EXPR__VALUE:
         setValue((Value)null);
         return;
+      case SLEECPackage.MBOOL_EXPR__SCALE_PARAM:
+        setScaleParam((ScaleParam)null);
+        return;
       case SLEECPackage.MBOOL_EXPR__LEFT:
         setLeft((MBoolExpr)null);
         return;
@@ -329,6 +395,8 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
         return measure != null;
       case SLEECPackage.MBOOL_EXPR__VALUE:
         return value != null;
+      case SLEECPackage.MBOOL_EXPR__SCALE_PARAM:
+        return scaleParam != null;
       case SLEECPackage.MBOOL_EXPR__LEFT:
         return left != null;
     }
