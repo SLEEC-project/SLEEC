@@ -17,7 +17,7 @@ Definition:
 ;
 
 Value:
-	int=INT | float=FLOAT | value=[Constant]
+	int=INT | float=FLOAT | constant=[Constant]
 ;
 
 Type:

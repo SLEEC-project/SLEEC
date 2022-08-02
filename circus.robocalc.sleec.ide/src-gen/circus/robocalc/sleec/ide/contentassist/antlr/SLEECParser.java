@@ -77,7 +77,7 @@ public class SLEECParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getDefinitionAccess().getValueAssignment_2_4(), "rule__Definition__ValueAssignment_2_4");
 			builder.put(grammarAccess.getValueAccess().getIntAssignment_0(), "rule__Value__IntAssignment_0");
 			builder.put(grammarAccess.getValueAccess().getFloatAssignment_1(), "rule__Value__FloatAssignment_1");
-			builder.put(grammarAccess.getValueAccess().getValueAssignment_2(), "rule__Value__ValueAssignment_2");
+			builder.put(grammarAccess.getValueAccess().getConstantAssignment_2(), "rule__Value__ConstantAssignment_2");
 			builder.put(grammarAccess.getTypeAccess().getScaleParamsAssignment_2_3(), "rule__Type__ScaleParamsAssignment_2_3");
 			builder.put(grammarAccess.getTypeAccess().getScaleParamsAssignment_2_4_1(), "rule__Type__ScaleParamsAssignment_2_4_1");
 			builder.put(grammarAccess.getRuleBlockAccess().getRulesAssignment_1(), "rule__RuleBlock__RulesAssignment_1");

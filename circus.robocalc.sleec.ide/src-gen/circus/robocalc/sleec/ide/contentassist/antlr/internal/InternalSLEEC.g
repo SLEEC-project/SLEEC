@@ -626,9 +626,9 @@ rule__Value__Alternatives
 	)
 	|
 	(
-		{ before(grammarAccess.getValueAccess().getValueAssignment_2()); }
-		(rule__Value__ValueAssignment_2)
-		{ after(grammarAccess.getValueAccess().getValueAssignment_2()); }
+		{ before(grammarAccess.getValueAccess().getConstantAssignment_2()); }
+		(rule__Value__ConstantAssignment_2)
+		{ after(grammarAccess.getValueAccess().getConstantAssignment_2()); }
 	)
 ;
 finally {
@@ -3115,19 +3115,19 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Value__ValueAssignment_2
+rule__Value__ConstantAssignment_2
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getValueAccess().getValueConstantCrossReference_2_0()); }
+		{ before(grammarAccess.getValueAccess().getConstantConstantCrossReference_2_0()); }
 		(
-			{ before(grammarAccess.getValueAccess().getValueConstantIDTerminalRuleCall_2_0_1()); }
+			{ before(grammarAccess.getValueAccess().getConstantConstantIDTerminalRuleCall_2_0_1()); }
 			RULE_ID
-			{ after(grammarAccess.getValueAccess().getValueConstantIDTerminalRuleCall_2_0_1()); }
+			{ after(grammarAccess.getValueAccess().getConstantConstantIDTerminalRuleCall_2_0_1()); }
 		)
-		{ after(grammarAccess.getValueAccess().getValueConstantCrossReference_2_0()); }
+		{ after(grammarAccess.getValueAccess().getConstantConstantCrossReference_2_0()); }
 	)
 ;
 finally {

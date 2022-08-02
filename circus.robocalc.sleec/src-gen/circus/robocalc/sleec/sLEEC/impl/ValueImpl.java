@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ValueImpl#getInt <em>Int</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ValueImpl#getFloat <em>Float</em>}</li>
- *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ValueImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ValueImpl#getConstant <em>Constant</em>}</li>
  * </ul>
  *
  * @generated
@@ -73,14 +73,14 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
   protected float float_ = FLOAT_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getValue() <em>Value</em>}' reference.
+   * The cached value of the '{@link #getConstant() <em>Constant</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getValue()
+   * @see #getConstant()
    * @generated
    * @ordered
    */
-  protected Constant value;
+  protected Constant constant;
 
   /**
    * <!-- begin-user-doc -->
@@ -159,19 +159,19 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
    * @generated
    */
   @Override
-  public Constant getValue()
+  public Constant getConstant()
   {
-    if (value != null && value.eIsProxy())
+    if (constant != null && constant.eIsProxy())
     {
-      InternalEObject oldValue = (InternalEObject)value;
-      value = (Constant)eResolveProxy(oldValue);
-      if (value != oldValue)
+      InternalEObject oldConstant = (InternalEObject)constant;
+      constant = (Constant)eResolveProxy(oldConstant);
+      if (constant != oldConstant)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SLEECPackage.VALUE__VALUE, oldValue, value));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SLEECPackage.VALUE__CONSTANT, oldConstant, constant));
       }
     }
-    return value;
+    return constant;
   }
 
   /**
@@ -179,9 +179,9 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
    * <!-- end-user-doc -->
    * @generated
    */
-  public Constant basicGetValue()
+  public Constant basicGetConstant()
   {
-    return value;
+    return constant;
   }
 
   /**
@@ -190,12 +190,12 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
    * @generated
    */
   @Override
-  public void setValue(Constant newValue)
+  public void setConstant(Constant newConstant)
   {
-    Constant oldValue = value;
-    value = newValue;
+    Constant oldConstant = constant;
+    constant = newConstant;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.VALUE__VALUE, oldValue, value));
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.VALUE__CONSTANT, oldConstant, constant));
   }
 
   /**
@@ -212,9 +212,9 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
         return getInt();
       case SLEECPackage.VALUE__FLOAT:
         return getFloat();
-      case SLEECPackage.VALUE__VALUE:
-        if (resolve) return getValue();
-        return basicGetValue();
+      case SLEECPackage.VALUE__CONSTANT:
+        if (resolve) return getConstant();
+        return basicGetConstant();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -235,8 +235,8 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
       case SLEECPackage.VALUE__FLOAT:
         setFloat((Float)newValue);
         return;
-      case SLEECPackage.VALUE__VALUE:
-        setValue((Constant)newValue);
+      case SLEECPackage.VALUE__CONSTANT:
+        setConstant((Constant)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -258,8 +258,8 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
       case SLEECPackage.VALUE__FLOAT:
         setFloat(FLOAT_EDEFAULT);
         return;
-      case SLEECPackage.VALUE__VALUE:
-        setValue((Constant)null);
+      case SLEECPackage.VALUE__CONSTANT:
+        setConstant((Constant)null);
         return;
     }
     super.eUnset(featureID);
@@ -279,8 +279,8 @@ public class ValueImpl extends MinimalEObjectImpl.Container implements Value
         return int_ != INT_EDEFAULT;
       case SLEECPackage.VALUE__FLOAT:
         return float_ != FLOAT_EDEFAULT;
-      case SLEECPackage.VALUE__VALUE:
-        return value != null;
+      case SLEECPackage.VALUE__CONSTANT:
+        return constant != null;
     }
     return super.eIsSet(featureID);
   }

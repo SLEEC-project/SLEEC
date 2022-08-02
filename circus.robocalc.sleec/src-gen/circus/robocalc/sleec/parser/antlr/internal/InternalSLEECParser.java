@@ -896,7 +896,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     				
                     otherlv_2=(Token)match(input,RULE_ID,FOLLOW_2); 
 
-                    					newLeafNode(otherlv_2, grammarAccess.getValueAccess().getValueConstantCrossReference_2_0());
+                    					newLeafNode(otherlv_2, grammarAccess.getValueAccess().getConstantConstantCrossReference_2_0());
                     				
 
                     }

@@ -180,13 +180,13 @@ public interface SLEECPackage extends EPackage
   int VALUE__FLOAT = 1;
 
   /**
-   * The feature id for the '<em><b>Value</b></em>' reference.
+   * The feature id for the '<em><b>Constant</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int VALUE__VALUE = 2;
+  int VALUE__CONSTANT = 2;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -944,15 +944,15 @@ public interface SLEECPackage extends EPackage
   EAttribute getValue_Float();
 
   /**
-   * Returns the meta object for the reference '{@link circus.robocalc.sleec.sLEEC.Value#getValue <em>Value</em>}'.
+   * Returns the meta object for the reference '{@link circus.robocalc.sleec.sLEEC.Value#getConstant <em>Constant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Value</em>'.
-   * @see circus.robocalc.sleec.sLEEC.Value#getValue()
+   * @return the meta object for the reference '<em>Constant</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Value#getConstant()
    * @see #getValue()
    * @generated
    */
-  EReference getValue_Value();
+  EReference getValue_Constant();
 
   /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Type <em>Type</em>}'.
@@ -1499,12 +1499,12 @@ public interface SLEECPackage extends EPackage
     EAttribute VALUE__FLOAT = eINSTANCE.getValue_Float();
 
     /**
-     * The meta object literal for the '<em><b>Value</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Constant</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference VALUE__VALUE = eINSTANCE.getValue_Value();
+    EReference VALUE__CONSTANT = eINSTANCE.getValue_Constant();
 
     /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.TypeImpl <em>Type</em>}' class.

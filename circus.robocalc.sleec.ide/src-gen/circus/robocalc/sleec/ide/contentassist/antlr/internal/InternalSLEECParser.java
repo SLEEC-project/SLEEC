@@ -1812,13 +1812,13 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Value__Alternatives"
-    // InternalSLEEC.g:611:1: rule__Value__Alternatives : ( ( ( rule__Value__IntAssignment_0 ) ) | ( ( rule__Value__FloatAssignment_1 ) ) | ( ( rule__Value__ValueAssignment_2 ) ) );
+    // InternalSLEEC.g:611:1: rule__Value__Alternatives : ( ( ( rule__Value__IntAssignment_0 ) ) | ( ( rule__Value__FloatAssignment_1 ) ) | ( ( rule__Value__ConstantAssignment_2 ) ) );
     public final void rule__Value__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:615:1: ( ( ( rule__Value__IntAssignment_0 ) ) | ( ( rule__Value__FloatAssignment_1 ) ) | ( ( rule__Value__ValueAssignment_2 ) ) )
+            // InternalSLEEC.g:615:1: ( ( ( rule__Value__IntAssignment_0 ) ) | ( ( rule__Value__FloatAssignment_1 ) ) | ( ( rule__Value__ConstantAssignment_2 ) ) )
             int alt2=3;
             switch ( input.LA(1) ) {
             case RULE_INT:
@@ -1895,24 +1895,24 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalSLEEC.g:628:2: ( ( rule__Value__ValueAssignment_2 ) )
+                    // InternalSLEEC.g:628:2: ( ( rule__Value__ConstantAssignment_2 ) )
                     {
-                    // InternalSLEEC.g:628:2: ( ( rule__Value__ValueAssignment_2 ) )
-                    // InternalSLEEC.g:629:3: ( rule__Value__ValueAssignment_2 )
+                    // InternalSLEEC.g:628:2: ( ( rule__Value__ConstantAssignment_2 ) )
+                    // InternalSLEEC.g:629:3: ( rule__Value__ConstantAssignment_2 )
                     {
-                     before(grammarAccess.getValueAccess().getValueAssignment_2()); 
-                    // InternalSLEEC.g:630:3: ( rule__Value__ValueAssignment_2 )
-                    // InternalSLEEC.g:630:4: rule__Value__ValueAssignment_2
+                     before(grammarAccess.getValueAccess().getConstantAssignment_2()); 
+                    // InternalSLEEC.g:630:3: ( rule__Value__ConstantAssignment_2 )
+                    // InternalSLEEC.g:630:4: rule__Value__ConstantAssignment_2
                     {
                     pushFollow(FOLLOW_2);
-                    rule__Value__ValueAssignment_2();
+                    rule__Value__ConstantAssignment_2();
 
                     state._fsp--;
 
 
                     }
 
-                     after(grammarAccess.getValueAccess().getValueAssignment_2()); 
+                     after(grammarAccess.getValueAccess().getConstantAssignment_2()); 
 
                     }
 
@@ -9519,9 +9519,9 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Value__FloatAssignment_1"
 
 
-    // $ANTLR start "rule__Value__ValueAssignment_2"
-    // InternalSLEEC.g:3118:1: rule__Value__ValueAssignment_2 : ( ( RULE_ID ) ) ;
-    public final void rule__Value__ValueAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__Value__ConstantAssignment_2"
+    // InternalSLEEC.g:3118:1: rule__Value__ConstantAssignment_2 : ( ( RULE_ID ) ) ;
+    public final void rule__Value__ConstantAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -9532,17 +9532,17 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
             // InternalSLEEC.g:3123:2: ( ( RULE_ID ) )
             // InternalSLEEC.g:3124:3: ( RULE_ID )
             {
-             before(grammarAccess.getValueAccess().getValueConstantCrossReference_2_0()); 
+             before(grammarAccess.getValueAccess().getConstantConstantCrossReference_2_0()); 
             // InternalSLEEC.g:3125:3: ( RULE_ID )
             // InternalSLEEC.g:3126:4: RULE_ID
             {
-             before(grammarAccess.getValueAccess().getValueConstantIDTerminalRuleCall_2_0_1()); 
+             before(grammarAccess.getValueAccess().getConstantConstantIDTerminalRuleCall_2_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getValueAccess().getValueConstantIDTerminalRuleCall_2_0_1()); 
+             after(grammarAccess.getValueAccess().getConstantConstantIDTerminalRuleCall_2_0_1()); 
 
             }
 
-             after(grammarAccess.getValueAccess().getValueConstantCrossReference_2_0()); 
+             after(grammarAccess.getValueAccess().getConstantConstantCrossReference_2_0()); 
 
             }
 
@@ -9561,7 +9561,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Value__ValueAssignment_2"
+    // $ANTLR end "rule__Value__ConstantAssignment_2"
 
 
     // $ANTLR start "rule__Type__ScaleParamsAssignment_2_3"

@@ -185,16 +185,16 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final RuleCall cIntINTTerminalRuleCall_0_0 = (RuleCall)cIntAssignment_0.eContents().get(0);
 		private final Assignment cFloatAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final RuleCall cFloatFLOATTerminalRuleCall_1_0 = (RuleCall)cFloatAssignment_1.eContents().get(0);
-		private final Assignment cValueAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
-		private final CrossReference cValueConstantCrossReference_2_0 = (CrossReference)cValueAssignment_2.eContents().get(0);
-		private final RuleCall cValueConstantIDTerminalRuleCall_2_0_1 = (RuleCall)cValueConstantCrossReference_2_0.eContents().get(1);
+		private final Assignment cConstantAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
+		private final CrossReference cConstantConstantCrossReference_2_0 = (CrossReference)cConstantAssignment_2.eContents().get(0);
+		private final RuleCall cConstantConstantIDTerminalRuleCall_2_0_1 = (RuleCall)cConstantConstantCrossReference_2_0.eContents().get(1);
 		
 		//Value:
-		//    int=INT | float=FLOAT | value=[Constant]
+		//    int=INT | float=FLOAT | constant=[Constant]
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//int=INT | float=FLOAT | value=[Constant]
+		//int=INT | float=FLOAT | constant=[Constant]
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//int=INT
@@ -209,14 +209,14 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//FLOAT
 		public RuleCall getFloatFLOATTerminalRuleCall_1_0() { return cFloatFLOATTerminalRuleCall_1_0; }
 		
-		//value=[Constant]
-		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
+		//constant=[Constant]
+		public Assignment getConstantAssignment_2() { return cConstantAssignment_2; }
 		
 		//[Constant]
-		public CrossReference getValueConstantCrossReference_2_0() { return cValueConstantCrossReference_2_0; }
+		public CrossReference getConstantConstantCrossReference_2_0() { return cConstantConstantCrossReference_2_0; }
 		
 		//ID
-		public RuleCall getValueConstantIDTerminalRuleCall_2_0_1() { return cValueConstantIDTerminalRuleCall_2_0_1; }
+		public RuleCall getConstantConstantIDTerminalRuleCall_2_0_1() { return cConstantConstantIDTerminalRuleCall_2_0_1; }
 	}
 	public class TypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Type");
@@ -1029,7 +1029,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Value:
-	//    int=INT | float=FLOAT | value=[Constant]
+	//    int=INT | float=FLOAT | constant=[Constant]
 	//;
 	public ValueElements getValueAccess() {
 		return pValue;

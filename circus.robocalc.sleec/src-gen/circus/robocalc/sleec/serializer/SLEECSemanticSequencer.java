@@ -403,7 +403,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Value returns Value
 	 *
 	 * Constraint:
-	 *     (int=INT | float=FLOAT | value=[Constant|ID])
+	 *     (int=INT | float=FLOAT | constant=[Constant|ID])
 	 */
 	protected void sequence_Value(ISerializationContext context, Value semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

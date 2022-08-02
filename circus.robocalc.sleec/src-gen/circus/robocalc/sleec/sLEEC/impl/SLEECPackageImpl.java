@@ -376,7 +376,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
-  public EReference getValue_Value()
+  public EReference getValue_Constant()
   {
     return (EReference)valueEClass.getEStructuralFeatures().get(2);
   }
@@ -876,7 +876,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     valueEClass = createEClass(VALUE);
     createEAttribute(valueEClass, VALUE__INT);
     createEAttribute(valueEClass, VALUE__FLOAT);
-    createEReference(valueEClass, VALUE__VALUE);
+    createEReference(valueEClass, VALUE__CONSTANT);
 
     typeEClass = createEClass(TYPE);
 
@@ -991,7 +991,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     initEClass(valueEClass, Value.class, "Value", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getValue_Int(), ecorePackage.getEInt(), "int", null, 0, 1, Value.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getValue_Float(), ecorePackage.getEFloat(), "float", null, 0, 1, Value.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getValue_Value(), this.getConstant(), null, "value", null, 0, 1, Value.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getValue_Constant(), this.getConstant(), null, "constant", null, 0, 1, Value.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

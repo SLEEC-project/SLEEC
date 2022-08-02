@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Value#getInt <em>Int</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Value#getFloat <em>Float</em>}</li>
- *   <li>{@link circus.robocalc.sleec.sLEEC.Value#getValue <em>Value</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.Value#getConstant <em>Constant</em>}</li>
  * </ul>
  *
  * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getValue()
@@ -70,25 +70,25 @@ public interface Value extends EObject
   void setFloat(float value);
 
   /**
-   * Returns the value of the '<em><b>Value</b></em>' reference.
+   * Returns the value of the '<em><b>Constant</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Value</em>' reference.
-   * @see #setValue(Constant)
-   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getValue_Value()
+   * @return the value of the '<em>Constant</em>' reference.
+   * @see #setConstant(Constant)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getValue_Constant()
    * @model
    * @generated
    */
-  Constant getValue();
+  Constant getConstant();
 
   /**
-   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Value#getValue <em>Value</em>}' reference.
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Value#getConstant <em>Constant</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Value</em>' reference.
-   * @see #getValue()
+   * @param value the new value of the '<em>Constant</em>' reference.
+   * @see #getConstant()
    * @generated
    */
-  void setValue(Constant value);
+  void setConstant(Constant value);
 
 } // Value
