@@ -330,7 +330,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Rule");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameQualifiedNameParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cNameRuleIDParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cWhenKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cTriggerAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cTriggerTriggerParserRuleCall_2_0 = (RuleCall)cTriggerAssignment_2.eContents().get(0);
@@ -341,18 +341,18 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final RuleCall cDefeatersDefeaterParserRuleCall_5_0 = (RuleCall)cDefeatersAssignment_5.eContents().get(0);
 		
 		//Rule:
-		//    name=QualifiedName 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
+		//    name=RuleID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=QualifiedName 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
+		//name=RuleID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
 		public Group getGroup() { return cGroup; }
 		
-		//name=QualifiedName
+		//name=RuleID
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 		
-		//QualifiedName
-		public RuleCall getNameQualifiedNameParserRuleCall_0_0() { return cNameQualifiedNameParserRuleCall_0_0; }
+		//RuleID
+		public RuleCall getNameRuleIDParserRuleCall_0_0() { return cNameRuleIDParserRuleCall_0_0; }
 		
 		//'when'
 		public Keyword getWhenKeyword_1() { return cWhenKeyword_1; }
@@ -732,34 +732,6 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//Response
 		public RuleCall getResponseResponseParserRuleCall_2_1_0() { return cResponseResponseParserRuleCall_2_1_0; }
 	}
-	public class QualifiedNameElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.QualifiedName");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
-		
-		//QualifiedName:
-		//    ID ('.' ID)*
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//ID ('.' ID)*
-		public Group getGroup() { return cGroup; }
-		
-		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
-		
-		//('.' ID)*
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//'.'
-		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
-		
-		//ID
-		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
-	}
 	public class EventIDElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.EventID");
 		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
@@ -807,6 +779,42 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		
 		//ID
 		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
+	}
+	public class RuleIDElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.RuleID");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final RuleCall cINTTerminalRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final RuleCall cRuleIDParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		
+		//RuleID:
+		//    (INT | ID) ('.' RuleID)?
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//(INT | ID) ('.' RuleID)?
+		public Group getGroup() { return cGroup; }
+		
+		//(INT | ID)
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+		
+		//INT
+		public RuleCall getINTTerminalRuleCall_0_0() { return cINTTerminalRuleCall_0_0; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall_0_1() { return cIDTerminalRuleCall_0_1; }
+		
+		//('.' RuleID)?
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//'.'
+		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
+		
+		//RuleID
+		public RuleCall getRuleIDParserRuleCall_1_1() { return cRuleIDParserRuleCall_1_1; }
 	}
 	
 	public class RelOpElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
@@ -915,11 +923,11 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	private final DefeaterElements pDefeater;
 	private final RelOpElements eRelOp;
 	private final BoolOpElements eBoolOp;
-	private final QualifiedNameElements pQualifiedName;
 	private final EventIDElements pEventID;
 	private final MeasureIDElements pMeasureID;
 	private final ConstIDElements pConstID;
 	private final ScaleParamElements pScaleParam;
+	private final RuleIDElements pRuleID;
 	private final TerminalRule tFLOAT;
 	
 	private final Grammar grammar;
@@ -948,11 +956,11 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		this.pDefeater = new DefeaterElements();
 		this.eRelOp = new RelOpElements();
 		this.eBoolOp = new BoolOpElements();
-		this.pQualifiedName = new QualifiedNameElements();
 		this.pEventID = new EventIDElements();
 		this.pMeasureID = new MeasureIDElements();
 		this.pConstID = new ConstIDElements();
 		this.pScaleParam = new ScaleParamElements();
+		this.pRuleID = new RuleIDElements();
 		this.tFLOAT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.FLOAT");
 	}
 	
@@ -1050,7 +1058,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Rule:
-	//    name=QualifiedName 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
+	//    name=RuleID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
 	//;
 	public RuleElements getRuleAccess() {
 		return pRule;
@@ -1172,17 +1180,6 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getBoolOpAccess().getRule();
 	}
 	
-	//QualifiedName:
-	//    ID ('.' ID)*
-	//;
-	public QualifiedNameElements getQualifiedNameAccess() {
-		return pQualifiedName;
-	}
-	
-	public ParserRule getQualifiedNameRule() {
-		return getQualifiedNameAccess().getRule();
-	}
-	
 	//EventID:
 	//    ID
 	//;
@@ -1225,6 +1222,17 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	
 	public ParserRule getScaleParamRule() {
 		return getScaleParamAccess().getRule();
+	}
+	
+	//RuleID:
+	//    (INT | ID) ('.' RuleID)?
+	//;
+	public RuleIDElements getRuleIDAccess() {
+		return pRuleID;
+	}
+	
+	public ParserRule getRuleIDRule() {
+		return getRuleIDAccess().getRule();
 	}
 	
 	//terminal FLOAT returns ecore::EFloat:

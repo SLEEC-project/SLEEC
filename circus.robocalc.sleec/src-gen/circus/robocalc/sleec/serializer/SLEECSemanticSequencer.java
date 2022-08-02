@@ -322,7 +322,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Rule returns Rule
 	 *
 	 * Constraint:
-	 *     (name=QualifiedName trigger=Trigger response=Response defeaters+=Defeater*)
+	 *     (name=RuleID trigger=Trigger response=Response defeaters+=Defeater*)
 	 */
 	protected void sequence_Rule(ISerializationContext context, Rule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

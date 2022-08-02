@@ -29,7 +29,7 @@ RuleBlock:
 ;
 
 Rule:
-	name=QualifiedName 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
+	name=RuleID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
 ;
 
 Trigger:
@@ -74,10 +74,6 @@ enum BoolOp:
 	AND='and' | OR='or'
 ;
 
-QualifiedName:
-	ID ('.' ID)*
-;
-
 EventID:
 	ID
 ;
@@ -92,6 +88,10 @@ ConstID:
 
 ScaleParam:
 	ID
+;
+
+RuleID:
+	(INT | ID) ('.' RuleID)?
 ;
 
 terminal FLOAT returns ecore::EFloat:
