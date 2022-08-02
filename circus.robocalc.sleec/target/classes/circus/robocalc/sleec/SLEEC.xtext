@@ -36,6 +36,10 @@ Trigger:
 	event=[Event] ('and' expr=MBoolExpr)?
 ;
 
+// Allow operator precedence for boolean expressions, the order of operations is implemented in the following order (form highest to lowest):
+// 1: < > <> <= >= =
+// 2: not
+// 3: and, or
 MBoolExpr:
 	BoolComp
 ;

@@ -422,6 +422,10 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.MBoolExpr");
 		private final RuleCall cBoolCompParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
+		//// Allow operator precedence for boolean expressions, the order of operations is implemented in the following order (form highest to lowest):
+		//// 1: < > <> <= >= =
+		//// 2: not
+		//// 3: and, or
 		//MBoolExpr:
 		//    BoolComp
 		//;
@@ -1079,6 +1083,10 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getTriggerAccess().getRule();
 	}
 	
+	//// Allow operator precedence for boolean expressions, the order of operations is implemented in the following order (form highest to lowest):
+	//// 1: < > <> <= >= =
+	//// 2: not
+	//// 3: and, or
 	//MBoolExpr:
 	//    BoolComp
 	//;
