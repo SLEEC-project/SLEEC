@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getName <em>Name</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getValue <em>Value</em>}</li>
- *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getLeft <em>Left</em>}</li>
  * </ul>
  *
  * @generated
@@ -62,16 +61,6 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
    * @ordered
    */
   protected Value value;
-
-  /**
-   * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getLeft()
-   * @generated
-   * @ordered
-   */
-  protected MBoolExpr left;
 
   /**
    * <!-- begin-user-doc -->
@@ -175,64 +164,12 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
    * @generated
    */
   @Override
-  public MBoolExpr getLeft()
-  {
-    return left;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetLeft(MBoolExpr newLeft, NotificationChain msgs)
-  {
-    MBoolExpr oldLeft = left;
-    left = newLeft;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SLEECPackage.MBOOL_EXPR__LEFT, oldLeft, newLeft);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setLeft(MBoolExpr newLeft)
-  {
-    if (newLeft != left)
-    {
-      NotificationChain msgs = null;
-      if (left != null)
-        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.MBOOL_EXPR__LEFT, null, msgs);
-      if (newLeft != null)
-        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.MBOOL_EXPR__LEFT, null, msgs);
-      msgs = basicSetLeft(newLeft, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.MBOOL_EXPR__LEFT, newLeft, newLeft));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
       case SLEECPackage.MBOOL_EXPR__VALUE:
         return basicSetValue(null, msgs);
-      case SLEECPackage.MBOOL_EXPR__LEFT:
-        return basicSetLeft(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -251,8 +188,6 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
         return getName();
       case SLEECPackage.MBOOL_EXPR__VALUE:
         return getValue();
-      case SLEECPackage.MBOOL_EXPR__LEFT:
-        return getLeft();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -272,9 +207,6 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
         return;
       case SLEECPackage.MBOOL_EXPR__VALUE:
         setValue((Value)newValue);
-        return;
-      case SLEECPackage.MBOOL_EXPR__LEFT:
-        setLeft((MBoolExpr)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -296,9 +228,6 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
       case SLEECPackage.MBOOL_EXPR__VALUE:
         setValue((Value)null);
         return;
-      case SLEECPackage.MBOOL_EXPR__LEFT:
-        setLeft((MBoolExpr)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -317,8 +246,6 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case SLEECPackage.MBOOL_EXPR__VALUE:
         return value != null;
-      case SLEECPackage.MBOOL_EXPR__LEFT:
-        return left != null;
     }
     return super.eIsSet(featureID);
   }

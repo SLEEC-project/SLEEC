@@ -6792,31 +6792,31 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Not__Group_0__2__Impl"
-    // InternalSLEEC.g:2196:1: rule__Not__Group_0__2__Impl : ( ( rule__Not__LeftAssignment_0_2 ) ) ;
+    // InternalSLEEC.g:2196:1: rule__Not__Group_0__2__Impl : ( ( rule__Not__ExprAssignment_0_2 ) ) ;
     public final void rule__Not__Group_0__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:2200:1: ( ( ( rule__Not__LeftAssignment_0_2 ) ) )
-            // InternalSLEEC.g:2201:1: ( ( rule__Not__LeftAssignment_0_2 ) )
+            // InternalSLEEC.g:2200:1: ( ( ( rule__Not__ExprAssignment_0_2 ) ) )
+            // InternalSLEEC.g:2201:1: ( ( rule__Not__ExprAssignment_0_2 ) )
             {
-            // InternalSLEEC.g:2201:1: ( ( rule__Not__LeftAssignment_0_2 ) )
-            // InternalSLEEC.g:2202:2: ( rule__Not__LeftAssignment_0_2 )
+            // InternalSLEEC.g:2201:1: ( ( rule__Not__ExprAssignment_0_2 ) )
+            // InternalSLEEC.g:2202:2: ( rule__Not__ExprAssignment_0_2 )
             {
-             before(grammarAccess.getNotAccess().getLeftAssignment_0_2()); 
-            // InternalSLEEC.g:2203:2: ( rule__Not__LeftAssignment_0_2 )
-            // InternalSLEEC.g:2203:3: rule__Not__LeftAssignment_0_2
+             before(grammarAccess.getNotAccess().getExprAssignment_0_2()); 
+            // InternalSLEEC.g:2203:2: ( rule__Not__ExprAssignment_0_2 )
+            // InternalSLEEC.g:2203:3: rule__Not__ExprAssignment_0_2
             {
             pushFollow(FOLLOW_2);
-            rule__Not__LeftAssignment_0_2();
+            rule__Not__ExprAssignment_0_2();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getNotAccess().getLeftAssignment_0_2()); 
+             after(grammarAccess.getNotAccess().getExprAssignment_0_2()); 
 
             }
 
@@ -10019,9 +10019,9 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__BoolComp__RightAssignment_1_2"
 
 
-    // $ANTLR start "rule__Not__LeftAssignment_0_2"
-    // InternalSLEEC.g:3306:1: rule__Not__LeftAssignment_0_2 : ( ruleRelComp ) ;
-    public final void rule__Not__LeftAssignment_0_2() throws RecognitionException {
+    // $ANTLR start "rule__Not__ExprAssignment_0_2"
+    // InternalSLEEC.g:3306:1: rule__Not__ExprAssignment_0_2 : ( ruleRelComp ) ;
+    public final void rule__Not__ExprAssignment_0_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -10032,13 +10032,13 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
             // InternalSLEEC.g:3311:2: ( ruleRelComp )
             // InternalSLEEC.g:3312:3: ruleRelComp
             {
-             before(grammarAccess.getNotAccess().getLeftRelCompParserRuleCall_0_2_0()); 
+             before(grammarAccess.getNotAccess().getExprRelCompParserRuleCall_0_2_0()); 
             pushFollow(FOLLOW_2);
             ruleRelComp();
 
             state._fsp--;
 
-             after(grammarAccess.getNotAccess().getLeftRelCompParserRuleCall_0_2_0()); 
+             after(grammarAccess.getNotAccess().getExprRelCompParserRuleCall_0_2_0()); 
 
             }
 
@@ -10057,7 +10057,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Not__LeftAssignment_0_2"
+    // $ANTLR end "rule__Not__ExprAssignment_0_2"
 
 
     // $ANTLR start "rule__RelComp__OpAssignment_1_1"

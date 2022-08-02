@@ -2199,9 +2199,9 @@ rule__Not__Group_0__2__Impl
 	}
 :
 (
-	{ before(grammarAccess.getNotAccess().getLeftAssignment_0_2()); }
-	(rule__Not__LeftAssignment_0_2)
-	{ after(grammarAccess.getNotAccess().getLeftAssignment_0_2()); }
+	{ before(grammarAccess.getNotAccess().getExprAssignment_0_2()); }
+	(rule__Not__ExprAssignment_0_2)
+	{ after(grammarAccess.getNotAccess().getExprAssignment_0_2()); }
 )
 ;
 finally {
@@ -3303,15 +3303,15 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Not__LeftAssignment_0_2
+rule__Not__ExprAssignment_0_2
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getNotAccess().getLeftRelCompParserRuleCall_0_2_0()); }
+		{ before(grammarAccess.getNotAccess().getExprRelCompParserRuleCall_0_2_0()); }
 		ruleRelComp
-		{ after(grammarAccess.getNotAccess().getLeftRelCompParserRuleCall_0_2_0()); }
+		{ after(grammarAccess.getNotAccess().getExprRelCompParserRuleCall_0_2_0()); }
 	)
 ;
 finally {

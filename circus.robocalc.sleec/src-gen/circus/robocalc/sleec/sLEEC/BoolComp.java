@@ -13,6 +13,7 @@ package circus.robocalc.sleec.sLEEC;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.BoolComp#getLeft <em>Left</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.BoolComp#getOp <em>Op</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.BoolComp#getRight <em>Right</em>}</li>
  * </ul>
@@ -23,6 +24,28 @@ package circus.robocalc.sleec.sLEEC;
  */
 public interface BoolComp extends MBoolExpr
 {
+  /**
+   * Returns the value of the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Left</em>' containment reference.
+   * @see #setLeft(MBoolExpr)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getBoolComp_Left()
+   * @model containment="true"
+   * @generated
+   */
+  MBoolExpr getLeft();
+
+  /**
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.BoolComp#getLeft <em>Left</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Left</em>' containment reference.
+   * @see #getLeft()
+   * @generated
+   */
+  void setLeft(MBoolExpr value);
+
   /**
    * Returns the value of the '<em><b>Op</b></em>' attribute.
    * The literals are from the enumeration {@link circus.robocalc.sleec.sLEEC.BoolOp}.

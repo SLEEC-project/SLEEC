@@ -365,22 +365,13 @@ public interface SLEECPackage extends EPackage
   int MBOOL_EXPR__VALUE = 1;
 
   /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MBOOL_EXPR__LEFT = 2;
-
-  /**
    * The number of structural features of the '<em>MBool Expr</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MBOOL_EXPR_FEATURE_COUNT = 3;
+  int MBOOL_EXPR_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl <em>Response</em>}' class.
@@ -677,7 +668,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BOOL_COMP__LEFT = MBOOL_EXPR__LEFT;
+  int BOOL_COMP__LEFT = MBOOL_EXPR_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Op</b></em>' attribute.
@@ -686,7 +677,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BOOL_COMP__OP = MBOOL_EXPR_FEATURE_COUNT + 0;
+  int BOOL_COMP__OP = MBOOL_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -695,7 +686,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BOOL_COMP__RIGHT = MBOOL_EXPR_FEATURE_COUNT + 1;
+  int BOOL_COMP__RIGHT = MBOOL_EXPR_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Bool Comp</em>' class.
@@ -704,7 +695,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BOOL_COMP_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 2;
+  int BOOL_COMP_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.NotImpl <em>Not</em>}' class.
@@ -735,13 +726,13 @@ public interface SLEECPackage extends EPackage
   int NOT__VALUE = MBOOL_EXPR__VALUE;
 
   /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NOT__LEFT = MBOOL_EXPR__LEFT;
+  int NOT__EXPR = MBOOL_EXPR_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Not</em>' class.
@@ -750,7 +741,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NOT_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 0;
+  int NOT_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.RelCompImpl <em>Rel Comp</em>}' class.
@@ -787,7 +778,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REL_COMP__LEFT = MBOOL_EXPR__LEFT;
+  int REL_COMP__LEFT = MBOOL_EXPR_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Op</b></em>' attribute.
@@ -796,7 +787,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REL_COMP__OP = MBOOL_EXPR_FEATURE_COUNT + 0;
+  int REL_COMP__OP = MBOOL_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -805,7 +796,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REL_COMP__RIGHT = MBOOL_EXPR_FEATURE_COUNT + 1;
+  int REL_COMP__RIGHT = MBOOL_EXPR_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Rel Comp</em>' class.
@@ -814,7 +805,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REL_COMP_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 2;
+  int REL_COMP_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.RelOp <em>Rel Op</em>}' enum.
@@ -1104,17 +1095,6 @@ public interface SLEECPackage extends EPackage
   EReference getMBoolExpr_Value();
 
   /**
-   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getLeft <em>Left</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see circus.robocalc.sleec.sLEEC.MBoolExpr#getLeft()
-   * @see #getMBoolExpr()
-   * @generated
-   */
-  EReference getMBoolExpr_Left();
-
-  /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Response <em>Response</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1304,6 +1284,17 @@ public interface SLEECPackage extends EPackage
   EClass getBoolComp();
 
   /**
+   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.BoolComp#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see circus.robocalc.sleec.sLEEC.BoolComp#getLeft()
+   * @see #getBoolComp()
+   * @generated
+   */
+  EReference getBoolComp_Left();
+
+  /**
    * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.BoolComp#getOp <em>Op</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1336,6 +1327,17 @@ public interface SLEECPackage extends EPackage
   EClass getNot();
 
   /**
+   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.Not#getExpr <em>Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expr</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Not#getExpr()
+   * @see #getNot()
+   * @generated
+   */
+  EReference getNot_Expr();
+
+  /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.RelComp <em>Rel Comp</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1344,6 +1346,17 @@ public interface SLEECPackage extends EPackage
    * @generated
    */
   EClass getRelComp();
+
+  /**
+   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.RelComp#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see circus.robocalc.sleec.sLEEC.RelComp#getLeft()
+   * @see #getRelComp()
+   * @generated
+   */
+  EReference getRelComp_Left();
 
   /**
    * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.RelComp#getOp <em>Op</em>}'.
@@ -1629,14 +1642,6 @@ public interface SLEECPackage extends EPackage
     EReference MBOOL_EXPR__VALUE = eINSTANCE.getMBoolExpr_Value();
 
     /**
-     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MBOOL_EXPR__LEFT = eINSTANCE.getMBoolExpr_Left();
-
-    /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl <em>Response</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1799,6 +1804,14 @@ public interface SLEECPackage extends EPackage
     EClass BOOL_COMP = eINSTANCE.getBoolComp();
 
     /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BOOL_COMP__LEFT = eINSTANCE.getBoolComp_Left();
+
+    /**
      * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1825,6 +1838,14 @@ public interface SLEECPackage extends EPackage
     EClass NOT = eINSTANCE.getNot();
 
     /**
+     * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NOT__EXPR = eINSTANCE.getNot_Expr();
+
+    /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.RelCompImpl <em>Rel Comp</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1833,6 +1854,14 @@ public interface SLEECPackage extends EPackage
      * @generated
      */
     EClass REL_COMP = eINSTANCE.getRelComp();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REL_COMP__LEFT = eINSTANCE.getRelComp_Left();
 
     /**
      * The meta object literal for the '<em><b>Op</b></em>' attribute feature.

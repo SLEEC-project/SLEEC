@@ -49,7 +49,7 @@ BoolComp returns MBoolExpr:
 ;
 
 Not returns MBoolExpr:
-	{Not} 'not' left=RelComp | RelComp
+	{Not} 'not' expr=RelComp | RelComp
 ;
 
 RelComp returns MBoolExpr:

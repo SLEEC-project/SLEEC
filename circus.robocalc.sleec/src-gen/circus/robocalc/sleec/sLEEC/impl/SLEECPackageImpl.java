@@ -541,17 +541,6 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
-  public EReference getMBoolExpr_Left()
-  {
-    return (EReference)mBoolExprEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EClass getResponse()
   {
     return responseEClass;
@@ -750,9 +739,20 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
+  public EReference getBoolComp_Left()
+  {
+    return (EReference)boolCompEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EAttribute getBoolComp_Op()
   {
-    return (EAttribute)boolCompEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)boolCompEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -763,7 +763,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
   @Override
   public EReference getBoolComp_Right()
   {
-    return (EReference)boolCompEClass.getEStructuralFeatures().get(1);
+    return (EReference)boolCompEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -783,6 +783,17 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
+  public EReference getNot_Expr()
+  {
+    return (EReference)notEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getRelComp()
   {
     return relCompEClass;
@@ -794,9 +805,20 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
+  public EReference getRelComp_Left()
+  {
+    return (EReference)relCompEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EAttribute getRelComp_Op()
   {
-    return (EAttribute)relCompEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)relCompEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -807,7 +829,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
   @Override
   public EReference getRelComp_Right()
   {
-    return (EReference)relCompEClass.getEStructuralFeatures().get(1);
+    return (EReference)relCompEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -896,7 +918,6 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     mBoolExprEClass = createEClass(MBOOL_EXPR);
     createEAttribute(mBoolExprEClass, MBOOL_EXPR__NAME);
     createEReference(mBoolExprEClass, MBOOL_EXPR__VALUE);
-    createEReference(mBoolExprEClass, MBOOL_EXPR__LEFT);
 
     responseEClass = createEClass(RESPONSE);
     createEReference(responseEClass, RESPONSE__NAME);
@@ -924,12 +945,15 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     createEAttribute(scaleEClass, SCALE__SCALE_PARAMS);
 
     boolCompEClass = createEClass(BOOL_COMP);
+    createEReference(boolCompEClass, BOOL_COMP__LEFT);
     createEAttribute(boolCompEClass, BOOL_COMP__OP);
     createEReference(boolCompEClass, BOOL_COMP__RIGHT);
 
     notEClass = createEClass(NOT);
+    createEReference(notEClass, NOT__EXPR);
 
     relCompEClass = createEClass(REL_COMP);
+    createEReference(relCompEClass, REL_COMP__LEFT);
     createEAttribute(relCompEClass, REL_COMP__OP);
     createEReference(relCompEClass, REL_COMP__RIGHT);
 
@@ -1011,7 +1035,6 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     initEClass(mBoolExprEClass, MBoolExpr.class, "MBoolExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getMBoolExpr_Name(), ecorePackage.getEString(), "name", null, 0, 1, MBoolExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getMBoolExpr_Value(), this.getValue(), null, "value", null, 0, 1, MBoolExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMBoolExpr_Left(), this.getMBoolExpr(), null, "left", null, 0, 1, MBoolExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(responseEClass, Response.class, "Response", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getResponse_Name(), this.getEvent(), null, "name", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1039,12 +1062,15 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     initEAttribute(getScale_ScaleParams(), ecorePackage.getEString(), "scaleParams", null, 0, -1, Scale.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(boolCompEClass, BoolComp.class, "BoolComp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getBoolComp_Left(), this.getMBoolExpr(), null, "left", null, 0, 1, BoolComp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getBoolComp_Op(), this.getBoolOp(), "op", null, 0, 1, BoolComp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBoolComp_Right(), this.getMBoolExpr(), null, "right", null, 0, 1, BoolComp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(notEClass, Not.class, "Not", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getNot_Expr(), this.getMBoolExpr(), null, "expr", null, 0, 1, Not.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(relCompEClass, RelComp.class, "RelComp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getRelComp_Left(), this.getMBoolExpr(), null, "left", null, 0, 1, RelComp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRelComp_Op(), this.getRelOp(), "op", null, 0, 1, RelComp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRelComp_Right(), this.getMBoolExpr(), null, "right", null, 0, 1, RelComp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -845,17 +845,17 @@ ruleNot returns [EObject current=null]
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getNotAccess().getLeftRelCompParserRuleCall_0_2_0());
+						newCompositeNode(grammarAccess.getNotAccess().getExprRelCompParserRuleCall_0_2_0());
 					}
-					lv_left_2_0=ruleRelComp
+					lv_expr_2_0=ruleRelComp
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getNotRule());
 						}
 						set(
 							$current,
-							"left",
-							lv_left_2_0,
+							"expr",
+							lv_expr_2_0,
 							"circus.robocalc.sleec.SLEEC.RelComp");
 						afterParserOrEnumRuleCall();
 					}

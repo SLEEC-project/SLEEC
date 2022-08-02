@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.RelCompImpl#getLeft <em>Left</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.RelCompImpl#getOp <em>Op</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.RelCompImpl#getRight <em>Right</em>}</li>
  * </ul>
@@ -32,6 +33,16 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class RelCompImpl extends MBoolExprImpl implements RelComp
 {
+  /**
+   * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getLeft()
+   * @generated
+   * @ordered
+   */
+  protected MBoolExpr left;
+
   /**
    * The default value of the '{@link #getOp() <em>Op</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -81,6 +92,56 @@ public class RelCompImpl extends MBoolExprImpl implements RelComp
   protected EClass eStaticClass()
   {
     return SLEECPackage.Literals.REL_COMP;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public MBoolExpr getLeft()
+  {
+    return left;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetLeft(MBoolExpr newLeft, NotificationChain msgs)
+  {
+    MBoolExpr oldLeft = left;
+    left = newLeft;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SLEECPackage.REL_COMP__LEFT, oldLeft, newLeft);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setLeft(MBoolExpr newLeft)
+  {
+    if (newLeft != left)
+    {
+      NotificationChain msgs = null;
+      if (left != null)
+        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.REL_COMP__LEFT, null, msgs);
+      if (newLeft != null)
+        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.REL_COMP__LEFT, null, msgs);
+      msgs = basicSetLeft(newLeft, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.REL_COMP__LEFT, newLeft, newLeft));
   }
 
   /**
@@ -168,6 +229,8 @@ public class RelCompImpl extends MBoolExprImpl implements RelComp
   {
     switch (featureID)
     {
+      case SLEECPackage.REL_COMP__LEFT:
+        return basicSetLeft(null, msgs);
       case SLEECPackage.REL_COMP__RIGHT:
         return basicSetRight(null, msgs);
     }
@@ -184,6 +247,8 @@ public class RelCompImpl extends MBoolExprImpl implements RelComp
   {
     switch (featureID)
     {
+      case SLEECPackage.REL_COMP__LEFT:
+        return getLeft();
       case SLEECPackage.REL_COMP__OP:
         return getOp();
       case SLEECPackage.REL_COMP__RIGHT:
@@ -202,6 +267,9 @@ public class RelCompImpl extends MBoolExprImpl implements RelComp
   {
     switch (featureID)
     {
+      case SLEECPackage.REL_COMP__LEFT:
+        setLeft((MBoolExpr)newValue);
+        return;
       case SLEECPackage.REL_COMP__OP:
         setOp((RelOp)newValue);
         return;
@@ -222,6 +290,9 @@ public class RelCompImpl extends MBoolExprImpl implements RelComp
   {
     switch (featureID)
     {
+      case SLEECPackage.REL_COMP__LEFT:
+        setLeft((MBoolExpr)null);
+        return;
       case SLEECPackage.REL_COMP__OP:
         setOp(OP_EDEFAULT);
         return;
@@ -242,6 +313,8 @@ public class RelCompImpl extends MBoolExprImpl implements RelComp
   {
     switch (featureID)
     {
+      case SLEECPackage.REL_COMP__LEFT:
+        return left != null;
       case SLEECPackage.REL_COMP__OP:
         return op != OP_EDEFAULT;
       case SLEECPackage.REL_COMP__RIGHT:

@@ -2048,12 +2048,12 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNot"
-    // InternalSLEEC.g:825:1: ruleNot returns [EObject current=null] : ( ( () otherlv_1= 'not' ( (lv_left_2_0= ruleRelComp ) ) ) | this_RelComp_3= ruleRelComp ) ;
+    // InternalSLEEC.g:825:1: ruleNot returns [EObject current=null] : ( ( () otherlv_1= 'not' ( (lv_expr_2_0= ruleRelComp ) ) ) | this_RelComp_3= ruleRelComp ) ;
     public final EObject ruleNot() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
-        EObject lv_left_2_0 = null;
+        EObject lv_expr_2_0 = null;
 
         EObject this_RelComp_3 = null;
 
@@ -2062,10 +2062,10 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSLEEC.g:831:2: ( ( ( () otherlv_1= 'not' ( (lv_left_2_0= ruleRelComp ) ) ) | this_RelComp_3= ruleRelComp ) )
-            // InternalSLEEC.g:832:2: ( ( () otherlv_1= 'not' ( (lv_left_2_0= ruleRelComp ) ) ) | this_RelComp_3= ruleRelComp )
+            // InternalSLEEC.g:831:2: ( ( ( () otherlv_1= 'not' ( (lv_expr_2_0= ruleRelComp ) ) ) | this_RelComp_3= ruleRelComp ) )
+            // InternalSLEEC.g:832:2: ( ( () otherlv_1= 'not' ( (lv_expr_2_0= ruleRelComp ) ) ) | this_RelComp_3= ruleRelComp )
             {
-            // InternalSLEEC.g:832:2: ( ( () otherlv_1= 'not' ( (lv_left_2_0= ruleRelComp ) ) ) | this_RelComp_3= ruleRelComp )
+            // InternalSLEEC.g:832:2: ( ( () otherlv_1= 'not' ( (lv_expr_2_0= ruleRelComp ) ) ) | this_RelComp_3= ruleRelComp )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -2083,10 +2083,10 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
             }
             switch (alt10) {
                 case 1 :
-                    // InternalSLEEC.g:833:3: ( () otherlv_1= 'not' ( (lv_left_2_0= ruleRelComp ) ) )
+                    // InternalSLEEC.g:833:3: ( () otherlv_1= 'not' ( (lv_expr_2_0= ruleRelComp ) ) )
                     {
-                    // InternalSLEEC.g:833:3: ( () otherlv_1= 'not' ( (lv_left_2_0= ruleRelComp ) ) )
-                    // InternalSLEEC.g:834:4: () otherlv_1= 'not' ( (lv_left_2_0= ruleRelComp ) )
+                    // InternalSLEEC.g:833:3: ( () otherlv_1= 'not' ( (lv_expr_2_0= ruleRelComp ) ) )
+                    // InternalSLEEC.g:834:4: () otherlv_1= 'not' ( (lv_expr_2_0= ruleRelComp ) )
                     {
                     // InternalSLEEC.g:834:4: ()
                     // InternalSLEEC.g:835:5: 
@@ -2103,17 +2103,17 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
                     				newLeafNode(otherlv_1, grammarAccess.getNotAccess().getNotKeyword_0_1());
                     			
-                    // InternalSLEEC.g:845:4: ( (lv_left_2_0= ruleRelComp ) )
-                    // InternalSLEEC.g:846:5: (lv_left_2_0= ruleRelComp )
+                    // InternalSLEEC.g:845:4: ( (lv_expr_2_0= ruleRelComp ) )
+                    // InternalSLEEC.g:846:5: (lv_expr_2_0= ruleRelComp )
                     {
-                    // InternalSLEEC.g:846:5: (lv_left_2_0= ruleRelComp )
-                    // InternalSLEEC.g:847:6: lv_left_2_0= ruleRelComp
+                    // InternalSLEEC.g:846:5: (lv_expr_2_0= ruleRelComp )
+                    // InternalSLEEC.g:847:6: lv_expr_2_0= ruleRelComp
                     {
 
-                    						newCompositeNode(grammarAccess.getNotAccess().getLeftRelCompParserRuleCall_0_2_0());
+                    						newCompositeNode(grammarAccess.getNotAccess().getExprRelCompParserRuleCall_0_2_0());
                     					
                     pushFollow(FOLLOW_2);
-                    lv_left_2_0=ruleRelComp();
+                    lv_expr_2_0=ruleRelComp();
 
                     state._fsp--;
 
@@ -2123,8 +2123,8 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     						}
                     						set(
                     							current,
-                    							"left",
-                    							lv_left_2_0,
+                    							"expr",
+                    							lv_expr_2_0,
                     							"circus.robocalc.sleec.SLEEC.RelComp");
                     						afterParserOrEnumRuleCall();
                     					

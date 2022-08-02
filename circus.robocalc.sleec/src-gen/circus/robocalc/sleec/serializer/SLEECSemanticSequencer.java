@@ -140,8 +140,8 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_BoolComp(ISerializationContext context, BoolComp semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.MBOOL_EXPR__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.MBOOL_EXPR__LEFT));
+			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.BOOL_COMP__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.BOOL_COMP__LEFT));
 			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.BOOL_COMP__OP) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.BOOL_COMP__OP));
 			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.BOOL_COMP__RIGHT) == ValueTransient.YES)
@@ -250,15 +250,15 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Atom returns Not
 	 *
 	 * Constraint:
-	 *     left=RelComp
+	 *     expr=RelComp
 	 */
 	protected void sequence_Not(ISerializationContext context, Not semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.MBOOL_EXPR__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.MBOOL_EXPR__LEFT));
+			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.NOT__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.NOT__EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getNotAccess().getLeftRelCompParserRuleCall_0_2_0(), semanticObject.getLeft());
+		feeder.accept(grammarAccess.getNotAccess().getExprRelCompParserRuleCall_0_2_0(), semanticObject.getExpr());
 		feeder.finish();
 	}
 	
@@ -278,8 +278,8 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_RelComp(ISerializationContext context, RelComp semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.MBOOL_EXPR__LEFT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.MBOOL_EXPR__LEFT));
+			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.REL_COMP__LEFT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.REL_COMP__LEFT));
 			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.REL_COMP__OP) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.REL_COMP__OP));
 			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.REL_COMP__RIGHT) == ValueTransient.YES)

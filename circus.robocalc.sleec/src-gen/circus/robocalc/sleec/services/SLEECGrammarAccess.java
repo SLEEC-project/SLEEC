@@ -480,19 +480,19 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
 		private final Action cNotAction_0_0 = (Action)cGroup_0.eContents().get(0);
 		private final Keyword cNotKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cLeftAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cLeftRelCompParserRuleCall_0_2_0 = (RuleCall)cLeftAssignment_0_2.eContents().get(0);
+		private final Assignment cExprAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
+		private final RuleCall cExprRelCompParserRuleCall_0_2_0 = (RuleCall)cExprAssignment_0_2.eContents().get(0);
 		private final RuleCall cRelCompParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//Not returns MBoolExpr:
-		//    {Not} 'not' left=RelComp | RelComp
+		//    {Not} 'not' expr=RelComp | RelComp
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Not} 'not' left=RelComp | RelComp
+		//{Not} 'not' expr=RelComp | RelComp
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//{Not} 'not' left=RelComp
+		//{Not} 'not' expr=RelComp
 		public Group getGroup_0() { return cGroup_0; }
 		
 		//{Not}
@@ -501,11 +501,11 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'not'
 		public Keyword getNotKeyword_0_1() { return cNotKeyword_0_1; }
 		
-		//left=RelComp
-		public Assignment getLeftAssignment_0_2() { return cLeftAssignment_0_2; }
+		//expr=RelComp
+		public Assignment getExprAssignment_0_2() { return cExprAssignment_0_2; }
 		
 		//RelComp
-		public RuleCall getLeftRelCompParserRuleCall_0_2_0() { return cLeftRelCompParserRuleCall_0_2_0; }
+		public RuleCall getExprRelCompParserRuleCall_0_2_0() { return cExprRelCompParserRuleCall_0_2_0; }
 		
 		//RelComp
 		public RuleCall getRelCompParserRuleCall_1() { return cRelCompParserRuleCall_1; }
@@ -1110,7 +1110,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Not returns MBoolExpr:
-	//    {Not} 'not' left=RelComp | RelComp
+	//    {Not} 'not' expr=RelComp | RelComp
 	//;
 	public NotElements getNotAccess() {
 		return pNot;

@@ -50,7 +50,6 @@
     <genClasses ecoreClass="SLEEC.ecore#//MBoolExpr">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//MBoolExpr/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//MBoolExpr/value"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//MBoolExpr/left"/>
     </genClasses>
     <genClasses ecoreClass="SLEEC.ecore#//Response">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Response/name"/>
@@ -75,11 +74,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//Scale/scaleParams"/>
     </genClasses>
     <genClasses ecoreClass="SLEEC.ecore#//BoolComp">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//BoolComp/left"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//BoolComp/op"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//BoolComp/right"/>
     </genClasses>
-    <genClasses ecoreClass="SLEEC.ecore#//Not"/>
+    <genClasses ecoreClass="SLEEC.ecore#//Not">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Not/expr"/>
+    </genClasses>
     <genClasses ecoreClass="SLEEC.ecore#//RelComp">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//RelComp/left"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//RelComp/op"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//RelComp/right"/>
     </genClasses>
