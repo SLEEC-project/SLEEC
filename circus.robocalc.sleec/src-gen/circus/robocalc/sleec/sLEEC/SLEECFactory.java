@@ -51,33 +51,6 @@ public interface SLEECFactory extends EFactory
   Definition createDefinition();
 
   /**
-   * Returns a new object of class '<em>Event</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Event</em>'.
-   * @generated
-   */
-  Event createEvent();
-
-  /**
-   * Returns a new object of class '<em>Measure</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Measure</em>'.
-   * @generated
-   */
-  Measure createMeasure();
-
-  /**
-   * Returns a new object of class '<em>Constant</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Constant</em>'.
-   * @generated
-   */
-  Constant createConstant();
-
-  /**
    * Returns a new object of class '<em>Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -94,15 +67,6 @@ public interface SLEECFactory extends EFactory
    * @generated
    */
   Type createType();
-
-  /**
-   * Returns a new object of class '<em>Scale Param</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Scale Param</em>'.
-   * @generated
-   */
-  ScaleParam createScaleParam();
 
   /**
    * Returns a new object of class '<em>Rule Block</em>'.
@@ -157,6 +121,33 @@ public interface SLEECFactory extends EFactory
    * @generated
    */
   Defeater createDefeater();
+
+  /**
+   * Returns a new object of class '<em>Event</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Event</em>'.
+   * @generated
+   */
+  Event createEvent();
+
+  /**
+   * Returns a new object of class '<em>Measure</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Measure</em>'.
+   * @generated
+   */
+  Measure createMeasure();
+
+  /**
+   * Returns a new object of class '<em>Constant</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Constant</em>'.
+   * @generated
+   */
+  Constant createConstant();
 
   /**
    * Returns a new object of class '<em>Boolean</em>'.

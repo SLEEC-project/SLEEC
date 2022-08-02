@@ -13,19 +13,7 @@ Defblock:
 ;
 
 Definition:
-	Event | Measure | Constant
-;
-
-Event:
-	'event' name=ID
-;
-
-Measure:
-	 'measure' name=ID ':' type=Type
-;
-
-Constant:
-	'constant' name=ID '=' value=Value
+	{Event} 'event' name=EventID | {Measure} 'measure' name=MeasureID ':' type=Type | {Constant} 'constant' name=ConstID '=' value=Value
 ;
 
 Value:
@@ -34,10 +22,6 @@ Value:
 
 Type:
 	{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=ScaleParam (',' scaleParams+=ScaleParam)* ')'
-;
-
-ScaleParam:
-	name=ID
 ;
 
 RuleBlock:
@@ -69,7 +53,9 @@ RelComp returns MBoolExpr:
 ;
 
 Atom returns MBoolExpr:
-	->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
+	// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
+	// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
+	name=ID | '(' MBoolExpr ')' | value=Value
 ;
 
 Response:
@@ -90,6 +76,22 @@ enum BoolOp:
 
 QualifiedName:
 	ID ('.' ID)*
+;
+
+EventID:
+	ID
+;
+
+MeasureID:
+	ID
+;
+
+ConstID:
+	ID
+;
+
+ScaleParam:
+	ID
 ;
 
 terminal FLOAT returns ecore::EFloat:

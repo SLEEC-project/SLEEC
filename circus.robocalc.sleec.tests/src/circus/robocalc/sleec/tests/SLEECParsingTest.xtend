@@ -27,7 +27,7 @@ class SLEECParsingTest {
 				event E1
 			def_end
 			rule_start
-				Rule1 when a then b
+				Rule1 when E0 then E1
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -334,49 +334,4 @@ class SLEECParsingTest {
 		val errors = result.eResource.errors
 		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors:«errors.join(", ")»''')
 	}
-	
-	@Test
-	def void test_relop_arg_type() {
-		var result = parseHelper.parse('''
-			def_start
-				event E0
-				event E1
-				measure m0: numeric
-			def_end
-			rule_start
-				Rule1 when E0 and m0 < 1 then E1
-			rule_end
-		''')
-		Assertions.assertNotNull(result)
-		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors:«errors.join(", ")»''')
-		validationTestHelper.assertNoIssues(result)
-	}
-	
-	@Test
-	def void test_boolop_arg_type() {
-		var result = parseHelper.parse('''
-			def_start
-				event E0
-				event E1
-				measure m0: boolean
-				measure m1: numeric
-				measure m2: scale(s0, s1)
-			def_end
-			rule_start
-				Rule1 when E0 and m0 and (m1 > 3) then E1
-				Rule2 when E0 and (m1 > 3) or (m1 < 1) then E1
-				// Rule3 when E0 and m1 and m0 then E1
-			rule_end
-		''')
-		Assertions.assertNotNull(result)
-		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors:«errors.join(", ")»''')
-		validationTestHelper.assertNoIssues(result)
-	}
-	
-	/* 
-	 * TODO
-	 * scale checking on relational operators
-	 */
 }

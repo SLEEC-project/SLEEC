@@ -3,18 +3,10 @@
  */
 package circus.robocalc.sleec.validation;
 
-import circus.robocalc.sleec.sLEEC.BoolComp;
 import circus.robocalc.sleec.sLEEC.Constant;
 import circus.robocalc.sleec.sLEEC.Event;
-import circus.robocalc.sleec.sLEEC.MBoolExpr;
 import circus.robocalc.sleec.sLEEC.Measure;
-import circus.robocalc.sleec.sLEEC.Not;
-import circus.robocalc.sleec.sLEEC.Numeric;
-import circus.robocalc.sleec.sLEEC.RelComp;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
-import circus.robocalc.sleec.sLEEC.Scale;
-import circus.robocalc.sleec.sLEEC.ScaleParam;
-import circus.robocalc.sleec.sLEEC.Value;
 import org.eclipse.xtext.validation.Check;
 
 /**
@@ -23,40 +15,6 @@ import org.eclipse.xtext.validation.Check;
  */
 @SuppressWarnings("all")
 public class SLEECValidator extends AbstractSLEECValidator {
-  @Check
-  public void checkRelCompType(final RelComp e) {
-    if ((this.isScale(e.getLeft()) && this.isScale(e.getRight()))) {
-      return;
-    }
-    if (((!this.isNumeric(e.getLeft())) || (!this.isNumeric(e.getRight())))) {
-      this.error("relational operand must have numeric type.", SLEECPackage.Literals.REL_COMP__OP, "relationalOperands");
-    }
-  }
-  
-  @Check
-  public void checkBoolCompType(final BoolComp e) {
-    if (((!this.isBoolean(e.getLeft())) || (!this.isBoolean(e.getRight())))) {
-      this.error("boolean operand must have boolean type", SLEECPackage.Literals.BOOL_COMP__OP, "booleanOperands");
-    }
-  }
-  
-  private boolean isNumeric(final MBoolExpr e) {
-    return ((e instanceof Value) || 
-      (e.getMeasure().getType() instanceof Numeric));
-  }
-  
-  private boolean isBoolean(final MBoolExpr e) {
-    return ((((e instanceof Not) || 
-      (e instanceof BoolComp)) || 
-      (e instanceof RelComp)) || 
-      (e.getMeasure().getType() instanceof circus.robocalc.sleec.sLEEC.Boolean));
-  }
-  
-  private boolean isScale(final MBoolExpr e) {
-    return ((e instanceof ScaleParam) || 
-      (e.getMeasure().getType() instanceof Scale));
-  }
-  
   @Check
   public void chechEventName(final Event e) {
     boolean _isUpperCase = Character.isUpperCase(e.getName().charAt(0));

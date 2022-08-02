@@ -45,7 +45,7 @@ public class SLEECParsingTest {
       _builder.append("rule_start");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("Rule1 when a then b");
+      _builder.append("Rule1 when E0 then E1");
       _builder.newLine();
       _builder.append("rule_end");
       _builder.newLine();
@@ -738,96 +738,6 @@ public class SLEECParsingTest {
       String _join = IterableExtensions.join(errors, ", ");
       _builder_1.append(_join);
       Assertions.assertTrue(_isEmpty, _builder_1.toString());
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  @Test
-  public void test_relop_arg_type() {
-    try {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("def_start");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("event E0");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("event E1");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("measure m0: numeric");
-      _builder.newLine();
-      _builder.append("def_end");
-      _builder.newLine();
-      _builder.append("rule_start");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("Rule1 when E0 and m0 < 1 then E1");
-      _builder.newLine();
-      _builder.append("rule_end");
-      _builder.newLine();
-      Specification result = this.parseHelper.parse(_builder);
-      Assertions.assertNotNull(result);
-      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
-      boolean _isEmpty = errors.isEmpty();
-      StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append("Unexpected errors:");
-      String _join = IterableExtensions.join(errors, ", ");
-      _builder_1.append(_join);
-      Assertions.assertTrue(_isEmpty, _builder_1.toString());
-      this.validationTestHelper.assertNoIssues(result);
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  @Test
-  public void test_boolop_arg_type() {
-    try {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("def_start");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("event E0");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("event E1");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("measure m0: boolean");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("measure m1: numeric");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("measure m2: scale(s0, s1)");
-      _builder.newLine();
-      _builder.append("def_end");
-      _builder.newLine();
-      _builder.append("rule_start");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("Rule1 when E0 and m0 and (m1 > 3) then E1");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("Rule2 when E0 and (m1 > 3) or (m1 < 1) then E1");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("// Rule3 when E0 and m1 and m0 then E1");
-      _builder.newLine();
-      _builder.append("rule_end");
-      _builder.newLine();
-      Specification result = this.parseHelper.parse(_builder);
-      Assertions.assertNotNull(result);
-      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
-      boolean _isEmpty = errors.isEmpty();
-      StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append("Unexpected errors:");
-      String _join = IterableExtensions.join(errors, ", ");
-      _builder_1.append(_join);
-      Assertions.assertTrue(_isEmpty, _builder_1.toString());
-      this.validationTestHelper.assertNoIssues(result);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

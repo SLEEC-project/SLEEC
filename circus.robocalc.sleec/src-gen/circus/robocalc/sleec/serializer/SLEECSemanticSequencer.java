@@ -18,7 +18,6 @@ import circus.robocalc.sleec.sLEEC.Rule;
 import circus.robocalc.sleec.sLEEC.RuleBlock;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
-import circus.robocalc.sleec.sLEEC.ScaleParam;
 import circus.robocalc.sleec.sLEEC.Specification;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Value;
@@ -56,7 +55,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				sequence_Type(context, (circus.robocalc.sleec.sLEEC.Boolean) semanticObject); 
 				return; 
 			case SLEECPackage.CONSTANT:
-				sequence_Constant(context, (Constant) semanticObject); 
+				sequence_Definition(context, (Constant) semanticObject); 
 				return; 
 			case SLEECPackage.DEFBLOCK:
 				sequence_Defblock(context, (Defblock) semanticObject); 
@@ -65,13 +64,13 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				sequence_Defeater(context, (Defeater) semanticObject); 
 				return; 
 			case SLEECPackage.EVENT:
-				sequence_Event(context, (Event) semanticObject); 
+				sequence_Definition(context, (Event) semanticObject); 
 				return; 
 			case SLEECPackage.MBOOL_EXPR:
 				sequence_Atom(context, (MBoolExpr) semanticObject); 
 				return; 
 			case SLEECPackage.MEASURE:
-				sequence_Measure(context, (Measure) semanticObject); 
+				sequence_Definition(context, (Measure) semanticObject); 
 				return; 
 			case SLEECPackage.NOT:
 				sequence_Not(context, (Not) semanticObject); 
@@ -93,9 +92,6 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case SLEECPackage.SCALE:
 				sequence_Type(context, (Scale) semanticObject); 
-				return; 
-			case SLEECPackage.SCALE_PARAM:
-				sequence_ScaleParam(context, (ScaleParam) semanticObject); 
 				return; 
 			case SLEECPackage.SPECIFICATION:
 				sequence_Specification(context, (Specification) semanticObject); 
@@ -122,7 +118,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Atom returns MBoolExpr
 	 *
 	 * Constraint:
-	 *     (measure=[Measure|ID] | value=Value | scaleParam=[ScaleParam|ID])
+	 *     (name=ID | value=Value)
 	 */
 	protected void sequence_Atom(ISerializationContext context, MBoolExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -161,28 +157,6 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     Definition returns Constant
-	 *     Constant returns Constant
-	 *
-	 * Constraint:
-	 *     (name=ID value=Value)
-	 */
-	protected void sequence_Constant(ISerializationContext context, Constant semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.DEFINITION__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.DEFINITION__NAME));
-			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.CONSTANT__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.CONSTANT__VALUE));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getConstantAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getConstantAccess().getValueValueParserRuleCall_3_0(), semanticObject.getValue());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     Defblock returns Defblock
 	 *
 	 * Constraint:
@@ -207,19 +181,39 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     Definition returns Event
-	 *     Event returns Event
+	 *     Definition returns Constant
 	 *
 	 * Constraint:
-	 *     name=ID
+	 *     (name=ConstID value=Value)
 	 */
-	protected void sequence_Event(ISerializationContext context, Event semanticObject) {
+	protected void sequence_Definition(ISerializationContext context, Constant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.DEFINITION__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.DEFINITION__NAME));
+			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getDefinitionAccess().getNameConstIDParserRuleCall_2_2_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getDefinitionAccess().getValueValueParserRuleCall_2_4_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Definition returns Event
+	 *
+	 * Constraint:
+	 *     name=EventID
+	 */
+	protected void sequence_Definition(ISerializationContext context, Event semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.DEFINITION__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.DEFINITION__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getEventAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getDefinitionAccess().getNameEventIDParserRuleCall_0_2_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
@@ -227,12 +221,11 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	/**
 	 * Contexts:
 	 *     Definition returns Measure
-	 *     Measure returns Measure
 	 *
 	 * Constraint:
-	 *     (name=ID type=Type)
+	 *     (name=MeasureID type=Type)
 	 */
-	protected void sequence_Measure(ISerializationContext context, Measure semanticObject) {
+	protected void sequence_Definition(ISerializationContext context, Measure semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.DEFINITION__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.DEFINITION__NAME));
@@ -240,8 +233,8 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.MEASURE__TYPE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getMeasureAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getMeasureAccess().getTypeTypeParserRuleCall_3_0(), semanticObject.getType());
+		feeder.accept(grammarAccess.getDefinitionAccess().getNameMeasureIDParserRuleCall_1_2_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getDefinitionAccess().getTypeTypeParserRuleCall_1_4_0(), semanticObject.getType());
 		feeder.finish();
 	}
 	
@@ -333,24 +326,6 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_Rule(ISerializationContext context, Rule semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     ScaleParam returns ScaleParam
-	 *
-	 * Constraint:
-	 *     name=ID
-	 */
-	protected void sequence_ScaleParam(ISerializationContext context, ScaleParam semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, SLEECPackage.Literals.SCALE_PARAM__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, SLEECPackage.Literals.SCALE_PARAM__NAME));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getScaleParamAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
-		feeder.finish();
 	}
 	
 	

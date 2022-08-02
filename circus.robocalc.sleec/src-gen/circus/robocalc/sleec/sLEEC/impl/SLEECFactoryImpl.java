@@ -22,7 +22,6 @@ import circus.robocalc.sleec.sLEEC.RuleBlock;
 import circus.robocalc.sleec.sLEEC.SLEECFactory;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
-import circus.robocalc.sleec.sLEEC.ScaleParam;
 import circus.robocalc.sleec.sLEEC.Specification;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
@@ -92,18 +91,17 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
       case SLEECPackage.SPECIFICATION: return createSpecification();
       case SLEECPackage.DEFBLOCK: return createDefblock();
       case SLEECPackage.DEFINITION: return createDefinition();
-      case SLEECPackage.EVENT: return createEvent();
-      case SLEECPackage.MEASURE: return createMeasure();
-      case SLEECPackage.CONSTANT: return createConstant();
       case SLEECPackage.VALUE: return createValue();
       case SLEECPackage.TYPE: return createType();
-      case SLEECPackage.SCALE_PARAM: return createScaleParam();
       case SLEECPackage.RULE_BLOCK: return createRuleBlock();
       case SLEECPackage.RULE: return createRule();
       case SLEECPackage.TRIGGER: return createTrigger();
       case SLEECPackage.MBOOL_EXPR: return createMBoolExpr();
       case SLEECPackage.RESPONSE: return createResponse();
       case SLEECPackage.DEFEATER: return createDefeater();
+      case SLEECPackage.EVENT: return createEvent();
+      case SLEECPackage.MEASURE: return createMeasure();
+      case SLEECPackage.CONSTANT: return createConstant();
       case SLEECPackage.BOOLEAN: return createBoolean();
       case SLEECPackage.NUMERIC: return createNumeric();
       case SLEECPackage.SCALE: return createScale();
@@ -195,42 +193,6 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
    * @generated
    */
   @Override
-  public Event createEvent()
-  {
-    EventImpl event = new EventImpl();
-    return event;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Measure createMeasure()
-  {
-    MeasureImpl measure = new MeasureImpl();
-    return measure;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Constant createConstant()
-  {
-    ConstantImpl constant = new ConstantImpl();
-    return constant;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public Value createValue()
   {
     ValueImpl value = new ValueImpl();
@@ -247,18 +209,6 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
   {
     TypeImpl type = new TypeImpl();
     return type;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public ScaleParam createScaleParam()
-  {
-    ScaleParamImpl scaleParam = new ScaleParamImpl();
-    return scaleParam;
   }
 
   /**
@@ -331,6 +281,42 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
   {
     DefeaterImpl defeater = new DefeaterImpl();
     return defeater;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Event createEvent()
+  {
+    EventImpl event = new EventImpl();
+    return event;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Measure createMeasure()
+  {
+    MeasureImpl measure = new MeasureImpl();
+    return measure;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Constant createConstant()
+  {
+    ConstantImpl constant = new ConstantImpl();
+    return constant;
   }
 
   /**

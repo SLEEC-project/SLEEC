@@ -24,15 +24,15 @@ import org.eclipse.emf.common.util.EList;
 public interface Scale extends Type
 {
   /**
-   * Returns the value of the '<em><b>Scale Params</b></em>' containment reference list.
-   * The list contents are of type {@link circus.robocalc.sleec.sLEEC.ScaleParam}.
+   * Returns the value of the '<em><b>Scale Params</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Scale Params</em>' containment reference list.
+   * @return the value of the '<em>Scale Params</em>' attribute list.
    * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getScale_ScaleParams()
-   * @model containment="true"
+   * @model unique="false"
    * @generated
    */
-  EList<ScaleParam> getScaleParams();
+  EList<String> getScaleParams();
 
 } // Scale

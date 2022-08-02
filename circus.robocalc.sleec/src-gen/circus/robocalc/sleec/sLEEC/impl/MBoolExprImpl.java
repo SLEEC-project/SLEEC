@@ -4,9 +4,7 @@
 package circus.robocalc.sleec.sLEEC.impl;
 
 import circus.robocalc.sleec.sLEEC.MBoolExpr;
-import circus.robocalc.sleec.sLEEC.Measure;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
-import circus.robocalc.sleec.sLEEC.ScaleParam;
 import circus.robocalc.sleec.sLEEC.Value;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -26,9 +24,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getMeasure <em>Measure</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getName <em>Name</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getValue <em>Value</em>}</li>
- *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getScaleParam <em>Scale Param</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.MBoolExprImpl#getLeft <em>Left</em>}</li>
  * </ul>
  *
@@ -37,14 +34,24 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBoolExpr
 {
   /**
-   * The cached value of the '{@link #getMeasure() <em>Measure</em>}' reference.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getMeasure()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected Measure measure;
+  protected static final String NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
+  protected String name = NAME_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
@@ -55,16 +62,6 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
    * @ordered
    */
   protected Value value;
-
-  /**
-   * The cached value of the '{@link #getScaleParam() <em>Scale Param</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getScaleParam()
-   * @generated
-   * @ordered
-   */
-  protected ScaleParam scaleParam;
 
   /**
    * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
@@ -103,29 +100,9 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
    * @generated
    */
   @Override
-  public Measure getMeasure()
+  public String getName()
   {
-    if (measure != null && measure.eIsProxy())
-    {
-      InternalEObject oldMeasure = (InternalEObject)measure;
-      measure = (Measure)eResolveProxy(oldMeasure);
-      if (measure != oldMeasure)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SLEECPackage.MBOOL_EXPR__MEASURE, oldMeasure, measure));
-      }
-    }
-    return measure;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Measure basicGetMeasure()
-  {
-    return measure;
+    return name;
   }
 
   /**
@@ -134,12 +111,12 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
    * @generated
    */
   @Override
-  public void setMeasure(Measure newMeasure)
+  public void setName(String newName)
   {
-    Measure oldMeasure = measure;
-    measure = newMeasure;
+    String oldName = name;
+    name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.MBOOL_EXPR__MEASURE, oldMeasure, measure));
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.MBOOL_EXPR__NAME, oldName, name));
   }
 
   /**
@@ -190,51 +167,6 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
     }
     else if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.MBOOL_EXPR__VALUE, newValue, newValue));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public ScaleParam getScaleParam()
-  {
-    if (scaleParam != null && scaleParam.eIsProxy())
-    {
-      InternalEObject oldScaleParam = (InternalEObject)scaleParam;
-      scaleParam = (ScaleParam)eResolveProxy(oldScaleParam);
-      if (scaleParam != oldScaleParam)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SLEECPackage.MBOOL_EXPR__SCALE_PARAM, oldScaleParam, scaleParam));
-      }
-    }
-    return scaleParam;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ScaleParam basicGetScaleParam()
-  {
-    return scaleParam;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setScaleParam(ScaleParam newScaleParam)
-  {
-    ScaleParam oldScaleParam = scaleParam;
-    scaleParam = newScaleParam;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.MBOOL_EXPR__SCALE_PARAM, oldScaleParam, scaleParam));
   }
 
   /**
@@ -315,14 +247,10 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
   {
     switch (featureID)
     {
-      case SLEECPackage.MBOOL_EXPR__MEASURE:
-        if (resolve) return getMeasure();
-        return basicGetMeasure();
+      case SLEECPackage.MBOOL_EXPR__NAME:
+        return getName();
       case SLEECPackage.MBOOL_EXPR__VALUE:
         return getValue();
-      case SLEECPackage.MBOOL_EXPR__SCALE_PARAM:
-        if (resolve) return getScaleParam();
-        return basicGetScaleParam();
       case SLEECPackage.MBOOL_EXPR__LEFT:
         return getLeft();
     }
@@ -339,14 +267,11 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
   {
     switch (featureID)
     {
-      case SLEECPackage.MBOOL_EXPR__MEASURE:
-        setMeasure((Measure)newValue);
+      case SLEECPackage.MBOOL_EXPR__NAME:
+        setName((String)newValue);
         return;
       case SLEECPackage.MBOOL_EXPR__VALUE:
         setValue((Value)newValue);
-        return;
-      case SLEECPackage.MBOOL_EXPR__SCALE_PARAM:
-        setScaleParam((ScaleParam)newValue);
         return;
       case SLEECPackage.MBOOL_EXPR__LEFT:
         setLeft((MBoolExpr)newValue);
@@ -365,14 +290,11 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
   {
     switch (featureID)
     {
-      case SLEECPackage.MBOOL_EXPR__MEASURE:
-        setMeasure((Measure)null);
+      case SLEECPackage.MBOOL_EXPR__NAME:
+        setName(NAME_EDEFAULT);
         return;
       case SLEECPackage.MBOOL_EXPR__VALUE:
         setValue((Value)null);
-        return;
-      case SLEECPackage.MBOOL_EXPR__SCALE_PARAM:
-        setScaleParam((ScaleParam)null);
         return;
       case SLEECPackage.MBOOL_EXPR__LEFT:
         setLeft((MBoolExpr)null);
@@ -391,16 +313,31 @@ public class MBoolExprImpl extends MinimalEObjectImpl.Container implements MBool
   {
     switch (featureID)
     {
-      case SLEECPackage.MBOOL_EXPR__MEASURE:
-        return measure != null;
+      case SLEECPackage.MBOOL_EXPR__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case SLEECPackage.MBOOL_EXPR__VALUE:
         return value != null;
-      case SLEECPackage.MBOOL_EXPR__SCALE_PARAM:
-        return scaleParam != null;
       case SLEECPackage.MBOOL_EXPR__LEFT:
         return left != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuilder result = new StringBuilder(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(')');
+    return result.toString();
   }
 
 } //MBoolExprImpl

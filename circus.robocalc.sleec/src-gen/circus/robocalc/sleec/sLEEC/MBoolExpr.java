@@ -14,9 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getMeasure <em>Measure</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getName <em>Name</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getValue <em>Value</em>}</li>
- *   <li>{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getScaleParam <em>Scale Param</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getLeft <em>Left</em>}</li>
  * </ul>
  *
@@ -27,26 +26,26 @@ import org.eclipse.emf.ecore.EObject;
 public interface MBoolExpr extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Measure</b></em>' reference.
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Measure</em>' reference.
-   * @see #setMeasure(Measure)
-   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getMBoolExpr_Measure()
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getMBoolExpr_Name()
    * @model
    * @generated
    */
-  Measure getMeasure();
+  String getName();
 
   /**
-   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getMeasure <em>Measure</em>}' reference.
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Measure</em>' reference.
-   * @see #getMeasure()
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
    * @generated
    */
-  void setMeasure(Measure value);
+  void setName(String value);
 
   /**
    * Returns the value of the '<em><b>Value</b></em>' containment reference.
@@ -69,28 +68,6 @@ public interface MBoolExpr extends EObject
    * @generated
    */
   void setValue(Value value);
-
-  /**
-   * Returns the value of the '<em><b>Scale Param</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Scale Param</em>' reference.
-   * @see #setScaleParam(ScaleParam)
-   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getMBoolExpr_ScaleParam()
-   * @model
-   * @generated
-   */
-  ScaleParam getScaleParam();
-
-  /**
-   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getScaleParam <em>Scale Param</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Scale Param</em>' reference.
-   * @see #getScaleParam()
-   * @generated
-   */
-  void setScaleParam(ScaleParam value);
 
   /**
    * Returns the value of the '<em><b>Left</b></em>' containment reference.

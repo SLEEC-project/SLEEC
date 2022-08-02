@@ -19,7 +19,6 @@ import circus.robocalc.sleec.sLEEC.Rule;
 import circus.robocalc.sleec.sLEEC.RuleBlock;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
-import circus.robocalc.sleec.sLEEC.ScaleParam;
 import circus.robocalc.sleec.sLEEC.Specification;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
@@ -114,30 +113,6 @@ public class SLEECSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case SLEECPackage.EVENT:
-      {
-        Event event = (Event)theEObject;
-        T result = caseEvent(event);
-        if (result == null) result = caseDefinition(event);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SLEECPackage.MEASURE:
-      {
-        Measure measure = (Measure)theEObject;
-        T result = caseMeasure(measure);
-        if (result == null) result = caseDefinition(measure);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SLEECPackage.CONSTANT:
-      {
-        Constant constant = (Constant)theEObject;
-        T result = caseConstant(constant);
-        if (result == null) result = caseDefinition(constant);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case SLEECPackage.VALUE:
       {
         Value value = (Value)theEObject;
@@ -149,13 +124,6 @@ public class SLEECSwitch<T> extends Switch<T>
       {
         Type type = (Type)theEObject;
         T result = caseType(type);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case SLEECPackage.SCALE_PARAM:
-      {
-        ScaleParam scaleParam = (ScaleParam)theEObject;
-        T result = caseScaleParam(scaleParam);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -198,6 +166,30 @@ public class SLEECSwitch<T> extends Switch<T>
       {
         Defeater defeater = (Defeater)theEObject;
         T result = caseDefeater(defeater);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SLEECPackage.EVENT:
+      {
+        Event event = (Event)theEObject;
+        T result = caseEvent(event);
+        if (result == null) result = caseDefinition(event);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SLEECPackage.MEASURE:
+      {
+        Measure measure = (Measure)theEObject;
+        T result = caseMeasure(measure);
+        if (result == null) result = caseDefinition(measure);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SLEECPackage.CONSTANT:
+      {
+        Constant constant = (Constant)theEObject;
+        T result = caseConstant(constant);
+        if (result == null) result = caseDefinition(constant);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -302,54 +294,6 @@ public class SLEECSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Event</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Event</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEvent(Event object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Measure</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Measure</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseMeasure(Measure object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Constant</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Constant</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseConstant(Constant object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -377,22 +321,6 @@ public class SLEECSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseType(Type object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Scale Param</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Scale Param</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseScaleParam(ScaleParam object)
   {
     return null;
   }
@@ -489,6 +417,54 @@ public class SLEECSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseDefeater(Defeater object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Event</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Event</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEvent(Event object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Measure</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Measure</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMeasure(Measure object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Constant</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Constant</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConstant(Constant object)
   {
     return null;
   }
