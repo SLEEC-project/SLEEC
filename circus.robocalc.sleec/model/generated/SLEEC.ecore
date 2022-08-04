@@ -38,13 +38,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expr" eType="#//MBoolExpr"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MBoolExpr">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"
-        containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MBoolExpr"/>
   <eClassifiers xsi:type="ecore:EClass" name="Response">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//Event"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="event" eType="#//Event"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="time" eType="#//Value"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="response" eType="#//Response"
@@ -99,6 +95,11 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" eType="#//RelOp"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//MBoolExpr"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Atom" eSuperTypes="#//MBoolExpr">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"
         containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

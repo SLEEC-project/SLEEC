@@ -3,6 +3,7 @@
  */
 package circus.robocalc.sleec.sLEEC.util;
 
+import circus.robocalc.sleec.sLEEC.Atom;
 import circus.robocalc.sleec.sLEEC.BoolComp;
 import circus.robocalc.sleec.sLEEC.Constant;
 import circus.robocalc.sleec.sLEEC.Defblock;
@@ -238,6 +239,14 @@ public class SLEECSwitch<T> extends Switch<T>
         RelComp relComp = (RelComp)theEObject;
         T result = caseRelComp(relComp);
         if (result == null) result = caseMBoolExpr(relComp);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case SLEECPackage.ATOM:
+      {
+        Atom atom = (Atom)theEObject;
+        T result = caseAtom(atom);
+        if (result == null) result = caseMBoolExpr(atom);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -561,6 +570,22 @@ public class SLEECSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseRelComp(RelComp object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Atom</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Atom</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAtom(Atom object)
   {
     return null;
   }

@@ -204,6 +204,15 @@ public interface SLEECFactory extends EFactory
   RelComp createRelComp();
 
   /**
+   * Returns a new object of class '<em>Atom</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Atom</em>'.
+   * @generated
+   */
+  Atom createAtom();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

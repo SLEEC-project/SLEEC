@@ -11,7 +11,6 @@ import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
 import org.eclipse.xtext.testing.util.ParseHelper;
-import org.eclipse.xtext.testing.validation.ValidationTestHelper;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.junit.jupiter.api.Assertions;
@@ -24,9 +23,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class SLEECParsingTest {
   @Inject
   private ParseHelper<Specification> parseHelper;
-  
-  @Inject
-  private ValidationTestHelper validationTestHelper;
   
   @Test
   public void basic_test() {

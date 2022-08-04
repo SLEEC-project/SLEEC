@@ -240,11 +240,11 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Keyword cRightParenthesisKeyword_2_5 = (Keyword)cGroup_2.eContents().get(5);
 		
 		//Type:
-		//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=ScaleParam (',' scaleParams+=ScaleParam)* ')'
+		//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams += ScaleParam (',' scaleParams+=ScaleParam)* ')'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=ScaleParam (',' scaleParams+=ScaleParam)* ')'
+		//{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams += ScaleParam (',' scaleParams+=ScaleParam)* ')'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{Boolean} 'boolean'
@@ -265,7 +265,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'numeric'
 		public Keyword getNumericKeyword_1_1() { return cNumericKeyword_1_1; }
 		
-		//{Scale} 'scale' '(' scaleParams+=ScaleParam (',' scaleParams+=ScaleParam)* ')'
+		//{Scale} 'scale' '(' scaleParams += ScaleParam (',' scaleParams+=ScaleParam)* ')'
 		public Group getGroup_2() { return cGroup_2; }
 		
 		//{Scale}
@@ -277,7 +277,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'('
 		public Keyword getLeftParenthesisKeyword_2_2() { return cLeftParenthesisKeyword_2_2; }
 		
-		//scaleParams+=ScaleParam
+		//scaleParams += ScaleParam
 		public Assignment getScaleParamsAssignment_2_3() { return cScaleParamsAssignment_2_3; }
 		
 		//ScaleParam
@@ -553,34 +553,54 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	public class AtomElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Atom");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Assignment cNameAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Action cAtomAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Alternatives cAlternatives_0_1 = (Alternatives)cGroup_0.eContents().get(1);
+		private final Assignment cNameAssignment_0_1_0 = (Assignment)cAlternatives_0_1.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_1_0_0 = (RuleCall)cNameAssignment_0_1_0.eContents().get(0);
+		private final Assignment cValueAssignment_0_1_1 = (Assignment)cAlternatives_0_1.eContents().get(1);
+		private final RuleCall cValueValueParserRuleCall_0_1_1_0 = (RuleCall)cValueAssignment_0_1_1.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final RuleCall cMBoolExprParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
-		private final Assignment cValueAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
-		private final RuleCall cValueValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
 		//Atom returns MBoolExpr:
 		//    // Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
 		//    // ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
-		//    name=ID | '(' MBoolExpr ')' | value=Value
+		//    {Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
 		//// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
-		//name=ID | '(' MBoolExpr ')' | value=Value
+		//{Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
 		//// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
+		//{Atom} (name=ID | value=Value)
+		public Group getGroup_0() { return cGroup_0; }
+		
+		//// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
+		//// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
+		//{Atom}
+		public Action getAtomAction_0_0() { return cAtomAction_0_0; }
+		
+		//(name=ID | value=Value)
+		public Alternatives getAlternatives_0_1() { return cAlternatives_0_1; }
+		
 		//name=ID
-		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+		public Assignment getNameAssignment_0_1_0() { return cNameAssignment_0_1_0; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+		public RuleCall getNameIDTerminalRuleCall_0_1_0_0() { return cNameIDTerminalRuleCall_0_1_0_0; }
+		
+		//value=Value
+		public Assignment getValueAssignment_0_1_1() { return cValueAssignment_0_1_1; }
+		
+		//Value
+		public RuleCall getValueValueParserRuleCall_0_1_1_0() { return cValueValueParserRuleCall_0_1_1_0; }
 		
 		//'(' MBoolExpr ')'
 		public Group getGroup_1() { return cGroup_1; }
@@ -593,20 +613,14 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
-		
-		//value=Value
-		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
-		
-		//Value
-		public RuleCall getValueValueParserRuleCall_2_0() { return cValueValueParserRuleCall_2_0; }
 	}
 	public class ResponseElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Response");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cNameAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final CrossReference cNameEventCrossReference_0_0_0 = (CrossReference)cNameAssignment_0_0.eContents().get(0);
-		private final RuleCall cNameEventIDTerminalRuleCall_0_0_0_1 = (RuleCall)cNameEventCrossReference_0_0_0.eContents().get(1);
+		private final Assignment cEventAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final CrossReference cEventEventCrossReference_0_0_0 = (CrossReference)cEventAssignment_0_0.eContents().get(0);
+		private final RuleCall cEventEventIDTerminalRuleCall_0_0_0_1 = (RuleCall)cEventEventCrossReference_0_0_0.eContents().get(1);
 		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
 		private final Keyword cWithinKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
 		private final Assignment cTimeAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
@@ -618,32 +632,32 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Assignment cNotAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final Keyword cNotNotKeyword_1_0_0 = (Keyword)cNotAssignment_1_0.eContents().get(0);
-		private final Assignment cNameAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final CrossReference cNameEventCrossReference_1_1_0 = (CrossReference)cNameAssignment_1_1.eContents().get(0);
-		private final RuleCall cNameEventIDTerminalRuleCall_1_1_0_1 = (RuleCall)cNameEventCrossReference_1_1_0.eContents().get(1);
+		private final Assignment cEventAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cEventEventCrossReference_1_1_0 = (CrossReference)cEventAssignment_1_1.eContents().get(0);
+		private final RuleCall cEventEventIDTerminalRuleCall_1_1_0_1 = (RuleCall)cEventEventCrossReference_1_1_0.eContents().get(1);
 		private final Keyword cWithinKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		private final Assignment cTimeAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
 		private final RuleCall cTimeValueParserRuleCall_1_3_0 = (RuleCall)cTimeAssignment_1_3.eContents().get(0);
 		
 		//Response:
-		//    name=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' name=[Event] 'within' time=Value
+		//    event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' name=[Event] 'within' time=Value
+		//event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//name=[Event] ('within' time=Value ('otherwise' response=Response)?)?
+		//event=[Event] ('within' time=Value ('otherwise' response=Response)?)?
 		public Group getGroup_0() { return cGroup_0; }
 		
-		//name=[Event]
-		public Assignment getNameAssignment_0_0() { return cNameAssignment_0_0; }
+		//event=[Event]
+		public Assignment getEventAssignment_0_0() { return cEventAssignment_0_0; }
 		
 		//[Event]
-		public CrossReference getNameEventCrossReference_0_0_0() { return cNameEventCrossReference_0_0_0; }
+		public CrossReference getEventEventCrossReference_0_0_0() { return cEventEventCrossReference_0_0_0; }
 		
 		//ID
-		public RuleCall getNameEventIDTerminalRuleCall_0_0_0_1() { return cNameEventIDTerminalRuleCall_0_0_0_1; }
+		public RuleCall getEventEventIDTerminalRuleCall_0_0_0_1() { return cEventEventIDTerminalRuleCall_0_0_0_1; }
 		
 		//('within' time=Value ('otherwise' response=Response)?)?
 		public Group getGroup_0_1() { return cGroup_0_1; }
@@ -669,7 +683,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//Response
 		public RuleCall getResponseResponseParserRuleCall_0_1_2_1_0() { return cResponseResponseParserRuleCall_0_1_2_1_0; }
 		
-		//not?='not' name=[Event] 'within' time=Value
+		//not?='not' event=[Event] 'within' time=Value
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//not?='not'
@@ -678,14 +692,14 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'not'
 		public Keyword getNotNotKeyword_1_0_0() { return cNotNotKeyword_1_0_0; }
 		
-		//name=[Event]
-		public Assignment getNameAssignment_1_1() { return cNameAssignment_1_1; }
+		//event=[Event]
+		public Assignment getEventAssignment_1_1() { return cEventAssignment_1_1; }
 		
 		//[Event]
-		public CrossReference getNameEventCrossReference_1_1_0() { return cNameEventCrossReference_1_1_0; }
+		public CrossReference getEventEventCrossReference_1_1_0() { return cEventEventCrossReference_1_1_0; }
 		
 		//ID
-		public RuleCall getNameEventIDTerminalRuleCall_1_1_0_1() { return cNameEventIDTerminalRuleCall_1_1_0_1; }
+		public RuleCall getEventEventIDTerminalRuleCall_1_1_0_1() { return cEventEventIDTerminalRuleCall_1_1_0_1; }
 		
 		//'within'
 		public Keyword getWithinKeyword_1_2() { return cWithinKeyword_1_2; }
@@ -794,6 +808,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final RuleCall cRuleIDParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
+		//// TODO change to just ID
 		//RuleID:
 		//    (INT | ID) ('.' RuleID)?
 		//;
@@ -1040,7 +1055,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Type:
-	//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=ScaleParam (',' scaleParams+=ScaleParam)* ')'
+	//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams += ScaleParam (',' scaleParams+=ScaleParam)* ')'
 	//;
 	public TypeElements getTypeAccess() {
 		return pType;
@@ -1134,7 +1149,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	//Atom returns MBoolExpr:
 	//    // Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
 	//    // ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
-	//    name=ID | '(' MBoolExpr ')' | value=Value
+	//    {Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
 	//;
 	public AtomElements getAtomAccess() {
 		return pAtom;
@@ -1145,7 +1160,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Response:
-	//    name=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' name=[Event] 'within' time=Value
+	//    event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
 	//;
 	public ResponseElements getResponseAccess() {
 		return pResponse;
@@ -1232,6 +1247,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getScaleParamAccess().getRule();
 	}
 	
+	//// TODO change to just ID
 	//RuleID:
 	//    (INT | ID) ('.' RuleID)?
 	//;

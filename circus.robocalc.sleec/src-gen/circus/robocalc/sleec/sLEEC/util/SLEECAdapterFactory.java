@@ -3,6 +3,7 @@
  */
 package circus.robocalc.sleec.sLEEC.util;
 
+import circus.robocalc.sleec.sLEEC.Atom;
 import circus.robocalc.sleec.sLEEC.BoolComp;
 import circus.robocalc.sleec.sLEEC.Constant;
 import circus.robocalc.sleec.sLEEC.Defblock;
@@ -193,6 +194,11 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
       public Adapter caseRelComp(RelComp object)
       {
         return createRelCompAdapter();
+      }
+      @Override
+      public Adapter caseAtom(Atom object)
+      {
+        return createAtomAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -512,6 +518,21 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createRelCompAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link circus.robocalc.sleec.sLEEC.Atom <em>Atom</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see circus.robocalc.sleec.sLEEC.Atom
+   * @generated
+   */
+  public Adapter createAtomAdapter()
   {
     return null;
   }

@@ -21,7 +21,7 @@ Value:
 ;
 
 Type:
-	{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=ScaleParam (',' scaleParams+=ScaleParam)* ')'
+	{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams += ScaleParam (',' scaleParams+=ScaleParam)* ')'
 ;
 
 RuleBlock:
@@ -59,11 +59,11 @@ RelComp returns MBoolExpr:
 Atom returns MBoolExpr:
 	// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
 	// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
-	name=ID | '(' MBoolExpr ')' | value=Value
+	{Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
 ;
 
 Response:
-	name=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' name=[Event] 'within' time=Value
+	event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
 ;
 
 Defeater:
@@ -94,6 +94,7 @@ ScaleParam:
 	ID
 ;
 
+// TODO change to just ID
 RuleID:
 	(INT | ID) ('.' RuleID)?
 ;

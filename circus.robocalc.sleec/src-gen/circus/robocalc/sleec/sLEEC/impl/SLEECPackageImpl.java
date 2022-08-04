@@ -3,6 +3,7 @@
  */
 package circus.robocalc.sleec.sLEEC.impl;
 
+import circus.robocalc.sleec.sLEEC.Atom;
 import circus.robocalc.sleec.sLEEC.BoolComp;
 import circus.robocalc.sleec.sLEEC.BoolOp;
 import circus.robocalc.sleec.sLEEC.Constant;
@@ -182,6 +183,13 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   private EClass relCompEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass atomEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -519,28 +527,6 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
-  public EAttribute getMBoolExpr_Name()
-  {
-    return (EAttribute)mBoolExprEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getMBoolExpr_Value()
-  {
-    return (EReference)mBoolExprEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public EClass getResponse()
   {
     return responseEClass;
@@ -552,7 +538,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
-  public EReference getResponse_Name()
+  public EReference getResponse_Event()
   {
     return (EReference)responseEClass.getEStructuralFeatures().get(0);
   }
@@ -838,6 +824,39 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
+  public EClass getAtom()
+  {
+    return atomEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getAtom_Name()
+  {
+    return (EAttribute)atomEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getAtom_Value()
+  {
+    return (EReference)atomEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EEnum getRelOp()
   {
     return relOpEEnum;
@@ -916,11 +935,9 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     createEReference(triggerEClass, TRIGGER__EXPR);
 
     mBoolExprEClass = createEClass(MBOOL_EXPR);
-    createEAttribute(mBoolExprEClass, MBOOL_EXPR__NAME);
-    createEReference(mBoolExprEClass, MBOOL_EXPR__VALUE);
 
     responseEClass = createEClass(RESPONSE);
-    createEReference(responseEClass, RESPONSE__NAME);
+    createEReference(responseEClass, RESPONSE__EVENT);
     createEReference(responseEClass, RESPONSE__TIME);
     createEReference(responseEClass, RESPONSE__RESPONSE);
     createEAttribute(responseEClass, RESPONSE__NOT);
@@ -956,6 +973,10 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     createEReference(relCompEClass, REL_COMP__LEFT);
     createEAttribute(relCompEClass, REL_COMP__OP);
     createEReference(relCompEClass, REL_COMP__RIGHT);
+
+    atomEClass = createEClass(ATOM);
+    createEAttribute(atomEClass, ATOM__NAME);
+    createEReference(atomEClass, ATOM__VALUE);
 
     // Create enums
     relOpEEnum = createEEnum(REL_OP);
@@ -1000,6 +1021,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     boolCompEClass.getESuperTypes().add(this.getMBoolExpr());
     notEClass.getESuperTypes().add(this.getMBoolExpr());
     relCompEClass.getESuperTypes().add(this.getMBoolExpr());
+    atomEClass.getESuperTypes().add(this.getMBoolExpr());
 
     // Initialize classes and features; add operations and parameters
     initEClass(specificationEClass, Specification.class, "Specification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1033,11 +1055,9 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     initEReference(getTrigger_Expr(), this.getMBoolExpr(), null, "expr", null, 0, 1, Trigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(mBoolExprEClass, MBoolExpr.class, "MBoolExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getMBoolExpr_Name(), ecorePackage.getEString(), "name", null, 0, 1, MBoolExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getMBoolExpr_Value(), this.getValue(), null, "value", null, 0, 1, MBoolExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(responseEClass, Response.class, "Response", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getResponse_Name(), this.getEvent(), null, "name", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResponse_Event(), this.getEvent(), null, "event", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResponse_Time(), this.getValue(), null, "time", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResponse_Response(), this.getResponse(), null, "response", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getResponse_Not(), ecorePackage.getEBoolean(), "not", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1073,6 +1093,10 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     initEReference(getRelComp_Left(), this.getMBoolExpr(), null, "left", null, 0, 1, RelComp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRelComp_Op(), this.getRelOp(), "op", null, 0, 1, RelComp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRelComp_Right(), this.getMBoolExpr(), null, "right", null, 0, 1, RelComp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(atomEClass, Atom.class, "Atom", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getAtom_Name(), ecorePackage.getEString(), "name", null, 0, 1, Atom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAtom_Value(), this.getValue(), null, "value", null, 0, 1, Atom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(relOpEEnum, RelOp.class, "RelOp");

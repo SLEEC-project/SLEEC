@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getName <em>Name</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getEvent <em>Event</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getTime <em>Time</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getResponse <em>Response</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#isNot <em>Not</em>}</li>
@@ -38,14 +38,14 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class ResponseImpl extends MinimalEObjectImpl.Container implements Response
 {
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' reference.
+   * The cached value of the '{@link #getEvent() <em>Event</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getEvent()
    * @generated
    * @ordered
    */
-  protected Event name;
+  protected Event event;
 
   /**
    * The cached value of the '{@link #getTime() <em>Time</em>}' containment reference.
@@ -114,19 +114,19 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
    * @generated
    */
   @Override
-  public Event getName()
+  public Event getEvent()
   {
-    if (name != null && name.eIsProxy())
+    if (event != null && event.eIsProxy())
     {
-      InternalEObject oldName = (InternalEObject)name;
-      name = (Event)eResolveProxy(oldName);
-      if (name != oldName)
+      InternalEObject oldEvent = (InternalEObject)event;
+      event = (Event)eResolveProxy(oldEvent);
+      if (event != oldEvent)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SLEECPackage.RESPONSE__NAME, oldName, name));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, SLEECPackage.RESPONSE__EVENT, oldEvent, event));
       }
     }
-    return name;
+    return event;
   }
 
   /**
@@ -134,9 +134,9 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
    * <!-- end-user-doc -->
    * @generated
    */
-  public Event basicGetName()
+  public Event basicGetEvent()
   {
-    return name;
+    return event;
   }
 
   /**
@@ -145,12 +145,12 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
    * @generated
    */
   @Override
-  public void setName(Event newName)
+  public void setEvent(Event newEvent)
   {
-    Event oldName = name;
-    name = newName;
+    Event oldEvent = event;
+    event = newEvent;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.RESPONSE__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.RESPONSE__EVENT, oldEvent, event));
   }
 
   /**
@@ -306,9 +306,9 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   {
     switch (featureID)
     {
-      case SLEECPackage.RESPONSE__NAME:
-        if (resolve) return getName();
-        return basicGetName();
+      case SLEECPackage.RESPONSE__EVENT:
+        if (resolve) return getEvent();
+        return basicGetEvent();
       case SLEECPackage.RESPONSE__TIME:
         return getTime();
       case SLEECPackage.RESPONSE__RESPONSE:
@@ -329,8 +329,8 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   {
     switch (featureID)
     {
-      case SLEECPackage.RESPONSE__NAME:
-        setName((Event)newValue);
+      case SLEECPackage.RESPONSE__EVENT:
+        setEvent((Event)newValue);
         return;
       case SLEECPackage.RESPONSE__TIME:
         setTime((Value)newValue);
@@ -355,8 +355,8 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   {
     switch (featureID)
     {
-      case SLEECPackage.RESPONSE__NAME:
-        setName((Event)null);
+      case SLEECPackage.RESPONSE__EVENT:
+        setEvent((Event)null);
         return;
       case SLEECPackage.RESPONSE__TIME:
         setTime((Value)null);
@@ -381,8 +381,8 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   {
     switch (featureID)
     {
-      case SLEECPackage.RESPONSE__NAME:
-        return name != null;
+      case SLEECPackage.RESPONSE__EVENT:
+        return event != null;
       case SLEECPackage.RESPONSE__TIME:
         return time != null;
       case SLEECPackage.RESPONSE__RESPONSE:

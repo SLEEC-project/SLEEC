@@ -3,12 +3,12 @@
  */
 package circus.robocalc.sleec.serializer;
 
+import circus.robocalc.sleec.sLEEC.Atom;
 import circus.robocalc.sleec.sLEEC.BoolComp;
 import circus.robocalc.sleec.sLEEC.Constant;
 import circus.robocalc.sleec.sLEEC.Defblock;
 import circus.robocalc.sleec.sLEEC.Defeater;
 import circus.robocalc.sleec.sLEEC.Event;
-import circus.robocalc.sleec.sLEEC.MBoolExpr;
 import circus.robocalc.sleec.sLEEC.Measure;
 import circus.robocalc.sleec.sLEEC.Not;
 import circus.robocalc.sleec.sLEEC.Numeric;
@@ -48,6 +48,9 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == SLEECPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case SLEECPackage.ATOM:
+				sequence_Atom(context, (Atom) semanticObject); 
+				return; 
 			case SLEECPackage.BOOL_COMP:
 				sequence_BoolComp(context, (BoolComp) semanticObject); 
 				return; 
@@ -65,9 +68,6 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case SLEECPackage.EVENT:
 				sequence_Definition(context, (Event) semanticObject); 
-				return; 
-			case SLEECPackage.MBOOL_EXPR:
-				sequence_Atom(context, (MBoolExpr) semanticObject); 
 				return; 
 			case SLEECPackage.MEASURE:
 				sequence_Definition(context, (Measure) semanticObject); 
@@ -109,18 +109,18 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Contexts:
-	 *     MBoolExpr returns MBoolExpr
-	 *     BoolComp returns MBoolExpr
-	 *     BoolComp.BoolComp_1_0 returns MBoolExpr
-	 *     Not returns MBoolExpr
-	 *     RelComp returns MBoolExpr
-	 *     RelComp.RelComp_1_0 returns MBoolExpr
-	 *     Atom returns MBoolExpr
+	 *     MBoolExpr returns Atom
+	 *     BoolComp returns Atom
+	 *     BoolComp.BoolComp_1_0 returns Atom
+	 *     Not returns Atom
+	 *     RelComp returns Atom
+	 *     RelComp.RelComp_1_0 returns Atom
+	 *     Atom returns Atom
 	 *
 	 * Constraint:
 	 *     (name=ID | value=Value)
 	 */
-	protected void sequence_Atom(ISerializationContext context, MBoolExpr semanticObject) {
+	protected void sequence_Atom(ISerializationContext context, Atom semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -298,7 +298,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Response returns Response
 	 *
 	 * Constraint:
-	 *     ((name=[Event|ID] (time=Value response=Response?)?) | (not?='not' name=[Event|ID] time=Value))
+	 *     ((event=[Event|ID] (time=Value response=Response?)?) | (not?='not' event=[Event|ID] time=Value))
 	 */
 	protected void sequence_Response(ISerializationContext context, Response semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

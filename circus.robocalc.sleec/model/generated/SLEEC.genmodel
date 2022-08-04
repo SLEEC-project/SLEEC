@@ -47,12 +47,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Trigger/event"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Trigger/expr"/>
     </genClasses>
-    <genClasses ecoreClass="SLEEC.ecore#//MBoolExpr">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//MBoolExpr/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//MBoolExpr/value"/>
-    </genClasses>
+    <genClasses ecoreClass="SLEEC.ecore#//MBoolExpr"/>
     <genClasses ecoreClass="SLEEC.ecore#//Response">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Response/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Response/event"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Response/time"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Response/response"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//Response/not"/>
@@ -85,6 +82,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//RelComp/left"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//RelComp/op"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//RelComp/right"/>
+    </genClasses>
+    <genClasses ecoreClass="SLEEC.ecore#//Atom">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//Atom/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Atom/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

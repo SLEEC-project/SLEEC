@@ -11,13 +11,12 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
-import org.eclipse.xtext.testing.validation.ValidationTestHelper
 
 @ExtendWith(InjectionExtension)
 @InjectWith(SLEECInjectorProvider)
 class SLEECParsingTest {
 	@Inject ParseHelper<Specification> parseHelper
-	@Inject ValidationTestHelper validationTestHelper
+	
 	
 	@Test
 	def void basic_test() {

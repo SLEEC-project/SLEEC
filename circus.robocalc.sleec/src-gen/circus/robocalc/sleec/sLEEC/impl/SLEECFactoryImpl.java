@@ -3,6 +3,7 @@
  */
 package circus.robocalc.sleec.sLEEC.impl;
 
+import circus.robocalc.sleec.sLEEC.Atom;
 import circus.robocalc.sleec.sLEEC.BoolComp;
 import circus.robocalc.sleec.sLEEC.BoolOp;
 import circus.robocalc.sleec.sLEEC.Constant;
@@ -108,6 +109,7 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
       case SLEECPackage.BOOL_COMP: return createBoolComp();
       case SLEECPackage.NOT: return createNot();
       case SLEECPackage.REL_COMP: return createRelComp();
+      case SLEECPackage.ATOM: return createAtom();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -389,6 +391,18 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
   {
     RelCompImpl relComp = new RelCompImpl();
     return relComp;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Atom createAtom()
+  {
+    AtomImpl atom = new AtomImpl();
+    return atom;
   }
 
   /**

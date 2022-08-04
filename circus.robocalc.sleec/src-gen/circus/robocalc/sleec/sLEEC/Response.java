@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getName <em>Name</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getEvent <em>Event</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getTime <em>Time</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getResponse <em>Response</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Response#isNot <em>Not</em>}</li>
@@ -27,26 +27,26 @@ import org.eclipse.emf.ecore.EObject;
 public interface Response extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' reference.
+   * Returns the value of the '<em><b>Event</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' reference.
-   * @see #setName(Event)
-   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getResponse_Name()
+   * @return the value of the '<em>Event</em>' reference.
+   * @see #setEvent(Event)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getResponse_Event()
    * @model
    * @generated
    */
-  Event getName();
+  Event getEvent();
 
   /**
-   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Response#getName <em>Name</em>}' reference.
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Response#getEvent <em>Event</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' reference.
-   * @see #getName()
+   * @param value the new value of the '<em>Event</em>' reference.
+   * @see #getEvent()
    * @generated
    */
-  void setName(Event value);
+  void setEvent(Event value);
 
   /**
    * Returns the value of the '<em><b>Time</b></em>' containment reference.

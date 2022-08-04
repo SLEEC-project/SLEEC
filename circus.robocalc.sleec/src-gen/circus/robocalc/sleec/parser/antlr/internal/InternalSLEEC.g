@@ -966,60 +966,71 @@ ruleAtom returns [EObject current=null]
 	(
 		(
 			(
-				lv_name_0_0=RULE_ID
 				{
-					newLeafNode(lv_name_0_0, grammarAccess.getAtomAccess().getNameIDTerminalRuleCall_0_0());
+					$current = forceCreateModelElement(
+						grammarAccess.getAtomAccess().getAtomAction_0_0(),
+						$current);
 				}
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getAtomRule());
-					}
-					setWithLastConsumed(
-						$current,
-						"name",
-						lv_name_0_0,
-						"org.eclipse.xtext.common.Terminals.ID");
-				}
+			)
+			(
+				(
+					(
+						lv_name_1_0=RULE_ID
+						{
+							newLeafNode(lv_name_1_0, grammarAccess.getAtomAccess().getNameIDTerminalRuleCall_0_1_0_0());
+						}
+						{
+							if ($current==null) {
+								$current = createModelElement(grammarAccess.getAtomRule());
+							}
+							setWithLastConsumed(
+								$current,
+								"name",
+								lv_name_1_0,
+								"org.eclipse.xtext.common.Terminals.ID");
+						}
+					)
+				)
+				    |
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getAtomAccess().getValueValueParserRuleCall_0_1_1_0());
+						}
+						lv_value_2_0=ruleValue
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getAtomRule());
+							}
+							set(
+								$current,
+								"value",
+								lv_value_2_0,
+								"circus.robocalc.sleec.SLEEC.Value");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
 			)
 		)
 		    |
 		(
-			otherlv_1='('
+			otherlv_3='('
 			{
-				newLeafNode(otherlv_1, grammarAccess.getAtomAccess().getLeftParenthesisKeyword_1_0());
+				newLeafNode(otherlv_3, grammarAccess.getAtomAccess().getLeftParenthesisKeyword_1_0());
 			}
 			{
 				newCompositeNode(grammarAccess.getAtomAccess().getMBoolExprParserRuleCall_1_1());
 			}
-			this_MBoolExpr_2=ruleMBoolExpr
+			this_MBoolExpr_4=ruleMBoolExpr
 			{
-				$current = $this_MBoolExpr_2.current;
+				$current = $this_MBoolExpr_4.current;
 				afterParserOrEnumRuleCall();
 			}
-			otherlv_3=')'
+			otherlv_5=')'
 			{
-				newLeafNode(otherlv_3, grammarAccess.getAtomAccess().getRightParenthesisKeyword_1_2());
+				newLeafNode(otherlv_5, grammarAccess.getAtomAccess().getRightParenthesisKeyword_1_2());
 			}
-		)
-		    |
-		(
-			(
-				{
-					newCompositeNode(grammarAccess.getAtomAccess().getValueValueParserRuleCall_2_0());
-				}
-				lv_value_4_0=ruleValue
-				{
-					if ($current==null) {
-						$current = createModelElementForParent(grammarAccess.getAtomRule());
-					}
-					set(
-						$current,
-						"value",
-						lv_value_4_0,
-						"circus.robocalc.sleec.SLEEC.Value");
-					afterParserOrEnumRuleCall();
-				}
-			)
 		)
 	)
 ;
@@ -1050,7 +1061,7 @@ ruleResponse returns [EObject current=null]
 					}
 					otherlv_0=RULE_ID
 					{
-						newLeafNode(otherlv_0, grammarAccess.getResponseAccess().getNameEventCrossReference_0_0_0());
+						newLeafNode(otherlv_0, grammarAccess.getResponseAccess().getEventEventCrossReference_0_0_0());
 					}
 				)
 			)
@@ -1130,7 +1141,7 @@ ruleResponse returns [EObject current=null]
 					}
 					otherlv_6=RULE_ID
 					{
-						newLeafNode(otherlv_6, grammarAccess.getResponseAccess().getNameEventCrossReference_1_1_0());
+						newLeafNode(otherlv_6, grammarAccess.getResponseAccess().getEventEventCrossReference_1_1_0());
 					}
 				)
 			)
