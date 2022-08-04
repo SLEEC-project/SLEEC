@@ -2,6 +2,8 @@ grammar circus.robocalc.sleec.SLEEC with org.eclipse.xtext.common.Terminals
 
 generate sLEEC "http://www.robocalc.circus/sleec/SLEEC"
 
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
 Specification:
 	defBlock=Defblock ruleBlock=RuleBlock
 ;
@@ -11,19 +13,15 @@ Defblock:
 ;
 
 Definition:
-	{Event} 'event' name=ID | {Measure} 'measure' name=ID ':' type=Type | {Const} 'constant' name=ID '=' value=Value
+	{Event} 'event' name=EventID | {Measure} 'measure' name=MeasureID ':' type=Type | {Constant} 'constant' name=ConstID '=' value=Value
 ;
 
 Value:
-	INT
+	int=INT | float=FLOAT | constant=[Constant]
 ;
 
 Type:
-	{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=Literal (',' scaleParams+=Literal)* ')'
-;
-
-Literal:
-	ID
+	{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams += ScaleParam (',' scaleParams+=ScaleParam)* ')'
 ;
 
 RuleBlock:
@@ -31,13 +29,17 @@ RuleBlock:
 ;
 
 Rule:
-	name=ID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
+	name=RuleID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
 ;
 
 Trigger:
 	event=[Event] ('and' expr=MBoolExpr)?
 ;
 
+// Allow operator precedence for boolean expressions, the order of operations is implemented in the following order (form highest to lowest):
+// 1: < > <> <= >= =
+// 2: not
+// 3: and, or
 MBoolExpr:
 	BoolComp
 ;
@@ -47,7 +49,7 @@ BoolComp returns MBoolExpr:
 ;
 
 Not returns MBoolExpr:
-	{Not} 'not' left=RelComp | RelComp
+	{Not} 'not' expr=RelComp | RelComp
 ;
 
 RelComp returns MBoolExpr:
@@ -55,15 +57,13 @@ RelComp returns MBoolExpr:
 ;
 
 Atom returns MBoolExpr:
-	measure=[Measure] | '(' MBoolExpr ')'
+	// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
+	// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
+	{Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
 ;
 
 Response:
-	not?='not' event=[Event] ('within' time=Time ('otherwise' response=Response)?)?
-;
-
-Time:
-	value=Value unit=TimeUnit
+	event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
 ;
 
 Defeater:
@@ -78,6 +78,27 @@ enum BoolOp:
 	AND='and' | OR='or'
 ;
 
-enum TimeUnit:
-	SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days' | WEEKS='weeks' | MONTHS='months' | YEARS='years'
+EventID:
+	ID
+;
+
+MeasureID:
+	ID
+;
+
+ConstID:
+	ID
+;
+
+ScaleParam:
+	ID
+;
+
+// TODO change to just ID
+RuleID:
+	(INT | ID) ('.' RuleID)?
+;
+
+terminal FLOAT returns ecore::EFloat:
+	INT '.' INT
 ;

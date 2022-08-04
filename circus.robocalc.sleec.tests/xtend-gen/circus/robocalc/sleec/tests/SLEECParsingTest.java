@@ -25,17 +25,712 @@ public class SLEECParsingTest {
   private ParseHelper<Specification> parseHelper;
   
   @Test
-  public void loadModel() {
+  public void basic_test() {
     try {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("Hello Xtext!");
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 then E1");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_within() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 then E1 within 2");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_tigger_event() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E2");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E1 and E2 then E3");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_boolean() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m0: boolean");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 and m0 then E1");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_bool_op() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m0: boolean");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m1: boolean");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 and m0 or m1 then E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule2 when E0 and m0 and m1 then E1");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_not_expr() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 and not m0 or m1 then E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule3 when E0 and not (m0 or m1) then E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule2 when E0 and not (m0 and not m1) then E1");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_numeric() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m0: numeric");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m1: numeric");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 then E1");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_relop() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m0: numeric");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m1: numeric");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 and m0 > m1 then E1");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_const() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m0: numeric");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("constant C0 = 1");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 and m0 > C0 then E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule2 when E0 then E1 within C0");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexted errors:");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_scale() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m0: scale(s0, s1, s2)");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 and m0 > s0 then E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule2 when E0 and m0 = s1 then E1");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_precidence() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event d1");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 and 0 < 1 and 0 <> 0 or not 1 = 1 then E1");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_otherwise() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E2");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E3");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 then E1 within 1 otherwise E2");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule2 when E0 then E1 within 1 otherwise E2 within 0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule3 when E0 then E1 within 0 otherwise E2 within 2 unless E3");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_not_response() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E2");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 then not E1 within 0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 then E1 within 1 otherwise not E2 within 3");
+      _builder.newLine();
+      _builder.append("rule_end");
       _builder.newLine();
       final Specification result = this.parseHelper.parse(_builder);
       Assertions.assertNotNull(result);
       final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
       boolean _isEmpty = errors.isEmpty();
       StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpeted errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_extension() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E2");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 then E1 within 1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rul1.a when E0 then E1 within 1 otherwise E2");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
       _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_defeaters() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E2");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m0: boolean");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m1: boolean");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 then E1");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("unless m0 then E2");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("unless m1");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_complex() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E2");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E3");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E4");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E5");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m0: boolean");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m1: numeric");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("measure m2: scale(s0, s1)");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("constant C0 = 5");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("constant C1 = 7");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 and m0 and (m1 < C0 or m2 > s0) or m1 < 5 then E1 within C0 otherwise not E2 within C1");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("unless m1 <> C0 and (m0 or m1 < 5) then E3 within C1 otherwise E4 within 3 otherwise E5");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors:");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_comment() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("// Rule1 when E0 then E2");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 then E1");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors:");
       String _join = IterableExtensions.join(errors, ", ");
       _builder_1.append(_join);
       Assertions.assertTrue(_isEmpty, _builder_1.toString());

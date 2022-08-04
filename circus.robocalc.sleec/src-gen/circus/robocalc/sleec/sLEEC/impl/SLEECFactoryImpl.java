@@ -3,9 +3,10 @@
  */
 package circus.robocalc.sleec.sLEEC.impl;
 
+import circus.robocalc.sleec.sLEEC.Atom;
 import circus.robocalc.sleec.sLEEC.BoolComp;
 import circus.robocalc.sleec.sLEEC.BoolOp;
-import circus.robocalc.sleec.sLEEC.Const;
+import circus.robocalc.sleec.sLEEC.Constant;
 import circus.robocalc.sleec.sLEEC.Defblock;
 import circus.robocalc.sleec.sLEEC.Defeater;
 import circus.robocalc.sleec.sLEEC.Definition;
@@ -23,10 +24,9 @@ import circus.robocalc.sleec.sLEEC.SLEECFactory;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
 import circus.robocalc.sleec.sLEEC.Specification;
-import circus.robocalc.sleec.sLEEC.Time;
-import circus.robocalc.sleec.sLEEC.TimeUnit;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
+import circus.robocalc.sleec.sLEEC.Value;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -92,23 +92,24 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
       case SLEECPackage.SPECIFICATION: return createSpecification();
       case SLEECPackage.DEFBLOCK: return createDefblock();
       case SLEECPackage.DEFINITION: return createDefinition();
+      case SLEECPackage.VALUE: return createValue();
       case SLEECPackage.TYPE: return createType();
       case SLEECPackage.RULE_BLOCK: return createRuleBlock();
       case SLEECPackage.RULE: return createRule();
       case SLEECPackage.TRIGGER: return createTrigger();
       case SLEECPackage.MBOOL_EXPR: return createMBoolExpr();
       case SLEECPackage.RESPONSE: return createResponse();
-      case SLEECPackage.TIME: return createTime();
       case SLEECPackage.DEFEATER: return createDefeater();
       case SLEECPackage.EVENT: return createEvent();
       case SLEECPackage.MEASURE: return createMeasure();
-      case SLEECPackage.CONST: return createConst();
+      case SLEECPackage.CONSTANT: return createConstant();
       case SLEECPackage.BOOLEAN: return createBoolean();
       case SLEECPackage.NUMERIC: return createNumeric();
       case SLEECPackage.SCALE: return createScale();
       case SLEECPackage.BOOL_COMP: return createBoolComp();
       case SLEECPackage.NOT: return createNot();
       case SLEECPackage.REL_COMP: return createRelComp();
+      case SLEECPackage.ATOM: return createAtom();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -128,8 +129,6 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
         return createRelOpFromString(eDataType, initialValue);
       case SLEECPackage.BOOL_OP:
         return createBoolOpFromString(eDataType, initialValue);
-      case SLEECPackage.TIME_UNIT:
-        return createTimeUnitFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -149,8 +148,6 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
         return convertRelOpToString(eDataType, instanceValue);
       case SLEECPackage.BOOL_OP:
         return convertBoolOpToString(eDataType, instanceValue);
-      case SLEECPackage.TIME_UNIT:
-        return convertTimeUnitToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -190,6 +187,18 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
   {
     DefinitionImpl definition = new DefinitionImpl();
     return definition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Value createValue()
+  {
+    ValueImpl value = new ValueImpl();
+    return value;
   }
 
   /**
@@ -270,18 +279,6 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
    * @generated
    */
   @Override
-  public Time createTime()
-  {
-    TimeImpl time = new TimeImpl();
-    return time;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
   public Defeater createDefeater()
   {
     DefeaterImpl defeater = new DefeaterImpl();
@@ -318,10 +315,10 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
    * @generated
    */
   @Override
-  public Const createConst()
+  public Constant createConstant()
   {
-    ConstImpl const_ = new ConstImpl();
-    return const_;
+    ConstantImpl constant = new ConstantImpl();
+    return constant;
   }
 
   /**
@@ -401,6 +398,18 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public Atom createAtom()
+  {
+    AtomImpl atom = new AtomImpl();
+    return atom;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public RelOp createRelOpFromString(EDataType eDataType, String initialValue)
   {
     RelOp result = RelOp.get(initialValue);
@@ -436,28 +445,6 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
    * @generated
    */
   public String convertBoolOpToString(EDataType eDataType, Object instanceValue)
-  {
-    return instanceValue == null ? null : instanceValue.toString();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public TimeUnit createTimeUnitFromString(EDataType eDataType, String initialValue)
-  {
-    TimeUnit result = TimeUnit.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String convertTimeUnitToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

@@ -3,8 +3,9 @@
  */
 package circus.robocalc.sleec.sLEEC.util;
 
+import circus.robocalc.sleec.sLEEC.Atom;
 import circus.robocalc.sleec.sLEEC.BoolComp;
-import circus.robocalc.sleec.sLEEC.Const;
+import circus.robocalc.sleec.sLEEC.Constant;
 import circus.robocalc.sleec.sLEEC.Defblock;
 import circus.robocalc.sleec.sLEEC.Defeater;
 import circus.robocalc.sleec.sLEEC.Definition;
@@ -20,9 +21,9 @@ import circus.robocalc.sleec.sLEEC.RuleBlock;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
 import circus.robocalc.sleec.sLEEC.Specification;
-import circus.robocalc.sleec.sLEEC.Time;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
+import circus.robocalc.sleec.sLEEC.Value;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -110,6 +111,11 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
         return createDefinitionAdapter();
       }
       @Override
+      public Adapter caseValue(Value object)
+      {
+        return createValueAdapter();
+      }
+      @Override
       public Adapter caseType(Type object)
       {
         return createTypeAdapter();
@@ -140,11 +146,6 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
         return createResponseAdapter();
       }
       @Override
-      public Adapter caseTime(Time object)
-      {
-        return createTimeAdapter();
-      }
-      @Override
       public Adapter caseDefeater(Defeater object)
       {
         return createDefeaterAdapter();
@@ -160,9 +161,9 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
         return createMeasureAdapter();
       }
       @Override
-      public Adapter caseConst(Const object)
+      public Adapter caseConstant(Constant object)
       {
-        return createConstAdapter();
+        return createConstantAdapter();
       }
       @Override
       public Adapter caseBoolean(circus.robocalc.sleec.sLEEC.Boolean object)
@@ -193,6 +194,11 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
       public Adapter caseRelComp(RelComp object)
       {
         return createRelCompAdapter();
+      }
+      @Override
+      public Adapter caseAtom(Atom object)
+      {
+        return createAtomAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -257,6 +263,21 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link circus.robocalc.sleec.sLEEC.Value <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see circus.robocalc.sleec.sLEEC.Value
+   * @generated
+   */
+  public Adapter createValueAdapter()
   {
     return null;
   }
@@ -352,21 +373,6 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link circus.robocalc.sleec.sLEEC.Time <em>Time</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see circus.robocalc.sleec.sLEEC.Time
-   * @generated
-   */
-  public Adapter createTimeAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link circus.robocalc.sleec.sLEEC.Defeater <em>Defeater</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -412,16 +418,16 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link circus.robocalc.sleec.sLEEC.Const <em>Const</em>}'.
+   * Creates a new adapter for an object of class '{@link circus.robocalc.sleec.sLEEC.Constant <em>Constant</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see circus.robocalc.sleec.sLEEC.Const
+   * @see circus.robocalc.sleec.sLEEC.Constant
    * @generated
    */
-  public Adapter createConstAdapter()
+  public Adapter createConstantAdapter()
   {
     return null;
   }
@@ -512,6 +518,21 @@ public class SLEECAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createRelCompAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link circus.robocalc.sleec.sLEEC.Atom <em>Atom</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see circus.robocalc.sleec.sLEEC.Atom
+   * @generated
+   */
+  public Adapter createAtomAdapter()
   {
     return null;
   }

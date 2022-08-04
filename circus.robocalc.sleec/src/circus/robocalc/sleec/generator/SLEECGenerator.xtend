@@ -3,6 +3,25 @@
  */
 package circus.robocalc.sleec.generator
 
+import circus.robocalc.sleec.sLEEC.Atom
+import circus.robocalc.sleec.sLEEC.BoolComp
+import circus.robocalc.sleec.sLEEC.Boolean
+import circus.robocalc.sleec.sLEEC.Constant
+import circus.robocalc.sleec.sLEEC.Defeater
+import circus.robocalc.sleec.sLEEC.Definition
+import circus.robocalc.sleec.sLEEC.Event
+import circus.robocalc.sleec.sLEEC.MBoolExpr
+import circus.robocalc.sleec.sLEEC.Measure
+import circus.robocalc.sleec.sLEEC.Not
+import circus.robocalc.sleec.sLEEC.Numeric
+import circus.robocalc.sleec.sLEEC.RelComp
+import circus.robocalc.sleec.sLEEC.Response
+import circus.robocalc.sleec.sLEEC.Rule
+import circus.robocalc.sleec.sLEEC.Scale
+import circus.robocalc.sleec.sLEEC.Trigger
+import circus.robocalc.sleec.sLEEC.Type
+import circus.robocalc.sleec.sLEEC.Value
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -16,10 +35,275 @@ import org.eclipse.xtext.generator.IGeneratorContext
 class SLEECGenerator extends AbstractGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(Greeting)
-//				.map[name]
-//				.join(', '))
+		fsa.generateFile(
+			resource.getURI().trimFileExtension().lastSegment() + '.csp', '''
+			«resource.allContents
+				.filter(Definition)
+				.toIterable
+				.map[D]
+				.join('')»
+			«resource.allContents
+				.filter(Rule)
+				.toIterable
+				.map[R]
+				.join('')»
+		''')
+	}
+	
+	// -----------------------------------------------------------
+	
+	private def D(Definition d) {
+		switch d {
+			// [[event eID]]D
+			Event : '''
+				channel «d.name»
+			'''
+			// [[measure mID : T]]D
+			Measure : '''
+				channel «d.name» : «T(d.type, d.name)»
+			'''
+			// constant cID = v]]D
+			Constant : '''
+				«d.name» = «norm(d.value)»
+			'''
+		}
+	}
+	
+	private def T(Type t, String mID) {
+		switch t {
+			Boolean : 'Bool'
+			Numeric : 'Int'
+			Scale : '''
+				ST«mID»
+				datatype ST«mID» = «t.scaleParams.join(" | ")»
+				STle«mID»(v1«mID», v2«mID») =
+					if v1«mID» == sp1 then true
+					«(1 ..< t.scaleParams.size - 1).map[
+						'''else if v1«mID» == «t.scaleParams.get(it)» then not v2«mID» == {«t.scaleParams.take(it).join(', ')»}'''
+					].join('\n')»
+					else v2«mID» == «t.scaleParams.last»
+			'''
+		}
+	}
+	
+	// -----------------------------------------------------------
+
+	private def R(Rule r) {
+		val rID = r.name
+		val trig = r.trigger
+		val resp = r.response
+		val dfts = r.defeaters
+		
+		// [[rID when trig then resp dfts]]R
+		'''
+		«rID» = Trigger«rID»; Monitoring«rID»; «rID»
+		Trigger«rID» = «TG(trig, 'SKIP', 'Trigger'+rID)»
+		Monitoring«rID» = «RDS(resp, dfts, trig, alpha(resp) + dfts.flatMap[ alpha(it) ], 'Monitoring'+rID)»
+		'''
+	}
+
+	// -----------------------------------------------------------
+	
+	private def TG(Trigger trig, String sp, String fp) {
+		val eID = trig.event.name
+		val mBE = trig.expr
+		
+		// [[eID,sp,fp]]TG
+		if(mBE === null) '''
+			«eID» -> «sp»
+		'''
+		
+		// [[eID and mBE,sp,fp]]TG
+		else '''
+			let
+				MTrigger = «ME(alpha(mBE), mBE, sp, fp)»
+			in «eID» -> MTrigger
+		'''
+	}
+	
+	private def CharSequence ME(Iterable<String> mIDs, MBoolExpr mBE, String sp, String fp) {
+		 val mID = mIDs.head
+		
+		// [[<>,mBE,sp,fp]]ME
+		if(mID === null) '''
+			if «norm(mBE)» then «sp» else «fp»
+		'''
+			
+		// [[<mID>^mIDs,mBE[vmID/mID],sp,fp]]ME
+		else '''
+			StartBy(«mID»?v«mID» ->
+				«ME(mIDs.tail, replace(mBE, 'v'+mID, mID), sp, fp)»
+			,0)
+		'''
+	}
+	
+	// -----------------------------------------------------------
+	
+	private def RDS(Response resp, Iterable<Defeater> dfts, Trigger t, Iterable<String> ARDS, String mp) {
+		// [[resp,trig,ARDS,mp]]RDS
+		if(dfts.isEmpty)
+			RP(resp)
+		
+		// [[resp dfts,trig,ARDS,mp]]RDS
+		else '''
+			let
+				«LRDS(resp, dfts, t, ARDS, mp, 1)»
+			within «CDS(dfts.flatMap[alpha], dfts, dfts.size+1)»
+		'''
+	}
+		
+	// -----------------------------------------------------------
+	
+	private def CharSequence RP(Response r) {
+		val eID = r.event.name
+		val v = r.time
+		val resp = r.response
+		// time units are not in the grammar, so they are not in th translation rules 
+		
+		// [[not eID within v tU]]
+		if(r.not) 
+			'''Wait(«norm(v)»)'''
+		
+		// [[eID]]RP
+		else if(v === null)
+			'''«eID» -> SKIP'''
+		
+		// [[eID within v tU]]RP
+		else if(resp === null)
+			'''StartBy(«eID» -> SKIP,«norm(v)»)'''
+		
+		// [[eID within v tU otherwise resp]]RP
+		else
+			'''TimedInterrupt(«eID» -> SKIP,«norm(v)»,«RP(resp)»)'''
+	}
+	
+	// -----------------------------------------------------------
+	
+	private def LRDS(Response resp, Trigger trig, Iterable<String> AR, String mp, Integer n) {
+		// [[<resp>,trig,AR,mp,n]]
+		// assuming RP is used instead of R as the argument is a response
+		if(resp !== null) '''
+			Monitoring«n» = «RP(resp)»
+		'''
+		
+		// [[<SKIP>,trig,AR,mp,n]]
+		else '''
+			Monitoring«n» = «TG(trig, mp, '''Monitoring«n»''')»
+			«AR.map[ '''	[] «it» -> Monitoring«n»''' ].join('\n')»
+		'''
+	}
+	
+	// [[<resp>^resps,trig,AR,mp,n]]LRDS
+	private def CharSequence LRDS(Response resp, Iterable<Defeater> dfts, Trigger trig, Iterable<String> AR, String mp, Integer n) '''
+		«LRDS(resp, trig, AR, mp, n)»
+		«if(!dfts.isEmpty)
+			LRDS(dfts.head.response, dfts.tail, trig, AR, mp, n+1)»
+	'''
+
+	// -----------------------------------------------------------	
+	
+	private def CharSequence CDS(Iterable<String> mIDs, Iterable<Defeater> dfts, Integer n) {
+		// [[<>,dfts,n]]CDS
+		if(mIDs.isEmpty)
+			return EDS(dfts, 'Monitoring1', n)
+		
+		// [[<mID>^mIDs,dfts,n]]CDS
+		val mID = mIDs.head
+		'''
+		StartBy(«mID»?v«mID» ->
+			«CDS(mIDs.tail, dfts.map[ replace(it, 'v'+mID, mID) ], n)»
+		,0)
+		'''
+	}
+	
+	// [[unless mBE,fp,n]]EDS
+	// [[unless mBE then resp,fp,n]]EDS
+	private def EDS(Defeater dft, CharSequence fp, Integer n) {
+		val mBE = dft.expr
+		'''
+		if «norm(mBE)» then Monitoring«n» else «fp»
+		'''
+	}
+	
+	// [[dfts dft,fp,n]]EDS
+	private def CharSequence EDS(Iterable<Defeater> dfts, CharSequence fp, Integer n) {
+		if(dfts.isEmpty)
+			fp
+		else
+			EDS(dfts.head, EDS(dfts.tail, fp, n-1), n)
+	}
+	
+	// -----------------------------------------------------------
+	
+	// helper functions used in the translation rules:
+	
+	// Returns a list of all the MeasureIds in AST
+	private def <T extends EObject> alpha(T AST) {
+		AST.eAllContents
+			.filter(Atom)
+			.map[ it.name ]
+			.filter[ it != '' ]
+			.toIterable
+	}
+	
+	// return an MBoolExpr as a string using CSP operators
+	// NOTE this may also convert time if time units are added to the grammar
+	private def CharSequence norm(MBoolExpr mBE) {
+		'(' + switch(mBE) {
+			BoolComp : norm(mBE as BoolComp)
+			Not : norm(mBE as Not)
+			RelComp : norm(mBE as RelComp)
+			Atom : norm(mBE as Atom)
+		} + ')'
+	}
+	
+	private def norm(BoolComp b) {
+		norm(b.left) + switch(b.op) {
+			case AND : ' and '
+			case OR : ' or '
+		} + norm(b.right)
+	}
+	
+	private def norm(Not n) {	
+		// no need to check that n.expr is null
+		'not ' + norm(n.expr)
+	}
+	
+	private def norm(RelComp r) {
+		norm(r.left) + switch(r.op) {
+			case LESS_THAN : '<'
+			case GREATER_THAN : '>'
+			case NOT_EQUAL : '!='
+			case LESS_EQUAL : '<='
+			case GREATER_EQUAL : '>='
+			case EQUAL : '=='
+		} + norm(r.right)
+	}
+	
+	private def norm(Atom a) {
+		if(a.name === null)
+			norm(a.value)
+		else
+			a.name
+	}
+	
+	private def CharSequence norm(Value v) {
+		if(v.constant === null)
+			if(v.float == 0)
+				v.int.toString
+			else	
+				v.float.toString
+		else
+			norm(v.constant.value)
+	}
+	
+	// replace each MeasureID in the AST with 'vmID'
+	private def <T extends EObject> replace(T AST, String vmID, String mID) {
+		val res = AST
+		res.eAllContents
+			.filter(Atom)
+			.filter[ it.name == mID ]
+			.forEach[ it.name = vmID ]
+		return res
 	}
 }

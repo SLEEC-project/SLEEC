@@ -32,12 +32,15 @@ public class SLEECParser extends AbstractContentAssistParser {
 		
 		private static void init(ImmutableMap.Builder<AbstractElement, String> builder, SLEECGrammarAccess grammarAccess) {
 			builder.put(grammarAccess.getDefinitionAccess().getAlternatives(), "rule__Definition__Alternatives");
+			builder.put(grammarAccess.getValueAccess().getAlternatives(), "rule__Value__Alternatives");
 			builder.put(grammarAccess.getTypeAccess().getAlternatives(), "rule__Type__Alternatives");
 			builder.put(grammarAccess.getNotAccess().getAlternatives(), "rule__Not__Alternatives");
 			builder.put(grammarAccess.getAtomAccess().getAlternatives(), "rule__Atom__Alternatives");
+			builder.put(grammarAccess.getAtomAccess().getAlternatives_0_1(), "rule__Atom__Alternatives_0_1");
+			builder.put(grammarAccess.getResponseAccess().getAlternatives(), "rule__Response__Alternatives");
+			builder.put(grammarAccess.getRuleIDAccess().getAlternatives_0(), "rule__RuleID__Alternatives_0");
 			builder.put(grammarAccess.getRelOpAccess().getAlternatives(), "rule__RelOp__Alternatives");
 			builder.put(grammarAccess.getBoolOpAccess().getAlternatives(), "rule__BoolOp__Alternatives");
-			builder.put(grammarAccess.getTimeUnitAccess().getAlternatives(), "rule__TimeUnit__Alternatives");
 			builder.put(grammarAccess.getSpecificationAccess().getGroup(), "rule__Specification__Group__0");
 			builder.put(grammarAccess.getDefblockAccess().getGroup(), "rule__Defblock__Group__0");
 			builder.put(grammarAccess.getDefinitionAccess().getGroup_0(), "rule__Definition__Group_0__0");
@@ -56,13 +59,16 @@ public class SLEECParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getNotAccess().getGroup_0(), "rule__Not__Group_0__0");
 			builder.put(grammarAccess.getRelCompAccess().getGroup(), "rule__RelComp__Group__0");
 			builder.put(grammarAccess.getRelCompAccess().getGroup_1(), "rule__RelComp__Group_1__0");
+			builder.put(grammarAccess.getAtomAccess().getGroup_0(), "rule__Atom__Group_0__0");
 			builder.put(grammarAccess.getAtomAccess().getGroup_1(), "rule__Atom__Group_1__0");
-			builder.put(grammarAccess.getResponseAccess().getGroup(), "rule__Response__Group__0");
-			builder.put(grammarAccess.getResponseAccess().getGroup_2(), "rule__Response__Group_2__0");
-			builder.put(grammarAccess.getResponseAccess().getGroup_2_2(), "rule__Response__Group_2_2__0");
-			builder.put(grammarAccess.getTimeAccess().getGroup(), "rule__Time__Group__0");
+			builder.put(grammarAccess.getResponseAccess().getGroup_0(), "rule__Response__Group_0__0");
+			builder.put(grammarAccess.getResponseAccess().getGroup_0_1(), "rule__Response__Group_0_1__0");
+			builder.put(grammarAccess.getResponseAccess().getGroup_0_1_2(), "rule__Response__Group_0_1_2__0");
+			builder.put(grammarAccess.getResponseAccess().getGroup_1(), "rule__Response__Group_1__0");
 			builder.put(grammarAccess.getDefeaterAccess().getGroup(), "rule__Defeater__Group__0");
 			builder.put(grammarAccess.getDefeaterAccess().getGroup_2(), "rule__Defeater__Group_2__0");
+			builder.put(grammarAccess.getRuleIDAccess().getGroup(), "rule__RuleID__Group__0");
+			builder.put(grammarAccess.getRuleIDAccess().getGroup_1(), "rule__RuleID__Group_1__0");
 			builder.put(grammarAccess.getSpecificationAccess().getDefBlockAssignment_0(), "rule__Specification__DefBlockAssignment_0");
 			builder.put(grammarAccess.getSpecificationAccess().getRuleBlockAssignment_1(), "rule__Specification__RuleBlockAssignment_1");
 			builder.put(grammarAccess.getDefblockAccess().getDefinitionsAssignment_1(), "rule__Defblock__DefinitionsAssignment_1");
@@ -71,6 +77,9 @@ public class SLEECParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getDefinitionAccess().getTypeAssignment_1_4(), "rule__Definition__TypeAssignment_1_4");
 			builder.put(grammarAccess.getDefinitionAccess().getNameAssignment_2_2(), "rule__Definition__NameAssignment_2_2");
 			builder.put(grammarAccess.getDefinitionAccess().getValueAssignment_2_4(), "rule__Definition__ValueAssignment_2_4");
+			builder.put(grammarAccess.getValueAccess().getIntAssignment_0(), "rule__Value__IntAssignment_0");
+			builder.put(grammarAccess.getValueAccess().getFloatAssignment_1(), "rule__Value__FloatAssignment_1");
+			builder.put(grammarAccess.getValueAccess().getConstantAssignment_2(), "rule__Value__ConstantAssignment_2");
 			builder.put(grammarAccess.getTypeAccess().getScaleParamsAssignment_2_3(), "rule__Type__ScaleParamsAssignment_2_3");
 			builder.put(grammarAccess.getTypeAccess().getScaleParamsAssignment_2_4_1(), "rule__Type__ScaleParamsAssignment_2_4_1");
 			builder.put(grammarAccess.getRuleBlockAccess().getRulesAssignment_1(), "rule__RuleBlock__RulesAssignment_1");
@@ -82,16 +91,17 @@ public class SLEECParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getTriggerAccess().getExprAssignment_1_1(), "rule__Trigger__ExprAssignment_1_1");
 			builder.put(grammarAccess.getBoolCompAccess().getOpAssignment_1_1(), "rule__BoolComp__OpAssignment_1_1");
 			builder.put(grammarAccess.getBoolCompAccess().getRightAssignment_1_2(), "rule__BoolComp__RightAssignment_1_2");
-			builder.put(grammarAccess.getNotAccess().getLeftAssignment_0_2(), "rule__Not__LeftAssignment_0_2");
+			builder.put(grammarAccess.getNotAccess().getExprAssignment_0_2(), "rule__Not__ExprAssignment_0_2");
 			builder.put(grammarAccess.getRelCompAccess().getOpAssignment_1_1(), "rule__RelComp__OpAssignment_1_1");
 			builder.put(grammarAccess.getRelCompAccess().getRightAssignment_1_2(), "rule__RelComp__RightAssignment_1_2");
-			builder.put(grammarAccess.getAtomAccess().getMeasureAssignment_0(), "rule__Atom__MeasureAssignment_0");
-			builder.put(grammarAccess.getResponseAccess().getNotAssignment_0(), "rule__Response__NotAssignment_0");
-			builder.put(grammarAccess.getResponseAccess().getEventAssignment_1(), "rule__Response__EventAssignment_1");
-			builder.put(grammarAccess.getResponseAccess().getTimeAssignment_2_1(), "rule__Response__TimeAssignment_2_1");
-			builder.put(grammarAccess.getResponseAccess().getResponseAssignment_2_2_1(), "rule__Response__ResponseAssignment_2_2_1");
-			builder.put(grammarAccess.getTimeAccess().getValueAssignment_0(), "rule__Time__ValueAssignment_0");
-			builder.put(grammarAccess.getTimeAccess().getUnitAssignment_1(), "rule__Time__UnitAssignment_1");
+			builder.put(grammarAccess.getAtomAccess().getNameAssignment_0_1_0(), "rule__Atom__NameAssignment_0_1_0");
+			builder.put(grammarAccess.getAtomAccess().getValueAssignment_0_1_1(), "rule__Atom__ValueAssignment_0_1_1");
+			builder.put(grammarAccess.getResponseAccess().getEventAssignment_0_0(), "rule__Response__EventAssignment_0_0");
+			builder.put(grammarAccess.getResponseAccess().getTimeAssignment_0_1_1(), "rule__Response__TimeAssignment_0_1_1");
+			builder.put(grammarAccess.getResponseAccess().getResponseAssignment_0_1_2_1(), "rule__Response__ResponseAssignment_0_1_2_1");
+			builder.put(grammarAccess.getResponseAccess().getNotAssignment_1_0(), "rule__Response__NotAssignment_1_0");
+			builder.put(grammarAccess.getResponseAccess().getEventAssignment_1_1(), "rule__Response__EventAssignment_1_1");
+			builder.put(grammarAccess.getResponseAccess().getTimeAssignment_1_3(), "rule__Response__TimeAssignment_1_3");
 			builder.put(grammarAccess.getDefeaterAccess().getExprAssignment_1(), "rule__Defeater__ExprAssignment_1");
 			builder.put(grammarAccess.getDefeaterAccess().getResponseAssignment_2_1(), "rule__Defeater__ResponseAssignment_2_1");
 		}

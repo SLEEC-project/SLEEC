@@ -6,7 +6,7 @@ package circus.robocalc.sleec.sLEEC.impl;
 import circus.robocalc.sleec.sLEEC.Event;
 import circus.robocalc.sleec.sLEEC.Response;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
-import circus.robocalc.sleec.sLEEC.Time;
+import circus.robocalc.sleec.sLEEC.Value;
 
 import java.lang.Boolean;
 
@@ -27,16 +27,46 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#isNot <em>Not</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getEvent <em>Event</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getTime <em>Time</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getResponse <em>Response</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#isNot <em>Not</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ResponseImpl extends MinimalEObjectImpl.Container implements Response
 {
+  /**
+   * The cached value of the '{@link #getEvent() <em>Event</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getEvent()
+   * @generated
+   * @ordered
+   */
+  protected Event event;
+
+  /**
+   * The cached value of the '{@link #getTime() <em>Time</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTime()
+   * @generated
+   * @ordered
+   */
+  protected Value time;
+
+  /**
+   * The cached value of the '{@link #getResponse() <em>Response</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getResponse()
+   * @generated
+   * @ordered
+   */
+  protected Response response;
+
   /**
    * The default value of the '{@link #isNot() <em>Not</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -58,36 +88,6 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   protected boolean not = NOT_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getEvent() <em>Event</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getEvent()
-   * @generated
-   * @ordered
-   */
-  protected Event event;
-
-  /**
-   * The cached value of the '{@link #getTime() <em>Time</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getTime()
-   * @generated
-   * @ordered
-   */
-  protected Time time;
-
-  /**
-   * The cached value of the '{@link #getResponse() <em>Response</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getResponse()
-   * @generated
-   * @ordered
-   */
-  protected Response response;
-
-  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -106,31 +106,6 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   protected EClass eStaticClass()
   {
     return SLEECPackage.Literals.RESPONSE;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public boolean isNot()
-  {
-    return not;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setNot(boolean newNot)
-  {
-    boolean oldNot = not;
-    not = newNot;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.RESPONSE__NOT, oldNot, not));
   }
 
   /**
@@ -184,7 +159,7 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
    * @generated
    */
   @Override
-  public Time getTime()
+  public Value getTime()
   {
     return time;
   }
@@ -194,9 +169,9 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTime(Time newTime, NotificationChain msgs)
+  public NotificationChain basicSetTime(Value newTime, NotificationChain msgs)
   {
-    Time oldTime = time;
+    Value oldTime = time;
     time = newTime;
     if (eNotificationRequired())
     {
@@ -212,7 +187,7 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
    * @generated
    */
   @Override
-  public void setTime(Time newTime)
+  public void setTime(Value newTime)
   {
     if (newTime != time)
     {
@@ -284,6 +259,31 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
    * @generated
    */
   @Override
+  public boolean isNot()
+  {
+    return not;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setNot(boolean newNot)
+  {
+    boolean oldNot = not;
+    not = newNot;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.RESPONSE__NOT, oldNot, not));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
@@ -306,8 +306,6 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   {
     switch (featureID)
     {
-      case SLEECPackage.RESPONSE__NOT:
-        return isNot();
       case SLEECPackage.RESPONSE__EVENT:
         if (resolve) return getEvent();
         return basicGetEvent();
@@ -315,6 +313,8 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
         return getTime();
       case SLEECPackage.RESPONSE__RESPONSE:
         return getResponse();
+      case SLEECPackage.RESPONSE__NOT:
+        return isNot();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -329,17 +329,17 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   {
     switch (featureID)
     {
-      case SLEECPackage.RESPONSE__NOT:
-        setNot((Boolean)newValue);
-        return;
       case SLEECPackage.RESPONSE__EVENT:
         setEvent((Event)newValue);
         return;
       case SLEECPackage.RESPONSE__TIME:
-        setTime((Time)newValue);
+        setTime((Value)newValue);
         return;
       case SLEECPackage.RESPONSE__RESPONSE:
         setResponse((Response)newValue);
+        return;
+      case SLEECPackage.RESPONSE__NOT:
+        setNot((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -355,17 +355,17 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   {
     switch (featureID)
     {
-      case SLEECPackage.RESPONSE__NOT:
-        setNot(NOT_EDEFAULT);
-        return;
       case SLEECPackage.RESPONSE__EVENT:
         setEvent((Event)null);
         return;
       case SLEECPackage.RESPONSE__TIME:
-        setTime((Time)null);
+        setTime((Value)null);
         return;
       case SLEECPackage.RESPONSE__RESPONSE:
         setResponse((Response)null);
+        return;
+      case SLEECPackage.RESPONSE__NOT:
+        setNot(NOT_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -381,14 +381,14 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   {
     switch (featureID)
     {
-      case SLEECPackage.RESPONSE__NOT:
-        return not != NOT_EDEFAULT;
       case SLEECPackage.RESPONSE__EVENT:
         return event != null;
       case SLEECPackage.RESPONSE__TIME:
         return time != null;
       case SLEECPackage.RESPONSE__RESPONSE:
         return response != null;
+      case SLEECPackage.RESPONSE__NOT:
+        return not != NOT_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }

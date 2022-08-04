@@ -152,6 +152,52 @@ public interface SLEECPackage extends EPackage
   int DEFINITION_FEATURE_COUNT = 1;
 
   /**
+   * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.ValueImpl <em>Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see circus.robocalc.sleec.sLEEC.impl.ValueImpl
+   * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getValue()
+   * @generated
+   */
+  int VALUE = 3;
+
+  /**
+   * The feature id for the '<em><b>Int</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE__INT = 0;
+
+  /**
+   * The feature id for the '<em><b>Float</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE__FLOAT = 1;
+
+  /**
+   * The feature id for the '<em><b>Constant</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE__CONSTANT = 2;
+
+  /**
+   * The number of structural features of the '<em>Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VALUE_FEATURE_COUNT = 3;
+
+  /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.TypeImpl <em>Type</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -159,7 +205,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getType()
    * @generated
    */
-  int TYPE = 3;
+  int TYPE = 4;
 
   /**
    * The number of structural features of the '<em>Type</em>' class.
@@ -178,7 +224,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getRuleBlock()
    * @generated
    */
-  int RULE_BLOCK = 4;
+  int RULE_BLOCK = 5;
 
   /**
    * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -206,7 +252,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getRule()
    * @generated
    */
-  int RULE = 5;
+  int RULE = 6;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -261,7 +307,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getTrigger()
    * @generated
    */
-  int TRIGGER = 6;
+  int TRIGGER = 7;
 
   /**
    * The feature id for the '<em><b>Event</b></em>' reference.
@@ -298,25 +344,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getMBoolExpr()
    * @generated
    */
-  int MBOOL_EXPR = 7;
-
-  /**
-   * The feature id for the '<em><b>Measure</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MBOOL_EXPR__MEASURE = 0;
-
-  /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MBOOL_EXPR__LEFT = 1;
+  int MBOOL_EXPR = 8;
 
   /**
    * The number of structural features of the '<em>MBool Expr</em>' class.
@@ -325,7 +353,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MBOOL_EXPR_FEATURE_COUNT = 2;
+  int MBOOL_EXPR_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl <em>Response</em>}' class.
@@ -335,16 +363,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getResponse()
    * @generated
    */
-  int RESPONSE = 8;
-
-  /**
-   * The feature id for the '<em><b>Not</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int RESPONSE__NOT = 0;
+  int RESPONSE = 9;
 
   /**
    * The feature id for the '<em><b>Event</b></em>' reference.
@@ -353,7 +372,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESPONSE__EVENT = 1;
+  int RESPONSE__EVENT = 0;
 
   /**
    * The feature id for the '<em><b>Time</b></em>' containment reference.
@@ -362,7 +381,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESPONSE__TIME = 2;
+  int RESPONSE__TIME = 1;
 
   /**
    * The feature id for the '<em><b>Response</b></em>' containment reference.
@@ -371,7 +390,16 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESPONSE__RESPONSE = 3;
+  int RESPONSE__RESPONSE = 2;
+
+  /**
+   * The feature id for the '<em><b>Not</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESPONSE__NOT = 3;
 
   /**
    * The number of structural features of the '<em>Response</em>' class.
@@ -381,43 +409,6 @@ public interface SLEECPackage extends EPackage
    * @ordered
    */
   int RESPONSE_FEATURE_COUNT = 4;
-
-  /**
-   * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.TimeImpl <em>Time</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see circus.robocalc.sleec.sLEEC.impl.TimeImpl
-   * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getTime()
-   * @generated
-   */
-  int TIME = 9;
-
-  /**
-   * The feature id for the '<em><b>Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TIME__VALUE = 0;
-
-  /**
-   * The feature id for the '<em><b>Unit</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TIME__UNIT = 1;
-
-  /**
-   * The number of structural features of the '<em>Time</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TIME_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.DefeaterImpl <em>Defeater</em>}' class.
@@ -522,14 +513,14 @@ public interface SLEECPackage extends EPackage
   int MEASURE_FEATURE_COUNT = DEFINITION_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.ConstImpl <em>Const</em>}' class.
+   * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.ConstantImpl <em>Constant</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see circus.robocalc.sleec.sLEEC.impl.ConstImpl
-   * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getConst()
+   * @see circus.robocalc.sleec.sLEEC.impl.ConstantImpl
+   * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getConstant()
    * @generated
    */
-  int CONST = 13;
+  int CONSTANT = 13;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -538,25 +529,25 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONST__NAME = DEFINITION__NAME;
+  int CONSTANT__NAME = DEFINITION__NAME;
 
   /**
-   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONST__VALUE = DEFINITION_FEATURE_COUNT + 0;
+  int CONSTANT__VALUE = DEFINITION_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Const</em>' class.
+   * The number of structural features of the '<em>Constant</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CONST_FEATURE_COUNT = DEFINITION_FEATURE_COUNT + 1;
+  int CONSTANT_FEATURE_COUNT = DEFINITION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.BooleanImpl <em>Boolean</em>}' class.
@@ -635,22 +626,13 @@ public interface SLEECPackage extends EPackage
   int BOOL_COMP = 17;
 
   /**
-   * The feature id for the '<em><b>Measure</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BOOL_COMP__MEASURE = MBOOL_EXPR__MEASURE;
-
-  /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int BOOL_COMP__LEFT = MBOOL_EXPR__LEFT;
+  int BOOL_COMP__LEFT = MBOOL_EXPR_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Op</b></em>' attribute.
@@ -659,7 +641,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BOOL_COMP__OP = MBOOL_EXPR_FEATURE_COUNT + 0;
+  int BOOL_COMP__OP = MBOOL_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -668,7 +650,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BOOL_COMP__RIGHT = MBOOL_EXPR_FEATURE_COUNT + 1;
+  int BOOL_COMP__RIGHT = MBOOL_EXPR_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Bool Comp</em>' class.
@@ -677,7 +659,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int BOOL_COMP_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 2;
+  int BOOL_COMP_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.NotImpl <em>Not</em>}' class.
@@ -690,22 +672,13 @@ public interface SLEECPackage extends EPackage
   int NOT = 18;
 
   /**
-   * The feature id for the '<em><b>Measure</b></em>' reference.
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NOT__MEASURE = MBOOL_EXPR__MEASURE;
-
-  /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NOT__LEFT = MBOOL_EXPR__LEFT;
+  int NOT__EXPR = MBOOL_EXPR_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Not</em>' class.
@@ -714,7 +687,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NOT_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 0;
+  int NOT_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.RelCompImpl <em>Rel Comp</em>}' class.
@@ -727,22 +700,13 @@ public interface SLEECPackage extends EPackage
   int REL_COMP = 19;
 
   /**
-   * The feature id for the '<em><b>Measure</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REL_COMP__MEASURE = MBOOL_EXPR__MEASURE;
-
-  /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REL_COMP__LEFT = MBOOL_EXPR__LEFT;
+  int REL_COMP__LEFT = MBOOL_EXPR_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Op</b></em>' attribute.
@@ -751,7 +715,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REL_COMP__OP = MBOOL_EXPR_FEATURE_COUNT + 0;
+  int REL_COMP__OP = MBOOL_EXPR_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -760,7 +724,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REL_COMP__RIGHT = MBOOL_EXPR_FEATURE_COUNT + 1;
+  int REL_COMP__RIGHT = MBOOL_EXPR_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Rel Comp</em>' class.
@@ -769,7 +733,44 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REL_COMP_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 2;
+  int REL_COMP_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.AtomImpl <em>Atom</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see circus.robocalc.sleec.sLEEC.impl.AtomImpl
+   * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getAtom()
+   * @generated
+   */
+  int ATOM = 20;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ATOM__NAME = MBOOL_EXPR_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ATOM__VALUE = MBOOL_EXPR_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>Atom</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ATOM_FEATURE_COUNT = MBOOL_EXPR_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.RelOp <em>Rel Op</em>}' enum.
@@ -779,7 +780,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getRelOp()
    * @generated
    */
-  int REL_OP = 20;
+  int REL_OP = 21;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.BoolOp <em>Bool Op</em>}' enum.
@@ -789,17 +790,7 @@ public interface SLEECPackage extends EPackage
    * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getBoolOp()
    * @generated
    */
-  int BOOL_OP = 21;
-
-  /**
-   * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.TimeUnit <em>Time Unit</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see circus.robocalc.sleec.sLEEC.TimeUnit
-   * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getTimeUnit()
-   * @generated
-   */
-  int TIME_UNIT = 22;
+  int BOOL_OP = 22;
 
 
   /**
@@ -875,6 +866,49 @@ public interface SLEECPackage extends EPackage
    * @generated
    */
   EAttribute getDefinition_Name();
+
+  /**
+   * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Value <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Value</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Value
+   * @generated
+   */
+  EClass getValue();
+
+  /**
+   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Value#getInt <em>Int</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Int</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Value#getInt()
+   * @see #getValue()
+   * @generated
+   */
+  EAttribute getValue_Int();
+
+  /**
+   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Value#getFloat <em>Float</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Float</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Value#getFloat()
+   * @see #getValue()
+   * @generated
+   */
+  EAttribute getValue_Float();
+
+  /**
+   * Returns the meta object for the reference '{@link circus.robocalc.sleec.sLEEC.Value#getConstant <em>Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Constant</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Value#getConstant()
+   * @see #getValue()
+   * @generated
+   */
+  EReference getValue_Constant();
 
   /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Type <em>Type</em>}'.
@@ -1004,28 +1038,6 @@ public interface SLEECPackage extends EPackage
   EClass getMBoolExpr();
 
   /**
-   * Returns the meta object for the reference '{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getMeasure <em>Measure</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Measure</em>'.
-   * @see circus.robocalc.sleec.sLEEC.MBoolExpr#getMeasure()
-   * @see #getMBoolExpr()
-   * @generated
-   */
-  EReference getMBoolExpr_Measure();
-
-  /**
-   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.MBoolExpr#getLeft <em>Left</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see circus.robocalc.sleec.sLEEC.MBoolExpr#getLeft()
-   * @see #getMBoolExpr()
-   * @generated
-   */
-  EReference getMBoolExpr_Left();
-
-  /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Response <em>Response</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1034,17 +1046,6 @@ public interface SLEECPackage extends EPackage
    * @generated
    */
   EClass getResponse();
-
-  /**
-   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Response#isNot <em>Not</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Not</em>'.
-   * @see circus.robocalc.sleec.sLEEC.Response#isNot()
-   * @see #getResponse()
-   * @generated
-   */
-  EAttribute getResponse_Not();
 
   /**
    * Returns the meta object for the reference '{@link circus.robocalc.sleec.sLEEC.Response#getEvent <em>Event</em>}'.
@@ -1080,36 +1081,15 @@ public interface SLEECPackage extends EPackage
   EReference getResponse_Response();
 
   /**
-   * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Time <em>Time</em>}'.
+   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Response#isNot <em>Not</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Time</em>'.
-   * @see circus.robocalc.sleec.sLEEC.Time
+   * @return the meta object for the attribute '<em>Not</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Response#isNot()
+   * @see #getResponse()
    * @generated
    */
-  EClass getTime();
-
-  /**
-   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Time#getValue <em>Value</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see circus.robocalc.sleec.sLEEC.Time#getValue()
-   * @see #getTime()
-   * @generated
-   */
-  EAttribute getTime_Value();
-
-  /**
-   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Time#getUnit <em>Unit</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Unit</em>'.
-   * @see circus.robocalc.sleec.sLEEC.Time#getUnit()
-   * @see #getTime()
-   * @generated
-   */
-  EAttribute getTime_Unit();
+  EAttribute getResponse_Not();
 
   /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Defeater <em>Defeater</em>}'.
@@ -1175,25 +1155,25 @@ public interface SLEECPackage extends EPackage
   EReference getMeasure_Type();
 
   /**
-   * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Const <em>Const</em>}'.
+   * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Constant <em>Constant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Const</em>'.
-   * @see circus.robocalc.sleec.sLEEC.Const
+   * @return the meta object for class '<em>Constant</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Constant
    * @generated
    */
-  EClass getConst();
+  EClass getConstant();
 
   /**
-   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Const#getValue <em>Value</em>}'.
+   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.Constant#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Value</em>'.
-   * @see circus.robocalc.sleec.sLEEC.Const#getValue()
-   * @see #getConst()
+   * @return the meta object for the containment reference '<em>Value</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Constant#getValue()
+   * @see #getConstant()
    * @generated
    */
-  EAttribute getConst_Value();
+  EReference getConstant_Value();
 
   /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Boolean <em>Boolean</em>}'.
@@ -1247,6 +1227,17 @@ public interface SLEECPackage extends EPackage
   EClass getBoolComp();
 
   /**
+   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.BoolComp#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see circus.robocalc.sleec.sLEEC.BoolComp#getLeft()
+   * @see #getBoolComp()
+   * @generated
+   */
+  EReference getBoolComp_Left();
+
+  /**
    * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.BoolComp#getOp <em>Op</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1279,6 +1270,17 @@ public interface SLEECPackage extends EPackage
   EClass getNot();
 
   /**
+   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.Not#getExpr <em>Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expr</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Not#getExpr()
+   * @see #getNot()
+   * @generated
+   */
+  EReference getNot_Expr();
+
+  /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.RelComp <em>Rel Comp</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1287,6 +1289,17 @@ public interface SLEECPackage extends EPackage
    * @generated
    */
   EClass getRelComp();
+
+  /**
+   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.RelComp#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see circus.robocalc.sleec.sLEEC.RelComp#getLeft()
+   * @see #getRelComp()
+   * @generated
+   */
+  EReference getRelComp_Left();
 
   /**
    * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.RelComp#getOp <em>Op</em>}'.
@@ -1311,6 +1324,38 @@ public interface SLEECPackage extends EPackage
   EReference getRelComp_Right();
 
   /**
+   * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Atom <em>Atom</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Atom</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Atom
+   * @generated
+   */
+  EClass getAtom();
+
+  /**
+   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Atom#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Atom#getName()
+   * @see #getAtom()
+   * @generated
+   */
+  EAttribute getAtom_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.Atom#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Value</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Atom#getValue()
+   * @see #getAtom()
+   * @generated
+   */
+  EReference getAtom_Value();
+
+  /**
    * Returns the meta object for enum '{@link circus.robocalc.sleec.sLEEC.RelOp <em>Rel Op</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1329,16 +1374,6 @@ public interface SLEECPackage extends EPackage
    * @generated
    */
   EEnum getBoolOp();
-
-  /**
-   * Returns the meta object for enum '{@link circus.robocalc.sleec.sLEEC.TimeUnit <em>Time Unit</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Time Unit</em>'.
-   * @see circus.robocalc.sleec.sLEEC.TimeUnit
-   * @generated
-   */
-  EEnum getTimeUnit();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1424,6 +1459,40 @@ public interface SLEECPackage extends EPackage
      * @generated
      */
     EAttribute DEFINITION__NAME = eINSTANCE.getDefinition_Name();
+
+    /**
+     * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.ValueImpl <em>Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see circus.robocalc.sleec.sLEEC.impl.ValueImpl
+     * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getValue()
+     * @generated
+     */
+    EClass VALUE = eINSTANCE.getValue();
+
+    /**
+     * The meta object literal for the '<em><b>Int</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VALUE__INT = eINSTANCE.getValue_Int();
+
+    /**
+     * The meta object literal for the '<em><b>Float</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VALUE__FLOAT = eINSTANCE.getValue_Float();
+
+    /**
+     * The meta object literal for the '<em><b>Constant</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VALUE__CONSTANT = eINSTANCE.getValue_Constant();
 
     /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.TypeImpl <em>Type</em>}' class.
@@ -1532,22 +1601,6 @@ public interface SLEECPackage extends EPackage
     EClass MBOOL_EXPR = eINSTANCE.getMBoolExpr();
 
     /**
-     * The meta object literal for the '<em><b>Measure</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MBOOL_EXPR__MEASURE = eINSTANCE.getMBoolExpr_Measure();
-
-    /**
-     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference MBOOL_EXPR__LEFT = eINSTANCE.getMBoolExpr_Left();
-
-    /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl <em>Response</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1556,14 +1609,6 @@ public interface SLEECPackage extends EPackage
      * @generated
      */
     EClass RESPONSE = eINSTANCE.getResponse();
-
-    /**
-     * The meta object literal for the '<em><b>Not</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute RESPONSE__NOT = eINSTANCE.getResponse_Not();
 
     /**
      * The meta object literal for the '<em><b>Event</b></em>' reference feature.
@@ -1590,30 +1635,12 @@ public interface SLEECPackage extends EPackage
     EReference RESPONSE__RESPONSE = eINSTANCE.getResponse_Response();
 
     /**
-     * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.TimeImpl <em>Time</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see circus.robocalc.sleec.sLEEC.impl.TimeImpl
-     * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getTime()
-     * @generated
-     */
-    EClass TIME = eINSTANCE.getTime();
-
-    /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Not</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute TIME__VALUE = eINSTANCE.getTime_Value();
-
-    /**
-     * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute TIME__UNIT = eINSTANCE.getTime_Unit();
+    EAttribute RESPONSE__NOT = eINSTANCE.getResponse_Not();
 
     /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.DefeaterImpl <em>Defeater</em>}' class.
@@ -1670,22 +1697,22 @@ public interface SLEECPackage extends EPackage
     EReference MEASURE__TYPE = eINSTANCE.getMeasure_Type();
 
     /**
-     * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.ConstImpl <em>Const</em>}' class.
+     * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.ConstantImpl <em>Constant</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see circus.robocalc.sleec.sLEEC.impl.ConstImpl
-     * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getConst()
+     * @see circus.robocalc.sleec.sLEEC.impl.ConstantImpl
+     * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getConstant()
      * @generated
      */
-    EClass CONST = eINSTANCE.getConst();
+    EClass CONSTANT = eINSTANCE.getConstant();
 
     /**
-     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CONST__VALUE = eINSTANCE.getConst_Value();
+    EReference CONSTANT__VALUE = eINSTANCE.getConstant_Value();
 
     /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.BooleanImpl <em>Boolean</em>}' class.
@@ -1736,6 +1763,14 @@ public interface SLEECPackage extends EPackage
     EClass BOOL_COMP = eINSTANCE.getBoolComp();
 
     /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BOOL_COMP__LEFT = eINSTANCE.getBoolComp_Left();
+
+    /**
      * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1762,6 +1797,14 @@ public interface SLEECPackage extends EPackage
     EClass NOT = eINSTANCE.getNot();
 
     /**
+     * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NOT__EXPR = eINSTANCE.getNot_Expr();
+
+    /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.RelCompImpl <em>Rel Comp</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1770,6 +1813,14 @@ public interface SLEECPackage extends EPackage
      * @generated
      */
     EClass REL_COMP = eINSTANCE.getRelComp();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REL_COMP__LEFT = eINSTANCE.getRelComp_Left();
 
     /**
      * The meta object literal for the '<em><b>Op</b></em>' attribute feature.
@@ -1786,6 +1837,32 @@ public interface SLEECPackage extends EPackage
      * @generated
      */
     EReference REL_COMP__RIGHT = eINSTANCE.getRelComp_Right();
+
+    /**
+     * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.impl.AtomImpl <em>Atom</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see circus.robocalc.sleec.sLEEC.impl.AtomImpl
+     * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getAtom()
+     * @generated
+     */
+    EClass ATOM = eINSTANCE.getAtom();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ATOM__NAME = eINSTANCE.getAtom_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ATOM__VALUE = eINSTANCE.getAtom_Value();
 
     /**
      * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.RelOp <em>Rel Op</em>}' enum.
@@ -1806,16 +1883,6 @@ public interface SLEECPackage extends EPackage
      * @generated
      */
     EEnum BOOL_OP = eINSTANCE.getBoolOp();
-
-    /**
-     * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.TimeUnit <em>Time Unit</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see circus.robocalc.sleec.sLEEC.TimeUnit
-     * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getTimeUnit()
-     * @generated
-     */
-    EEnum TIME_UNIT = eINSTANCE.getTimeUnit();
 
   }
 

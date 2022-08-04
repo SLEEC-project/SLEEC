@@ -3,8 +3,9 @@
  */
 package circus.robocalc.sleec.sLEEC.util;
 
+import circus.robocalc.sleec.sLEEC.Atom;
 import circus.robocalc.sleec.sLEEC.BoolComp;
-import circus.robocalc.sleec.sLEEC.Const;
+import circus.robocalc.sleec.sLEEC.Constant;
 import circus.robocalc.sleec.sLEEC.Defblock;
 import circus.robocalc.sleec.sLEEC.Defeater;
 import circus.robocalc.sleec.sLEEC.Definition;
@@ -20,9 +21,9 @@ import circus.robocalc.sleec.sLEEC.RuleBlock;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
 import circus.robocalc.sleec.sLEEC.Specification;
-import circus.robocalc.sleec.sLEEC.Time;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
+import circus.robocalc.sleec.sLEEC.Value;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -113,6 +114,13 @@ public class SLEECSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case SLEECPackage.VALUE:
+      {
+        Value value = (Value)theEObject;
+        T result = caseValue(value);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case SLEECPackage.TYPE:
       {
         Type type = (Type)theEObject;
@@ -155,13 +163,6 @@ public class SLEECSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case SLEECPackage.TIME:
-      {
-        Time time = (Time)theEObject;
-        T result = caseTime(time);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case SLEECPackage.DEFEATER:
       {
         Defeater defeater = (Defeater)theEObject;
@@ -185,11 +186,11 @@ public class SLEECSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case SLEECPackage.CONST:
+      case SLEECPackage.CONSTANT:
       {
-        Const const_ = (Const)theEObject;
-        T result = caseConst(const_);
-        if (result == null) result = caseDefinition(const_);
+        Constant constant = (Constant)theEObject;
+        T result = caseConstant(constant);
+        if (result == null) result = caseDefinition(constant);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -241,6 +242,14 @@ public class SLEECSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case SLEECPackage.ATOM:
+      {
+        Atom atom = (Atom)theEObject;
+        T result = caseAtom(atom);
+        if (result == null) result = caseMBoolExpr(atom);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -289,6 +298,22 @@ public class SLEECSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseDefinition(Definition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseValue(Value object)
   {
     return null;
   }
@@ -390,22 +415,6 @@ public class SLEECSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Time</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Time</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseTime(Time object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Defeater</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -454,17 +463,17 @@ public class SLEECSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Const</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Constant</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Const</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Constant</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseConst(Const object)
+  public T caseConstant(Constant object)
   {
     return null;
   }
@@ -561,6 +570,22 @@ public class SLEECSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseRelComp(RelComp object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Atom</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Atom</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAtom(Atom object)
   {
     return null;
   }

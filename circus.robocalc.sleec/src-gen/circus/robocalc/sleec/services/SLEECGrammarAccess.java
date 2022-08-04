@@ -89,33 +89,33 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Action cEventAction_0_0 = (Action)cGroup_0.eContents().get(0);
 		private final Keyword cEventKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
 		private final Assignment cNameAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_0_2_0 = (RuleCall)cNameAssignment_0_2.eContents().get(0);
+		private final RuleCall cNameEventIDParserRuleCall_0_2_0 = (RuleCall)cNameAssignment_0_2.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Action cMeasureAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cMeasureKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Assignment cNameAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_1_2_0 = (RuleCall)cNameAssignment_1_2.eContents().get(0);
+		private final RuleCall cNameMeasureIDParserRuleCall_1_2_0 = (RuleCall)cNameAssignment_1_2.eContents().get(0);
 		private final Keyword cColonKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
 		private final Assignment cTypeAssignment_1_4 = (Assignment)cGroup_1.eContents().get(4);
 		private final RuleCall cTypeTypeParserRuleCall_1_4_0 = (RuleCall)cTypeAssignment_1_4.eContents().get(0);
 		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
-		private final Action cConstAction_2_0 = (Action)cGroup_2.eContents().get(0);
+		private final Action cConstantAction_2_0 = (Action)cGroup_2.eContents().get(0);
 		private final Keyword cConstantKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
 		private final Assignment cNameAssignment_2_2 = (Assignment)cGroup_2.eContents().get(2);
-		private final RuleCall cNameIDTerminalRuleCall_2_2_0 = (RuleCall)cNameAssignment_2_2.eContents().get(0);
+		private final RuleCall cNameConstIDParserRuleCall_2_2_0 = (RuleCall)cNameAssignment_2_2.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_2_3 = (Keyword)cGroup_2.eContents().get(3);
 		private final Assignment cValueAssignment_2_4 = (Assignment)cGroup_2.eContents().get(4);
 		private final RuleCall cValueValueParserRuleCall_2_4_0 = (RuleCall)cValueAssignment_2_4.eContents().get(0);
 		
 		//Definition:
-		//    {Event} 'event' name=ID | {Measure} 'measure' name=ID ':' type=Type | {Const} 'constant' name=ID '=' value=Value
+		//    {Event} 'event' name=EventID | {Measure} 'measure' name=MeasureID ':' type=Type | {Constant} 'constant' name=ConstID '=' value=Value
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Event} 'event' name=ID | {Measure} 'measure' name=ID ':' type=Type | {Const} 'constant' name=ID '=' value=Value
+		//{Event} 'event' name=EventID | {Measure} 'measure' name=MeasureID ':' type=Type | {Constant} 'constant' name=ConstID '=' value=Value
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//{Event} 'event' name=ID
+		//{Event} 'event' name=EventID
 		public Group getGroup_0() { return cGroup_0; }
 		
 		//{Event}
@@ -124,13 +124,13 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'event'
 		public Keyword getEventKeyword_0_1() { return cEventKeyword_0_1; }
 		
-		//name=ID
+		//name=EventID
 		public Assignment getNameAssignment_0_2() { return cNameAssignment_0_2; }
 		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_2_0() { return cNameIDTerminalRuleCall_0_2_0; }
+		//EventID
+		public RuleCall getNameEventIDParserRuleCall_0_2_0() { return cNameEventIDParserRuleCall_0_2_0; }
 		
-		//{Measure} 'measure' name=ID ':' type=Type
+		//{Measure} 'measure' name=MeasureID ':' type=Type
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//{Measure}
@@ -139,11 +139,11 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'measure'
 		public Keyword getMeasureKeyword_1_1() { return cMeasureKeyword_1_1; }
 		
-		//name=ID
+		//name=MeasureID
 		public Assignment getNameAssignment_1_2() { return cNameAssignment_1_2; }
 		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_2_0() { return cNameIDTerminalRuleCall_1_2_0; }
+		//MeasureID
+		public RuleCall getNameMeasureIDParserRuleCall_1_2_0() { return cNameMeasureIDParserRuleCall_1_2_0; }
 		
 		//':'
 		public Keyword getColonKeyword_1_3() { return cColonKeyword_1_3; }
@@ -154,20 +154,20 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//Type
 		public RuleCall getTypeTypeParserRuleCall_1_4_0() { return cTypeTypeParserRuleCall_1_4_0; }
 		
-		//{Const} 'constant' name=ID '=' value=Value
+		//{Constant} 'constant' name=ConstID '=' value=Value
 		public Group getGroup_2() { return cGroup_2; }
 		
-		//{Const}
-		public Action getConstAction_2_0() { return cConstAction_2_0; }
+		//{Constant}
+		public Action getConstantAction_2_0() { return cConstantAction_2_0; }
 		
 		//'constant'
 		public Keyword getConstantKeyword_2_1() { return cConstantKeyword_2_1; }
 		
-		//name=ID
+		//name=ConstID
 		public Assignment getNameAssignment_2_2() { return cNameAssignment_2_2; }
 		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_2_2_0() { return cNameIDTerminalRuleCall_2_2_0; }
+		//ConstID
+		public RuleCall getNameConstIDParserRuleCall_2_2_0() { return cNameConstIDParserRuleCall_2_2_0; }
 		
 		//'='
 		public Keyword getEqualsSignKeyword_2_3() { return cEqualsSignKeyword_2_3; }
@@ -180,15 +180,43 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	public class ValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Value");
-		private final RuleCall cINTTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Assignment cIntAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
+		private final RuleCall cIntINTTerminalRuleCall_0_0 = (RuleCall)cIntAssignment_0.eContents().get(0);
+		private final Assignment cFloatAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cFloatFLOATTerminalRuleCall_1_0 = (RuleCall)cFloatAssignment_1.eContents().get(0);
+		private final Assignment cConstantAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
+		private final CrossReference cConstantConstantCrossReference_2_0 = (CrossReference)cConstantAssignment_2.eContents().get(0);
+		private final RuleCall cConstantConstantIDTerminalRuleCall_2_0_1 = (RuleCall)cConstantConstantCrossReference_2_0.eContents().get(1);
 		
 		//Value:
-		//    INT
+		//    int=INT | float=FLOAT | constant=[Constant]
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
+		//int=INT | float=FLOAT | constant=[Constant]
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//int=INT
+		public Assignment getIntAssignment_0() { return cIntAssignment_0; }
+		
 		//INT
-		public RuleCall getINTTerminalRuleCall() { return cINTTerminalRuleCall; }
+		public RuleCall getIntINTTerminalRuleCall_0_0() { return cIntINTTerminalRuleCall_0_0; }
+		
+		//float=FLOAT
+		public Assignment getFloatAssignment_1() { return cFloatAssignment_1; }
+		
+		//FLOAT
+		public RuleCall getFloatFLOATTerminalRuleCall_1_0() { return cFloatFLOATTerminalRuleCall_1_0; }
+		
+		//constant=[Constant]
+		public Assignment getConstantAssignment_2() { return cConstantAssignment_2; }
+		
+		//[Constant]
+		public CrossReference getConstantConstantCrossReference_2_0() { return cConstantConstantCrossReference_2_0; }
+		
+		//ID
+		public RuleCall getConstantConstantIDTerminalRuleCall_2_0_1() { return cConstantConstantIDTerminalRuleCall_2_0_1; }
 	}
 	public class TypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Type");
@@ -204,19 +232,19 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Keyword cScaleKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		private final Assignment cScaleParamsAssignment_2_3 = (Assignment)cGroup_2.eContents().get(3);
-		private final RuleCall cScaleParamsLiteralParserRuleCall_2_3_0 = (RuleCall)cScaleParamsAssignment_2_3.eContents().get(0);
+		private final RuleCall cScaleParamsScaleParamParserRuleCall_2_3_0 = (RuleCall)cScaleParamsAssignment_2_3.eContents().get(0);
 		private final Group cGroup_2_4 = (Group)cGroup_2.eContents().get(4);
 		private final Keyword cCommaKeyword_2_4_0 = (Keyword)cGroup_2_4.eContents().get(0);
 		private final Assignment cScaleParamsAssignment_2_4_1 = (Assignment)cGroup_2_4.eContents().get(1);
-		private final RuleCall cScaleParamsLiteralParserRuleCall_2_4_1_0 = (RuleCall)cScaleParamsAssignment_2_4_1.eContents().get(0);
+		private final RuleCall cScaleParamsScaleParamParserRuleCall_2_4_1_0 = (RuleCall)cScaleParamsAssignment_2_4_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_5 = (Keyword)cGroup_2.eContents().get(5);
 		
 		//Type:
-		//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=Literal (',' scaleParams+=Literal)* ')'
+		//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams += ScaleParam (',' scaleParams+=ScaleParam)* ')'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=Literal (',' scaleParams+=Literal)* ')'
+		//{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams += ScaleParam (',' scaleParams+=ScaleParam)* ')'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//{Boolean} 'boolean'
@@ -237,7 +265,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'numeric'
 		public Keyword getNumericKeyword_1_1() { return cNumericKeyword_1_1; }
 		
-		//{Scale} 'scale' '(' scaleParams+=Literal (',' scaleParams+=Literal)* ')'
+		//{Scale} 'scale' '(' scaleParams += ScaleParam (',' scaleParams+=ScaleParam)* ')'
 		public Group getGroup_2() { return cGroup_2; }
 		
 		//{Scale}
@@ -249,38 +277,26 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'('
 		public Keyword getLeftParenthesisKeyword_2_2() { return cLeftParenthesisKeyword_2_2; }
 		
-		//scaleParams+=Literal
+		//scaleParams += ScaleParam
 		public Assignment getScaleParamsAssignment_2_3() { return cScaleParamsAssignment_2_3; }
 		
-		//Literal
-		public RuleCall getScaleParamsLiteralParserRuleCall_2_3_0() { return cScaleParamsLiteralParserRuleCall_2_3_0; }
+		//ScaleParam
+		public RuleCall getScaleParamsScaleParamParserRuleCall_2_3_0() { return cScaleParamsScaleParamParserRuleCall_2_3_0; }
 		
-		//(',' scaleParams+=Literal)*
+		//(',' scaleParams+=ScaleParam)*
 		public Group getGroup_2_4() { return cGroup_2_4; }
 		
 		//','
 		public Keyword getCommaKeyword_2_4_0() { return cCommaKeyword_2_4_0; }
 		
-		//scaleParams+=Literal
+		//scaleParams+=ScaleParam
 		public Assignment getScaleParamsAssignment_2_4_1() { return cScaleParamsAssignment_2_4_1; }
 		
-		//Literal
-		public RuleCall getScaleParamsLiteralParserRuleCall_2_4_1_0() { return cScaleParamsLiteralParserRuleCall_2_4_1_0; }
+		//ScaleParam
+		public RuleCall getScaleParamsScaleParamParserRuleCall_2_4_1_0() { return cScaleParamsScaleParamParserRuleCall_2_4_1_0; }
 		
 		//')'
 		public Keyword getRightParenthesisKeyword_2_5() { return cRightParenthesisKeyword_2_5; }
-	}
-	public class LiteralElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Literal");
-		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
-		
-		//Literal:
-		//    ID
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//ID
-		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
 	}
 	public class RuleBlockElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.RuleBlock");
@@ -314,7 +330,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Rule");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final RuleCall cNameRuleIDParserRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cWhenKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cTriggerAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cTriggerTriggerParserRuleCall_2_0 = (RuleCall)cTriggerAssignment_2.eContents().get(0);
@@ -325,18 +341,18 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final RuleCall cDefeatersDefeaterParserRuleCall_5_0 = (RuleCall)cDefeatersAssignment_5.eContents().get(0);
 		
 		//Rule:
-		//    name=ID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
+		//    name=RuleID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//name=ID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
+		//name=RuleID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
 		public Group getGroup() { return cGroup; }
 		
-		//name=ID
+		//name=RuleID
 		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
 		
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+		//RuleID
+		public RuleCall getNameRuleIDParserRuleCall_0_0() { return cNameRuleIDParserRuleCall_0_0; }
 		
 		//'when'
 		public Keyword getWhenKeyword_1() { return cWhenKeyword_1; }
@@ -406,6 +422,10 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.MBoolExpr");
 		private final RuleCall cBoolCompParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
+		//// Allow operator precedence for boolean expressions, the order of operations is implemented in the following order (form highest to lowest):
+		//// 1: < > <> <= >= =
+		//// 2: not
+		//// 3: and, or
 		//MBoolExpr:
 		//    BoolComp
 		//;
@@ -460,19 +480,19 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
 		private final Action cNotAction_0_0 = (Action)cGroup_0.eContents().get(0);
 		private final Keyword cNotKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cLeftAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
-		private final RuleCall cLeftRelCompParserRuleCall_0_2_0 = (RuleCall)cLeftAssignment_0_2.eContents().get(0);
+		private final Assignment cExprAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
+		private final RuleCall cExprRelCompParserRuleCall_0_2_0 = (RuleCall)cExprAssignment_0_2.eContents().get(0);
 		private final RuleCall cRelCompParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//Not returns MBoolExpr:
-		//    {Not} 'not' left=RelComp | RelComp
+		//    {Not} 'not' expr=RelComp | RelComp
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{Not} 'not' left=RelComp | RelComp
+		//{Not} 'not' expr=RelComp | RelComp
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//{Not} 'not' left=RelComp
+		//{Not} 'not' expr=RelComp
 		public Group getGroup_0() { return cGroup_0; }
 		
 		//{Not}
@@ -481,11 +501,11 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'not'
 		public Keyword getNotKeyword_0_1() { return cNotKeyword_0_1; }
 		
-		//left=RelComp
-		public Assignment getLeftAssignment_0_2() { return cLeftAssignment_0_2; }
+		//expr=RelComp
+		public Assignment getExprAssignment_0_2() { return cExprAssignment_0_2; }
 		
 		//RelComp
-		public RuleCall getLeftRelCompParserRuleCall_0_2_0() { return cLeftRelCompParserRuleCall_0_2_0; }
+		public RuleCall getExprRelCompParserRuleCall_0_2_0() { return cExprRelCompParserRuleCall_0_2_0; }
 		
 		//RelComp
 		public RuleCall getRelCompParserRuleCall_1() { return cRelCompParserRuleCall_1; }
@@ -533,30 +553,54 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	public class AtomElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Atom");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Assignment cMeasureAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
-		private final CrossReference cMeasureMeasureCrossReference_0_0 = (CrossReference)cMeasureAssignment_0.eContents().get(0);
-		private final RuleCall cMeasureMeasureIDTerminalRuleCall_0_0_1 = (RuleCall)cMeasureMeasureCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Action cAtomAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Alternatives cAlternatives_0_1 = (Alternatives)cGroup_0.eContents().get(1);
+		private final Assignment cNameAssignment_0_1_0 = (Assignment)cAlternatives_0_1.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_1_0_0 = (RuleCall)cNameAssignment_0_1_0.eContents().get(0);
+		private final Assignment cValueAssignment_0_1_1 = (Assignment)cAlternatives_0_1.eContents().get(1);
+		private final RuleCall cValueValueParserRuleCall_0_1_1_0 = (RuleCall)cValueAssignment_0_1_1.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final RuleCall cMBoolExprParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		
 		//Atom returns MBoolExpr:
-		//    measure=[Measure] | '(' MBoolExpr ')'
+		//    // Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
+		//    // ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
+		//    {Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//measure=[Measure] | '(' MBoolExpr ')'
+		//// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
+		//// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
+		//{Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//measure=[Measure]
-		public Assignment getMeasureAssignment_0() { return cMeasureAssignment_0; }
+		//// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
+		//// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
+		//{Atom} (name=ID | value=Value)
+		public Group getGroup_0() { return cGroup_0; }
 		
-		//[Measure]
-		public CrossReference getMeasureMeasureCrossReference_0_0() { return cMeasureMeasureCrossReference_0_0; }
+		//// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
+		//// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
+		//{Atom}
+		public Action getAtomAction_0_0() { return cAtomAction_0_0; }
+		
+		//(name=ID | value=Value)
+		public Alternatives getAlternatives_0_1() { return cAlternatives_0_1; }
+		
+		//name=ID
+		public Assignment getNameAssignment_0_1_0() { return cNameAssignment_0_1_0; }
 		
 		//ID
-		public RuleCall getMeasureMeasureIDTerminalRuleCall_0_0_1() { return cMeasureMeasureIDTerminalRuleCall_0_0_1; }
+		public RuleCall getNameIDTerminalRuleCall_0_1_0_0() { return cNameIDTerminalRuleCall_0_1_0_0; }
+		
+		//value=Value
+		public Assignment getValueAssignment_0_1_1() { return cValueAssignment_0_1_1; }
+		
+		//Value
+		public RuleCall getValueValueParserRuleCall_0_1_1_0() { return cValueValueParserRuleCall_0_1_1_0; }
 		
 		//'(' MBoolExpr ')'
 		public Group getGroup_1() { return cGroup_1; }
@@ -572,95 +616,99 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	public class ResponseElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Response");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNotAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Keyword cNotNotKeyword_0_0 = (Keyword)cNotAssignment_0.eContents().get(0);
-		private final Assignment cEventAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cEventEventCrossReference_1_0 = (CrossReference)cEventAssignment_1.eContents().get(0);
-		private final RuleCall cEventEventIDTerminalRuleCall_1_0_1 = (RuleCall)cEventEventCrossReference_1_0.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cWithinKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cTimeAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cTimeTimeParserRuleCall_2_1_0 = (RuleCall)cTimeAssignment_2_1.eContents().get(0);
-		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
-		private final Keyword cOtherwiseKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
-		private final Assignment cResponseAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
-		private final RuleCall cResponseResponseParserRuleCall_2_2_1_0 = (RuleCall)cResponseAssignment_2_2_1.eContents().get(0);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Assignment cEventAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final CrossReference cEventEventCrossReference_0_0_0 = (CrossReference)cEventAssignment_0_0.eContents().get(0);
+		private final RuleCall cEventEventIDTerminalRuleCall_0_0_0_1 = (RuleCall)cEventEventCrossReference_0_0_0.eContents().get(1);
+		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
+		private final Keyword cWithinKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
+		private final Assignment cTimeAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
+		private final RuleCall cTimeValueParserRuleCall_0_1_1_0 = (RuleCall)cTimeAssignment_0_1_1.eContents().get(0);
+		private final Group cGroup_0_1_2 = (Group)cGroup_0_1.eContents().get(2);
+		private final Keyword cOtherwiseKeyword_0_1_2_0 = (Keyword)cGroup_0_1_2.eContents().get(0);
+		private final Assignment cResponseAssignment_0_1_2_1 = (Assignment)cGroup_0_1_2.eContents().get(1);
+		private final RuleCall cResponseResponseParserRuleCall_0_1_2_1_0 = (RuleCall)cResponseAssignment_0_1_2_1.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Assignment cNotAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final Keyword cNotNotKeyword_1_0_0 = (Keyword)cNotAssignment_1_0.eContents().get(0);
+		private final Assignment cEventAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cEventEventCrossReference_1_1_0 = (CrossReference)cEventAssignment_1_1.eContents().get(0);
+		private final RuleCall cEventEventIDTerminalRuleCall_1_1_0_1 = (RuleCall)cEventEventCrossReference_1_1_0.eContents().get(1);
+		private final Keyword cWithinKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Assignment cTimeAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
+		private final RuleCall cTimeValueParserRuleCall_1_3_0 = (RuleCall)cTimeAssignment_1_3.eContents().get(0);
 		
 		//Response:
-		//    not?='not' event=[Event] ('within' time=Time ('otherwise' response=Response)?)?
+		//    event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//not?='not' event=[Event] ('within' time=Time ('otherwise' response=Response)?)?
-		public Group getGroup() { return cGroup; }
+		//event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
+		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//not?='not'
-		public Assignment getNotAssignment_0() { return cNotAssignment_0; }
-		
-		//'not'
-		public Keyword getNotNotKeyword_0_0() { return cNotNotKeyword_0_0; }
+		//event=[Event] ('within' time=Value ('otherwise' response=Response)?)?
+		public Group getGroup_0() { return cGroup_0; }
 		
 		//event=[Event]
-		public Assignment getEventAssignment_1() { return cEventAssignment_1; }
+		public Assignment getEventAssignment_0_0() { return cEventAssignment_0_0; }
 		
 		//[Event]
-		public CrossReference getEventEventCrossReference_1_0() { return cEventEventCrossReference_1_0; }
+		public CrossReference getEventEventCrossReference_0_0_0() { return cEventEventCrossReference_0_0_0; }
 		
 		//ID
-		public RuleCall getEventEventIDTerminalRuleCall_1_0_1() { return cEventEventIDTerminalRuleCall_1_0_1; }
+		public RuleCall getEventEventIDTerminalRuleCall_0_0_0_1() { return cEventEventIDTerminalRuleCall_0_0_0_1; }
 		
-		//('within' time=Time ('otherwise' response=Response)?)?
-		public Group getGroup_2() { return cGroup_2; }
+		//('within' time=Value ('otherwise' response=Response)?)?
+		public Group getGroup_0_1() { return cGroup_0_1; }
 		
 		//'within'
-		public Keyword getWithinKeyword_2_0() { return cWithinKeyword_2_0; }
+		public Keyword getWithinKeyword_0_1_0() { return cWithinKeyword_0_1_0; }
 		
-		//time=Time
-		public Assignment getTimeAssignment_2_1() { return cTimeAssignment_2_1; }
-		
-		//Time
-		public RuleCall getTimeTimeParserRuleCall_2_1_0() { return cTimeTimeParserRuleCall_2_1_0; }
-		
-		//('otherwise' response=Response)?
-		public Group getGroup_2_2() { return cGroup_2_2; }
-		
-		//'otherwise'
-		public Keyword getOtherwiseKeyword_2_2_0() { return cOtherwiseKeyword_2_2_0; }
-		
-		//response=Response
-		public Assignment getResponseAssignment_2_2_1() { return cResponseAssignment_2_2_1; }
-		
-		//Response
-		public RuleCall getResponseResponseParserRuleCall_2_2_1_0() { return cResponseResponseParserRuleCall_2_2_1_0; }
-	}
-	public class TimeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Time");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cValueValueParserRuleCall_0_0 = (RuleCall)cValueAssignment_0.eContents().get(0);
-		private final Assignment cUnitAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cUnitTimeUnitEnumRuleCall_1_0 = (RuleCall)cUnitAssignment_1.eContents().get(0);
-		
-		//Time:
-		//    value=Value unit=TimeUnit
-		//;
-		@Override public ParserRule getRule() { return rule; }
-		
-		//value=Value unit=TimeUnit
-		public Group getGroup() { return cGroup; }
-		
-		//value=Value
-		public Assignment getValueAssignment_0() { return cValueAssignment_0; }
+		//time=Value
+		public Assignment getTimeAssignment_0_1_1() { return cTimeAssignment_0_1_1; }
 		
 		//Value
-		public RuleCall getValueValueParserRuleCall_0_0() { return cValueValueParserRuleCall_0_0; }
+		public RuleCall getTimeValueParserRuleCall_0_1_1_0() { return cTimeValueParserRuleCall_0_1_1_0; }
 		
-		//unit=TimeUnit
-		public Assignment getUnitAssignment_1() { return cUnitAssignment_1; }
+		//('otherwise' response=Response)?
+		public Group getGroup_0_1_2() { return cGroup_0_1_2; }
 		
-		//TimeUnit
-		public RuleCall getUnitTimeUnitEnumRuleCall_1_0() { return cUnitTimeUnitEnumRuleCall_1_0; }
+		//'otherwise'
+		public Keyword getOtherwiseKeyword_0_1_2_0() { return cOtherwiseKeyword_0_1_2_0; }
+		
+		//response=Response
+		public Assignment getResponseAssignment_0_1_2_1() { return cResponseAssignment_0_1_2_1; }
+		
+		//Response
+		public RuleCall getResponseResponseParserRuleCall_0_1_2_1_0() { return cResponseResponseParserRuleCall_0_1_2_1_0; }
+		
+		//not?='not' event=[Event] 'within' time=Value
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//not?='not'
+		public Assignment getNotAssignment_1_0() { return cNotAssignment_1_0; }
+		
+		//'not'
+		public Keyword getNotNotKeyword_1_0_0() { return cNotNotKeyword_1_0_0; }
+		
+		//event=[Event]
+		public Assignment getEventAssignment_1_1() { return cEventAssignment_1_1; }
+		
+		//[Event]
+		public CrossReference getEventEventCrossReference_1_1_0() { return cEventEventCrossReference_1_1_0; }
+		
+		//ID
+		public RuleCall getEventEventIDTerminalRuleCall_1_1_0_1() { return cEventEventIDTerminalRuleCall_1_1_0_1; }
+		
+		//'within'
+		public Keyword getWithinKeyword_1_2() { return cWithinKeyword_1_2; }
+		
+		//time=Value
+		public Assignment getTimeAssignment_1_3() { return cTimeAssignment_1_3; }
+		
+		//Value
+		public RuleCall getTimeValueParserRuleCall_1_3_0() { return cTimeValueParserRuleCall_1_3_0; }
 	}
 	public class DefeaterElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Defeater");
@@ -701,6 +749,91 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		
 		//Response
 		public RuleCall getResponseResponseParserRuleCall_2_1_0() { return cResponseResponseParserRuleCall_2_1_0; }
+	}
+	public class EventIDElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.EventID");
+		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//EventID:
+		//    ID
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
+	}
+	public class MeasureIDElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.MeasureID");
+		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//MeasureID:
+		//    ID
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
+	}
+	public class ConstIDElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.ConstID");
+		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//ConstID:
+		//    ID
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
+	}
+	public class ScaleParamElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.ScaleParam");
+		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//ScaleParam:
+		//    ID
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
+	}
+	public class RuleIDElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.RuleID");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final RuleCall cINTTerminalRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final RuleCall cRuleIDParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		
+		//// TODO change to just ID
+		//RuleID:
+		//    (INT | ID) ('.' RuleID)?
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//(INT | ID) ('.' RuleID)?
+		public Group getGroup() { return cGroup; }
+		
+		//(INT | ID)
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+		
+		//INT
+		public RuleCall getINTTerminalRuleCall_0_0() { return cINTTerminalRuleCall_0_0; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall_0_1() { return cIDTerminalRuleCall_0_1; }
+		
+		//('.' RuleID)?
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//'.'
+		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
+		
+		//RuleID
+		public RuleCall getRuleIDParserRuleCall_1_1() { return cRuleIDParserRuleCall_1_1; }
 	}
 	
 	public class RelOpElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
@@ -791,81 +924,12 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'or'
 		public Keyword getOROrKeyword_1_0() { return cOROrKeyword_1_0; }
 	}
-	public class TimeUnitElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.TimeUnit");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cSECONDSEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cSECONDSSecondsKeyword_0_0 = (Keyword)cSECONDSEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cMINUTESEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cMINUTESMinutesKeyword_1_0 = (Keyword)cMINUTESEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cHOURSEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cHOURSHoursKeyword_2_0 = (Keyword)cHOURSEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cDAYSEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cDAYSDaysKeyword_3_0 = (Keyword)cDAYSEnumLiteralDeclaration_3.eContents().get(0);
-		private final EnumLiteralDeclaration cWEEKSEnumLiteralDeclaration_4 = (EnumLiteralDeclaration)cAlternatives.eContents().get(4);
-		private final Keyword cWEEKSWeeksKeyword_4_0 = (Keyword)cWEEKSEnumLiteralDeclaration_4.eContents().get(0);
-		private final EnumLiteralDeclaration cMONTHSEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
-		private final Keyword cMONTHSMonthsKeyword_5_0 = (Keyword)cMONTHSEnumLiteralDeclaration_5.eContents().get(0);
-		private final EnumLiteralDeclaration cYEARSEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
-		private final Keyword cYEARSYearsKeyword_6_0 = (Keyword)cYEARSEnumLiteralDeclaration_6.eContents().get(0);
-		
-		//enum TimeUnit:
-		//    SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days' | WEEKS='weeks' | MONTHS='months' | YEARS='years'
-		//;
-		public EnumRule getRule() { return rule; }
-		
-		//SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days' | WEEKS='weeks' | MONTHS='months' | YEARS='years'
-		public Alternatives getAlternatives() { return cAlternatives; }
-		
-		//SECONDS='seconds'
-		public EnumLiteralDeclaration getSECONDSEnumLiteralDeclaration_0() { return cSECONDSEnumLiteralDeclaration_0; }
-		
-		//'seconds'
-		public Keyword getSECONDSSecondsKeyword_0_0() { return cSECONDSSecondsKeyword_0_0; }
-		
-		//MINUTES='minutes'
-		public EnumLiteralDeclaration getMINUTESEnumLiteralDeclaration_1() { return cMINUTESEnumLiteralDeclaration_1; }
-		
-		//'minutes'
-		public Keyword getMINUTESMinutesKeyword_1_0() { return cMINUTESMinutesKeyword_1_0; }
-		
-		//HOURS='hours'
-		public EnumLiteralDeclaration getHOURSEnumLiteralDeclaration_2() { return cHOURSEnumLiteralDeclaration_2; }
-		
-		//'hours'
-		public Keyword getHOURSHoursKeyword_2_0() { return cHOURSHoursKeyword_2_0; }
-		
-		//DAYS='days'
-		public EnumLiteralDeclaration getDAYSEnumLiteralDeclaration_3() { return cDAYSEnumLiteralDeclaration_3; }
-		
-		//'days'
-		public Keyword getDAYSDaysKeyword_3_0() { return cDAYSDaysKeyword_3_0; }
-		
-		//WEEKS='weeks'
-		public EnumLiteralDeclaration getWEEKSEnumLiteralDeclaration_4() { return cWEEKSEnumLiteralDeclaration_4; }
-		
-		//'weeks'
-		public Keyword getWEEKSWeeksKeyword_4_0() { return cWEEKSWeeksKeyword_4_0; }
-		
-		//MONTHS='months'
-		public EnumLiteralDeclaration getMONTHSEnumLiteralDeclaration_5() { return cMONTHSEnumLiteralDeclaration_5; }
-		
-		//'months'
-		public Keyword getMONTHSMonthsKeyword_5_0() { return cMONTHSMonthsKeyword_5_0; }
-		
-		//YEARS='years'
-		public EnumLiteralDeclaration getYEARSEnumLiteralDeclaration_6() { return cYEARSEnumLiteralDeclaration_6; }
-		
-		//'years'
-		public Keyword getYEARSYearsKeyword_6_0() { return cYEARSYearsKeyword_6_0; }
-	}
 	
 	private final SpecificationElements pSpecification;
 	private final DefblockElements pDefblock;
 	private final DefinitionElements pDefinition;
 	private final ValueElements pValue;
 	private final TypeElements pType;
-	private final LiteralElements pLiteral;
 	private final RuleBlockElements pRuleBlock;
 	private final RuleElements pRule;
 	private final TriggerElements pTrigger;
@@ -875,11 +939,15 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	private final RelCompElements pRelComp;
 	private final AtomElements pAtom;
 	private final ResponseElements pResponse;
-	private final TimeElements pTime;
 	private final DefeaterElements pDefeater;
 	private final RelOpElements eRelOp;
 	private final BoolOpElements eBoolOp;
-	private final TimeUnitElements eTimeUnit;
+	private final EventIDElements pEventID;
+	private final MeasureIDElements pMeasureID;
+	private final ConstIDElements pConstID;
+	private final ScaleParamElements pScaleParam;
+	private final RuleIDElements pRuleID;
+	private final TerminalRule tFLOAT;
 	
 	private final Grammar grammar;
 	
@@ -895,7 +963,6 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		this.pDefinition = new DefinitionElements();
 		this.pValue = new ValueElements();
 		this.pType = new TypeElements();
-		this.pLiteral = new LiteralElements();
 		this.pRuleBlock = new RuleBlockElements();
 		this.pRule = new RuleElements();
 		this.pTrigger = new TriggerElements();
@@ -905,11 +972,15 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		this.pRelComp = new RelCompElements();
 		this.pAtom = new AtomElements();
 		this.pResponse = new ResponseElements();
-		this.pTime = new TimeElements();
 		this.pDefeater = new DefeaterElements();
 		this.eRelOp = new RelOpElements();
 		this.eBoolOp = new BoolOpElements();
-		this.eTimeUnit = new TimeUnitElements();
+		this.pEventID = new EventIDElements();
+		this.pMeasureID = new MeasureIDElements();
+		this.pConstID = new ConstIDElements();
+		this.pScaleParam = new ScaleParamElements();
+		this.pRuleID = new RuleIDElements();
+		this.tFLOAT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.FLOAT");
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -962,7 +1033,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Definition:
-	//    {Event} 'event' name=ID | {Measure} 'measure' name=ID ':' type=Type | {Const} 'constant' name=ID '=' value=Value
+	//    {Event} 'event' name=EventID | {Measure} 'measure' name=MeasureID ':' type=Type | {Constant} 'constant' name=ConstID '=' value=Value
 	//;
 	public DefinitionElements getDefinitionAccess() {
 		return pDefinition;
@@ -973,7 +1044,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Value:
-	//    INT
+	//    int=INT | float=FLOAT | constant=[Constant]
 	//;
 	public ValueElements getValueAccess() {
 		return pValue;
@@ -984,7 +1055,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Type:
-	//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams+=Literal (',' scaleParams+=Literal)* ')'
+	//    {Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams += ScaleParam (',' scaleParams+=ScaleParam)* ')'
 	//;
 	public TypeElements getTypeAccess() {
 		return pType;
@@ -992,17 +1063,6 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	
 	public ParserRule getTypeRule() {
 		return getTypeAccess().getRule();
-	}
-	
-	//Literal:
-	//    ID
-	//;
-	public LiteralElements getLiteralAccess() {
-		return pLiteral;
-	}
-	
-	public ParserRule getLiteralRule() {
-		return getLiteralAccess().getRule();
 	}
 	
 	//RuleBlock:
@@ -1017,7 +1077,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Rule:
-	//    name=ID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
+	//    name=RuleID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
 	//;
 	public RuleElements getRuleAccess() {
 		return pRule;
@@ -1038,6 +1098,10 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getTriggerAccess().getRule();
 	}
 	
+	//// Allow operator precedence for boolean expressions, the order of operations is implemented in the following order (form highest to lowest):
+	//// 1: < > <> <= >= =
+	//// 2: not
+	//// 3: and, or
 	//MBoolExpr:
 	//    BoolComp
 	//;
@@ -1061,7 +1125,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Not returns MBoolExpr:
-	//    {Not} 'not' left=RelComp | RelComp
+	//    {Not} 'not' expr=RelComp | RelComp
 	//;
 	public NotElements getNotAccess() {
 		return pNot;
@@ -1083,7 +1147,9 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Atom returns MBoolExpr:
-	//    measure=[Measure] | '(' MBoolExpr ')'
+	//    // Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
+	//    // ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
+	//    {Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
 	//;
 	public AtomElements getAtomAccess() {
 		return pAtom;
@@ -1094,7 +1160,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Response:
-	//    not?='not' event=[Event] ('within' time=Time ('otherwise' response=Response)?)?
+	//    event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
 	//;
 	public ResponseElements getResponseAccess() {
 		return pResponse;
@@ -1102,17 +1168,6 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	
 	public ParserRule getResponseRule() {
 		return getResponseAccess().getRule();
-	}
-	
-	//Time:
-	//    value=Value unit=TimeUnit
-	//;
-	public TimeElements getTimeAccess() {
-		return pTime;
-	}
-	
-	public ParserRule getTimeRule() {
-		return getTimeAccess().getRule();
 	}
 	
 	//Defeater:
@@ -1148,15 +1203,67 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getBoolOpAccess().getRule();
 	}
 	
-	//enum TimeUnit:
-	//    SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days' | WEEKS='weeks' | MONTHS='months' | YEARS='years'
+	//EventID:
+	//    ID
 	//;
-	public TimeUnitElements getTimeUnitAccess() {
-		return eTimeUnit;
+	public EventIDElements getEventIDAccess() {
+		return pEventID;
 	}
 	
-	public EnumRule getTimeUnitRule() {
-		return getTimeUnitAccess().getRule();
+	public ParserRule getEventIDRule() {
+		return getEventIDAccess().getRule();
+	}
+	
+	//MeasureID:
+	//    ID
+	//;
+	public MeasureIDElements getMeasureIDAccess() {
+		return pMeasureID;
+	}
+	
+	public ParserRule getMeasureIDRule() {
+		return getMeasureIDAccess().getRule();
+	}
+	
+	//ConstID:
+	//    ID
+	//;
+	public ConstIDElements getConstIDAccess() {
+		return pConstID;
+	}
+	
+	public ParserRule getConstIDRule() {
+		return getConstIDAccess().getRule();
+	}
+	
+	//ScaleParam:
+	//    ID
+	//;
+	public ScaleParamElements getScaleParamAccess() {
+		return pScaleParam;
+	}
+	
+	public ParserRule getScaleParamRule() {
+		return getScaleParamAccess().getRule();
+	}
+	
+	//// TODO change to just ID
+	//RuleID:
+	//    (INT | ID) ('.' RuleID)?
+	//;
+	public RuleIDElements getRuleIDAccess() {
+		return pRuleID;
+	}
+	
+	public ParserRule getRuleIDRule() {
+		return getRuleIDAccess().getRule();
+	}
+	
+	//terminal FLOAT returns ecore::EFloat:
+	//    INT '.' INT
+	//;
+	public TerminalRule getFLOATRule() {
+		return tFLOAT;
 	}
 	
 	//terminal ID: '^'?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;

@@ -14,10 +14,10 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link circus.robocalc.sleec.sLEEC.Response#isNot <em>Not</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getEvent <em>Event</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getTime <em>Time</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getResponse <em>Response</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.Response#isNot <em>Not</em>}</li>
  * </ul>
  *
  * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getResponse()
@@ -26,28 +26,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Response extends EObject
 {
-  /**
-   * Returns the value of the '<em><b>Not</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Not</em>' attribute.
-   * @see #setNot(boolean)
-   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getResponse_Not()
-   * @model
-   * @generated
-   */
-  boolean isNot();
-
-  /**
-   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Response#isNot <em>Not</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Not</em>' attribute.
-   * @see #isNot()
-   * @generated
-   */
-  void setNot(boolean value);
-
   /**
    * Returns the value of the '<em><b>Event</b></em>' reference.
    * <!-- begin-user-doc -->
@@ -75,12 +53,12 @@ public interface Response extends EObject
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the value of the '<em>Time</em>' containment reference.
-   * @see #setTime(Time)
+   * @see #setTime(Value)
    * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getResponse_Time()
    * @model containment="true"
    * @generated
    */
-  Time getTime();
+  Value getTime();
 
   /**
    * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Response#getTime <em>Time</em>}' containment reference.
@@ -90,7 +68,7 @@ public interface Response extends EObject
    * @see #getTime()
    * @generated
    */
-  void setTime(Time value);
+  void setTime(Value value);
 
   /**
    * Returns the value of the '<em><b>Response</b></em>' containment reference.
@@ -113,5 +91,27 @@ public interface Response extends EObject
    * @generated
    */
   void setResponse(Response value);
+
+  /**
+   * Returns the value of the '<em><b>Not</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Not</em>' attribute.
+   * @see #setNot(boolean)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getResponse_Not()
+   * @model
+   * @generated
+   */
+  boolean isNot();
+
+  /**
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Response#isNot <em>Not</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Not</em>' attribute.
+   * @see #isNot()
+   * @generated
+   */
+  void setNot(boolean value);
 
 } // Response
