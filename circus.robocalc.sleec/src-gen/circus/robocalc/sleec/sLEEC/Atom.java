@@ -13,7 +13,7 @@ package circus.robocalc.sleec.sLEEC;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link circus.robocalc.sleec.sLEEC.Atom#getName <em>Name</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.Atom#getMeasureID <em>Measure ID</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Atom#getValue <em>Value</em>}</li>
  * </ul>
  *
@@ -24,26 +24,26 @@ package circus.robocalc.sleec.sLEEC;
 public interface Atom extends MBoolExpr
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Measure ID</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getAtom_Name()
+   * @return the value of the '<em>Measure ID</em>' attribute.
+   * @see #setMeasureID(String)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getAtom_MeasureID()
    * @model
    * @generated
    */
-  String getName();
+  String getMeasureID();
 
   /**
-   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Atom#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Atom#getMeasureID <em>Measure ID</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @param value the new value of the '<em>Measure ID</em>' attribute.
+   * @see #getMeasureID()
    * @generated
    */
-  void setName(String value);
+  void setMeasureID(String value);
 
   /**
    * Returns the value of the '<em><b>Value</b></em>' containment reference.

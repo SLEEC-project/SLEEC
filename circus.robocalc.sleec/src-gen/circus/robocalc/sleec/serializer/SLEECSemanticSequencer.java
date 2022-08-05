@@ -118,7 +118,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Atom returns Atom
 	 *
 	 * Constraint:
-	 *     (name=ID | value=Value)
+	 *     (measureID=ID | value=Value)
 	 */
 	protected void sequence_Atom(ISerializationContext context, Atom semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

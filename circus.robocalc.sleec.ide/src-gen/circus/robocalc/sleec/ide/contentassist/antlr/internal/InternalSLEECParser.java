@@ -2238,13 +2238,13 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atom__Alternatives_0_1"
-    // InternalSLEEC.g:707:1: rule__Atom__Alternatives_0_1 : ( ( ( rule__Atom__NameAssignment_0_1_0 ) ) | ( ( rule__Atom__ValueAssignment_0_1_1 ) ) );
+    // InternalSLEEC.g:707:1: rule__Atom__Alternatives_0_1 : ( ( ( rule__Atom__MeasureIDAssignment_0_1_0 ) ) | ( ( rule__Atom__ValueAssignment_0_1_1 ) ) );
     public final void rule__Atom__Alternatives_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
         try {
-            // InternalSLEEC.g:711:1: ( ( ( rule__Atom__NameAssignment_0_1_0 ) ) | ( ( rule__Atom__ValueAssignment_0_1_1 ) ) )
+            // InternalSLEEC.g:711:1: ( ( ( rule__Atom__MeasureIDAssignment_0_1_0 ) ) | ( ( rule__Atom__ValueAssignment_0_1_1 ) ) )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -2262,24 +2262,24 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
             }
             switch (alt6) {
                 case 1 :
-                    // InternalSLEEC.g:712:2: ( ( rule__Atom__NameAssignment_0_1_0 ) )
+                    // InternalSLEEC.g:712:2: ( ( rule__Atom__MeasureIDAssignment_0_1_0 ) )
                     {
-                    // InternalSLEEC.g:712:2: ( ( rule__Atom__NameAssignment_0_1_0 ) )
-                    // InternalSLEEC.g:713:3: ( rule__Atom__NameAssignment_0_1_0 )
+                    // InternalSLEEC.g:712:2: ( ( rule__Atom__MeasureIDAssignment_0_1_0 ) )
+                    // InternalSLEEC.g:713:3: ( rule__Atom__MeasureIDAssignment_0_1_0 )
                     {
-                     before(grammarAccess.getAtomAccess().getNameAssignment_0_1_0()); 
-                    // InternalSLEEC.g:714:3: ( rule__Atom__NameAssignment_0_1_0 )
-                    // InternalSLEEC.g:714:4: rule__Atom__NameAssignment_0_1_0
+                     before(grammarAccess.getAtomAccess().getMeasureIDAssignment_0_1_0()); 
+                    // InternalSLEEC.g:714:3: ( rule__Atom__MeasureIDAssignment_0_1_0 )
+                    // InternalSLEEC.g:714:4: rule__Atom__MeasureIDAssignment_0_1_0
                     {
                     pushFollow(FOLLOW_2);
-                    rule__Atom__NameAssignment_0_1_0();
+                    rule__Atom__MeasureIDAssignment_0_1_0();
 
                     state._fsp--;
 
 
                     }
 
-                     after(grammarAccess.getAtomAccess().getNameAssignment_0_1_0()); 
+                     after(grammarAccess.getAtomAccess().getMeasureIDAssignment_0_1_0()); 
 
                     }
 
@@ -10353,9 +10353,9 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__RelComp__RightAssignment_1_2"
 
 
-    // $ANTLR start "rule__Atom__NameAssignment_0_1_0"
-    // InternalSLEEC.g:3420:1: rule__Atom__NameAssignment_0_1_0 : ( RULE_ID ) ;
-    public final void rule__Atom__NameAssignment_0_1_0() throws RecognitionException {
+    // $ANTLR start "rule__Atom__MeasureIDAssignment_0_1_0"
+    // InternalSLEEC.g:3420:1: rule__Atom__MeasureIDAssignment_0_1_0 : ( RULE_ID ) ;
+    public final void rule__Atom__MeasureIDAssignment_0_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
         	
@@ -10366,9 +10366,9 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
             // InternalSLEEC.g:3425:2: ( RULE_ID )
             // InternalSLEEC.g:3426:3: RULE_ID
             {
-             before(grammarAccess.getAtomAccess().getNameIDTerminalRuleCall_0_1_0_0()); 
+             before(grammarAccess.getAtomAccess().getMeasureIDIDTerminalRuleCall_0_1_0_0()); 
             match(input,RULE_ID,FOLLOW_2); 
-             after(grammarAccess.getAtomAccess().getNameIDTerminalRuleCall_0_1_0_0()); 
+             after(grammarAccess.getAtomAccess().getMeasureIDIDTerminalRuleCall_0_1_0_0()); 
 
             }
 
@@ -10387,7 +10387,7 @@ public class InternalSLEECParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__Atom__NameAssignment_0_1_0"
+    // $ANTLR end "rule__Atom__MeasureIDAssignment_0_1_0"
 
 
     // $ANTLR start "rule__Atom__ValueAssignment_0_1_1"

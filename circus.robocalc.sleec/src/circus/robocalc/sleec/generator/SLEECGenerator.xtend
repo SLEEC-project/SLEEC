@@ -241,7 +241,7 @@ class SLEECGenerator extends AbstractGenerator {
 	private def <T extends EObject> alpha(T AST) {
 		AST.eAllContents
 			.filter(Atom)
-			.map[ it.name ]
+			.map[ it.measureID ]
 			.filter[ it != '' ]
 			.toIterable
 	}
@@ -281,10 +281,10 @@ class SLEECGenerator extends AbstractGenerator {
 	}
 	
 	private def norm(Atom a) {
-		if(a.name === null)
+		if(a.measureID === null)
 			norm(a.value)
 		else
-			a.name
+			a.measureID
 	}
 	
 	private def CharSequence norm(Value v) {
@@ -302,8 +302,8 @@ class SLEECGenerator extends AbstractGenerator {
 		val res = AST
 		res.eAllContents
 			.filter(Atom)
-			.filter[ it.name == mID ]
-			.forEach[ it.name = vmID ]
+			.filter[ it.measureID == mID ]
+			.forEach[ it.measureID = vmID ]
 		return res
 	}
 }

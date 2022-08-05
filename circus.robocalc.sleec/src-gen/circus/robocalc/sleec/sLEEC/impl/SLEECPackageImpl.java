@@ -835,7 +835,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
-  public EAttribute getAtom_Name()
+  public EAttribute getAtom_MeasureID()
   {
     return (EAttribute)atomEClass.getEStructuralFeatures().get(0);
   }
@@ -975,7 +975,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     createEReference(relCompEClass, REL_COMP__RIGHT);
 
     atomEClass = createEClass(ATOM);
-    createEAttribute(atomEClass, ATOM__NAME);
+    createEAttribute(atomEClass, ATOM__MEASURE_ID);
     createEReference(atomEClass, ATOM__VALUE);
 
     // Create enums
@@ -1095,7 +1095,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     initEReference(getRelComp_Right(), this.getMBoolExpr(), null, "right", null, 0, 1, RelComp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(atomEClass, Atom.class, "Atom", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getAtom_Name(), ecorePackage.getEString(), "name", null, 0, 1, Atom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAtom_MeasureID(), ecorePackage.getEString(), "measureID", null, 0, 1, Atom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAtom_Value(), this.getValue(), null, "value", null, 0, 1, Atom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals

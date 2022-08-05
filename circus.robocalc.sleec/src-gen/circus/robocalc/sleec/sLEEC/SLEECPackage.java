@@ -746,13 +746,13 @@ public interface SLEECPackage extends EPackage
   int ATOM = 20;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Measure ID</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ATOM__NAME = MBOOL_EXPR_FEATURE_COUNT + 0;
+  int ATOM__MEASURE_ID = MBOOL_EXPR_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -1334,15 +1334,15 @@ public interface SLEECPackage extends EPackage
   EClass getAtom();
 
   /**
-   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Atom#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Atom#getMeasureID <em>Measure ID</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see circus.robocalc.sleec.sLEEC.Atom#getName()
+   * @return the meta object for the attribute '<em>Measure ID</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Atom#getMeasureID()
    * @see #getAtom()
    * @generated
    */
-  EAttribute getAtom_Name();
+  EAttribute getAtom_MeasureID();
 
   /**
    * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.Atom#getValue <em>Value</em>}'.
@@ -1849,12 +1849,12 @@ public interface SLEECPackage extends EPackage
     EClass ATOM = eINSTANCE.getAtom();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Measure ID</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ATOM__NAME = eINSTANCE.getAtom_Name();
+    EAttribute ATOM__MEASURE_ID = eINSTANCE.getAtom_MeasureID();
 
     /**
      * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.

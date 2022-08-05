@@ -84,7 +84,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//RelComp/right"/>
     </genClasses>
     <genClasses ecoreClass="SLEEC.ecore#//Atom">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//Atom/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SLEEC.ecore#//Atom/measureID"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SLEEC.ecore#//Atom/value"/>
     </genClasses>
   </genPackages>

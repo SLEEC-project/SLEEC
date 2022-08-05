@@ -710,9 +710,9 @@ rule__Atom__Alternatives_0_1
 	}
 :
 	(
-		{ before(grammarAccess.getAtomAccess().getNameAssignment_0_1_0()); }
-		(rule__Atom__NameAssignment_0_1_0)
-		{ after(grammarAccess.getAtomAccess().getNameAssignment_0_1_0()); }
+		{ before(grammarAccess.getAtomAccess().getMeasureIDAssignment_0_1_0()); }
+		(rule__Atom__MeasureIDAssignment_0_1_0)
+		{ after(grammarAccess.getAtomAccess().getMeasureIDAssignment_0_1_0()); }
 	)
 	|
 	(
@@ -3417,15 +3417,15 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Atom__NameAssignment_0_1_0
+rule__Atom__MeasureIDAssignment_0_1_0
 	@init {
 		int stackSize = keepStackSize();
 	}
 :
 	(
-		{ before(grammarAccess.getAtomAccess().getNameIDTerminalRuleCall_0_1_0_0()); }
+		{ before(grammarAccess.getAtomAccess().getMeasureIDIDTerminalRuleCall_0_1_0_0()); }
 		RULE_ID
-		{ after(grammarAccess.getAtomAccess().getNameIDTerminalRuleCall_0_1_0_0()); }
+		{ after(grammarAccess.getAtomAccess().getMeasureIDIDTerminalRuleCall_0_1_0_0()); }
 	)
 ;
 finally {

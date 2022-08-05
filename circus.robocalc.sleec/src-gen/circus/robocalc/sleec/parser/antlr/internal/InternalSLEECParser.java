@@ -2406,11 +2406,11 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAtom"
-    // InternalSLEEC.g:959:1: ruleAtom returns [EObject current=null] : ( ( () ( ( (lv_name_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) ) | (otherlv_3= '(' this_MBoolExpr_4= ruleMBoolExpr otherlv_5= ')' ) ) ;
+    // InternalSLEEC.g:959:1: ruleAtom returns [EObject current=null] : ( ( () ( ( (lv_measureID_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) ) | (otherlv_3= '(' this_MBoolExpr_4= ruleMBoolExpr otherlv_5= ')' ) ) ;
     public final EObject ruleAtom() throws RecognitionException {
         EObject current = null;
 
-        Token lv_name_1_0=null;
+        Token lv_measureID_1_0=null;
         Token otherlv_3=null;
         Token otherlv_5=null;
         EObject lv_value_2_0 = null;
@@ -2422,10 +2422,10 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSLEEC.g:965:2: ( ( ( () ( ( (lv_name_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) ) | (otherlv_3= '(' this_MBoolExpr_4= ruleMBoolExpr otherlv_5= ')' ) ) )
-            // InternalSLEEC.g:966:2: ( ( () ( ( (lv_name_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) ) | (otherlv_3= '(' this_MBoolExpr_4= ruleMBoolExpr otherlv_5= ')' ) )
+            // InternalSLEEC.g:965:2: ( ( ( () ( ( (lv_measureID_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) ) | (otherlv_3= '(' this_MBoolExpr_4= ruleMBoolExpr otherlv_5= ')' ) ) )
+            // InternalSLEEC.g:966:2: ( ( () ( ( (lv_measureID_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) ) | (otherlv_3= '(' this_MBoolExpr_4= ruleMBoolExpr otherlv_5= ')' ) )
             {
-            // InternalSLEEC.g:966:2: ( ( () ( ( (lv_name_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) ) | (otherlv_3= '(' this_MBoolExpr_4= ruleMBoolExpr otherlv_5= ')' ) )
+            // InternalSLEEC.g:966:2: ( ( () ( ( (lv_measureID_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) ) | (otherlv_3= '(' this_MBoolExpr_4= ruleMBoolExpr otherlv_5= ')' ) )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -2443,10 +2443,10 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
             }
             switch (alt13) {
                 case 1 :
-                    // InternalSLEEC.g:967:3: ( () ( ( (lv_name_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) )
+                    // InternalSLEEC.g:967:3: ( () ( ( (lv_measureID_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) )
                     {
-                    // InternalSLEEC.g:967:3: ( () ( ( (lv_name_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) )
-                    // InternalSLEEC.g:968:4: () ( ( (lv_name_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) )
+                    // InternalSLEEC.g:967:3: ( () ( ( (lv_measureID_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) ) )
+                    // InternalSLEEC.g:968:4: () ( ( (lv_measureID_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) )
                     {
                     // InternalSLEEC.g:968:4: ()
                     // InternalSLEEC.g:969:5: 
@@ -2459,7 +2459,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalSLEEC.g:975:4: ( ( (lv_name_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) )
+                    // InternalSLEEC.g:975:4: ( ( (lv_measureID_1_0= RULE_ID ) ) | ( (lv_value_2_0= ruleValue ) ) )
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -2477,17 +2477,17 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt12) {
                         case 1 :
-                            // InternalSLEEC.g:976:5: ( (lv_name_1_0= RULE_ID ) )
+                            // InternalSLEEC.g:976:5: ( (lv_measureID_1_0= RULE_ID ) )
                             {
-                            // InternalSLEEC.g:976:5: ( (lv_name_1_0= RULE_ID ) )
-                            // InternalSLEEC.g:977:6: (lv_name_1_0= RULE_ID )
+                            // InternalSLEEC.g:976:5: ( (lv_measureID_1_0= RULE_ID ) )
+                            // InternalSLEEC.g:977:6: (lv_measureID_1_0= RULE_ID )
                             {
-                            // InternalSLEEC.g:977:6: (lv_name_1_0= RULE_ID )
-                            // InternalSLEEC.g:978:7: lv_name_1_0= RULE_ID
+                            // InternalSLEEC.g:977:6: (lv_measureID_1_0= RULE_ID )
+                            // InternalSLEEC.g:978:7: lv_measureID_1_0= RULE_ID
                             {
-                            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_2); 
+                            lv_measureID_1_0=(Token)match(input,RULE_ID,FOLLOW_2); 
 
-                            							newLeafNode(lv_name_1_0, grammarAccess.getAtomAccess().getNameIDTerminalRuleCall_0_1_0_0());
+                            							newLeafNode(lv_measureID_1_0, grammarAccess.getAtomAccess().getMeasureIDIDTerminalRuleCall_0_1_0_0());
                             						
 
                             							if (current==null) {
@@ -2495,8 +2495,8 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                             							}
                             							setWithLastConsumed(
                             								current,
-                            								"name",
-                            								lv_name_1_0,
+                            								"measureID",
+                            								lv_measureID_1_0,
                             								"org.eclipse.xtext.common.Terminals.ID");
                             						
 

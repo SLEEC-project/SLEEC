@@ -556,8 +556,8 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
 		private final Action cAtomAction_0_0 = (Action)cGroup_0.eContents().get(0);
 		private final Alternatives cAlternatives_0_1 = (Alternatives)cGroup_0.eContents().get(1);
-		private final Assignment cNameAssignment_0_1_0 = (Assignment)cAlternatives_0_1.eContents().get(0);
-		private final RuleCall cNameIDTerminalRuleCall_0_1_0_0 = (RuleCall)cNameAssignment_0_1_0.eContents().get(0);
+		private final Assignment cMeasureIDAssignment_0_1_0 = (Assignment)cAlternatives_0_1.eContents().get(0);
+		private final RuleCall cMeasureIDIDTerminalRuleCall_0_1_0_0 = (RuleCall)cMeasureIDAssignment_0_1_0.eContents().get(0);
 		private final Assignment cValueAssignment_0_1_1 = (Assignment)cAlternatives_0_1.eContents().get(1);
 		private final RuleCall cValueValueParserRuleCall_0_1_1_0 = (RuleCall)cValueAssignment_0_1_1.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
@@ -568,18 +568,18 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//Atom returns MBoolExpr:
 		//    // Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
 		//    // ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
-		//    {Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
+		//    {Atom} (measureID=ID | value=Value) | '(' MBoolExpr ')'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
 		//// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
-		//{Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
+		//{Atom} (measureID=ID | value=Value) | '(' MBoolExpr ')'
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
 		//// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
-		//{Atom} (name=ID | value=Value)
+		//{Atom} (measureID=ID | value=Value)
 		public Group getGroup_0() { return cGroup_0; }
 		
 		//// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
@@ -587,14 +587,14 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//{Atom}
 		public Action getAtomAction_0_0() { return cAtomAction_0_0; }
 		
-		//(name=ID | value=Value)
+		//(measureID=ID | value=Value)
 		public Alternatives getAlternatives_0_1() { return cAlternatives_0_1; }
 		
-		//name=ID
-		public Assignment getNameAssignment_0_1_0() { return cNameAssignment_0_1_0; }
+		//measureID=ID
+		public Assignment getMeasureIDAssignment_0_1_0() { return cMeasureIDAssignment_0_1_0; }
 		
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_1_0_0() { return cNameIDTerminalRuleCall_0_1_0_0; }
+		public RuleCall getMeasureIDIDTerminalRuleCall_0_1_0_0() { return cMeasureIDIDTerminalRuleCall_0_1_0_0; }
 		
 		//value=Value
 		public Assignment getValueAssignment_0_1_1() { return cValueAssignment_0_1_1; }
@@ -1149,7 +1149,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	//Atom returns MBoolExpr:
 	//    // Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
 	//    // ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
-	//    {Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
+	//    {Atom} (measureID=ID | value=Value) | '(' MBoolExpr ')'
 	//;
 	public AtomElements getAtomAccess() {
 		return pAtom;

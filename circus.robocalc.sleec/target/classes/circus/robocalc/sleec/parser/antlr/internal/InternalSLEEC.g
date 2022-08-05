@@ -975,9 +975,9 @@ ruleAtom returns [EObject current=null]
 			(
 				(
 					(
-						lv_name_1_0=RULE_ID
+						lv_measureID_1_0=RULE_ID
 						{
-							newLeafNode(lv_name_1_0, grammarAccess.getAtomAccess().getNameIDTerminalRuleCall_0_1_0_0());
+							newLeafNode(lv_measureID_1_0, grammarAccess.getAtomAccess().getMeasureIDIDTerminalRuleCall_0_1_0_0());
 						}
 						{
 							if ($current==null) {
@@ -985,8 +985,8 @@ ruleAtom returns [EObject current=null]
 							}
 							setWithLastConsumed(
 								$current,
-								"name",
-								lv_name_1_0,
+								"measureID",
+								lv_measureID_1_0,
 								"org.eclipse.xtext.common.Terminals.ID");
 						}
 					)

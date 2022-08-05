@@ -486,7 +486,7 @@ public class SLEECGenerator extends AbstractGenerator {
   
   private <T extends EObject> Iterable<String> alpha(final T AST) {
     final Function1<Atom, String> _function = (Atom it) -> {
-      return it.getName();
+      return it.getMeasureID();
     };
     final Function1<String, Boolean> _function_1 = (String it) -> {
       return Boolean.valueOf((!Objects.equal(it, "")));
@@ -584,12 +584,12 @@ public class SLEECGenerator extends AbstractGenerator {
   
   private CharSequence norm(final Atom a) {
     CharSequence _xifexpression = null;
-    String _name = a.getName();
-    boolean _tripleEquals = (_name == null);
+    String _measureID = a.getMeasureID();
+    boolean _tripleEquals = (_measureID == null);
     if (_tripleEquals) {
       _xifexpression = this.norm(a.getValue());
     } else {
-      _xifexpression = a.getName();
+      _xifexpression = a.getMeasureID();
     }
     return _xifexpression;
   }
@@ -617,11 +617,11 @@ public class SLEECGenerator extends AbstractGenerator {
   private <T extends EObject> T replace(final T AST, final String vmID, final String mID) {
     final T res = AST;
     final Function1<Atom, Boolean> _function = (Atom it) -> {
-      String _name = it.getName();
-      return Boolean.valueOf(Objects.equal(_name, mID));
+      String _measureID = it.getMeasureID();
+      return Boolean.valueOf(Objects.equal(_measureID, mID));
     };
     final Procedure1<Atom> _function_1 = (Atom it) -> {
-      it.setName(vmID);
+      it.setMeasureID(vmID);
     };
     IteratorExtensions.<Atom>forEach(IteratorExtensions.<Atom>filter(Iterators.<Atom>filter(res.eAllContents(), Atom.class), _function), _function_1);
     return res;

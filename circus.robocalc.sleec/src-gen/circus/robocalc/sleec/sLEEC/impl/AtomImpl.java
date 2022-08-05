@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link circus.robocalc.sleec.sLEEC.impl.AtomImpl#getName <em>Name</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.AtomImpl#getMeasureID <em>Measure ID</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.AtomImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
@@ -32,24 +32,24 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class AtomImpl extends MBoolExprImpl implements Atom
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The default value of the '{@link #getMeasureID() <em>Measure ID</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getMeasureID()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
+  protected static final String MEASURE_ID_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getMeasureID() <em>Measure ID</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getMeasureID()
    * @generated
    * @ordered
    */
-  protected String name = NAME_EDEFAULT;
+  protected String measureID = MEASURE_ID_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
@@ -88,9 +88,9 @@ public class AtomImpl extends MBoolExprImpl implements Atom
    * @generated
    */
   @Override
-  public String getName()
+  public String getMeasureID()
   {
-    return name;
+    return measureID;
   }
 
   /**
@@ -99,12 +99,12 @@ public class AtomImpl extends MBoolExprImpl implements Atom
    * @generated
    */
   @Override
-  public void setName(String newName)
+  public void setMeasureID(String newMeasureID)
   {
-    String oldName = name;
-    name = newName;
+    String oldMeasureID = measureID;
+    measureID = newMeasureID;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.ATOM__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.ATOM__MEASURE_ID, oldMeasureID, measureID));
   }
 
   /**
@@ -183,8 +183,8 @@ public class AtomImpl extends MBoolExprImpl implements Atom
   {
     switch (featureID)
     {
-      case SLEECPackage.ATOM__NAME:
-        return getName();
+      case SLEECPackage.ATOM__MEASURE_ID:
+        return getMeasureID();
       case SLEECPackage.ATOM__VALUE:
         return getValue();
     }
@@ -201,8 +201,8 @@ public class AtomImpl extends MBoolExprImpl implements Atom
   {
     switch (featureID)
     {
-      case SLEECPackage.ATOM__NAME:
-        setName((String)newValue);
+      case SLEECPackage.ATOM__MEASURE_ID:
+        setMeasureID((String)newValue);
         return;
       case SLEECPackage.ATOM__VALUE:
         setValue((Value)newValue);
@@ -221,8 +221,8 @@ public class AtomImpl extends MBoolExprImpl implements Atom
   {
     switch (featureID)
     {
-      case SLEECPackage.ATOM__NAME:
-        setName(NAME_EDEFAULT);
+      case SLEECPackage.ATOM__MEASURE_ID:
+        setMeasureID(MEASURE_ID_EDEFAULT);
         return;
       case SLEECPackage.ATOM__VALUE:
         setValue((Value)null);
@@ -241,8 +241,8 @@ public class AtomImpl extends MBoolExprImpl implements Atom
   {
     switch (featureID)
     {
-      case SLEECPackage.ATOM__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case SLEECPackage.ATOM__MEASURE_ID:
+        return MEASURE_ID_EDEFAULT == null ? measureID != null : !MEASURE_ID_EDEFAULT.equals(measureID);
       case SLEECPackage.ATOM__VALUE:
         return value != null;
     }
@@ -260,8 +260,8 @@ public class AtomImpl extends MBoolExprImpl implements Atom
     if (eIsProxy()) return super.toString();
 
     StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (name: ");
-    result.append(name);
+    result.append(" (measureID: ");
+    result.append(measureID);
     result.append(')');
     return result.toString();
   }

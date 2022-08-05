@@ -59,7 +59,7 @@ RelComp returns MBoolExpr:
 Atom returns MBoolExpr:
 	// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
 	// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
-	{Atom} (name=ID | value=Value) | '(' MBoolExpr ')'
+	{Atom} (measureID=ID | value=Value) | '(' MBoolExpr ')'
 ;
 
 Response:
