@@ -118,7 +118,7 @@ class SLEECGenerator extends AbstractGenerator {
 		else '''
 			let
 				MTrigger = «ME(alpha(mBE), mBE, sp, fp)»
-			in «eID» -> MTrigger
+			within «eID» -> MTrigger
 		'''
 	}
 	

@@ -249,7 +249,7 @@ public class SLEECGenerator extends AbstractGenerator {
         CharSequence _ME = this.ME(this.<MBoolExpr>alpha(mBE), mBE, sp, fp);
         _builder_1.append(_ME, "\t");
         _builder_1.newLineIfNotEmpty();
-        _builder_1.append("in ");
+        _builder_1.append("within ");
         _builder_1.append(eID);
         _builder_1.append(" -> MTrigger");
         _builder_1.newLineIfNotEmpty();
