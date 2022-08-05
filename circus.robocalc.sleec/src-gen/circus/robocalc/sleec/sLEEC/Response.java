@@ -15,7 +15,8 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getEvent <em>Event</em>}</li>
- *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getTime <em>Time</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getValue <em>Value</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getUnit <em>Unit</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Response#getResponse <em>Response</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.Response#isNot <em>Not</em>}</li>
  * </ul>
@@ -49,26 +50,51 @@ public interface Response extends EObject
   void setEvent(Event value);
 
   /**
-   * Returns the value of the '<em><b>Time</b></em>' containment reference.
+   * Returns the value of the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Time</em>' containment reference.
-   * @see #setTime(Value)
-   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getResponse_Time()
+   * @return the value of the '<em>Value</em>' containment reference.
+   * @see #setValue(Value)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getResponse_Value()
    * @model containment="true"
    * @generated
    */
-  Value getTime();
+  Value getValue();
 
   /**
-   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Response#getTime <em>Time</em>}' containment reference.
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Response#getValue <em>Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Time</em>' containment reference.
-   * @see #getTime()
+   * @param value the new value of the '<em>Value</em>' containment reference.
+   * @see #getValue()
    * @generated
    */
-  void setTime(Value value);
+  void setValue(Value value);
+
+  /**
+   * Returns the value of the '<em><b>Unit</b></em>' attribute.
+   * The literals are from the enumeration {@link circus.robocalc.sleec.sLEEC.TimeUnit}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Unit</em>' attribute.
+   * @see circus.robocalc.sleec.sLEEC.TimeUnit
+   * @see #setUnit(TimeUnit)
+   * @see circus.robocalc.sleec.sLEEC.SLEECPackage#getResponse_Unit()
+   * @model
+   * @generated
+   */
+  TimeUnit getUnit();
+
+  /**
+   * Sets the value of the '{@link circus.robocalc.sleec.sLEEC.Response#getUnit <em>Unit</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Unit</em>' attribute.
+   * @see circus.robocalc.sleec.sLEEC.TimeUnit
+   * @see #getUnit()
+   * @generated
+   */
+  void setUnit(TimeUnit value);
 
   /**
    * Returns the value of the '<em><b>Response</b></em>' containment reference.

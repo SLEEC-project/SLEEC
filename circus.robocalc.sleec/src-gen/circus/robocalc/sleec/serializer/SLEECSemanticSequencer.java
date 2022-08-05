@@ -298,7 +298,7 @@ public class SLEECSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     Response returns Response
 	 *
 	 * Constraint:
-	 *     ((event=[Event|ID] (time=Value response=Response?)?) | (not?='not' event=[Event|ID] time=Value))
+	 *     ((event=[Event|ID] (value=Value unit=TimeUnit response=Response?)?) | (not?='not' event=[Event|ID] value=Value unit=TimeUnit))
 	 */
 	protected void sequence_Response(ISerializationContext context, Response semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

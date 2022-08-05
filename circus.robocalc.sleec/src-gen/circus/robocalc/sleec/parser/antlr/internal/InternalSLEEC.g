@@ -1073,33 +1073,52 @@ ruleResponse returns [EObject current=null]
 				(
 					(
 						{
-							newCompositeNode(grammarAccess.getResponseAccess().getTimeValueParserRuleCall_0_1_1_0());
+							newCompositeNode(grammarAccess.getResponseAccess().getValueValueParserRuleCall_0_1_1_0());
 						}
-						lv_time_2_0=ruleValue
+						lv_value_2_0=ruleValue
 						{
 							if ($current==null) {
 								$current = createModelElementForParent(grammarAccess.getResponseRule());
 							}
 							set(
 								$current,
-								"time",
-								lv_time_2_0,
+								"value",
+								lv_value_2_0,
 								"circus.robocalc.sleec.SLEEC.Value");
 							afterParserOrEnumRuleCall();
 						}
 					)
 				)
 				(
-					otherlv_3='otherwise'
+					(
+						{
+							newCompositeNode(grammarAccess.getResponseAccess().getUnitTimeUnitEnumRuleCall_0_1_2_0());
+						}
+						lv_unit_3_0=ruleTimeUnit
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getResponseRule());
+							}
+							set(
+								$current,
+								"unit",
+								lv_unit_3_0,
+								"circus.robocalc.sleec.SLEEC.TimeUnit");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+				(
+					otherlv_4='otherwise'
 					{
-						newLeafNode(otherlv_3, grammarAccess.getResponseAccess().getOtherwiseKeyword_0_1_2_0());
+						newLeafNode(otherlv_4, grammarAccess.getResponseAccess().getOtherwiseKeyword_0_1_3_0());
 					}
 					(
 						(
 							{
-								newCompositeNode(grammarAccess.getResponseAccess().getResponseResponseParserRuleCall_0_1_2_1_0());
+								newCompositeNode(grammarAccess.getResponseAccess().getResponseResponseParserRuleCall_0_1_3_1_0());
 							}
-							lv_response_4_0=ruleResponse
+							lv_response_5_0=ruleResponse
 							{
 								if ($current==null) {
 									$current = createModelElementForParent(grammarAccess.getResponseRule());
@@ -1107,7 +1126,7 @@ ruleResponse returns [EObject current=null]
 								set(
 									$current,
 									"response",
-									lv_response_4_0,
+									lv_response_5_0,
 									"circus.robocalc.sleec.SLEEC.Response");
 								afterParserOrEnumRuleCall();
 							}
@@ -1120,15 +1139,15 @@ ruleResponse returns [EObject current=null]
 		(
 			(
 				(
-					lv_not_5_0='not'
+					lv_not_6_0='not'
 					{
-						newLeafNode(lv_not_5_0, grammarAccess.getResponseAccess().getNotNotKeyword_1_0_0());
+						newLeafNode(lv_not_6_0, grammarAccess.getResponseAccess().getNotNotKeyword_1_0_0());
 					}
 					{
 						if ($current==null) {
 							$current = createModelElement(grammarAccess.getResponseRule());
 						}
-						setWithLastConsumed($current, "not", lv_not_5_0 != null, "not");
+						setWithLastConsumed($current, "not", lv_not_6_0 != null, "not");
 					}
 				)
 			)
@@ -1139,31 +1158,50 @@ ruleResponse returns [EObject current=null]
 							$current = createModelElement(grammarAccess.getResponseRule());
 						}
 					}
-					otherlv_6=RULE_ID
+					otherlv_7=RULE_ID
 					{
-						newLeafNode(otherlv_6, grammarAccess.getResponseAccess().getEventEventCrossReference_1_1_0());
+						newLeafNode(otherlv_7, grammarAccess.getResponseAccess().getEventEventCrossReference_1_1_0());
 					}
 				)
 			)
-			otherlv_7='within'
+			otherlv_8='within'
 			{
-				newLeafNode(otherlv_7, grammarAccess.getResponseAccess().getWithinKeyword_1_2());
+				newLeafNode(otherlv_8, grammarAccess.getResponseAccess().getWithinKeyword_1_2());
 			}
 			(
 				(
 					{
-						newCompositeNode(grammarAccess.getResponseAccess().getTimeValueParserRuleCall_1_3_0());
+						newCompositeNode(grammarAccess.getResponseAccess().getValueValueParserRuleCall_1_3_0());
 					}
-					lv_time_8_0=ruleValue
+					lv_value_9_0=ruleValue
 					{
 						if ($current==null) {
 							$current = createModelElementForParent(grammarAccess.getResponseRule());
 						}
 						set(
 							$current,
-							"time",
-							lv_time_8_0,
+							"value",
+							lv_value_9_0,
 							"circus.robocalc.sleec.SLEEC.Value");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getResponseAccess().getUnitTimeUnitEnumRuleCall_1_4_0());
+					}
+					lv_unit_10_0=ruleTimeUnit
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getResponseRule());
+						}
+						set(
+							$current,
+							"unit",
+							lv_unit_10_0,
+							"circus.robocalc.sleec.SLEEC.TimeUnit");
 						afterParserOrEnumRuleCall();
 					}
 				)
@@ -1440,6 +1478,49 @@ ruleBoolOp returns [Enumerator current=null]
 			{
 				$current = grammarAccess.getBoolOpAccess().getOREnumLiteralDeclaration_1().getEnumLiteral().getInstance();
 				newLeafNode(enumLiteral_1, grammarAccess.getBoolOpAccess().getOREnumLiteralDeclaration_1());
+			}
+		)
+	)
+;
+
+// Rule TimeUnit
+ruleTimeUnit returns [Enumerator current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			enumLiteral_0='seconds'
+			{
+				$current = grammarAccess.getTimeUnitAccess().getSECONDSEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_0, grammarAccess.getTimeUnitAccess().getSECONDSEnumLiteralDeclaration_0());
+			}
+		)
+		    |
+		(
+			enumLiteral_1='minutes'
+			{
+				$current = grammarAccess.getTimeUnitAccess().getMINUTESEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_1, grammarAccess.getTimeUnitAccess().getMINUTESEnumLiteralDeclaration_1());
+			}
+		)
+		    |
+		(
+			enumLiteral_2='hours'
+			{
+				$current = grammarAccess.getTimeUnitAccess().getHOURSEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_2, grammarAccess.getTimeUnitAccess().getHOURSEnumLiteralDeclaration_2());
+			}
+		)
+		    |
+		(
+			enumLiteral_3='days'
+			{
+				$current = grammarAccess.getTimeUnitAccess().getDAYSEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+				newLeafNode(enumLiteral_3, grammarAccess.getTimeUnitAccess().getDAYSEnumLiteralDeclaration_3());
 			}
 		)
 	)

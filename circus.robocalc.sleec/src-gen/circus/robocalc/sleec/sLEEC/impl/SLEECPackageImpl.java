@@ -24,6 +24,7 @@ import circus.robocalc.sleec.sLEEC.SLEECFactory;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
 import circus.robocalc.sleec.sLEEC.Specification;
+import circus.robocalc.sleec.sLEEC.TimeUnit;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
 import circus.robocalc.sleec.sLEEC.Value;
@@ -204,6 +205,13 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   private EEnum boolOpEEnum = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum timeUnitEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -549,7 +557,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
-  public EReference getResponse_Time()
+  public EReference getResponse_Value()
   {
     return (EReference)responseEClass.getEStructuralFeatures().get(1);
   }
@@ -560,9 +568,20 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
+  public EAttribute getResponse_Unit()
+  {
+    return (EAttribute)responseEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EReference getResponse_Response()
   {
-    return (EReference)responseEClass.getEStructuralFeatures().get(2);
+    return (EReference)responseEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -573,7 +592,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
   @Override
   public EAttribute getResponse_Not()
   {
-    return (EAttribute)responseEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)responseEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -879,6 +898,17 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
    * @generated
    */
   @Override
+  public EEnum getTimeUnit()
+  {
+    return timeUnitEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public SLEECFactory getSLEECFactory()
   {
     return (SLEECFactory)getEFactoryInstance();
@@ -938,7 +968,8 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
 
     responseEClass = createEClass(RESPONSE);
     createEReference(responseEClass, RESPONSE__EVENT);
-    createEReference(responseEClass, RESPONSE__TIME);
+    createEReference(responseEClass, RESPONSE__VALUE);
+    createEAttribute(responseEClass, RESPONSE__UNIT);
     createEReference(responseEClass, RESPONSE__RESPONSE);
     createEAttribute(responseEClass, RESPONSE__NOT);
 
@@ -981,6 +1012,7 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     // Create enums
     relOpEEnum = createEEnum(REL_OP);
     boolOpEEnum = createEEnum(BOOL_OP);
+    timeUnitEEnum = createEEnum(TIME_UNIT);
   }
 
   /**
@@ -1058,7 +1090,8 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
 
     initEClass(responseEClass, Response.class, "Response", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getResponse_Event(), this.getEvent(), null, "event", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getResponse_Time(), this.getValue(), null, "time", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResponse_Value(), this.getValue(), null, "value", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getResponse_Unit(), this.getTimeUnit(), "unit", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getResponse_Response(), this.getResponse(), null, "response", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getResponse_Not(), ecorePackage.getEBoolean(), "not", null, 0, 1, Response.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1110,6 +1143,12 @@ public class SLEECPackageImpl extends EPackageImpl implements SLEECPackage
     initEEnum(boolOpEEnum, BoolOp.class, "BoolOp");
     addEEnumLiteral(boolOpEEnum, BoolOp.AND);
     addEEnumLiteral(boolOpEEnum, BoolOp.OR);
+
+    initEEnum(timeUnitEEnum, TimeUnit.class, "TimeUnit");
+    addEEnumLiteral(timeUnitEEnum, TimeUnit.SECONDS);
+    addEEnumLiteral(timeUnitEEnum, TimeUnit.MINUTES);
+    addEEnumLiteral(timeUnitEEnum, TimeUnit.HOURS);
+    addEEnumLiteral(timeUnitEEnum, TimeUnit.DAYS);
 
     // Create resource
     createResource(eNS_URI);

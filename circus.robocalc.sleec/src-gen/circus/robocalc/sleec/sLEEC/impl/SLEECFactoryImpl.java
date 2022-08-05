@@ -24,6 +24,7 @@ import circus.robocalc.sleec.sLEEC.SLEECFactory;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
 import circus.robocalc.sleec.sLEEC.Scale;
 import circus.robocalc.sleec.sLEEC.Specification;
+import circus.robocalc.sleec.sLEEC.TimeUnit;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
 import circus.robocalc.sleec.sLEEC.Value;
@@ -129,6 +130,8 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
         return createRelOpFromString(eDataType, initialValue);
       case SLEECPackage.BOOL_OP:
         return createBoolOpFromString(eDataType, initialValue);
+      case SLEECPackage.TIME_UNIT:
+        return createTimeUnitFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -148,6 +151,8 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
         return convertRelOpToString(eDataType, instanceValue);
       case SLEECPackage.BOOL_OP:
         return convertBoolOpToString(eDataType, instanceValue);
+      case SLEECPackage.TIME_UNIT:
+        return convertTimeUnitToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -445,6 +450,28 @@ public class SLEECFactoryImpl extends EFactoryImpl implements SLEECFactory
    * @generated
    */
   public String convertBoolOpToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TimeUnit createTimeUnitFromString(EDataType eDataType, String initialValue)
+  {
+    TimeUnit result = TimeUnit.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertTimeUnitToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

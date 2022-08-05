@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import circus.robocalc.sleec.sLEEC.TimeUnit
 
 /**
  * Generates code from your model files on save.
@@ -156,13 +157,14 @@ class SLEECGenerator extends AbstractGenerator {
 	
 	private def CharSequence RP(Response r) {
 		val eID = r.event.name
-		val v = r.time
+		val v = r.value
+		val tU = r.unit
 		val resp = r.response
 		// time units are not in the grammar, so they are not in th translation rules 
 		
 		// [[not eID within v tU]]
 		if(r.not) 
-			'''Wait(«norm(v)»)'''
+			'''Wait(«norm(v, tU)»)'''
 		
 		// [[eID]]RP
 		else if(v === null)
@@ -170,11 +172,11 @@ class SLEECGenerator extends AbstractGenerator {
 		
 		// [[eID within v tU]]RP
 		else if(resp === null)
-			'''StartBy(«eID» -> SKIP,«norm(v)»)'''
+			'''StartBy(«eID» -> SKIP,«norm(v, tU)»)'''
 		
 		// [[eID within v tU otherwise resp]]RP
 		else
-			'''TimedInterrupt(«eID» -> SKIP,«norm(v)»,«RP(resp)»)'''
+			'''TimedInterrupt(«eID» -> SKIP,«norm(v, tU)»,«RP(resp)»)'''
 	}
 	
 	// -----------------------------------------------------------
@@ -295,6 +297,20 @@ class SLEECGenerator extends AbstractGenerator {
 				v.float.toString
 		else
 			norm(v.constant.value)
+	}
+	
+	// Convert value to seconds.
+	// NOTE the standard unit may need to be changed from seconds depending on the implementation.
+	private def norm(Value v, TimeUnit tU)
+		'''(«norm(v)» * «norm(tU)»)'''
+		
+	private def Integer norm(TimeUnit tU) {
+		switch(tU) {
+			case SECONDS : 1
+			case MINUTES : 60
+			case HOURS : 60 * norm(TimeUnit.MINUTES)
+			case DAYS : 24 * norm(TimeUnit.HOURS)
+		}
 	}
 	
 	// replace each MeasureID in the AST with 'vmID'

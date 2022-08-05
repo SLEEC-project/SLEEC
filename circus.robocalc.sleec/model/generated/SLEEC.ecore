@@ -41,8 +41,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="MBoolExpr"/>
   <eClassifiers xsi:type="ecore:EClass" name="Response">
     <eStructuralFeatures xsi:type="ecore:EReference" name="event" eType="#//Event"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="time" eType="#//Value"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unit" eType="#//TimeUnit"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="response" eType="#//Response"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="not" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -64,6 +65,12 @@
   <eClassifiers xsi:type="ecore:EEnum" name="BoolOp">
     <eLiterals name="AND" literal="and"/>
     <eLiterals name="OR" value="1" literal="or"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TimeUnit">
+    <eLiterals name="SECONDS" literal="seconds"/>
+    <eLiterals name="MINUTES" value="1" literal="minutes"/>
+    <eLiterals name="HOURS" value="2" literal="hours"/>
+    <eLiterals name="DAYS" value="3" literal="days"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Event" eSuperTypes="#//Definition"/>
   <eClassifiers xsi:type="ecore:EClass" name="Measure" eSuperTypes="#//Definition">

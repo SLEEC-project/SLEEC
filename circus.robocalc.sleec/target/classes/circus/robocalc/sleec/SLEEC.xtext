@@ -63,7 +63,7 @@ Atom returns MBoolExpr:
 ;
 
 Response:
-	event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
+	event=[Event] ('within' value=Value unit=TimeUnit ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' value=Value unit=TimeUnit
 ;
 
 Defeater:
@@ -76,6 +76,10 @@ enum RelOp:
 
 enum BoolOp:
 	AND='and' | OR='or'
+;
+
+enum TimeUnit:
+	SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days'
 ;
 
 EventID:

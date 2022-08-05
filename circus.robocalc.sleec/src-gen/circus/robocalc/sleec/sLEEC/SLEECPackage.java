@@ -375,13 +375,22 @@ public interface SLEECPackage extends EPackage
   int RESPONSE__EVENT = 0;
 
   /**
-   * The feature id for the '<em><b>Time</b></em>' containment reference.
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RESPONSE__TIME = 1;
+  int RESPONSE__VALUE = 1;
+
+  /**
+   * The feature id for the '<em><b>Unit</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RESPONSE__UNIT = 2;
 
   /**
    * The feature id for the '<em><b>Response</b></em>' containment reference.
@@ -390,7 +399,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESPONSE__RESPONSE = 2;
+  int RESPONSE__RESPONSE = 3;
 
   /**
    * The feature id for the '<em><b>Not</b></em>' attribute.
@@ -399,7 +408,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESPONSE__NOT = 3;
+  int RESPONSE__NOT = 4;
 
   /**
    * The number of structural features of the '<em>Response</em>' class.
@@ -408,7 +417,7 @@ public interface SLEECPackage extends EPackage
    * @generated
    * @ordered
    */
-  int RESPONSE_FEATURE_COUNT = 4;
+  int RESPONSE_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.impl.DefeaterImpl <em>Defeater</em>}' class.
@@ -792,6 +801,16 @@ public interface SLEECPackage extends EPackage
    */
   int BOOL_OP = 22;
 
+  /**
+   * The meta object id for the '{@link circus.robocalc.sleec.sLEEC.TimeUnit <em>Time Unit</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see circus.robocalc.sleec.sLEEC.TimeUnit
+   * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getTimeUnit()
+   * @generated
+   */
+  int TIME_UNIT = 23;
+
 
   /**
    * Returns the meta object for class '{@link circus.robocalc.sleec.sLEEC.Specification <em>Specification</em>}'.
@@ -1059,15 +1078,26 @@ public interface SLEECPackage extends EPackage
   EReference getResponse_Event();
 
   /**
-   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.Response#getTime <em>Time</em>}'.
+   * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.Response#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Time</em>'.
-   * @see circus.robocalc.sleec.sLEEC.Response#getTime()
+   * @return the meta object for the containment reference '<em>Value</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Response#getValue()
    * @see #getResponse()
    * @generated
    */
-  EReference getResponse_Time();
+  EReference getResponse_Value();
+
+  /**
+   * Returns the meta object for the attribute '{@link circus.robocalc.sleec.sLEEC.Response#getUnit <em>Unit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Unit</em>'.
+   * @see circus.robocalc.sleec.sLEEC.Response#getUnit()
+   * @see #getResponse()
+   * @generated
+   */
+  EAttribute getResponse_Unit();
 
   /**
    * Returns the meta object for the containment reference '{@link circus.robocalc.sleec.sLEEC.Response#getResponse <em>Response</em>}'.
@@ -1376,6 +1406,16 @@ public interface SLEECPackage extends EPackage
   EEnum getBoolOp();
 
   /**
+   * Returns the meta object for enum '{@link circus.robocalc.sleec.sLEEC.TimeUnit <em>Time Unit</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Time Unit</em>'.
+   * @see circus.robocalc.sleec.sLEEC.TimeUnit
+   * @generated
+   */
+  EEnum getTimeUnit();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1619,12 +1659,20 @@ public interface SLEECPackage extends EPackage
     EReference RESPONSE__EVENT = eINSTANCE.getResponse_Event();
 
     /**
-     * The meta object literal for the '<em><b>Time</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference RESPONSE__TIME = eINSTANCE.getResponse_Time();
+    EReference RESPONSE__VALUE = eINSTANCE.getResponse_Value();
+
+    /**
+     * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RESPONSE__UNIT = eINSTANCE.getResponse_Unit();
 
     /**
      * The meta object literal for the '<em><b>Response</b></em>' containment reference feature.
@@ -1883,6 +1931,16 @@ public interface SLEECPackage extends EPackage
      * @generated
      */
     EEnum BOOL_OP = eINSTANCE.getBoolOp();
+
+    /**
+     * The meta object literal for the '{@link circus.robocalc.sleec.sLEEC.TimeUnit <em>Time Unit</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see circus.robocalc.sleec.sLEEC.TimeUnit
+     * @see circus.robocalc.sleec.sLEEC.impl.SLEECPackageImpl#getTimeUnit()
+     * @generated
+     */
+    EEnum TIME_UNIT = eINSTANCE.getTimeUnit();
 
   }
 

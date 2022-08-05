@@ -76,7 +76,7 @@ public class SLEECParsingTest {
       _builder.append("rule_start");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("Rule1 when E0 then E1 within 2");
+      _builder.append("Rule1 when E0 then E1 within 2 minutes");
       _builder.newLine();
       _builder.append("rule_end");
       _builder.newLine();
@@ -363,7 +363,7 @@ public class SLEECParsingTest {
       _builder.append("Rule1 when E0 and m0 > C0 then E1");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("Rule2 when E0 then E1 within C0");
+      _builder.append("Rule2 when E0 then E1 within C0 days");
       _builder.newLine();
       _builder.append("rule_end");
       _builder.newLine();
@@ -480,13 +480,13 @@ public class SLEECParsingTest {
       _builder.append("rule_start");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("Rule1 when E0 then E1 within 1 otherwise E2");
+      _builder.append("Rule1 when E0 then E1 within 1 seconds otherwise E2");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("Rule2 when E0 then E1 within 1 otherwise E2 within 0");
+      _builder.append("Rule2 when E0 then E1 within 1 seconds otherwise E2 within 0 seconds");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("Rule3 when E0 then E1 within 0 otherwise E2 within 2 unless E3");
+      _builder.append("Rule3 when E0 then E1 within 0 seconds otherwise E2 within 2 seconds unless E3");
       _builder.newLine();
       _builder.append("rule_end");
       _builder.newLine();
@@ -524,10 +524,10 @@ public class SLEECParsingTest {
       _builder.append("rule_start");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("Rule1 when E0 then not E1 within 0");
+      _builder.append("Rule1 when E0 then not E1 within 0 seconds");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("Rule1 when E0 then E1 within 1 otherwise not E2 within 3");
+      _builder.append("Rule1 when E0 then E1 within 1 seconds otherwise not E2 within 3 seconds");
       _builder.newLine();
       _builder.append("rule_end");
       _builder.newLine();
@@ -639,10 +639,10 @@ public class SLEECParsingTest {
       _builder.append("rule_start");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("Rule1 when E0 and m0 and (m1 < C0 or m2 > s0) or m1 < 5 then E1 within C0 otherwise not E2 within C1");
+      _builder.append("Rule1 when E0 and m0 and (m1 < C0 or m2 > s0) or m1 < 5 then E1 within C0 minutes otherwise not E2 within C1 minutes");
       _builder.newLine();
       _builder.append("\t\t");
-      _builder.append("unless m1 <> C0 and (m0 or m1 < 5) then E3 within C1 otherwise E4 within 3 otherwise E5");
+      _builder.append("unless m1 <> C0 and (m0 or m1 < 5) then E3 within C1 seconds otherwise E4 within 3 hours otherwise E5");
       _builder.newLine();
       _builder.append("rule_end");
       _builder.newLine();
@@ -690,6 +690,65 @@ public class SLEECParsingTest {
       boolean _isEmpty = errors.isEmpty();
       StringConcatenation _builder_1 = new StringConcatenation();
       _builder_1.append("Unexpected errors:");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void test_time_unit() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("def_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E0");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E1");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E2");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E3");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("event E4");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("constant C0 = 5");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("constant C1 = 6.7");
+      _builder.newLine();
+      _builder.append("def_end");
+      _builder.newLine();
+      _builder.append("rule_start");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("Rule1 when E0 then E1 within 2 seconds");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("otherwise E2 within 3.4 minutes");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("otherwise E3 within C0 hours");
+      _builder.newLine();
+      _builder.append("\t\t");
+      _builder.append("otherwise E4 within C1 days");
+      _builder.newLine();
+      _builder.append("rule_end");
+      _builder.newLine();
+      Specification result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors");
       String _join = IterableExtensions.join(errors, ", ");
       _builder_1.append(_join);
       Assertions.assertTrue(_isEmpty, _builder_1.toString());

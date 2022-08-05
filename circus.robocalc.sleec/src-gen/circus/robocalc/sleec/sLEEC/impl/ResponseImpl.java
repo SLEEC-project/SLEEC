@@ -6,6 +6,7 @@ package circus.robocalc.sleec.sLEEC.impl;
 import circus.robocalc.sleec.sLEEC.Event;
 import circus.robocalc.sleec.sLEEC.Response;
 import circus.robocalc.sleec.sLEEC.SLEECPackage;
+import circus.robocalc.sleec.sLEEC.TimeUnit;
 import circus.robocalc.sleec.sLEEC.Value;
 
 import java.lang.Boolean;
@@ -28,7 +29,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getEvent <em>Event</em>}</li>
- *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getTime <em>Time</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getUnit <em>Unit</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#getResponse <em>Response</em>}</li>
  *   <li>{@link circus.robocalc.sleec.sLEEC.impl.ResponseImpl#isNot <em>Not</em>}</li>
  * </ul>
@@ -48,14 +50,34 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   protected Event event;
 
   /**
-   * The cached value of the '{@link #getTime() <em>Time</em>}' containment reference.
+   * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTime()
+   * @see #getValue()
    * @generated
    * @ordered
    */
-  protected Value time;
+  protected Value value;
+
+  /**
+   * The default value of the '{@link #getUnit() <em>Unit</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUnit()
+   * @generated
+   * @ordered
+   */
+  protected static final TimeUnit UNIT_EDEFAULT = TimeUnit.SECONDS;
+
+  /**
+   * The cached value of the '{@link #getUnit() <em>Unit</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getUnit()
+   * @generated
+   * @ordered
+   */
+  protected TimeUnit unit = UNIT_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getResponse() <em>Response</em>}' containment reference.
@@ -159,9 +181,9 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
    * @generated
    */
   @Override
-  public Value getTime()
+  public Value getValue()
   {
-    return time;
+    return value;
   }
 
   /**
@@ -169,13 +191,13 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTime(Value newTime, NotificationChain msgs)
+  public NotificationChain basicSetValue(Value newValue, NotificationChain msgs)
   {
-    Value oldTime = time;
-    time = newTime;
+    Value oldValue = value;
+    value = newValue;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SLEECPackage.RESPONSE__TIME, oldTime, newTime);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SLEECPackage.RESPONSE__VALUE, oldValue, newValue);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -187,20 +209,45 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
    * @generated
    */
   @Override
-  public void setTime(Value newTime)
+  public void setValue(Value newValue)
   {
-    if (newTime != time)
+    if (newValue != value)
     {
       NotificationChain msgs = null;
-      if (time != null)
-        msgs = ((InternalEObject)time).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.RESPONSE__TIME, null, msgs);
-      if (newTime != null)
-        msgs = ((InternalEObject)newTime).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.RESPONSE__TIME, null, msgs);
-      msgs = basicSetTime(newTime, msgs);
+      if (value != null)
+        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.RESPONSE__VALUE, null, msgs);
+      if (newValue != null)
+        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SLEECPackage.RESPONSE__VALUE, null, msgs);
+      msgs = basicSetValue(newValue, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.RESPONSE__TIME, newTime, newTime));
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.RESPONSE__VALUE, newValue, newValue));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public TimeUnit getUnit()
+  {
+    return unit;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setUnit(TimeUnit newUnit)
+  {
+    TimeUnit oldUnit = unit;
+    unit = newUnit == null ? UNIT_EDEFAULT : newUnit;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SLEECPackage.RESPONSE__UNIT, oldUnit, unit));
   }
 
   /**
@@ -288,8 +335,8 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
   {
     switch (featureID)
     {
-      case SLEECPackage.RESPONSE__TIME:
-        return basicSetTime(null, msgs);
+      case SLEECPackage.RESPONSE__VALUE:
+        return basicSetValue(null, msgs);
       case SLEECPackage.RESPONSE__RESPONSE:
         return basicSetResponse(null, msgs);
     }
@@ -309,8 +356,10 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
       case SLEECPackage.RESPONSE__EVENT:
         if (resolve) return getEvent();
         return basicGetEvent();
-      case SLEECPackage.RESPONSE__TIME:
-        return getTime();
+      case SLEECPackage.RESPONSE__VALUE:
+        return getValue();
+      case SLEECPackage.RESPONSE__UNIT:
+        return getUnit();
       case SLEECPackage.RESPONSE__RESPONSE:
         return getResponse();
       case SLEECPackage.RESPONSE__NOT:
@@ -332,8 +381,11 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
       case SLEECPackage.RESPONSE__EVENT:
         setEvent((Event)newValue);
         return;
-      case SLEECPackage.RESPONSE__TIME:
-        setTime((Value)newValue);
+      case SLEECPackage.RESPONSE__VALUE:
+        setValue((Value)newValue);
+        return;
+      case SLEECPackage.RESPONSE__UNIT:
+        setUnit((TimeUnit)newValue);
         return;
       case SLEECPackage.RESPONSE__RESPONSE:
         setResponse((Response)newValue);
@@ -358,8 +410,11 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
       case SLEECPackage.RESPONSE__EVENT:
         setEvent((Event)null);
         return;
-      case SLEECPackage.RESPONSE__TIME:
-        setTime((Value)null);
+      case SLEECPackage.RESPONSE__VALUE:
+        setValue((Value)null);
+        return;
+      case SLEECPackage.RESPONSE__UNIT:
+        setUnit(UNIT_EDEFAULT);
         return;
       case SLEECPackage.RESPONSE__RESPONSE:
         setResponse((Response)null);
@@ -383,8 +438,10 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
     {
       case SLEECPackage.RESPONSE__EVENT:
         return event != null;
-      case SLEECPackage.RESPONSE__TIME:
-        return time != null;
+      case SLEECPackage.RESPONSE__VALUE:
+        return value != null;
+      case SLEECPackage.RESPONSE__UNIT:
+        return unit != UNIT_EDEFAULT;
       case SLEECPackage.RESPONSE__RESPONSE:
         return response != null;
       case SLEECPackage.RESPONSE__NOT:
@@ -404,7 +461,9 @@ public class ResponseImpl extends MinimalEObjectImpl.Container implements Respon
     if (eIsProxy()) return super.toString();
 
     StringBuilder result = new StringBuilder(super.toString());
-    result.append(" (not: ");
+    result.append(" (unit: ");
+    result.append(unit);
+    result.append(", not: ");
     result.append(not);
     result.append(')');
     return result.toString();

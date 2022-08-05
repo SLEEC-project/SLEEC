@@ -42,7 +42,7 @@ class SLEECParsingTest {
 				event E1
 			def_end
 			rule_start
-				Rule1 when E0 then E1 within 2
+				Rule1 when E0 then E1 within 2 minutes
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -169,7 +169,7 @@ class SLEECParsingTest {
 			def_end
 			rule_start
 				Rule1 when E0 and m0 > C0 then E1
-				Rule2 when E0 then E1 within C0
+				Rule2 when E0 then E1 within C0 days
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -224,9 +224,9 @@ class SLEECParsingTest {
 				event E3
 			def_end
 			rule_start
-				Rule1 when E0 then E1 within 1 otherwise E2
-				Rule2 when E0 then E1 within 1 otherwise E2 within 0
-				Rule3 when E0 then E1 within 0 otherwise E2 within 2 unless E3
+				Rule1 when E0 then E1 within 1 seconds otherwise E2
+				Rule2 when E0 then E1 within 1 seconds otherwise E2 within 0 seconds
+				Rule3 when E0 then E1 within 0 seconds otherwise E2 within 2 seconds unless E3
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -243,8 +243,8 @@ class SLEECParsingTest {
 				event E2
 			def_end
 			rule_start
-				Rule1 when E0 then not E1 within 0
-				Rule1 when E0 then E1 within 1 otherwise not E2 within 3
+				Rule1 when E0 then not E1 within 0 seconds
+				Rule1 when E0 then E1 within 1 seconds otherwise not E2 within 3 seconds
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -290,8 +290,8 @@ class SLEECParsingTest {
 				constant C1 = 7
 			def_end
 			rule_start
-				Rule1 when E0 and m0 and (m1 < C0 or m2 > s0) or m1 < 5 then E1 within C0 otherwise not E2 within C1
-					unless m1 <> C0 and (m0 or m1 < 5) then E3 within C1 otherwise E4 within 3 otherwise E5
+				Rule1 when E0 and m0 and (m1 < C0 or m2 > s0) or m1 < 5 then E1 within C0 minutes otherwise not E2 within C1 minutes
+					unless m1 <> C0 and (m0 or m1 < 5) then E3 within C1 seconds otherwise E4 within 3 hours otherwise E5
 			rule_end
 		''')
 		Assertions.assertNotNull(result)
@@ -314,5 +314,29 @@ class SLEECParsingTest {
 		Assertions.assertNotNull(result)
 		val errors = result.eResource.errors
 		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors:«errors.join(", ")»''')
+	}
+	
+	@Test
+	def void test_time_unit() {
+		var result = parseHelper.parse('''
+			def_start
+				event E0
+				event E1
+				event E2
+				event E3
+				event E4
+				constant C0 = 5
+				constant C1 = 6.7
+			def_end
+			rule_start
+				Rule1 when E0 then E1 within 2 seconds
+					otherwise E2 within 3.4 minutes
+					otherwise E3 within C0 hours
+					otherwise E4 within C1 days
+			rule_end
+		''')
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors«errors.join(", ")»''')
 	}
 }

@@ -623,12 +623,14 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final RuleCall cEventEventIDTerminalRuleCall_0_0_0_1 = (RuleCall)cEventEventCrossReference_0_0_0.eContents().get(1);
 		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
 		private final Keyword cWithinKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
-		private final Assignment cTimeAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
-		private final RuleCall cTimeValueParserRuleCall_0_1_1_0 = (RuleCall)cTimeAssignment_0_1_1.eContents().get(0);
-		private final Group cGroup_0_1_2 = (Group)cGroup_0_1.eContents().get(2);
-		private final Keyword cOtherwiseKeyword_0_1_2_0 = (Keyword)cGroup_0_1_2.eContents().get(0);
-		private final Assignment cResponseAssignment_0_1_2_1 = (Assignment)cGroup_0_1_2.eContents().get(1);
-		private final RuleCall cResponseResponseParserRuleCall_0_1_2_1_0 = (RuleCall)cResponseAssignment_0_1_2_1.eContents().get(0);
+		private final Assignment cValueAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
+		private final RuleCall cValueValueParserRuleCall_0_1_1_0 = (RuleCall)cValueAssignment_0_1_1.eContents().get(0);
+		private final Assignment cUnitAssignment_0_1_2 = (Assignment)cGroup_0_1.eContents().get(2);
+		private final RuleCall cUnitTimeUnitEnumRuleCall_0_1_2_0 = (RuleCall)cUnitAssignment_0_1_2.eContents().get(0);
+		private final Group cGroup_0_1_3 = (Group)cGroup_0_1.eContents().get(3);
+		private final Keyword cOtherwiseKeyword_0_1_3_0 = (Keyword)cGroup_0_1_3.eContents().get(0);
+		private final Assignment cResponseAssignment_0_1_3_1 = (Assignment)cGroup_0_1_3.eContents().get(1);
+		private final RuleCall cResponseResponseParserRuleCall_0_1_3_1_0 = (RuleCall)cResponseAssignment_0_1_3_1.eContents().get(0);
 		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
 		private final Assignment cNotAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
 		private final Keyword cNotNotKeyword_1_0_0 = (Keyword)cNotAssignment_1_0.eContents().get(0);
@@ -636,18 +638,20 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		private final CrossReference cEventEventCrossReference_1_1_0 = (CrossReference)cEventAssignment_1_1.eContents().get(0);
 		private final RuleCall cEventEventIDTerminalRuleCall_1_1_0_1 = (RuleCall)cEventEventCrossReference_1_1_0.eContents().get(1);
 		private final Keyword cWithinKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
-		private final Assignment cTimeAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
-		private final RuleCall cTimeValueParserRuleCall_1_3_0 = (RuleCall)cTimeAssignment_1_3.eContents().get(0);
+		private final Assignment cValueAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
+		private final RuleCall cValueValueParserRuleCall_1_3_0 = (RuleCall)cValueAssignment_1_3.eContents().get(0);
+		private final Assignment cUnitAssignment_1_4 = (Assignment)cGroup_1.eContents().get(4);
+		private final RuleCall cUnitTimeUnitEnumRuleCall_1_4_0 = (RuleCall)cUnitAssignment_1_4.eContents().get(0);
 		
 		//Response:
-		//    event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
+		//    event=[Event] ('within' value=Value unit=TimeUnit ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' value=Value unit=TimeUnit
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
+		//event=[Event] ('within' value=Value unit=TimeUnit ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' value=Value unit=TimeUnit
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
-		//event=[Event] ('within' time=Value ('otherwise' response=Response)?)?
+		//event=[Event] ('within' value=Value unit=TimeUnit ('otherwise' response=Response)?)?
 		public Group getGroup_0() { return cGroup_0; }
 		
 		//event=[Event]
@@ -659,31 +663,37 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//ID
 		public RuleCall getEventEventIDTerminalRuleCall_0_0_0_1() { return cEventEventIDTerminalRuleCall_0_0_0_1; }
 		
-		//('within' time=Value ('otherwise' response=Response)?)?
+		//('within' value=Value unit=TimeUnit ('otherwise' response=Response)?)?
 		public Group getGroup_0_1() { return cGroup_0_1; }
 		
 		//'within'
 		public Keyword getWithinKeyword_0_1_0() { return cWithinKeyword_0_1_0; }
 		
-		//time=Value
-		public Assignment getTimeAssignment_0_1_1() { return cTimeAssignment_0_1_1; }
+		//value=Value
+		public Assignment getValueAssignment_0_1_1() { return cValueAssignment_0_1_1; }
 		
 		//Value
-		public RuleCall getTimeValueParserRuleCall_0_1_1_0() { return cTimeValueParserRuleCall_0_1_1_0; }
+		public RuleCall getValueValueParserRuleCall_0_1_1_0() { return cValueValueParserRuleCall_0_1_1_0; }
+		
+		//unit=TimeUnit
+		public Assignment getUnitAssignment_0_1_2() { return cUnitAssignment_0_1_2; }
+		
+		//TimeUnit
+		public RuleCall getUnitTimeUnitEnumRuleCall_0_1_2_0() { return cUnitTimeUnitEnumRuleCall_0_1_2_0; }
 		
 		//('otherwise' response=Response)?
-		public Group getGroup_0_1_2() { return cGroup_0_1_2; }
+		public Group getGroup_0_1_3() { return cGroup_0_1_3; }
 		
 		//'otherwise'
-		public Keyword getOtherwiseKeyword_0_1_2_0() { return cOtherwiseKeyword_0_1_2_0; }
+		public Keyword getOtherwiseKeyword_0_1_3_0() { return cOtherwiseKeyword_0_1_3_0; }
 		
 		//response=Response
-		public Assignment getResponseAssignment_0_1_2_1() { return cResponseAssignment_0_1_2_1; }
+		public Assignment getResponseAssignment_0_1_3_1() { return cResponseAssignment_0_1_3_1; }
 		
 		//Response
-		public RuleCall getResponseResponseParserRuleCall_0_1_2_1_0() { return cResponseResponseParserRuleCall_0_1_2_1_0; }
+		public RuleCall getResponseResponseParserRuleCall_0_1_3_1_0() { return cResponseResponseParserRuleCall_0_1_3_1_0; }
 		
-		//not?='not' event=[Event] 'within' time=Value
+		//not?='not' event=[Event] 'within' value=Value unit=TimeUnit
 		public Group getGroup_1() { return cGroup_1; }
 		
 		//not?='not'
@@ -704,11 +714,17 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'within'
 		public Keyword getWithinKeyword_1_2() { return cWithinKeyword_1_2; }
 		
-		//time=Value
-		public Assignment getTimeAssignment_1_3() { return cTimeAssignment_1_3; }
+		//value=Value
+		public Assignment getValueAssignment_1_3() { return cValueAssignment_1_3; }
 		
 		//Value
-		public RuleCall getTimeValueParserRuleCall_1_3_0() { return cTimeValueParserRuleCall_1_3_0; }
+		public RuleCall getValueValueParserRuleCall_1_3_0() { return cValueValueParserRuleCall_1_3_0; }
+		
+		//unit=TimeUnit
+		public Assignment getUnitAssignment_1_4() { return cUnitAssignment_1_4; }
+		
+		//TimeUnit
+		public RuleCall getUnitTimeUnitEnumRuleCall_1_4_0() { return cUnitTimeUnitEnumRuleCall_1_4_0; }
 	}
 	public class DefeaterElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.Defeater");
@@ -899,6 +915,50 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		//'or'
 		public Keyword getOROrKeyword_1_0() { return cOROrKeyword_1_0; }
 	}
+	public class TimeUnitElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.TimeUnit");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final EnumLiteralDeclaration cSECONDSEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cSECONDSSecondsKeyword_0_0 = (Keyword)cSECONDSEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cMINUTESEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cMINUTESMinutesKeyword_1_0 = (Keyword)cMINUTESEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cHOURSEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cHOURSHoursKeyword_2_0 = (Keyword)cHOURSEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cDAYSEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cDAYSDaysKeyword_3_0 = (Keyword)cDAYSEnumLiteralDeclaration_3.eContents().get(0);
+		
+		//enum TimeUnit:
+		//    SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days'
+		//;
+		public EnumRule getRule() { return rule; }
+		
+		//SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days'
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//SECONDS='seconds'
+		public EnumLiteralDeclaration getSECONDSEnumLiteralDeclaration_0() { return cSECONDSEnumLiteralDeclaration_0; }
+		
+		//'seconds'
+		public Keyword getSECONDSSecondsKeyword_0_0() { return cSECONDSSecondsKeyword_0_0; }
+		
+		//MINUTES='minutes'
+		public EnumLiteralDeclaration getMINUTESEnumLiteralDeclaration_1() { return cMINUTESEnumLiteralDeclaration_1; }
+		
+		//'minutes'
+		public Keyword getMINUTESMinutesKeyword_1_0() { return cMINUTESMinutesKeyword_1_0; }
+		
+		//HOURS='hours'
+		public EnumLiteralDeclaration getHOURSEnumLiteralDeclaration_2() { return cHOURSEnumLiteralDeclaration_2; }
+		
+		//'hours'
+		public Keyword getHOURSHoursKeyword_2_0() { return cHOURSHoursKeyword_2_0; }
+		
+		//DAYS='days'
+		public EnumLiteralDeclaration getDAYSEnumLiteralDeclaration_3() { return cDAYSEnumLiteralDeclaration_3; }
+		
+		//'days'
+		public Keyword getDAYSDaysKeyword_3_0() { return cDAYSDaysKeyword_3_0; }
+	}
 	
 	private final SpecificationElements pSpecification;
 	private final DefblockElements pDefblock;
@@ -917,6 +977,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	private final DefeaterElements pDefeater;
 	private final RelOpElements eRelOp;
 	private final BoolOpElements eBoolOp;
+	private final TimeUnitElements eTimeUnit;
 	private final EventIDElements pEventID;
 	private final MeasureIDElements pMeasureID;
 	private final ConstIDElements pConstID;
@@ -950,6 +1011,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		this.pDefeater = new DefeaterElements();
 		this.eRelOp = new RelOpElements();
 		this.eBoolOp = new BoolOpElements();
+		this.eTimeUnit = new TimeUnitElements();
 		this.pEventID = new EventIDElements();
 		this.pMeasureID = new MeasureIDElements();
 		this.pConstID = new ConstIDElements();
@@ -1135,7 +1197,7 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	
 	//Response:
-	//    event=[Event] ('within' time=Value ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' time=Value
+	//    event=[Event] ('within' value=Value unit=TimeUnit ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' value=Value unit=TimeUnit
 	//;
 	public ResponseElements getResponseAccess() {
 		return pResponse;
@@ -1176,6 +1238,17 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	
 	public EnumRule getBoolOpRule() {
 		return getBoolOpAccess().getRule();
+	}
+	
+	//enum TimeUnit:
+	//    SECONDS='seconds' | MINUTES='minutes' | HOURS='hours' | DAYS='days'
+	//;
+	public TimeUnitElements getTimeUnitAccess() {
+		return eTimeUnit;
+	}
+	
+	public EnumRule getTimeUnitRule() {
+		return getTimeUnitAccess().getRule();
 	}
 	
 	//EventID:

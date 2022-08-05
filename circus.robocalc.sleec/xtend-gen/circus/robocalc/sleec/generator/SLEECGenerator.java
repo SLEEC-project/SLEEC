@@ -19,6 +19,7 @@ import circus.robocalc.sleec.sLEEC.RelOp;
 import circus.robocalc.sleec.sLEEC.Response;
 import circus.robocalc.sleec.sLEEC.Rule;
 import circus.robocalc.sleec.sLEEC.Scale;
+import circus.robocalc.sleec.sLEEC.TimeUnit;
 import circus.robocalc.sleec.sLEEC.Trigger;
 import circus.robocalc.sleec.sLEEC.Type;
 import circus.robocalc.sleec.sLEEC.Value;
@@ -320,14 +321,15 @@ public class SLEECGenerator extends AbstractGenerator {
     CharSequence _xblockexpression = null;
     {
       final String eID = r.getEvent().getName();
-      final Value v = r.getTime();
+      final Value v = r.getValue();
+      final TimeUnit tU = r.getUnit();
       final Response resp = r.getResponse();
       CharSequence _xifexpression = null;
       boolean _isNot = r.isNot();
       if (_isNot) {
         StringConcatenation _builder = new StringConcatenation();
         _builder.append("Wait(");
-        CharSequence _norm = this.norm(v);
+        CharSequence _norm = this.norm(v, tU);
         _builder.append(_norm);
         _builder.append(")");
         _xifexpression = _builder;
@@ -345,7 +347,7 @@ public class SLEECGenerator extends AbstractGenerator {
             _builder_2.append("StartBy(");
             _builder_2.append(eID);
             _builder_2.append(" -> SKIP,");
-            CharSequence _norm_1 = this.norm(v);
+            CharSequence _norm_1 = this.norm(v, tU);
             _builder_2.append(_norm_1);
             _builder_2.append(")");
             _xifexpression_2 = _builder_2;
@@ -354,7 +356,7 @@ public class SLEECGenerator extends AbstractGenerator {
             _builder_3.append("TimedInterrupt(");
             _builder_3.append(eID);
             _builder_3.append(" -> SKIP,");
-            CharSequence _norm_2 = this.norm(v);
+            CharSequence _norm_2 = this.norm(v, tU);
             _builder_3.append(_norm_2);
             _builder_3.append(",");
             CharSequence _RP = this.RP(resp);
@@ -612,6 +614,43 @@ public class SLEECGenerator extends AbstractGenerator {
       _xifexpression = this.norm(v.getConstant().getValue());
     }
     return _xifexpression;
+  }
+  
+  private CharSequence norm(final Value v, final TimeUnit tU) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("(");
+    CharSequence _norm = this.norm(v);
+    _builder.append(_norm);
+    _builder.append(" * ");
+    Integer _norm_1 = this.norm(tU);
+    _builder.append(_norm_1);
+    _builder.append(")");
+    return _builder;
+  }
+  
+  private Integer norm(final TimeUnit tU) {
+    int _switchResult = (int) 0;
+    if (tU != null) {
+      switch (tU) {
+        case SECONDS:
+          _switchResult = 1;
+          break;
+        case MINUTES:
+          _switchResult = 60;
+          break;
+        case HOURS:
+          Integer _norm = this.norm(TimeUnit.MINUTES);
+          _switchResult = (60 * (_norm).intValue());
+          break;
+        case DAYS:
+          Integer _norm_1 = this.norm(TimeUnit.HOURS);
+          _switchResult = (24 * (_norm_1).intValue());
+          break;
+        default:
+          break;
+      }
+    }
+    return Integer.valueOf(_switchResult);
   }
   
   private <T extends EObject> T replace(final T AST, final String vmID, final String mID) {
