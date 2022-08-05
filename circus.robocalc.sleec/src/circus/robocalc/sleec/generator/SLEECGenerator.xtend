@@ -229,8 +229,8 @@ class SLEECGenerator extends AbstractGenerator {
 	private def EDS(Defeater dft, CharSequence fp, Integer n) {
 		val mBE = dft.expr
 		'''
-		if «norm(mBE)» then Monitoring«n» else «fp»
-		'''
+		if «norm(mBE)» then Monitoring«n»
+		else («fp»)'''
 	}
 	
 	// [[dfts dft,fp,n]]EDS

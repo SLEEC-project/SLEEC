@@ -486,9 +486,10 @@ public class SLEECGenerator extends AbstractGenerator {
       _builder.append(_norm);
       _builder.append(" then Monitoring");
       _builder.append(n);
-      _builder.append(" else ");
-      _builder.append(fp);
       _builder.newLineIfNotEmpty();
+      _builder.append("else (");
+      _builder.append(fp);
+      _builder.append(")");
       _xblockexpression = _builder;
     }
     return _xblockexpression;
