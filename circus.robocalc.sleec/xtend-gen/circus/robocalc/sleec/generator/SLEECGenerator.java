@@ -51,6 +51,13 @@ public class SLEECGenerator extends AbstractGenerator {
     String _lastSegment = resource.getURI().trimFileExtension().lastSegment();
     String _plus = (_lastSegment + ".csp");
     StringConcatenation _builder = new StringConcatenation();
+    _builder.append("include \"ticktock.csp\"");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("Timed(et) {");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
     final Function1<Definition, CharSequence> _function = (Definition it) -> {
       return this.D(it);
     };
@@ -63,6 +70,10 @@ public class SLEECGenerator extends AbstractGenerator {
     String _join_1 = IterableExtensions.join(IterableExtensions.<Rule, CharSequence>map(IteratorExtensions.<Rule>toIterable(Iterators.<Rule>filter(resource.getAllContents(), Rule.class)), _function_1), "");
     _builder.append(_join_1);
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
     fsa.generateFile(_plus, _builder);
   }
   

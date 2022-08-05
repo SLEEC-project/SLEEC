@@ -38,6 +38,10 @@ class SLEECGenerator extends AbstractGenerator {
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		fsa.generateFile(
 			resource.getURI().trimFileExtension().lastSegment() + '.csp', '''
+			include "ticktock.csp"
+			
+			Timed(et) {
+				
 			«resource.allContents
 				.filter(Definition)
 				.toIterable
@@ -48,6 +52,8 @@ class SLEECGenerator extends AbstractGenerator {
 				.toIterable
 				.map[R]
 				.join('')»
+				
+			}
 		''')
 	}
 	
