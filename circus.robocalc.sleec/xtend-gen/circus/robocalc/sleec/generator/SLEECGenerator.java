@@ -145,7 +145,10 @@ public class SLEECGenerator extends AbstractGenerator {
         _builder.append("\t");
         _builder.append("if v1");
         _builder.append(mID, "\t");
-        _builder.append(" == sp1 then true");
+        _builder.append(" == ");
+        String _head = IterableExtensions.<String>head(((Scale)t).getScaleParams());
+        _builder.append(_head, "\t");
+        _builder.append(" then true");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         int _size = ((Scale)t).getScaleParams().size();
