@@ -800,40 +800,15 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 	}
 	public class RuleIDElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "circus.robocalc.sleec.SLEEC.RuleID");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
-		private final RuleCall cINTTerminalRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final RuleCall cRuleIDParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//// TODO change to just ID
 		//RuleID:
-		//    (INT | ID) ('.' RuleID)?
+		//    ID
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//(INT | ID) ('.' RuleID)?
-		public Group getGroup() { return cGroup; }
-		
-		//(INT | ID)
-		public Alternatives getAlternatives_0() { return cAlternatives_0; }
-		
-		//INT
-		public RuleCall getINTTerminalRuleCall_0_0() { return cINTTerminalRuleCall_0_0; }
-		
 		//ID
-		public RuleCall getIDTerminalRuleCall_0_1() { return cIDTerminalRuleCall_0_1; }
-		
-		//('.' RuleID)?
-		public Group getGroup_1() { return cGroup_1; }
-		
-		//'.'
-		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
-		
-		//RuleID
-		public RuleCall getRuleIDParserRuleCall_1_1() { return cRuleIDParserRuleCall_1_1; }
+		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
 	}
 	
 	public class RelOpElements extends AbstractElementFinder.AbstractEnumRuleElementFinder {
@@ -1247,9 +1222,8 @@ public class SLEECGrammarAccess extends AbstractElementFinder.AbstractGrammarEle
 		return getScaleParamAccess().getRule();
 	}
 	
-	//// TODO change to just ID
 	//RuleID:
-	//    (INT | ID) ('.' RuleID)?
+	//    ID
 	//;
 	public RuleIDElements getRuleIDAccess() {
 		return pRuleID;

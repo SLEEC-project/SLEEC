@@ -546,47 +546,6 @@ public class SLEECParsingTest {
   }
   
   @Test
-  public void test_extension() {
-    try {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("def_start");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("event E0");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("event E1");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("event E2");
-      _builder.newLine();
-      _builder.append("def_end");
-      _builder.newLine();
-      _builder.append("rule_start");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("Rule1 when E0 then E1 within 1");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("Rul1.a when E0 then E1 within 1 otherwise E2");
-      _builder.newLine();
-      _builder.append("rule_end");
-      _builder.newLine();
-      Specification result = this.parseHelper.parse(_builder);
-      Assertions.assertNotNull(result);
-      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
-      boolean _isEmpty = errors.isEmpty();
-      StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append("Unexpected errors: ");
-      String _join = IterableExtensions.join(errors, ", ");
-      _builder_1.append(_join);
-      Assertions.assertTrue(_isEmpty, _builder_1.toString());
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  @Test
   public void test_defeaters() {
     try {
       StringConcatenation _builder = new StringConcatenation();

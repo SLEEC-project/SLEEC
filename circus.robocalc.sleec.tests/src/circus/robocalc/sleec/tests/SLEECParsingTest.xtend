@@ -253,24 +253,6 @@ class SLEECParsingTest {
 	}
 	
 	@Test
-	def void test_extension() {
-		var result = parseHelper.parse('''
-			def_start
-				event E0
-				event E1
-				event E2
-			def_end
-			rule_start
-				Rule1 when E0 then E1 within 1
-				Rul1.a when E0 then E1 within 1 otherwise E2
-			rule_end
-		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
-	}
-	
-	@Test
 	def void test_defeaters() {
 		var result = parseHelper.parse('''
 			def_start

@@ -1350,42 +1350,13 @@ ruleRuleID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
 @after {
 	leaveRule();
 }:
-	(
-		(
-			this_INT_0=RULE_INT
-			{
-				$current.merge(this_INT_0);
-			}
-			{
-				newLeafNode(this_INT_0, grammarAccess.getRuleIDAccess().getINTTerminalRuleCall_0_0());
-			}
-			    |
-			this_ID_1=RULE_ID
-			{
-				$current.merge(this_ID_1);
-			}
-			{
-				newLeafNode(this_ID_1, grammarAccess.getRuleIDAccess().getIDTerminalRuleCall_0_1());
-			}
-		)
-		(
-			kw='.'
-			{
-				$current.merge(kw);
-				newLeafNode(kw, grammarAccess.getRuleIDAccess().getFullStopKeyword_1_0());
-			}
-			{
-				newCompositeNode(grammarAccess.getRuleIDAccess().getRuleIDParserRuleCall_1_1());
-			}
-			this_RuleID_3=ruleRuleID
-			{
-				$current.merge(this_RuleID_3);
-			}
-			{
-				afterParserOrEnumRuleCall();
-			}
-		)?
-	)
+	this_ID_0=RULE_ID
+	{
+		$current.merge(this_ID_0);
+	}
+	{
+		newLeafNode(this_ID_0, grammarAccess.getRuleIDAccess().getIDTerminalRuleCall());
+	}
 ;
 
 // Rule RelOp

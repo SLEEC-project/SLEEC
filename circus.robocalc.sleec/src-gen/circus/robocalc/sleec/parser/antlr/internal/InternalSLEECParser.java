@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalSLEECParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_FLOAT", "RULE_ID", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'def_start'", "'def_end'", "'event'", "'measure'", "':'", "'constant'", "'='", "'boolean'", "'numeric'", "'scale'", "'('", "','", "')'", "'rule_start'", "'rule_end'", "'when'", "'then'", "'and'", "'not'", "'within'", "'otherwise'", "'unless'", "'.'", "'<'", "'>'", "'<>'", "'<='", "'>='", "'or'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_FLOAT", "RULE_ID", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'def_start'", "'def_end'", "'event'", "'measure'", "':'", "'constant'", "'='", "'boolean'", "'numeric'", "'scale'", "'('", "','", "')'", "'rule_start'", "'rule_end'", "'when'", "'then'", "'and'", "'not'", "'within'", "'otherwise'", "'unless'", "'<'", "'>'", "'<>'", "'<='", "'>='", "'or'"
     };
     public static final int RULE_STRING=7;
     public static final int RULE_SL_COMMENT=9;
@@ -59,7 +59,6 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
     public static final int RULE_FLOAT=5;
     public static final int T__24=24;
     public static final int T__25=25;
-    public static final int T__40=40;
     public static final int T__20=20;
     public static final int T__21=21;
 
@@ -1271,7 +1270,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
             // InternalSLEEC.g:527:2: (otherlv_0= 'rule_start' ( (lv_rules_1_0= ruleRule ) )+ otherlv_2= 'rule_end' )
             // InternalSLEEC.g:528:3: otherlv_0= 'rule_start' ( (lv_rules_1_0= ruleRule ) )+ otherlv_2= 'rule_end'
             {
-            otherlv_0=(Token)match(input,25,FOLLOW_13); 
+            otherlv_0=(Token)match(input,25,FOLLOW_6); 
 
             			newLeafNode(otherlv_0, grammarAccess.getRuleBlockAccess().getRule_startKeyword_0());
             		
@@ -1282,7 +1281,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                 int alt6=2;
                 int LA6_0 = input.LA(1);
 
-                if ( (LA6_0==RULE_INT||LA6_0==RULE_ID) ) {
+                if ( (LA6_0==RULE_ID) ) {
                     alt6=1;
                 }
 
@@ -1297,7 +1296,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             	    					newCompositeNode(grammarAccess.getRuleBlockAccess().getRulesRuleParserRuleCall_1_0());
             	    				
-            	    pushFollow(FOLLOW_14);
+            	    pushFollow(FOLLOW_13);
             	    lv_rules_1_0=ruleRule();
 
             	    state._fsp--;
@@ -1426,7 +1425,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             					newCompositeNode(grammarAccess.getRuleAccess().getNameRuleIDParserRuleCall_0_0());
             				
-            pushFollow(FOLLOW_15);
+            pushFollow(FOLLOW_14);
             lv_name_0_0=ruleRuleID();
 
             state._fsp--;
@@ -1461,7 +1460,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             					newCompositeNode(grammarAccess.getRuleAccess().getTriggerTriggerParserRuleCall_2_0());
             				
-            pushFollow(FOLLOW_16);
+            pushFollow(FOLLOW_15);
             lv_trigger_2_0=ruleTrigger();
 
             state._fsp--;
@@ -1483,7 +1482,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,28,FOLLOW_17); 
+            otherlv_3=(Token)match(input,28,FOLLOW_16); 
 
             			newLeafNode(otherlv_3, grammarAccess.getRuleAccess().getThenKeyword_3());
             		
@@ -1496,7 +1495,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             					newCompositeNode(grammarAccess.getRuleAccess().getResponseResponseParserRuleCall_4_0());
             				
-            pushFollow(FOLLOW_18);
+            pushFollow(FOLLOW_17);
             lv_response_4_0=ruleResponse();
 
             state._fsp--;
@@ -1539,7 +1538,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             	    					newCompositeNode(grammarAccess.getRuleAccess().getDefeatersDefeaterParserRuleCall_5_0());
             	    				
-            	    pushFollow(FOLLOW_18);
+            	    pushFollow(FOLLOW_17);
             	    lv_defeaters_5_0=ruleDefeater();
 
             	    state._fsp--;
@@ -1656,7 +1655,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
             						current = createModelElement(grammarAccess.getTriggerRule());
             					}
             				
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_19); 
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_18); 
 
             					newLeafNode(otherlv_0, grammarAccess.getTriggerAccess().getEventEventCrossReference_0_0());
             				
@@ -1677,7 +1676,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // InternalSLEEC.g:691:4: otherlv_1= 'and' ( (lv_expr_2_0= ruleMBoolExpr ) )
                     {
-                    otherlv_1=(Token)match(input,29,FOLLOW_20); 
+                    otherlv_1=(Token)match(input,29,FOLLOW_19); 
 
                     				newLeafNode(otherlv_1, grammarAccess.getTriggerAccess().getAndKeyword_1_0());
                     			
@@ -1883,7 +1882,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             			newCompositeNode(grammarAccess.getBoolCompAccess().getNotParserRuleCall_0());
             		
-            pushFollow(FOLLOW_21);
+            pushFollow(FOLLOW_20);
             this_Not_0=ruleNot();
 
             state._fsp--;
@@ -1898,7 +1897,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                 int alt9=2;
                 int LA9_0 = input.LA(1);
 
-                if ( (LA9_0==29||LA9_0==40) ) {
+                if ( (LA9_0==29||LA9_0==39) ) {
                     alt9=1;
                 }
 
@@ -1927,7 +1926,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             	    						newCompositeNode(grammarAccess.getBoolCompAccess().getOpBoolOpEnumRuleCall_1_1_0());
             	    					
-            	    pushFollow(FOLLOW_20);
+            	    pushFollow(FOLLOW_19);
             	    lv_op_2_0=ruleBoolOp();
 
             	    state._fsp--;
@@ -1958,7 +1957,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             	    						newCompositeNode(grammarAccess.getBoolCompAccess().getRightNotParserRuleCall_1_2_0());
             	    					
-            	    pushFollow(FOLLOW_21);
+            	    pushFollow(FOLLOW_20);
             	    lv_right_3_0=ruleNot();
 
             	    state._fsp--;
@@ -2099,7 +2098,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,30,FOLLOW_20); 
+                    otherlv_1=(Token)match(input,30,FOLLOW_19); 
 
                     				newLeafNode(otherlv_1, grammarAccess.getNotAccess().getNotKeyword_0_1());
                     			
@@ -2241,7 +2240,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             			newCompositeNode(grammarAccess.getRelCompAccess().getAtomParserRuleCall_0());
             		
-            pushFollow(FOLLOW_22);
+            pushFollow(FOLLOW_21);
             this_Atom_0=ruleAtom();
 
             state._fsp--;
@@ -2256,7 +2255,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                 int alt11=2;
                 int LA11_0 = input.LA(1);
 
-                if ( (LA11_0==18||(LA11_0>=35 && LA11_0<=39)) ) {
+                if ( (LA11_0==18||(LA11_0>=34 && LA11_0<=38)) ) {
                     alt11=1;
                 }
 
@@ -2285,7 +2284,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             	    						newCompositeNode(grammarAccess.getRelCompAccess().getOpRelOpEnumRuleCall_1_1_0());
             	    					
-            	    pushFollow(FOLLOW_20);
+            	    pushFollow(FOLLOW_19);
             	    lv_op_2_0=ruleRelOp();
 
             	    state._fsp--;
@@ -2316,7 +2315,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             	    						newCompositeNode(grammarAccess.getRelCompAccess().getRightAtomParserRuleCall_1_2_0());
             	    					
-            	    pushFollow(FOLLOW_22);
+            	    pushFollow(FOLLOW_21);
             	    lv_right_3_0=ruleAtom();
 
             	    state._fsp--;
@@ -2560,14 +2559,14 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     // InternalSLEEC.g:1017:3: (otherlv_3= '(' this_MBoolExpr_4= ruleMBoolExpr otherlv_5= ')' )
                     // InternalSLEEC.g:1018:4: otherlv_3= '(' this_MBoolExpr_4= ruleMBoolExpr otherlv_5= ')'
                     {
-                    otherlv_3=(Token)match(input,22,FOLLOW_20); 
+                    otherlv_3=(Token)match(input,22,FOLLOW_19); 
 
                     				newLeafNode(otherlv_3, grammarAccess.getAtomAccess().getLeftParenthesisKeyword_1_0());
                     			
 
                     				newCompositeNode(grammarAccess.getAtomAccess().getMBoolExprParserRuleCall_1_1());
                     			
-                    pushFollow(FOLLOW_23);
+                    pushFollow(FOLLOW_22);
                     this_MBoolExpr_4=ruleMBoolExpr();
 
                     state._fsp--;
@@ -2703,7 +2702,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     							current = createModelElement(grammarAccess.getResponseRule());
                     						}
                     					
-                    otherlv_0=(Token)match(input,RULE_ID,FOLLOW_24); 
+                    otherlv_0=(Token)match(input,RULE_ID,FOLLOW_23); 
 
                     						newLeafNode(otherlv_0, grammarAccess.getResponseAccess().getEventEventCrossReference_0_0_0());
                     					
@@ -2737,7 +2736,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
                             							newCompositeNode(grammarAccess.getResponseAccess().getTimeValueParserRuleCall_0_1_1_0());
                             						
-                            pushFollow(FOLLOW_25);
+                            pushFollow(FOLLOW_24);
                             lv_time_2_0=ruleValue();
 
                             state._fsp--;
@@ -2770,7 +2769,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                                 case 1 :
                                     // InternalSLEEC.g:1093:6: otherlv_3= 'otherwise' ( (lv_response_4_0= ruleResponse ) )
                                     {
-                                    otherlv_3=(Token)match(input,32,FOLLOW_17); 
+                                    otherlv_3=(Token)match(input,32,FOLLOW_16); 
 
                                     						newLeafNode(otherlv_3, grammarAccess.getResponseAccess().getOtherwiseKeyword_0_1_2_0());
                                     					
@@ -2862,7 +2861,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     							current = createModelElement(grammarAccess.getResponseRule());
                     						}
                     					
-                    otherlv_6=(Token)match(input,RULE_ID,FOLLOW_26); 
+                    otherlv_6=(Token)match(input,RULE_ID,FOLLOW_25); 
 
                     						newLeafNode(otherlv_6, grammarAccess.getResponseAccess().getEventEventCrossReference_1_1_0());
                     					
@@ -2993,7 +2992,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
             // InternalSLEEC.g:1190:2: (otherlv_0= 'unless' ( (lv_expr_1_0= ruleMBoolExpr ) ) (otherlv_2= 'then' ( (lv_response_3_0= ruleResponse ) ) )? )
             // InternalSLEEC.g:1191:3: otherlv_0= 'unless' ( (lv_expr_1_0= ruleMBoolExpr ) ) (otherlv_2= 'then' ( (lv_response_3_0= ruleResponse ) ) )?
             {
-            otherlv_0=(Token)match(input,33,FOLLOW_20); 
+            otherlv_0=(Token)match(input,33,FOLLOW_19); 
 
             			newLeafNode(otherlv_0, grammarAccess.getDefeaterAccess().getUnlessKeyword_0());
             		
@@ -3006,7 +3005,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
             					newCompositeNode(grammarAccess.getDefeaterAccess().getExprMBoolExprParserRuleCall_1_0());
             				
-            pushFollow(FOLLOW_27);
+            pushFollow(FOLLOW_26);
             lv_expr_1_0=ruleMBoolExpr();
 
             state._fsp--;
@@ -3039,7 +3038,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // InternalSLEEC.g:1215:4: otherlv_2= 'then' ( (lv_response_3_0= ruleResponse ) )
                     {
-                    otherlv_2=(Token)match(input,28,FOLLOW_17); 
+                    otherlv_2=(Token)match(input,28,FOLLOW_16); 
 
                     				newLeafNode(otherlv_2, grammarAccess.getDefeaterAccess().getThenKeyword_2_0());
                     			
@@ -3443,111 +3442,26 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRuleID"
-    // InternalSLEEC.g:1346:1: ruleRuleID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_INT_0= RULE_INT | this_ID_1= RULE_ID ) (kw= '.' this_RuleID_3= ruleRuleID )? ) ;
+    // InternalSLEEC.g:1346:1: ruleRuleID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_ID_0= RULE_ID ;
     public final AntlrDatatypeRuleToken ruleRuleID() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
-        Token this_INT_0=null;
-        Token this_ID_1=null;
-        Token kw=null;
-        AntlrDatatypeRuleToken this_RuleID_3 = null;
-
+        Token this_ID_0=null;
 
 
         	enterRule();
 
         try {
-            // InternalSLEEC.g:1352:2: ( ( (this_INT_0= RULE_INT | this_ID_1= RULE_ID ) (kw= '.' this_RuleID_3= ruleRuleID )? ) )
-            // InternalSLEEC.g:1353:2: ( (this_INT_0= RULE_INT | this_ID_1= RULE_ID ) (kw= '.' this_RuleID_3= ruleRuleID )? )
+            // InternalSLEEC.g:1352:2: (this_ID_0= RULE_ID )
+            // InternalSLEEC.g:1353:2: this_ID_0= RULE_ID
             {
-            // InternalSLEEC.g:1353:2: ( (this_INT_0= RULE_INT | this_ID_1= RULE_ID ) (kw= '.' this_RuleID_3= ruleRuleID )? )
-            // InternalSLEEC.g:1354:3: (this_INT_0= RULE_INT | this_ID_1= RULE_ID ) (kw= '.' this_RuleID_3= ruleRuleID )?
-            {
-            // InternalSLEEC.g:1354:3: (this_INT_0= RULE_INT | this_ID_1= RULE_ID )
-            int alt18=2;
-            int LA18_0 = input.LA(1);
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_2); 
 
-            if ( (LA18_0==RULE_INT) ) {
-                alt18=1;
-            }
-            else if ( (LA18_0==RULE_ID) ) {
-                alt18=2;
-            }
-            else {
-                NoViableAltException nvae =
-                    new NoViableAltException("", 18, 0, input);
+            		current.merge(this_ID_0);
+            	
 
-                throw nvae;
-            }
-            switch (alt18) {
-                case 1 :
-                    // InternalSLEEC.g:1355:4: this_INT_0= RULE_INT
-                    {
-                    this_INT_0=(Token)match(input,RULE_INT,FOLLOW_28); 
-
-                    				current.merge(this_INT_0);
-                    			
-
-                    				newLeafNode(this_INT_0, grammarAccess.getRuleIDAccess().getINTTerminalRuleCall_0_0());
-                    			
-
-                    }
-                    break;
-                case 2 :
-                    // InternalSLEEC.g:1363:4: this_ID_1= RULE_ID
-                    {
-                    this_ID_1=(Token)match(input,RULE_ID,FOLLOW_28); 
-
-                    				current.merge(this_ID_1);
-                    			
-
-                    				newLeafNode(this_ID_1, grammarAccess.getRuleIDAccess().getIDTerminalRuleCall_0_1());
-                    			
-
-                    }
-                    break;
-
-            }
-
-            // InternalSLEEC.g:1371:3: (kw= '.' this_RuleID_3= ruleRuleID )?
-            int alt19=2;
-            int LA19_0 = input.LA(1);
-
-            if ( (LA19_0==34) ) {
-                alt19=1;
-            }
-            switch (alt19) {
-                case 1 :
-                    // InternalSLEEC.g:1372:4: kw= '.' this_RuleID_3= ruleRuleID
-                    {
-                    kw=(Token)match(input,34,FOLLOW_13); 
-
-                    				current.merge(kw);
-                    				newLeafNode(kw, grammarAccess.getRuleIDAccess().getFullStopKeyword_1_0());
-                    			
-
-                    				newCompositeNode(grammarAccess.getRuleIDAccess().getRuleIDParserRuleCall_1_1());
-                    			
-                    pushFollow(FOLLOW_2);
-                    this_RuleID_3=ruleRuleID();
-
-                    state._fsp--;
-
-
-                    				current.merge(this_RuleID_3);
-                    			
-
-                    				afterParserOrEnumRuleCall();
-                    			
-
-                    }
-                    break;
-
-            }
-
-
-            }
-
+            		newLeafNode(this_ID_0, grammarAccess.getRuleIDAccess().getIDTerminalRuleCall());
+            	
 
             }
 
@@ -3568,7 +3482,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRelOp"
-    // InternalSLEEC.g:1392:1: ruleRelOp returns [Enumerator current=null] : ( (enumLiteral_0= '<' ) | (enumLiteral_1= '>' ) | (enumLiteral_2= '<>' ) | (enumLiteral_3= '<=' ) | (enumLiteral_4= '>=' ) | (enumLiteral_5= '=' ) ) ;
+    // InternalSLEEC.g:1363:1: ruleRelOp returns [Enumerator current=null] : ( (enumLiteral_0= '<' ) | (enumLiteral_1= '>' ) | (enumLiteral_2= '<>' ) | (enumLiteral_3= '<=' ) | (enumLiteral_4= '>=' ) | (enumLiteral_5= '=' ) ) ;
     public final Enumerator ruleRelOp() throws RecognitionException {
         Enumerator current = null;
 
@@ -3583,57 +3497,57 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSLEEC.g:1398:2: ( ( (enumLiteral_0= '<' ) | (enumLiteral_1= '>' ) | (enumLiteral_2= '<>' ) | (enumLiteral_3= '<=' ) | (enumLiteral_4= '>=' ) | (enumLiteral_5= '=' ) ) )
-            // InternalSLEEC.g:1399:2: ( (enumLiteral_0= '<' ) | (enumLiteral_1= '>' ) | (enumLiteral_2= '<>' ) | (enumLiteral_3= '<=' ) | (enumLiteral_4= '>=' ) | (enumLiteral_5= '=' ) )
+            // InternalSLEEC.g:1369:2: ( ( (enumLiteral_0= '<' ) | (enumLiteral_1= '>' ) | (enumLiteral_2= '<>' ) | (enumLiteral_3= '<=' ) | (enumLiteral_4= '>=' ) | (enumLiteral_5= '=' ) ) )
+            // InternalSLEEC.g:1370:2: ( (enumLiteral_0= '<' ) | (enumLiteral_1= '>' ) | (enumLiteral_2= '<>' ) | (enumLiteral_3= '<=' ) | (enumLiteral_4= '>=' ) | (enumLiteral_5= '=' ) )
             {
-            // InternalSLEEC.g:1399:2: ( (enumLiteral_0= '<' ) | (enumLiteral_1= '>' ) | (enumLiteral_2= '<>' ) | (enumLiteral_3= '<=' ) | (enumLiteral_4= '>=' ) | (enumLiteral_5= '=' ) )
-            int alt20=6;
+            // InternalSLEEC.g:1370:2: ( (enumLiteral_0= '<' ) | (enumLiteral_1= '>' ) | (enumLiteral_2= '<>' ) | (enumLiteral_3= '<=' ) | (enumLiteral_4= '>=' ) | (enumLiteral_5= '=' ) )
+            int alt18=6;
             switch ( input.LA(1) ) {
+            case 34:
+                {
+                alt18=1;
+                }
+                break;
             case 35:
                 {
-                alt20=1;
+                alt18=2;
                 }
                 break;
             case 36:
                 {
-                alt20=2;
+                alt18=3;
                 }
                 break;
             case 37:
                 {
-                alt20=3;
+                alt18=4;
                 }
                 break;
             case 38:
                 {
-                alt20=4;
-                }
-                break;
-            case 39:
-                {
-                alt20=5;
+                alt18=5;
                 }
                 break;
             case 18:
                 {
-                alt20=6;
+                alt18=6;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 20, 0, input);
+                    new NoViableAltException("", 18, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt20) {
+            switch (alt18) {
                 case 1 :
-                    // InternalSLEEC.g:1400:3: (enumLiteral_0= '<' )
+                    // InternalSLEEC.g:1371:3: (enumLiteral_0= '<' )
                     {
-                    // InternalSLEEC.g:1400:3: (enumLiteral_0= '<' )
-                    // InternalSLEEC.g:1401:4: enumLiteral_0= '<'
+                    // InternalSLEEC.g:1371:3: (enumLiteral_0= '<' )
+                    // InternalSLEEC.g:1372:4: enumLiteral_0= '<'
                     {
-                    enumLiteral_0=(Token)match(input,35,FOLLOW_2); 
+                    enumLiteral_0=(Token)match(input,34,FOLLOW_2); 
 
                     				current = grammarAccess.getRelOpAccess().getLESS_THANEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_0, grammarAccess.getRelOpAccess().getLESS_THANEnumLiteralDeclaration_0());
@@ -3645,12 +3559,12 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSLEEC.g:1408:3: (enumLiteral_1= '>' )
+                    // InternalSLEEC.g:1379:3: (enumLiteral_1= '>' )
                     {
-                    // InternalSLEEC.g:1408:3: (enumLiteral_1= '>' )
-                    // InternalSLEEC.g:1409:4: enumLiteral_1= '>'
+                    // InternalSLEEC.g:1379:3: (enumLiteral_1= '>' )
+                    // InternalSLEEC.g:1380:4: enumLiteral_1= '>'
                     {
-                    enumLiteral_1=(Token)match(input,36,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,35,FOLLOW_2); 
 
                     				current = grammarAccess.getRelOpAccess().getGREATER_THANEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getRelOpAccess().getGREATER_THANEnumLiteralDeclaration_1());
@@ -3662,12 +3576,12 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSLEEC.g:1416:3: (enumLiteral_2= '<>' )
+                    // InternalSLEEC.g:1387:3: (enumLiteral_2= '<>' )
                     {
-                    // InternalSLEEC.g:1416:3: (enumLiteral_2= '<>' )
-                    // InternalSLEEC.g:1417:4: enumLiteral_2= '<>'
+                    // InternalSLEEC.g:1387:3: (enumLiteral_2= '<>' )
+                    // InternalSLEEC.g:1388:4: enumLiteral_2= '<>'
                     {
-                    enumLiteral_2=(Token)match(input,37,FOLLOW_2); 
+                    enumLiteral_2=(Token)match(input,36,FOLLOW_2); 
 
                     				current = grammarAccess.getRelOpAccess().getNOT_EQUALEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_2, grammarAccess.getRelOpAccess().getNOT_EQUALEnumLiteralDeclaration_2());
@@ -3679,12 +3593,12 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalSLEEC.g:1424:3: (enumLiteral_3= '<=' )
+                    // InternalSLEEC.g:1395:3: (enumLiteral_3= '<=' )
                     {
-                    // InternalSLEEC.g:1424:3: (enumLiteral_3= '<=' )
-                    // InternalSLEEC.g:1425:4: enumLiteral_3= '<='
+                    // InternalSLEEC.g:1395:3: (enumLiteral_3= '<=' )
+                    // InternalSLEEC.g:1396:4: enumLiteral_3= '<='
                     {
-                    enumLiteral_3=(Token)match(input,38,FOLLOW_2); 
+                    enumLiteral_3=(Token)match(input,37,FOLLOW_2); 
 
                     				current = grammarAccess.getRelOpAccess().getLESS_EQUALEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_3, grammarAccess.getRelOpAccess().getLESS_EQUALEnumLiteralDeclaration_3());
@@ -3696,12 +3610,12 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalSLEEC.g:1432:3: (enumLiteral_4= '>=' )
+                    // InternalSLEEC.g:1403:3: (enumLiteral_4= '>=' )
                     {
-                    // InternalSLEEC.g:1432:3: (enumLiteral_4= '>=' )
-                    // InternalSLEEC.g:1433:4: enumLiteral_4= '>='
+                    // InternalSLEEC.g:1403:3: (enumLiteral_4= '>=' )
+                    // InternalSLEEC.g:1404:4: enumLiteral_4= '>='
                     {
-                    enumLiteral_4=(Token)match(input,39,FOLLOW_2); 
+                    enumLiteral_4=(Token)match(input,38,FOLLOW_2); 
 
                     				current = grammarAccess.getRelOpAccess().getGREATER_EQUALEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_4, grammarAccess.getRelOpAccess().getGREATER_EQUALEnumLiteralDeclaration_4());
@@ -3713,10 +3627,10 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // InternalSLEEC.g:1440:3: (enumLiteral_5= '=' )
+                    // InternalSLEEC.g:1411:3: (enumLiteral_5= '=' )
                     {
-                    // InternalSLEEC.g:1440:3: (enumLiteral_5= '=' )
-                    // InternalSLEEC.g:1441:4: enumLiteral_5= '='
+                    // InternalSLEEC.g:1411:3: (enumLiteral_5= '=' )
+                    // InternalSLEEC.g:1412:4: enumLiteral_5= '='
                     {
                     enumLiteral_5=(Token)match(input,18,FOLLOW_2); 
 
@@ -3752,7 +3666,7 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBoolOp"
-    // InternalSLEEC.g:1451:1: ruleBoolOp returns [Enumerator current=null] : ( (enumLiteral_0= 'and' ) | (enumLiteral_1= 'or' ) ) ;
+    // InternalSLEEC.g:1422:1: ruleBoolOp returns [Enumerator current=null] : ( (enumLiteral_0= 'and' ) | (enumLiteral_1= 'or' ) ) ;
     public final Enumerator ruleBoolOp() throws RecognitionException {
         Enumerator current = null;
 
@@ -3763,31 +3677,31 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSLEEC.g:1457:2: ( ( (enumLiteral_0= 'and' ) | (enumLiteral_1= 'or' ) ) )
-            // InternalSLEEC.g:1458:2: ( (enumLiteral_0= 'and' ) | (enumLiteral_1= 'or' ) )
+            // InternalSLEEC.g:1428:2: ( ( (enumLiteral_0= 'and' ) | (enumLiteral_1= 'or' ) ) )
+            // InternalSLEEC.g:1429:2: ( (enumLiteral_0= 'and' ) | (enumLiteral_1= 'or' ) )
             {
-            // InternalSLEEC.g:1458:2: ( (enumLiteral_0= 'and' ) | (enumLiteral_1= 'or' ) )
-            int alt21=2;
-            int LA21_0 = input.LA(1);
+            // InternalSLEEC.g:1429:2: ( (enumLiteral_0= 'and' ) | (enumLiteral_1= 'or' ) )
+            int alt19=2;
+            int LA19_0 = input.LA(1);
 
-            if ( (LA21_0==29) ) {
-                alt21=1;
+            if ( (LA19_0==29) ) {
+                alt19=1;
             }
-            else if ( (LA21_0==40) ) {
-                alt21=2;
+            else if ( (LA19_0==39) ) {
+                alt19=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 21, 0, input);
+                    new NoViableAltException("", 19, 0, input);
 
                 throw nvae;
             }
-            switch (alt21) {
+            switch (alt19) {
                 case 1 :
-                    // InternalSLEEC.g:1459:3: (enumLiteral_0= 'and' )
+                    // InternalSLEEC.g:1430:3: (enumLiteral_0= 'and' )
                     {
-                    // InternalSLEEC.g:1459:3: (enumLiteral_0= 'and' )
-                    // InternalSLEEC.g:1460:4: enumLiteral_0= 'and'
+                    // InternalSLEEC.g:1430:3: (enumLiteral_0= 'and' )
+                    // InternalSLEEC.g:1431:4: enumLiteral_0= 'and'
                     {
                     enumLiteral_0=(Token)match(input,29,FOLLOW_2); 
 
@@ -3801,12 +3715,12 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSLEEC.g:1467:3: (enumLiteral_1= 'or' )
+                    // InternalSLEEC.g:1438:3: (enumLiteral_1= 'or' )
                     {
-                    // InternalSLEEC.g:1467:3: (enumLiteral_1= 'or' )
-                    // InternalSLEEC.g:1468:4: enumLiteral_1= 'or'
+                    // InternalSLEEC.g:1438:3: (enumLiteral_1= 'or' )
+                    // InternalSLEEC.g:1439:4: enumLiteral_1= 'or'
                     {
-                    enumLiteral_1=(Token)match(input,40,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,39,FOLLOW_2); 
 
                     				current = grammarAccess.getBoolOpAccess().getOREnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getBoolOpAccess().getOREnumLiteralDeclaration_1());
@@ -3855,21 +3769,19 @@ public class InternalSLEECParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000000070L});
     public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000400000L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000001800000L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000000050L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000004000050L});
-    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000040000040L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000020000002L});
-    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000040400070L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000010020000002L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x000000F800040002L});
-    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000010000002L});
-    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000400000002L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000004000040L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000040000040L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000200000002L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000020000002L});
+    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000040400070L});
+    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000008020000002L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000007C00040002L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000080000002L});
+    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000010000002L});
 
 }

@@ -94,9 +94,8 @@ ScaleParam:
 	ID
 ;
 
-// TODO change to just ID
 RuleID:
-	(INT | ID) ('.' RuleID)?
+	ID
 ;
 
 terminal FLOAT returns ecore::EFloat:

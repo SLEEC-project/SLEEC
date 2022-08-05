@@ -38,7 +38,6 @@ public class SLEECParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAtomAccess().getAlternatives(), "rule__Atom__Alternatives");
 			builder.put(grammarAccess.getAtomAccess().getAlternatives_0_1(), "rule__Atom__Alternatives_0_1");
 			builder.put(grammarAccess.getResponseAccess().getAlternatives(), "rule__Response__Alternatives");
-			builder.put(grammarAccess.getRuleIDAccess().getAlternatives_0(), "rule__RuleID__Alternatives_0");
 			builder.put(grammarAccess.getRelOpAccess().getAlternatives(), "rule__RelOp__Alternatives");
 			builder.put(grammarAccess.getBoolOpAccess().getAlternatives(), "rule__BoolOp__Alternatives");
 			builder.put(grammarAccess.getSpecificationAccess().getGroup(), "rule__Specification__Group__0");
@@ -67,8 +66,6 @@ public class SLEECParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getResponseAccess().getGroup_1(), "rule__Response__Group_1__0");
 			builder.put(grammarAccess.getDefeaterAccess().getGroup(), "rule__Defeater__Group__0");
 			builder.put(grammarAccess.getDefeaterAccess().getGroup_2(), "rule__Defeater__Group_2__0");
-			builder.put(grammarAccess.getRuleIDAccess().getGroup(), "rule__RuleID__Group__0");
-			builder.put(grammarAccess.getRuleIDAccess().getGroup_1(), "rule__RuleID__Group_1__0");
 			builder.put(grammarAccess.getSpecificationAccess().getDefBlockAssignment_0(), "rule__Specification__DefBlockAssignment_0");
 			builder.put(grammarAccess.getSpecificationAccess().getRuleBlockAssignment_1(), "rule__Specification__RuleBlockAssignment_1");
 			builder.put(grammarAccess.getDefblockAccess().getDefinitionsAssignment_1(), "rule__Defblock__DefinitionsAssignment_1");
