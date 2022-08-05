@@ -38,6 +38,7 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 /**
  * Generates code from your model files on save.
@@ -509,7 +510,8 @@ public class SLEECGenerator extends AbstractGenerator {
       return it.getMeasureID();
     };
     final Function1<String, Boolean> _function_1 = (String it) -> {
-      return Boolean.valueOf((!Objects.equal(it, "")));
+      boolean _isNullOrEmpty = StringExtensions.isNullOrEmpty(it);
+      return Boolean.valueOf((!_isNullOrEmpty));
     };
     return IteratorExtensions.<String>toIterable(IteratorExtensions.<String>filter(IteratorExtensions.<Atom, String>map(Iterators.<Atom>filter(AST.eAllContents(), Atom.class), _function), _function_1));
   }

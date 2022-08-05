@@ -250,7 +250,7 @@ class SLEECGenerator extends AbstractGenerator {
 		AST.eAllContents
 			.filter(Atom)
 			.map[ it.measureID ]
-			.filter[ it != '' ]
+			.filter[ !it.isNullOrEmpty ]
 			.toIterable
 	}
 	
