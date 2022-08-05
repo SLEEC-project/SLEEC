@@ -80,9 +80,9 @@ class SLEECGenerator extends AbstractGenerator {
 				STle«mID»(v1«mID», v2«mID») =
 					if v1«mID» == «t.scaleParams.head» then true
 					«(1 ..< t.scaleParams.size - 1).map[
-						'''else if v1«mID» == «t.scaleParams.get(it)» then not v2«mID» == {«t.scaleParams.take(it).join(', ')»}'''
+						'''else (if v1«mID» == «t.scaleParams.get(it)» then not member(v2«mID»,{«t.scaleParams.take(it).join(', ')»})'''
 					].join('\n')»
-					else v2«mID» == «t.scaleParams.last»
+					else v2«mID» == «t.scaleParams.last»«')'.repeat(t.scaleParams.size-2)»
 			'''
 		}
 	}

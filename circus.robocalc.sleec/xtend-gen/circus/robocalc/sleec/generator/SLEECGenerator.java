@@ -155,17 +155,17 @@ public class SLEECGenerator extends AbstractGenerator {
         int _minus = (_size - 1);
         final Function1<Integer, String> _function = (Integer it) -> {
           StringConcatenation _builder_1 = new StringConcatenation();
-          _builder_1.append("else if v1");
+          _builder_1.append("else (if v1");
           _builder_1.append(mID);
           _builder_1.append(" == ");
           String _get = ((Scale)t).getScaleParams().get((it).intValue());
           _builder_1.append(_get);
-          _builder_1.append(" then not v2");
+          _builder_1.append(" then not member(v2");
           _builder_1.append(mID);
-          _builder_1.append(" == {");
+          _builder_1.append(",{");
           String _join_1 = IterableExtensions.join(IterableExtensions.<String>take(((Scale)t).getScaleParams(), (it).intValue()), ", ");
           _builder_1.append(_join_1);
-          _builder_1.append("}");
+          _builder_1.append("})");
           return _builder_1.toString();
         };
         String _join_1 = IterableExtensions.join(IterableExtensions.<Integer, String>map(new ExclusiveRange(1, _minus, true), _function), "\n");
@@ -177,6 +177,10 @@ public class SLEECGenerator extends AbstractGenerator {
         _builder.append(" == ");
         String _last = IterableExtensions.<String>last(((Scale)t).getScaleParams());
         _builder.append(_last, "\t");
+        int _size_1 = ((Scale)t).getScaleParams().size();
+        int _minus_1 = (_size_1 - 2);
+        String _repeat = ")".repeat(_minus_1);
+        _builder.append(_repeat, "\t");
         _builder.newLineIfNotEmpty();
         _switchResult = _builder;
       }
