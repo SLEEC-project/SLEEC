@@ -26,5 +26,6 @@ Export-Package: circus.robocalc.sleec.sLEEC.impl,
  circus.robocalc.sleec.parser.antlr,
  circus.robocalc.sleec.validation,
  circus.robocalc.sleec.scoping,
- circus.robocalc.sleec
+ circus.robocalc.sleec,
+ circus.robocalc.sleec.formatting2
 Import-Package: org.apache.log4j
