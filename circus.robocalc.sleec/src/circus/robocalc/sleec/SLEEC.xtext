@@ -20,6 +20,10 @@ Value:
 	int=INT | float=FLOAT | constant=[Constant]
 ;
 
+BoolValue:
+	value=BOOL_VALUE
+;
+
 Type:
 	{Boolean} 'boolean' | {Numeric} 'numeric' | {Scale} 'scale' '(' scaleParams += ScaleParam (',' scaleParams+=ScaleParam)* ')'
 ;
@@ -59,7 +63,7 @@ RelComp returns MBoolExpr:
 Atom returns MBoolExpr:
 	// Avoid using cross reference here as ScaleParam will never be matched as it is the same as Measure
 	// ->measure=[Measure] | '(' MBoolExpr ')' | ->value=Value | ->scaleParam=[ScaleParam]
-	{Atom} (measureID=ID | value=Value) | '(' MBoolExpr ')'
+	{Atom} measureID=ID | Value | '(' MBoolExpr ')' | BoolValue
 ;
 
 Response:
@@ -104,4 +108,8 @@ RuleID:
 
 terminal FLOAT returns ecore::EFloat:
 	INT '.' INT
+;
+
+terminal BOOL_VALUE returns ecore::EBoolean:
+	'true' | 'false'
 ;

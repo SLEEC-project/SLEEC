@@ -27,6 +27,7 @@ import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import circus.robocalc.sleec.sLEEC.TimeUnit
+import circus.robocalc.sleec.sLEEC.BoolValue
 
 /**
  * Generates code from your model files on save.
@@ -262,6 +263,8 @@ class SLEECGenerator extends AbstractGenerator {
 			Not : norm(mBE as Not)
 			RelComp : norm(mBE as RelComp)
 			Atom : norm(mBE as Atom)
+			Value : norm(mBE as Value)
+			BoolValue : norm(mBE as BoolValue)
 		} + ')'
 	}
 	
@@ -303,6 +306,10 @@ class SLEECGenerator extends AbstractGenerator {
 				v.float.toString
 		else
 			norm(v.constant.value)
+	}
+	
+	private def norm(BoolValue b) {
+		b.value.toString
 	}
 	
 	// Convert value to seconds.
