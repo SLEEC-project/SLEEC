@@ -292,18 +292,12 @@ class SLEECGenerator extends AbstractGenerator {
 	}
 	
 	private def norm(Atom a) {
-		if(a.measureID === null)
-			norm(a.value)
-		else
-			a.measureID
+		a.measureID
 	}
 	
 	private def CharSequence norm(Value v) {
 		if(v.constant === null)
-			if(v.float == 0)
-				v.int.toString
-			else	
-				v.float.toString
+			v.value.toString
 		else
 			norm(v.constant.value)
 	}

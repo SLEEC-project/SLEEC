@@ -17,7 +17,7 @@ Definition:
 ;
 
 Value:
-	int=INT | float=FLOAT | constant=[Constant]
+	value=FLOAT | constant=[Constant]
 ;
 
 BoolValue:
@@ -107,7 +107,7 @@ RuleID:
 ;
 
 terminal FLOAT returns ecore::EFloat:
-	INT '.' INT
+	INT ('.' INT)?
 ;
 
 terminal BOOL_VALUE returns ecore::EBoolean:
