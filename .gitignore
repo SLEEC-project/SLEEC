@@ -25,3 +25,4 @@ hs_err_pid*
 src-gen/
 xtend-gen/
 target/
+generated/
