@@ -5,8 +5,8 @@ package circus.robocalc.sleec.formatting2
 
 import circus.robocalc.sleec.sLEEC.Defblock
 import circus.robocalc.sleec.sLEEC.Specification
-import circus.robocalc.sleec.services.SLEECGrammarAccess
-import com.google.inject.Inject
+//import circus.robocalc.sleec.services.SLEECGrammarAccess
+//import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import circus.robocalc.sleec.sLEEC.Constant
@@ -22,7 +22,7 @@ import circus.robocalc.sleec.sLEEC.Defeater
 
 class SLEECFormatter extends AbstractFormatter2 {
 
-	@Inject extension SLEECGrammarAccess
+//	@Inject extension SLEECGrammarAccess
 
 	def dispatch void format(Specification specification, extension IFormattableDocument document) {
 		specification.defBlock.format
