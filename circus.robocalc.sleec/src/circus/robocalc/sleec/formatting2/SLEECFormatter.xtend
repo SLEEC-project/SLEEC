@@ -5,8 +5,8 @@ package circus.robocalc.sleec.formatting2
 
 import circus.robocalc.sleec.sLEEC.Defblock
 import circus.robocalc.sleec.sLEEC.Specification
-//import circus.robocalc.sleec.services.SLEECGrammarAccess
-//import com.google.inject.Inject
+import circus.robocalc.sleec.services.SLEECGrammarAccess
+import com.google.inject.Inject
 import org.eclipse.xtext.formatting2.AbstractFormatter2
 import org.eclipse.xtext.formatting2.IFormattableDocument
 import circus.robocalc.sleec.sLEEC.Constant
@@ -19,10 +19,15 @@ import circus.robocalc.sleec.sLEEC.Rule
 import circus.robocalc.sleec.sLEEC.Trigger
 import circus.robocalc.sleec.sLEEC.Response
 import circus.robocalc.sleec.sLEEC.Defeater
+import circus.robocalc.sleec.sLEEC.MBoolExpr
+import circus.robocalc.sleec.sLEEC.BoolComp
+import circus.robocalc.sleec.sLEEC.Not
+import circus.robocalc.sleec.sLEEC.RelComp
+import circus.robocalc.sleec.sLEEC.Atom
 
 class SLEECFormatter extends AbstractFormatter2 {
 
-//	@Inject extension SLEECGrammarAccess
+	@Inject extension SLEECGrammarAccess
 
 	def dispatch void format(Specification specification, extension IFormattableDocument document) {
 		specification.defBlock
@@ -102,5 +107,36 @@ class SLEECFormatter extends AbstractFormatter2 {
 	def dispatch void format(Defeater defeater, extension IFormattableDocument document) {
 		defeater.regionFor.keywords('unless', 'then').forEach[surround[oneSpace]]
 		defeater.response.format
+	}
+	
+	def dispatch void format(MBoolExpr mBoolExpr, extension IFormattableDocument document) {
+		switch(mBoolExpr) {
+			BoolComp: format(mBoolExpr as BoolComp)
+			Not: format(mBoolExpr as Not)
+			RelComp: format(mBoolExpr as RelComp)
+			Atom: format(mBoolExpr as Atom)
+		}
+	}
+	
+	def dispatch void format(BoolComp boolComp, extension IFormattableDocument document) {
+		boolComp.left.format
+		boolComp.regionFor.ruleCallTo(getBoolOpRule).surround[oneSpace]
+		boolComp.right.format
+	}
+	
+	def dispatch format(Not not, extension IFormattableDocument document) {
+		not.expr.format
+		not.regionFor.keyword('not').append[oneSpace]
+	}
+	
+	def dispatch format(RelComp relComp, extension IFormattableDocument document) {
+		relComp.left.format
+		relComp.regionFor.ruleCallTo(getRelOpRule).surround[oneSpace]
+		relComp.right.format
+	}
+	
+	def dispatch format(Atom atom, extension IFormattableDocument document) {
+		atom.regionFor.keyword('(').append[noSpace]
+		atom.regionFor.keyword(')').prepend[noSpace]
 	}
 }
