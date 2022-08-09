@@ -36,7 +36,7 @@ class SLEECFormatter extends AbstractFormatter2 {
 		)[indent]
 		defblock.definitions.forEach [
 			format
-			append[setNewLines(1)]
+			append[setNewLines(1, 1, 2)]
 		]
 	}
 
@@ -77,7 +77,7 @@ class SLEECFormatter extends AbstractFormatter2 {
 		)[indent]
 		ruleblock.rules.forEach [
 			format
-			append[setNewLines(1)]
+			append[setNewLines(1, 1, 2)]
 		]
 	}
 
