@@ -25,7 +25,9 @@ class SLEECFormatter extends AbstractFormatter2 {
 //	@Inject extension SLEECGrammarAccess
 
 	def dispatch void format(Specification specification, extension IFormattableDocument document) {
-		specification.defBlock.format
+		specification.defBlock
+			.format
+			.append[setNewLines(1, 1, 2)]
 		specification.ruleBlock.format
 	}
 
