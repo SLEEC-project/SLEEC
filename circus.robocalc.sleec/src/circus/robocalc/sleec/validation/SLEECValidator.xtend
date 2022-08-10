@@ -26,25 +26,24 @@ import org.eclipse.xtext.validation.Check
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class SLEECValidator extends AbstractSLEECValidator {
+
 	@Check
 	def chechEventName(Event e) {
-		if(!Character.isUpperCase(e.name.charAt(0)))
-			warning("Event identifier should begin with capital letter", SLEECPackage.Literals.DEFINITION__NAME, "invalidName")
+		if (!Character.isUpperCase(e.name.charAt(0)))
+			warning("Event identifier should begin with capital letter", e, SLEECPackage.Literals.DEFINITION__NAME)
 	}
-	
+
 	@Check
 	def checkMeasureName(Measure m) {
-		if(!Character.isLowerCase(m.name.charAt(0)))
-			warning("Measure identifier should begin with lower case letter", SLEECPackage.Literals.DEFINITION__NAME, "invalidName")
+		if (!Character.isLowerCase(m.name.charAt(0)))
+			warning("Measure identifier should begin with lower case letter", m, SLEECPackage.Literals.DEFINITION__NAME)
 	}
-	
+
 	@Check
 	def checkContantName(Constant c) {
-		for(var i = 0; i < c.name.length; i++) {
-			if(Character.isLowerCase(c.name.charAt(i))) {
-				warning("Constant identifier should be in all capitals.", SLEECPackage.Literals.DEFINITION__NAME, "invalidName")
-			}
-		}
+		for (i : 0 ..< c.name.length)
+			if (Character.isLowerCase(c.name.charAt(i)))
+				warning("Constant identifier should be in all capitals.", c, SLEECPackage.Literals.DEFINITION__NAME)
 	}
 
 	@Check
