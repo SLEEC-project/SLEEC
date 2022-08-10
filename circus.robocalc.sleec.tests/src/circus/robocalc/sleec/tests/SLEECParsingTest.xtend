@@ -52,10 +52,10 @@ class SLEECParsingTest {
 			def_start
 				event E0
 				event E1
-				event E2
+				measure m0: boolean
 			def_end
 			rule_start
-				Rule1 when E1 and E2 then E3
+				Rule1 when E0 and m0 then E1
 			rule_end
 		''')
 		validationTestHelper.assertNoIssues(result)
@@ -100,6 +100,8 @@ class SLEECParsingTest {
 			def_start
 				event E0
 				event E1
+				measure m0: boolean
+				measure m1: boolean
 			def_end
 			rule_start
 				Rule1 when E0 and not m0 or m1 then E1
@@ -180,7 +182,7 @@ class SLEECParsingTest {
 		var result = parseHelper.parse('''
 			def_start
 				event E0
-				event d1
+				event E1
 			def_end
 			rule_start
 				Rule1 when E0 and 0 < 1 and 0 <> 0 or not 1 = 1 then E1
@@ -199,12 +201,12 @@ class SLEECParsingTest {
 				event E0
 				event E1
 				event E2
-				event E3
+				measure m0: boolean
 			def_end
 			rule_start
 				Rule1 when E0 then E1 within 1 seconds otherwise E2
 				Rule2 when E0 then E1 within 1 seconds otherwise E2 within 0 seconds
-				Rule3 when E0 then E1 within 0 seconds otherwise E2 within 2 seconds unless E3
+				Rule3 when E0 then E1 within 0 seconds otherwise E2 within 2 seconds unless m0
 			rule_end
 		''')
 		validationTestHelper.assertNoIssues(result)
@@ -220,7 +222,7 @@ class SLEECParsingTest {
 			def_end
 			rule_start
 				Rule1 when E0 then not E1 within 0 seconds
-				Rule1 when E0 then E1 within 1 seconds otherwise not E2 within 3 seconds
+				Rule2 when E0 then E1 within 1 seconds otherwise not E2 within 3 seconds
 			rule_end
 		''')
 		validationTestHelper.assertNoIssues(result)
