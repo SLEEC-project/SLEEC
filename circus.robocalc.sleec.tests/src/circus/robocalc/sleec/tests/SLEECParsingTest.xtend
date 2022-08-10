@@ -8,7 +8,7 @@ import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.jupiter.api.Assertions
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
 
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.^extension.ExtendWith
 @InjectWith(SLEECInjectorProvider)
 class SLEECParsingTest {
 	@Inject ParseHelper<Specification> parseHelper
-	
+	@Inject ValidationTestHelper validationTestHelper
 	
 	@Test
 	def void basic_test() {
@@ -29,9 +29,7 @@ class SLEECParsingTest {
 				Rule1 when E0 then E1
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -45,9 +43,7 @@ class SLEECParsingTest {
 				Rule1 when E0 then E1 within 2 minutes
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -62,9 +58,7 @@ class SLEECParsingTest {
 				Rule1 when E1 and E2 then E3
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 
 	@Test
@@ -79,9 +73,7 @@ class SLEECParsingTest {
 				Rule1 when E0 and m0 then E1
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -98,9 +90,7 @@ class SLEECParsingTest {
 				Rule2 when E0 and m0 and m1 then E1
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -117,9 +107,7 @@ class SLEECParsingTest {
 				Rule2 when E0 and not (m0 and not m1) then E1
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -135,9 +123,7 @@ class SLEECParsingTest {
 				Rule1 when E0 then E1
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -153,9 +139,7 @@ class SLEECParsingTest {
 				Rule1 when E0 and m0 > m1 then E1
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}	
 	
 	@Test
@@ -172,9 +156,7 @@ class SLEECParsingTest {
 				Rule2 when E0 then E1 within C0 days
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty,'''Unexted errors:«errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -190,9 +172,7 @@ class SLEECParsingTest {
 				Rule2 when E0 and m0 = s1 then E1
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -206,9 +186,7 @@ class SLEECParsingTest {
 				Rule1 when E0 and 0 < 1 and 0 <> 0 or not 1 = 1 then E1
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 		/*
 		 * check that the parse tree for the operations in rule.trigger is correct according to the grammar
 		 */
@@ -229,9 +207,7 @@ class SLEECParsingTest {
 				Rule3 when E0 then E1 within 0 seconds otherwise E2 within 2 seconds unless E3
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -247,9 +223,7 @@ class SLEECParsingTest {
 				Rule1 when E0 then E1 within 1 seconds otherwise not E2 within 3 seconds
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty,'''Unexpeted errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -268,9 +242,7 @@ class SLEECParsingTest {
 					unless m1
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-	    val errors = result.eResource.errors
-	    Assertions.assertTrue(errors.isEmpty,'''Unexpected errors: «errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -294,9 +266,7 @@ class SLEECParsingTest {
 					unless m1 <> C0 and (m0 or m1 < 5) then E3 within C1 seconds otherwise E4 within 3 hours otherwise E5
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors:«errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -311,9 +281,7 @@ class SLEECParsingTest {
 				Rule1 when E0 then E1
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors:«errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
@@ -335,8 +303,6 @@ class SLEECParsingTest {
 					otherwise E4 within C1 days
 			rule_end
 		''')
-		Assertions.assertNotNull(result)
-		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty,'''Unexpected errors«errors.join(", ")»''')
+		validationTestHelper.assertNoIssues(result)
 	}
 }
