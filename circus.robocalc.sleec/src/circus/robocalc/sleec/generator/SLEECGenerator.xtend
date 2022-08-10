@@ -48,12 +48,12 @@ class SLEECGenerator extends AbstractGenerator {
 				.toIterable
 				.map[D]
 				.join('')»
+			
 			«resource.allContents
 				.filter(Rule)
 				.toIterable
 				.map[R]
 				.join('')»
-				
 			}
 		''')
 	}
@@ -83,7 +83,9 @@ class SLEECGenerator extends AbstractGenerator {
 			Numeric : 'Int'
 			Scale : '''
 				ST«mID»
+				
 				datatype ST«mID» = «t.scaleParams.join(" | ")»
+				
 				STle«mID»(v1«mID», v2«mID») =
 					if v1«mID» == «t.scaleParams.head» then true
 					«(1 ..< t.scaleParams.size - 1).map[
@@ -105,8 +107,11 @@ class SLEECGenerator extends AbstractGenerator {
 		// [[rID when trig then resp dfts]]R
 		'''
 		«rID» = Trigger«rID»; Monitoring«rID»; «rID»
+		
 		Trigger«rID» = «TG(trig, 'SKIP', 'Trigger'+rID)»
+		
 		Monitoring«rID» = «RDS(resp, dfts, trig, alpha(resp) + dfts.flatMap[ alpha(it) ], 'Monitoring'+rID)»
+		
 		'''
 	}
 
