@@ -23,6 +23,8 @@ import circus.robocalc.sleec.sLEEC.TimeUnit
 import circus.robocalc.sleec.sLEEC.Trigger
 import circus.robocalc.sleec.sLEEC.Type
 import circus.robocalc.sleec.sLEEC.Value
+import java.util.Collections
+import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
@@ -134,7 +136,7 @@ class SLEECGenerator extends AbstractGenerator {
 		'''
 	}
 	
-	private def CharSequence ME(Iterable<String> mIDs, MBoolExpr mBE, String sp, String fp) {
+	private def CharSequence ME(List<String> mIDs, MBoolExpr mBE, String sp, String fp) {
 		// this removes the first element from mIDs
 		 val mID = mIDs.head
 		
@@ -146,7 +148,7 @@ class SLEECGenerator extends AbstractGenerator {
 		// [[<mID>^mIDs,mBE[vmID/mID],sp,fp]]ME
 		else '''
 			StartBy(«mID»?v«mID» ->
-				«ME(mIDs, replace(mBE, 'v'+mID, mID), sp, fp)»
+				«ME(mIDs.subList(1, mIDs.size), replace(mBE, 'v'+mID, mID), sp, fp)»
 			,0)
 		'''
 	}
@@ -253,12 +255,18 @@ class SLEECGenerator extends AbstractGenerator {
 	// helper functions used in the translation rules:
 	
 	// Returns a list of all the MeasureIds in AST
-	private def <T extends EObject> alpha(T AST) {
-		AST.eAllContents
-			.filter(Atom)
-			.map[ it.measureID ]
-			.filter[ !it.isNullOrEmpty ]
-			.toIterable
+	private def <T extends EObject> List<String> alpha(T AST) {
+		// eAllContents does not include the root of the tree
+		// so this will return an empty list if AST is an instance of Atom, which is an error
+		// so first check that AST is an instance of atom
+		if(AST instanceof Atom)
+			// create a 1 element list with the atom's measureID
+			Collections.singleton((AST as Atom).measureID).toList
+		else
+			AST.eAllContents
+				.filter(Atom)
+				.map[measureID]
+				.toList
 	}
 	
 	// return an MBoolExpr as a string using CSP operators
@@ -329,10 +337,13 @@ class SLEECGenerator extends AbstractGenerator {
 	// replace each MeasureID in the AST with 'vmID'
 	private def <T extends EObject> replace(T AST, String vmID, String mID) {
 		val res = AST
-		res.eAllContents
-			.filter(Atom)
-			.filter[ it.measureID == mID ]
-			.forEach[ it.measureID = vmID ]
+		if(res instanceof Atom)
+			res.measureID = vmID
+		else
+			res.eAllContents
+				.filter(Atom)
+				.filter[ it.measureID == mID ]
+				.forEach[ it.measureID = vmID ]
 		return res
 	}
 	
