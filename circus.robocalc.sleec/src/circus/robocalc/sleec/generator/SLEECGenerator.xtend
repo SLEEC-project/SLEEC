@@ -177,7 +177,7 @@ class SLEECGenerator extends AbstractGenerator {
 		
 		// [[not eID within v tU]]
 		if(r.not) 
-			'''Wait(«norm(v, tU)»)'''
+			'''WAIT(«norm(v, tU)»)'''
 		
 		// [[eID]]RP
 		else if(v === null)
