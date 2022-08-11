@@ -204,7 +204,7 @@ class SLEECGenerator extends AbstractGenerator {
 		// [[<SKIP>,trig,AR,mp,n]]
 		else '''
 			Monitoring«n» = «TG(trig, mp, '''Monitoring«n»''')»
-			«AR.map[ '''	[] «it» -> Monitoring«n»''' ].join('\n')»
+			«AR.map[ '''	[] «it»?x -> Monitoring«n»''' ].join('\n')»
 		'''
 	}
 	
