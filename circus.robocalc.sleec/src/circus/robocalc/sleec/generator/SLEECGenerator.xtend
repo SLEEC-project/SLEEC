@@ -52,7 +52,7 @@ class SLEECGenerator extends AbstractGenerator {
 			«resource.allContents
 				.filter(Rule)
 				.toIterable
-				.map[R]
+				.map[ rule | show(rule) + '\n' + R(rule) ]
 				.join('')»
 			}
 		''')
@@ -333,5 +333,52 @@ class SLEECGenerator extends AbstractGenerator {
 			.filter[ it.measureID == mID ]
 			.forEach[ it.measureID = vmID ]
 		return res
+	}
+	
+	// -----------------------------------------------------------
+	
+	// functions used for AST printing TODO this could be done during serialisation
+	
+	private def CharSequence show(Rule r) '''
+		-- «r.name» when «show(r.trigger)» then «show(r.response)»
+			«FOR d : r.defeaters»
+			-- «show(d)»
+			«ENDFOR»
+	'''
+
+	private def show(Trigger t) {
+		t.event.name + if (t.expr === null)
+			''
+		else
+			' and ' + norm(t.expr)
+	}
+
+	private def CharSequence show(Response r) {
+		if (r.not)
+			'not ' + r.event.name + ' within ' + norm(r.value) + ' ' + show(r.unit)
+		else
+			r.event.name + if (r.value === null)
+				''
+			else  '''within «norm(r.value)» «show(r.unit)»
+	«IF r.response !== null»
+	-- otherwise «show(r.response)»
+	«ENDIF»
+			'''
+	}
+	
+	private def show(TimeUnit t) {
+		switch(t) {
+			case SECONDS: 'seconds'
+			case MINUTES: 'minutes'
+			case HOURS: 'hours'
+			case DAYS: 'days'
+		}
+	}
+	
+	private def show(Defeater d) {
+		'unless ' + norm(d.expr) + if(d.response === null)
+			''
+		else
+			' then ' + show(d.response)
 	}
 }
