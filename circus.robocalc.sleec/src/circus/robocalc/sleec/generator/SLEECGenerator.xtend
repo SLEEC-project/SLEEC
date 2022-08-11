@@ -135,6 +135,7 @@ class SLEECGenerator extends AbstractGenerator {
 	}
 	
 	private def CharSequence ME(Iterable<String> mIDs, MBoolExpr mBE, String sp, String fp) {
+		// this removes the first element from mIDs
 		 val mID = mIDs.head
 		
 		// [[<>,mBE,sp,fp]]ME
@@ -145,7 +146,7 @@ class SLEECGenerator extends AbstractGenerator {
 		// [[<mID>^mIDs,mBE[vmID/mID],sp,fp]]ME
 		else '''
 			StartBy(«mID»?v«mID» ->
-				«ME(mIDs.tail, replace(mBE, 'v'+mID, mID), sp, fp)»
+				«ME(mIDs, replace(mBE, 'v'+mID, mID), sp, fp)»
 			,0)
 		'''
 	}
