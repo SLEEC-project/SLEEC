@@ -341,10 +341,7 @@ class SLEECGenerator extends AbstractGenerator {
 	// functions used for AST printing TODO this could be done during serialisation
 	
 	private def CharSequence show(Rule r) '''
-		-- «r.name» when «show(r.trigger)» then «show(r.response)»
-			«FOR d : r.defeaters»
-			-- «show(d)»
-			«ENDFOR»
+		-- «r.name» when «show(r.trigger)» then «show(r.response)»«r.defeaters.map[show].join('')»
 	'''
 
 	private def show(Trigger t) {
@@ -360,11 +357,11 @@ class SLEECGenerator extends AbstractGenerator {
 		else
 			r.event.name + if (r.value === null)
 				''
-			else  '''within «norm(r.value)» «show(r.unit)»
-	«IF r.response !== null»
-	-- otherwise «show(r.response)»
-	«ENDIF»
-			'''
+			else 
+				'within ' + norm(r.value) + ' ' + show(r.unit) + if(r.response === null)
+					''
+				else
+					'\n-- otherwise ' + show(r.response)
 	}
 	
 	private def show(TimeUnit t) {
@@ -377,7 +374,7 @@ class SLEECGenerator extends AbstractGenerator {
 	}
 	
 	private def show(Defeater d) {
-		'unless ' + norm(d.expr) + if(d.response === null)
+		'\n-- unless ' + norm(d.expr) + if(d.response === null)
 			''
 		else
 			' then ' + show(d.response)
