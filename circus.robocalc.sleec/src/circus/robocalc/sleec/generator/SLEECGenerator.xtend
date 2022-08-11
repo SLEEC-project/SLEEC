@@ -5,6 +5,7 @@ package circus.robocalc.sleec.generator
 
 import circus.robocalc.sleec.sLEEC.Atom
 import circus.robocalc.sleec.sLEEC.BoolComp
+import circus.robocalc.sleec.sLEEC.BoolValue
 import circus.robocalc.sleec.sLEEC.Boolean
 import circus.robocalc.sleec.sLEEC.Constant
 import circus.robocalc.sleec.sLEEC.Defeater
@@ -18,6 +19,7 @@ import circus.robocalc.sleec.sLEEC.RelComp
 import circus.robocalc.sleec.sLEEC.Response
 import circus.robocalc.sleec.sLEEC.Rule
 import circus.robocalc.sleec.sLEEC.Scale
+import circus.robocalc.sleec.sLEEC.TimeUnit
 import circus.robocalc.sleec.sLEEC.Trigger
 import circus.robocalc.sleec.sLEEC.Type
 import circus.robocalc.sleec.sLEEC.Value
@@ -26,8 +28,6 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
-import circus.robocalc.sleec.sLEEC.TimeUnit
-import circus.robocalc.sleec.sLEEC.BoolValue
 
 /**
  * Generates code from your model files on save.
