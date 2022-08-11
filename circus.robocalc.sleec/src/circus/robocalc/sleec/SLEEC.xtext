@@ -17,7 +17,7 @@ Definition:
 ;
 
 Value:
-	value=FLOAT | constant=[Constant]
+	value=INT | constant=[Constant]
 ;
 
 BoolValue:
@@ -104,10 +104,6 @@ ScaleParam:
 
 RuleID:
 	ID
-;
-
-terminal FLOAT returns ecore::EFloat:
-	INT ('.' INT)?
 ;
 
 terminal BOOL_VALUE returns ecore::EBoolean:

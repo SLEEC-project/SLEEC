@@ -296,11 +296,11 @@ class SLEECParsingTest {
 				event E3
 				event E4
 				constant C0 = 5
-				constant C1 = 6.7
+				constant C1 = 6
 			def_end
 			rule_start
 				Rule1 when E0 then E1 within 2 seconds
-					otherwise E2 within 3.4 minutes
+					otherwise E2 within 3 minutes
 					otherwise E3 within C0 hours
 					otherwise E4 within C1 days
 			rule_end
