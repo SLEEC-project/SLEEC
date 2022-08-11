@@ -287,12 +287,12 @@ class SLEECGenerator extends AbstractGenerator {
 	
 	private def norm(RelComp r) {
 		norm(r.left) + switch(r.op) {
-			case LESS_THAN : '<'
-			case GREATER_THAN : '>'
-			case NOT_EQUAL : '!='
-			case LESS_EQUAL : '<='
-			case GREATER_EQUAL : '>='
-			case EQUAL : '=='
+			case LESS_THAN : ' < '
+			case GREATER_THAN : ' > '
+			case NOT_EQUAL : ' != '
+			case LESS_EQUAL : ' <= '
+			case GREATER_EQUAL : ' >= '
+			case EQUAL : ' == '
 		} + norm(r.right)
 	}
 	
