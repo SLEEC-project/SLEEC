@@ -1,0 +1,9 @@
+def_start
+	measure m0 : scale(s0, s1, s2)
+	event E0
+	event E1
+def_end
+rule_start
+	Rule1 when E0 and m0 > s0 then E1
+	Rule2 when E0 and m0 = s1 then E1
+rule_end
