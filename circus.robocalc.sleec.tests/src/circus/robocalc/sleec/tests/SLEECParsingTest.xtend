@@ -11,12 +11,16 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
+import java.nio.file.Files
+import java.nio.file.Paths
 
 @ExtendWith(InjectionExtension)
 @InjectWith(SLEECInjectorProvider)
 class SLEECParsingTest {
 	@Inject ParseHelper<Specification> parseHelper
 	@Inject ValidationTestHelper validationTestHelper
+	
+	// individual SLEEC rule tests
 	
 	@Test
 	def void basic_test() {
@@ -305,6 +309,34 @@ class SLEECParsingTest {
 					otherwise E4 within C1 days
 			rule_end
 		''')
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	val path = '../circus.robocalc.sleec.runtime/src/'
+	
+	// case studies
+	
+	@Test
+	def void test_firefighter_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'firefighter.sleec'))
+		)
+		validationTestHelper.assertNoErrors(result)
+	}
+	
+	@Test
+	def void test_dressing_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'dressing.sleec'))
+		)
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_conflicts_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'conflicts.sleec'))
+		)
 		validationTestHelper.assertNoIssues(result)
 	}
 }
