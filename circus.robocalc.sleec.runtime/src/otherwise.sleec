@@ -11,5 +11,4 @@ rule_start
 		otherwise E2 within 0 seconds
 	Rule3 when E0 then E1 within 0 seconds
 		otherwise E2 within 2 seconds
-		unless m0
 rule_end
