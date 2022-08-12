@@ -1,0 +1,25 @@
+// fire fighter case study
+
+def_start
+	event batteryCritical
+	event soundAlarm
+	measure temperature: numeric
+	//event personDetected
+	measure personDetected : boolean
+	event goHome
+	measure windSpeed: scale(light, moderate, strong)
+def_end
+
+rule_start
+	Rule1 when batteryCritical then soundAlarm
+	Rule2 when batteryCritical and temperature > 35 then soundAlarm
+	Rule3 when batteryCritical and (temperature > 35 or personDetected) then soundAlarm
+	Rule4 when batteryCritical then soundAlarm unless personDetected
+	Rule5 when batteryCritical then soundAlarm
+		unless personDetected then goHome
+	Rule6 when batteryCritical then soundAlarm within 1 seconds
+		otherwise goHome
+	Rule7 when batteryCritical then soundAlarm
+		unless personDetected then goHome
+		unless temperature > 35
+rule_end

@@ -1,0 +1,64 @@
+// rule conflicts experiments
+
+// TODO each of these scenarios should be moved their own file to be tested on its own
+
+def_start
+	event E0
+	event E1
+	event E2
+	event E3
+	measure m0 : boolean
+	measure m1 : boolean
+	measure m2 : numeric
+def_end
+
+rule_start
+	// raise warning saying that E1 will always happen after E0
+	// suggest combining R0 and R1 to look like R2
+	R0 when E0 and m0 then E1
+	R1 when E0 and not m0 then E1
+	R2 when E0 then E1
+
+	// raise warning to, suggest using R3 instead of R4 and R5
+	R3 when E0 and m2 < 10 or m2 > 20 then E1
+	R4 when E0 and m2 < 10 then E1
+	R5 when E0 and m2 > 20 then E1
+
+	// when m1 and m0 are true, ...
+	R6 when E0 and m0 then E1 within 10 seconds
+	R7 when E0 and m1 then E1 within 20 seconds
+	
+	// raise error that R8 and R9 conflict with each other
+	R8 when E0 and m0 then E1 within 10 seconds
+	R9 when E0 and m1 then not E1 within 20 seconds
+
+	// raise warning here about unexpected behaviour
+	R10 when E0 then E1
+	R11 when E0 then E1 unless m0 then E2
+	// suggest writing like this instead
+	R12 when E0 then E1
+	R13 when E0 and m0 then E2
+
+	// raise warning that first 'unless' is redundant
+	R14 when E0 then E1
+		unless m0 then E2
+		unless m0 then E3
+	
+	// raise warning that first 'unless' is redundant
+	R15 when E0 then E1
+		unless m2 < 10 then E2
+		unless m2 < 20 then E3
+		
+	// raise warning E1 never happens, R16 is redundant
+	// similar to a Java warning about if(true)
+	R16 when E0 and m0 and not m0 then E1
+	
+	// raise warning that E1 always happens
+	// suggest writing like R18
+	R17 when E0 and m0 or not m0 then E1
+	R18 when E0 then E1
+	
+	// raise warning that R20 never happens
+	R19 when E0 and m2 < 20 then E1
+	R20 when E0 and m2 < 10 then E1
+rule_end
