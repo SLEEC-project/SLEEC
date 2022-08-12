@@ -175,7 +175,6 @@ class SLEECGenerator extends AbstractGenerator {
 		val v = r.value
 		val tU = r.unit
 		val resp = r.response
-		// time units are not in the grammar, so they are not in th translation rules 
 		
 		// [[not eID within v tU]]
 		if(r.not) 
