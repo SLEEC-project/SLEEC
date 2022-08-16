@@ -20,6 +20,8 @@ import circus.robocalc.sleec.sLEEC.Specification
 import circus.robocalc.sleec.sLEEC.Value
 import java.util.Set
 import org.eclipse.xtext.validation.Check
+import java.util.Map
+import java.util.List
 
 /** 
  * This class contains custom validation rules. 
@@ -50,17 +52,12 @@ class SLEECValidator extends AbstractSLEECValidator {
 	def checkExprTypes(Specification s) {
 		val defBlock = s.defBlock
 		val ruleBlock = s.ruleBlock
-		val scaleParams = defBlock.eAllContents
-			.filter(Scale)
-			.toIterable
-			.flatMap[scaleParams]
-			.map[name]
-			.toSet
-		val scaleIDs = defBlock.eAllContents
+		val Map<String, List<String>> scales = defBlock.eAllContents
 			.filter(Measure)
 			.filter[it.type instanceof Scale]
-			.map[name]
-			.toSet
+			.toMap([name], [(it.type as Scale).scaleParams.map[name]])
+		val scaleIDs = scales.keySet
+		val scaleParams = scales.values.flatten.toSet
 		val booleanIDs = defBlock.eAllContents
 			.filter(Measure)
 			.filter[it.type instanceof Boolean]
@@ -73,7 +70,6 @@ class SLEECValidator extends AbstractSLEECValidator {
 			.filter(Constant)
 			.map[name]).toSet
 		val IDs = numericIDs + scaleIDs + scaleParams + booleanIDs
-
 		// check for undefined variables
 		ruleBlock.eAllContents.filter(Atom).toIterable.forEach [ atom |
 			if (!IDs.contains(atom.measureID))
@@ -92,10 +88,15 @@ class SLEECValidator extends AbstractSLEECValidator {
 			
 			// check that both arguments are scale types
 			// with one argument being a measureID and the another being a scaleParam
-			// TODO check that the scaleParam matches the measureID
-			else if (isScaleID(relComp.left, scaleIDs) && isScaleID(relComp.right, scaleIDs) ||
+			if (isScaleID(relComp.left, scaleIDs) && isScaleID(relComp.right, scaleIDs) ||
 				isScaleParam(relComp.left, scaleParams) && isScaleParam(relComp.right, scaleParams))
 				error("One operand must be a measure and the other must be a scale", relComp, SLEECPackage.Literals.REL_COMP__OP)
+				
+			// check that the scale parameter matches the measure id
+			val String scaleID = ((isScaleID(relComp.left, scaleIDs) ? relComp.left : relComp.right) as Atom).measureID
+			val String scaleParam = ((isScaleParam(relComp.left, scaleParams) ? relComp.left : relComp.right) as Atom).measureID
+			if (!scales.get(scaleID).contains(scaleParam))
+				error(''''ScaleParam «scaleParam»' is not a member of MeasureID '«scaleID»'«»''', relComp, SLEECPackage.Literals.REL_COMP__OP)
 		]
 
 		// check types of comparison and not operators
