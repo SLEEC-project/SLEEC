@@ -5,6 +5,7 @@ package circus.robocalc.sleec.validation
 
 import circus.robocalc.sleec.sLEEC.Atom
 import circus.robocalc.sleec.sLEEC.BoolComp
+import circus.robocalc.sleec.sLEEC.BoolValue
 import circus.robocalc.sleec.sLEEC.Boolean
 import circus.robocalc.sleec.sLEEC.Constant
 import circus.robocalc.sleec.sLEEC.Definition
@@ -20,7 +21,6 @@ import circus.robocalc.sleec.sLEEC.Specification
 import circus.robocalc.sleec.sLEEC.Value
 import java.util.Set
 import org.eclipse.xtext.validation.Check
-import circus.robocalc.sleec.sLEEC.BoolValue
 
 /** 
  * This class contains custom validation rules. 
