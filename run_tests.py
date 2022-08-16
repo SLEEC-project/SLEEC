@@ -1,6 +1,7 @@
 import subprocess
 import filecmp
 import os
+import time
 import concurrent.futures
 
 def remove_ext(filename):
@@ -33,6 +34,7 @@ def validate(filename):
     return result
 
 def main():
+    start = time.time()
     os.chdir(os.path.dirname(__file__))
     os.chdir('circus.robocalc.sleec.runtime')
     if not os.path.exists('log'):
@@ -66,6 +68,7 @@ def main():
     print('------------------------------')
 
     print(num_failed, 'tests failed')
+    print('tests completed in', time.time() - start, 'seconds')
     exit(num_failed != 0)
 
 if __name__ == '__main__':
