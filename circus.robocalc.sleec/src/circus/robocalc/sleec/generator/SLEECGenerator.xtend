@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import java.util.Set
 
 /**
  * Generates code from your model files on save.
@@ -38,7 +39,21 @@ import org.eclipse.xtext.generator.IGeneratorContext
  */
 class SLEECGenerator extends AbstractGenerator {
 
+	Set<String> scaleIDs
+	Set<String> scaleParams
+	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		this.scaleParams = resource.allContents
+			.filter(Scale)
+			.toIterable
+			.flatMap[ it.scaleParams ]
+			.toSet
+		this.scaleIDs = resource.allContents
+			.filter(Measure)
+			.filter[ it.type instanceof Scale ]
+			.map[ 'v' + it.name ]
+			.toSet
+		
 		fsa.generateFile(
 			resource.getURI().trimFileExtension().lastSegment() + '.csp', '''
 			include "ticktock.csp"
@@ -273,14 +288,19 @@ class SLEECGenerator extends AbstractGenerator {
 		// eAllContents does not include the root of the tree
 		// so this will return an empty list if AST is an instance of Atom, which is an error
 		// so first check that AST is an instance of atom
-		if(AST instanceof Atom)
+		val Iterable<Atom> leaves = if(AST instanceof Atom)
 			// create a 1 element list with the atom's measureID
-			Collections.singleton((AST as Atom).measureID).toList
+			Collections.singleton(AST as Atom)
 		else
 			AST.eAllContents
 				.filter(Atom)
-				.map[measureID]
 				.toList
+		// the name of an atom can either be a measureID or a scaleParam
+		// filter out the scaleParams 
+		return leaves
+			.map[measureID]
+			.filter[!isScaleParam]
+			.toList
 	}
 	
 	// return an MBoolExpr as a string using CSP operators
@@ -403,5 +423,19 @@ class SLEECGenerator extends AbstractGenerator {
 			''
 		else
 			' then ' + show(d.response)
+	}
+	
+	// -----------------------------------------------------------
+	
+	private def isScaleID(MBoolExpr m) {
+		m instanceof Atom && isScaleID((m as Atom).measureID)
+	}
+	
+	private def isScaleID(String measureID) {
+		this.scaleIDs.contains(measureID)
+	}
+	
+	private def isScaleParam(String measureID) {
+		this.scaleParams.contains(measureID)
 	}
 }
