@@ -41,6 +41,7 @@ class SLEECGenerator extends AbstractGenerator {
 
 	Set<String> scaleIDs
 	Set<String> scaleParams
+	Set<String> measureIDs
 	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		this.scaleParams = resource.allContents
@@ -52,6 +53,10 @@ class SLEECGenerator extends AbstractGenerator {
 			.filter(Measure)
 			.filter[ it.type instanceof Scale ]
 			.map[ 'v' + it.name ]
+			.toSet
+		this.measureIDs = resource.allContents
+			.filter(Measure)
+			.map[name]
 			.toSet
 		
 		fsa.generateFile(
@@ -299,7 +304,7 @@ class SLEECGenerator extends AbstractGenerator {
 		// filter out the scaleParams 
 		return leaves
 			.map[measureID]
-			.filter[!isScaleParam]
+			.filter[this.measureIDs.contains(it)]
 			.toList
 	}
 	
@@ -451,9 +456,5 @@ class SLEECGenerator extends AbstractGenerator {
 	
 	private def isScaleID(String measureID) {
 		this.scaleIDs.contains(measureID)
-	}
-	
-	private def isScaleParam(String measureID) {
-		this.scaleParams.contains(measureID)
 	}
 }
