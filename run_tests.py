@@ -34,6 +34,7 @@ def test(filename):
             'generated': generated,
             'validated': validated}
 
+os.chdir(os.path.dirname(__file__))
 jar = os.path.abspath('sleec.jar')
 assert(os.path.isfile(jar))
 os.chdir('circus.robocalc.sleec.runtime')
