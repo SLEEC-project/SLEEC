@@ -329,14 +329,32 @@ class SLEECGenerator extends AbstractGenerator {
 	}
 	
 	private def norm(RelComp r) {
-		norm(r.left) + switch(r.op) {
-			case LESS_THAN : ' < '
-			case GREATER_THAN : ' > '
-			case NOT_EQUAL : ' != '
-			case LESS_EQUAL : ' <= '
-			case GREATER_EQUAL : ' >= '
-			case EQUAL : ' == '
-		} + norm(r.right)
+		// the validation pass ensures that one of the arguments is a measureID
+		// so the case where both are scaleParams can be ignored
+		if(isScaleID(r.left) || isScaleID(r.right))
+		{
+			// if the arguments are scale types then they are atoms
+			val left = (r.left as Atom).measureID
+			val right = (r.right as Atom).measureID
+			val scaleType = (isScaleID(left) ? left : right).substring(1)
+			'''ST«switch(r.op) {
+				case LESS_THAN : 'lt'
+				case GREATER_THAN : 'gt'
+				case NOT_EQUAL : 'ne'
+				case LESS_EQUAL : 'le'
+				case GREATER_EQUAL : 'ge'
+				case EQUAL : 'eq'
+			}»«scaleType»(«left», «right»)'''
+		}
+		else
+			norm(r.left) + switch(r.op) {
+				case LESS_THAN : ' < '
+				case GREATER_THAN : ' > '
+				case NOT_EQUAL : ' != '
+				case LESS_EQUAL : ' <= '
+				case GREATER_EQUAL : ' >= '
+				case EQUAL : ' == '
+			} + norm(r.right)
 	}
 	
 	private def norm(Atom a) {
