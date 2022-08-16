@@ -36,7 +36,7 @@ if not os.path.exists('log'):
 files = [remove_ext(f) for f in os.listdir('src') if '.sleec' in f]
 
 if not compile(files):
-    print('compilation falied')
+    print('compilation failed')
     exit(1)
 
 print('------------------------------')
