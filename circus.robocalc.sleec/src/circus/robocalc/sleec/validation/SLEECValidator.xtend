@@ -52,7 +52,7 @@ class SLEECValidator extends AbstractSLEECValidator {
 		val defBlock = s.defBlock
 		val ruleBlock = s.ruleBlock
 		val definitions = defBlock.eAllContents.filter(Definition).toList
-		val scaleParams = defBlock.eAllContents.filter(Scale).toList.map[scaleParams].flatten.toSet
+		val scaleParams = defBlock.eAllContents.filter(Scale).toList.map[scaleParams].flatten.map[name].toSet
 		val scaleIDs = definitions.filter[isScale].map[name].toSet
 		val booleanIDs = definitions.filter[isBoolean].map[name].toSet
 		val numericIDs = definitions.filter[isNumeric].map[name].toSet

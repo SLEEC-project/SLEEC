@@ -97,17 +97,19 @@ class SLEECGenerator extends AbstractGenerator {
 		switch t {
 			Boolean : 'Bool'
 			Numeric : 'Int'
-			Scale : '''
+			Scale : { 
+				val sps = t.scaleParams.map[name]
+				'''
 				ST«mID»
 				
-				datatype ST«mID» = «t.scaleParams.join(" | ")»
+				datatype ST«mID» = «sps.join(" | ")»
 				
 				STle«mID»(v1«mID», v2«mID») =
-					if v1«mID» == «t.scaleParams.head» then true
-					«(1 ..< t.scaleParams.size - 1).map[
-						'''else (if v1«mID» == «t.scaleParams.get(it)» then not member(v2«mID»,{«t.scaleParams.take(it).join(', ')»})'''
+					if v1«mID» == «sps.head» then true
+					«(1 ..< sps.size - 1).map[
+						'''else (if v1«mID» == «sps.get(it)» then not member(v2«mID»,{«sps.take(it).join(', ')»})'''
 					].join('\n')»
-					else v2«mID» == «t.scaleParams.last»«')'.repeat(t.scaleParams.size-2)»
+					else v2«mID» == «sps.last»«')'.repeat(sps.size-2)»
 					
 				STeq«mID»(v1«mID», v2«mID») =
 					v1«mID» == v2«mID»
@@ -123,7 +125,8 @@ class SLEECGenerator extends AbstractGenerator {
 					
 				STge«mID»(v1«mID», v2«mID») =
 					STlt«mID»(v2«mID», v1«mID»)
-			'''
+				'''
+			}
 		}
 	}
 	

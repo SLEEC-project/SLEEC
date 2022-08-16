@@ -99,7 +99,7 @@ ConstID:
 ;
 
 ScaleParam:
-	ID
+	name = ID
 ;
 
 RuleID:
