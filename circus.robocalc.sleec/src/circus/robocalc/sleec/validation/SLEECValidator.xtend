@@ -82,10 +82,15 @@ class SLEECValidator extends AbstractSLEECValidator {
 
 		// check the types of a relational operator
 		ruleBlock.eAllContents.filter(RelComp).forEach [ relComp |
-			// check that both arguments are numeric
+			// do nothing if both arguments are numeric
+			if (isNumeric(relComp.left, numericIDs) && isNumeric(relComp.right, numericIDs))
+				return;
+			
+			// raise an error if only one argument is numeric
 			if (isNumeric(relComp.left, numericIDs) != isNumeric(relComp.right, numericIDs))
 				error("Both operands must be numeric type", relComp, SLEECPackage.Literals.REL_COMP__OP)
-			// or check that both arguments are scale types
+			
+			// check that both arguments are scale types
 			// with one argument being a measureID and the another being a scaleParam
 			// TODO check that the scaleParam matches the measureID
 			else if (isScaleID(relComp.left, scaleIDs) && isScaleID(relComp.right, scaleIDs) ||
