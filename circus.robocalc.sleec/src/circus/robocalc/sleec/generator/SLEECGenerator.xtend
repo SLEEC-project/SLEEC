@@ -40,15 +40,9 @@ import java.util.Set
 class SLEECGenerator extends AbstractGenerator {
 
 	Set<String> scaleIDs
-	Set<String> scaleParams
 	Set<String> measureIDs
 	
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		this.scaleParams = resource.allContents
-			.filter(Scale)
-			.toIterable
-			.flatMap[ it.scaleParams ]
-			.toSet
 		this.scaleIDs = resource.allContents
 			.filter(Measure)
 			.filter[ it.type instanceof Scale ]
