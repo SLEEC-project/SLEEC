@@ -94,6 +94,21 @@ class SLEECGenerator extends AbstractGenerator {
 						'''else (if v1«mID» == «t.scaleParams.get(it)» then not member(v2«mID»,{«t.scaleParams.take(it).join(', ')»})'''
 					].join('\n')»
 					else v2«mID» == «t.scaleParams.last»«')'.repeat(t.scaleParams.size-2)»
+					
+				STeq«mID»(v1«mID», v2«mID») =
+					v1«mID» == v2«mID»
+					
+				STlt«mID»(v1«mID», v2«mID») =
+					STle«mID»(v1«mID», v2«mID») and STne«mID»(v1«mID», v2«mID»)
+					
+				STgt«mID»(v1«mID», v2«mID») =
+					STle«mID»(v2«mID», v1«mID»)
+					
+				STne«mID»(v1«mID», v2«mID») =
+					not STeq«mID»(v1«mID», v2«mID»)
+					
+				STge«mID»(v1«mID», v2«mID») =
+					STlt«mID»(v2«mID», v1«mID»)
 			'''
 		}
 	}
