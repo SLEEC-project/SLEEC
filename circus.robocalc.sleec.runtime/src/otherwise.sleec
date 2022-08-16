@@ -5,10 +5,10 @@ def_start
 	measure m0 : boolean
 def_end
 rule_start
-	Rule1 when E0 then E1 within 1 seconds
+	Rule1 when E0 then E1 within 1 seconds // simple otherwise statement
 		otherwise E2
-	Rule2 when E0 then E1 within 1 seconds
+	Rule2 when E0 then E1 within 1 seconds // otherwise with 'within'
 		otherwise E2 within 0 seconds
-	Rule3 when E0 then E1 within 0 seconds
+	Rule3 when E0 then E1 within 0 seconds // two otherwise statements
 		otherwise E2 within 2 seconds
 rule_end

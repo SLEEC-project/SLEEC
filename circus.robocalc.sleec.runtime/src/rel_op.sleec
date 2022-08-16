@@ -5,5 +5,10 @@ def_start
 	measure m1 : numeric
 def_end
 rule_start
-	Rule1 when E0 and m0 > m1 then E1
+	Rule0 when E0 and m0 = m1 then E1
+	Rule1 when E0 and m0 <> m1 then E1
+	Rule2 when E0 and m0 > m1 then E1
+	Rule3 when E0 and m0 < m1 then E1
+	Rule4 when E0 and m0 >= m1 then E1
+	Rule5 when E0 and m0 <= m1 then E1
 rule_end

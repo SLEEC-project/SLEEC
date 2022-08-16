@@ -6,7 +6,8 @@ def_start
 	measure m1 : boolean
 def_end
 rule_start
-	Rule1 when E0 then E1
-		unless m0 then E2
-		unless m1
+	Rule0 when E0 then E1 unless m0 // simple defeater
+	Rule1 when E0 then E1 unless m0 then E2 // defeater with 'then'
+	Rule2 when E0 then E1 unless m0 unless m1 // two simple defeaters
+	Rule3 when E0 then E1 unless m0 then E1 unless m1 then E2 // two 'then' defeaters
 rule_end

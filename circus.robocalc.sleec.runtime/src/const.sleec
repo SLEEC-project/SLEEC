@@ -5,6 +5,6 @@ def_start
 	constant C0 = 1
 def_end
 rule_start
-	Rule1 when E0 and m0 > C0 then E1
-	Rule2 when E0 then E1 within C0 days
+	Rule1 when E0 and m0 > C0 then E1 // constant in expression
+	Rule2 when E0 then E1 within C0 days // constant in time
 rule_end

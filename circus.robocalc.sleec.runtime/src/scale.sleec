@@ -4,6 +4,7 @@ def_start
 	event E1
 def_end
 rule_start
+	// comparison operators with scale type arguments
 	Rule1 when E0 and m0 < s1 then E1
 	Rule2 when E0 and m0 = s1 then E1
 	Rule3 when E0 and m0 > s1 then E1
