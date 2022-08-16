@@ -24,7 +24,9 @@ class Main {
 		}
 		val injector = new SLEECStandaloneSetup().createInjectorAndDoEMFRegistration
 		val main = injector.getInstance(Main)
-		main.runGenerator(args.get(0))
+		for(arg : args) {
+			main.runGenerator(arg)
+		}
 	}
 
 	@Inject Provider<ResourceSet> resourceSetProvider
