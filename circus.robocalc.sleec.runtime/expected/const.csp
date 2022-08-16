@@ -1,0 +1,30 @@
+include "ticktock.csp"
+
+Timed(et) {
+	
+channel E0
+channel E1
+channel m0 : Int
+C0 = 1
+
+-- Rule1 when E0 and ((m0) > (C0)) then E1
+
+Rule1 = TriggerRule1; MonitoringRule1; Rule1
+
+TriggerRule1 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if ((vm0) > (C0)) then SKIP else TriggerRule1
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule1 = E1 -> SKIP
+
+-- Rule2 when E0 then E1within 1 days
+
+Rule2 = TriggerRule2; MonitoringRule2; Rule2
+
+TriggerRule2 = E0 -> SKIP
+
+MonitoringRule2 = StartBy(E1 -> SKIP,(1 * 86400))
+
+}

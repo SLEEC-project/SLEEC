@@ -1,0 +1,86 @@
+include "ticktock.csp"
+
+Timed(et) {
+	
+channel E0
+channel E1
+channel E2
+channel m0 : Bool
+channel m1 : Bool
+
+-- Rule0 when E0 then E1
+-- unless (m0)
+
+Rule0 = TriggerRule0; MonitoringRule0; Rule0
+
+TriggerRule0 = E0 -> SKIP
+
+MonitoringRule0 = let
+	Monitoring1 = E1 -> SKIP
+	Monitoring2 = E0 -> MonitoringRule0
+		[] m0?x -> Monitoring2
+within StartBy(m0?vm0 ->
+	if (vm0) then Monitoring2
+	else (Monitoring1)
+,0)
+
+-- Rule1 when E0 then E1
+-- unless (m0) then E2
+
+Rule1 = TriggerRule1; MonitoringRule1; Rule1
+
+TriggerRule1 = E0 -> SKIP
+
+MonitoringRule1 = let
+	Monitoring1 = E1 -> SKIP
+	Monitoring2 = E2 -> SKIP
+within StartBy(m0?vm0 ->
+	if (vm0) then Monitoring2
+	else (Monitoring1)
+,0)
+
+-- Rule2 when E0 then E1
+-- unless (m0)
+-- unless (m1)
+
+Rule2 = TriggerRule2; MonitoringRule2; Rule2
+
+TriggerRule2 = E0 -> SKIP
+
+MonitoringRule2 = let
+	Monitoring1 = E1 -> SKIP
+	Monitoring2 = E0 -> MonitoringRule2
+		[] m0?x -> Monitoring2
+		[] m1?x -> Monitoring2
+	Monitoring3 = E0 -> MonitoringRule2
+		[] m0?x -> Monitoring3
+		[] m1?x -> Monitoring3
+within StartBy(m0?vm0 ->
+	StartBy(m1?vm1 ->
+		if (vm0) then Monitoring3
+		else (if (vm1) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+-- Rule3 when E0 then E1
+-- unless (m0) then E1
+-- unless (m1) then E2
+
+Rule3 = TriggerRule3; MonitoringRule3; Rule3
+
+TriggerRule3 = E0 -> SKIP
+
+MonitoringRule3 = let
+	Monitoring1 = E1 -> SKIP
+	Monitoring2 = E1 -> SKIP
+	Monitoring3 = E2 -> SKIP
+within StartBy(m0?vm0 ->
+	StartBy(m1?vm1 ->
+		if (vm0) then Monitoring3
+		else (if (vm1) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+}

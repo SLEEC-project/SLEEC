@@ -1,0 +1,274 @@
+include "ticktock.csp"
+
+Timed(et) {
+	
+channel E0
+channel E1
+channel E2
+channel E3
+channel m0 : Bool
+channel m1 : Bool
+channel m2 : Int
+
+-- R0 when E0 and (m0) then E1
+
+R0 = TriggerR0; MonitoringR0; R0
+
+TriggerR0 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (vm0) then SKIP else TriggerR0
+	,0)
+within E0 -> MTrigger
+
+MonitoringR0 = E1 -> SKIP
+
+-- R1 when E0 and (not (m0)) then E1
+
+R1 = TriggerR1; MonitoringR1; R1
+
+TriggerR1 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (not (vm0)) then SKIP else TriggerR1
+	,0)
+within E0 -> MTrigger
+
+MonitoringR1 = E1 -> SKIP
+
+-- R2 when E0 then E1
+
+R2 = TriggerR2; MonitoringR2; R2
+
+TriggerR2 = E0 -> SKIP
+
+MonitoringR2 = E1 -> SKIP
+
+-- R3 when E0 and (((m2) < (10)) or ((m2) > (20))) then E1
+
+R3 = TriggerR3; MonitoringR3; R3
+
+TriggerR3 = let
+	MTrigger = StartBy(m2?vm2 ->
+		StartBy(m2?vm2 ->
+			if (((vm2) < (10)) or ((vm2) > (20))) then SKIP else TriggerR3
+		,0)
+	,0)
+within E0 -> MTrigger
+
+MonitoringR3 = E1 -> SKIP
+
+-- R4 when E0 and ((m2) < (10)) then E1
+
+R4 = TriggerR4; MonitoringR4; R4
+
+TriggerR4 = let
+	MTrigger = StartBy(m2?vm2 ->
+		if ((vm2) < (10)) then SKIP else TriggerR4
+	,0)
+within E0 -> MTrigger
+
+MonitoringR4 = E1 -> SKIP
+
+-- R5 when E0 and ((m2) > (20)) then E1
+
+R5 = TriggerR5; MonitoringR5; R5
+
+TriggerR5 = let
+	MTrigger = StartBy(m2?vm2 ->
+		if ((vm2) > (20)) then SKIP else TriggerR5
+	,0)
+within E0 -> MTrigger
+
+MonitoringR5 = E1 -> SKIP
+
+-- R6 when E0 and (m0) then E1within 10 seconds
+
+R6 = TriggerR6; MonitoringR6; R6
+
+TriggerR6 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (vm0) then SKIP else TriggerR6
+	,0)
+within E0 -> MTrigger
+
+MonitoringR6 = StartBy(E1 -> SKIP,(10 * 1))
+
+-- R7 when E0 and (m1) then E1within 20 seconds
+
+R7 = TriggerR7; MonitoringR7; R7
+
+TriggerR7 = let
+	MTrigger = StartBy(m1?vm1 ->
+		if (vm1) then SKIP else TriggerR7
+	,0)
+within E0 -> MTrigger
+
+MonitoringR7 = StartBy(E1 -> SKIP,(20 * 1))
+
+-- R8 when E0 and (m0) then E1within 10 seconds
+
+R8 = TriggerR8; MonitoringR8; R8
+
+TriggerR8 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (vm0) then SKIP else TriggerR8
+	,0)
+within E0 -> MTrigger
+
+MonitoringR8 = StartBy(E1 -> SKIP,(10 * 1))
+
+-- R9 when E0 and (m1) then not E1 within 20 seconds
+
+R9 = TriggerR9; MonitoringR9; R9
+
+TriggerR9 = let
+	MTrigger = StartBy(m1?vm1 ->
+		if (vm1) then SKIP else TriggerR9
+	,0)
+within E0 -> MTrigger
+
+MonitoringR9 = WAIT((20 * 1))
+
+-- R10 when E0 then E1
+
+R10 = TriggerR10; MonitoringR10; R10
+
+TriggerR10 = E0 -> SKIP
+
+MonitoringR10 = E1 -> SKIP
+
+-- R11 when E0 then E1
+-- unless (m0) then E2
+
+R11 = TriggerR11; MonitoringR11; R11
+
+TriggerR11 = E0 -> SKIP
+
+MonitoringR11 = let
+	Monitoring1 = E1 -> SKIP
+	Monitoring2 = E2 -> SKIP
+within StartBy(m0?vm0 ->
+	if (vm0) then Monitoring2
+	else (Monitoring1)
+,0)
+
+-- R12 when E0 then E1
+
+R12 = TriggerR12; MonitoringR12; R12
+
+TriggerR12 = E0 -> SKIP
+
+MonitoringR12 = E1 -> SKIP
+
+-- R13 when E0 and (m0) then E2
+
+R13 = TriggerR13; MonitoringR13; R13
+
+TriggerR13 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (vm0) then SKIP else TriggerR13
+	,0)
+within E0 -> MTrigger
+
+MonitoringR13 = E2 -> SKIP
+
+-- R14 when E0 then E1
+-- unless (m0) then E2
+-- unless (m0) then E3
+
+R14 = TriggerR14; MonitoringR14; R14
+
+TriggerR14 = E0 -> SKIP
+
+MonitoringR14 = let
+	Monitoring1 = E1 -> SKIP
+	Monitoring2 = E2 -> SKIP
+	Monitoring3 = E3 -> SKIP
+within StartBy(m0?vm0 ->
+	StartBy(m0?vm0 ->
+		if (vm0) then Monitoring3
+		else (if (vm0) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+-- R15 when E0 then E1
+-- unless ((m2) < (10)) then E2
+-- unless ((m2) < (20)) then E3
+
+R15 = TriggerR15; MonitoringR15; R15
+
+TriggerR15 = E0 -> SKIP
+
+MonitoringR15 = let
+	Monitoring1 = E1 -> SKIP
+	Monitoring2 = E2 -> SKIP
+	Monitoring3 = E3 -> SKIP
+within StartBy(m2?vm2 ->
+	StartBy(m2?vm2 ->
+		if ((vm2) < (10)) then Monitoring3
+		else (if ((vm2) < (20)) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+-- R16 when E0 and ((m0) and (not (m0))) then E1
+
+R16 = TriggerR16; MonitoringR16; R16
+
+TriggerR16 = let
+	MTrigger = StartBy(m0?vm0 ->
+		StartBy(m0?vm0 ->
+			if ((vm0) and (not (vm0))) then SKIP else TriggerR16
+		,0)
+	,0)
+within E0 -> MTrigger
+
+MonitoringR16 = E1 -> SKIP
+
+-- R17 when E0 and ((m0) or (not (m0))) then E1
+
+R17 = TriggerR17; MonitoringR17; R17
+
+TriggerR17 = let
+	MTrigger = StartBy(m0?vm0 ->
+		StartBy(m0?vm0 ->
+			if ((vm0) or (not (vm0))) then SKIP else TriggerR17
+		,0)
+	,0)
+within E0 -> MTrigger
+
+MonitoringR17 = E1 -> SKIP
+
+-- R18 when E0 then E1
+
+R18 = TriggerR18; MonitoringR18; R18
+
+TriggerR18 = E0 -> SKIP
+
+MonitoringR18 = E1 -> SKIP
+
+-- R19 when E0 and ((m2) < (20)) then E1
+
+R19 = TriggerR19; MonitoringR19; R19
+
+TriggerR19 = let
+	MTrigger = StartBy(m2?vm2 ->
+		if ((vm2) < (20)) then SKIP else TriggerR19
+	,0)
+within E0 -> MTrigger
+
+MonitoringR19 = E1 -> SKIP
+
+-- R20 when E0 and ((m2) < (10)) then E1
+
+R20 = TriggerR20; MonitoringR20; R20
+
+TriggerR20 = let
+	MTrigger = StartBy(m2?vm2 ->
+		if ((vm2) < (10)) then SKIP else TriggerR20
+	,0)
+within E0 -> MTrigger
+
+MonitoringR20 = E1 -> SKIP
+
+}

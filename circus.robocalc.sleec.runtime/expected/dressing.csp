@@ -1,0 +1,126 @@
+include "ticktock.csp"
+
+Timed(et) {
+	
+channel DressingStarted
+channel DressingSuccessful
+channel FallAssessed
+channel SupportCalled
+channel OpenCurtainsRequested
+channel CurtainsOpened
+channel UserFallen
+channel HealthChecked
+channel RefuseRequest
+channel userUndressed : Bool
+channel userUnresponsive : Bool
+channel userDistressed : STuserDistressed
+
+datatype STuserDistressed = low | medium | high
+
+STleuserDistressed(v1userDistressed, v2userDistressed) =
+	if v1userDistressed == low then true
+	else (if v1userDistressed == medium then not member(v2userDistressed,{low})
+	else v2userDistressed == high)
+	
+STequserDistressed(v1userDistressed, v2userDistressed) =
+	v1userDistressed == v2userDistressed
+	
+STltuserDistressed(v1userDistressed, v2userDistressed) =
+	STleuserDistressed(v1userDistressed, v2userDistressed) and STneuserDistressed(v1userDistressed, v2userDistressed)
+	
+STgtuserDistressed(v1userDistressed, v2userDistressed) =
+	STleuserDistressed(v2userDistressed, v1userDistressed)
+	
+STneuserDistressed(v1userDistressed, v2userDistressed) =
+	not STequserDistressed(v1userDistressed, v2userDistressed)
+	
+STgeuserDistressed(v1userDistressed, v2userDistressed) =
+	STltuserDistressed(v2userDistressed, v1userDistressed)
+MAX_RESPONSE_TIME = 60
+
+-- Rule1 when DressingStarted then DressingSuccessful
+
+Rule1 = TriggerRule1; MonitoringRule1; Rule1
+
+TriggerRule1 = DressingStarted -> SKIP
+
+MonitoringRule1 = DressingSuccessful -> SKIP
+
+-- Rule2 when FallAssessed and (userUnresponsive) then SupportCalled
+
+Rule2 = TriggerRule2; MonitoringRule2; Rule2
+
+TriggerRule2 = let
+	MTrigger = StartBy(userUnresponsive?vuserUnresponsive ->
+		if (vuserUnresponsive) then SKIP else TriggerRule2
+	,0)
+within FallAssessed -> MTrigger
+
+MonitoringRule2 = SupportCalled -> SKIP
+
+-- Rule3 when OpenCurtainsRequested and (userUndressed) then not CurtainsOpened within 60 seconds
+
+Rule3 = TriggerRule3; MonitoringRule3; Rule3
+
+TriggerRule3 = let
+	MTrigger = StartBy(userUndressed?vuserUndressed ->
+		if (vuserUndressed) then SKIP else TriggerRule3
+	,0)
+within OpenCurtainsRequested -> MTrigger
+
+MonitoringRule3 = WAIT((60 * 1))
+
+-- Rule4 when UserFallen then SupportCalled
+
+Rule4 = TriggerRule4; MonitoringRule4; Rule4
+
+TriggerRule4 = UserFallen -> SKIP
+
+MonitoringRule4 = SupportCalled -> SKIP
+
+-- Rule5 when UserFallen then SupportCalledwithin 1 minutes
+
+Rule5 = TriggerRule5; MonitoringRule5; Rule5
+
+TriggerRule5 = UserFallen -> SKIP
+
+MonitoringRule5 = StartBy(SupportCalled -> SKIP,(1 * 60))
+
+-- Rule6 when UserFallen then HealthCheckedwithin 30 seconds
+-- otherwise SupportCalledwithin 60 seconds
+
+Rule6 = TriggerRule6; MonitoringRule6; Rule6
+
+TriggerRule6 = UserFallen -> SKIP
+
+MonitoringRule6 = TimedInterrupt(HealthChecked -> SKIP,(30 * 1),StartBy(SupportCalled -> SKIP,(60 * 1)))
+
+-- Rule7 when OpenCurtainsRequested then CurtainsOpenedwithin 60 seconds
+
+Rule7 = TriggerRule7; MonitoringRule7; Rule7
+
+TriggerRule7 = OpenCurtainsRequested -> SKIP
+
+MonitoringRule7 = StartBy(CurtainsOpened -> SKIP,(60 * 1))
+
+-- Rule8 when OpenCurtainsRequested then CurtainsOpenedwithin 60 seconds
+-- unless (userUndressed) then RefuseRequestwithin 30 seconds
+-- unless ((userDistressed) > (medium)) then CurtainsOpenedwithin 60 seconds
+
+Rule8 = TriggerRule8; MonitoringRule8; Rule8
+
+TriggerRule8 = OpenCurtainsRequested -> SKIP
+
+MonitoringRule8 = let
+	Monitoring1 = StartBy(CurtainsOpened -> SKIP,(60 * 1))
+	Monitoring2 = StartBy(RefuseRequest -> SKIP,(30 * 1))
+	Monitoring3 = StartBy(CurtainsOpened -> SKIP,(60 * 1))
+within StartBy(userUndressed?vuserUndressed ->
+	StartBy(userDistressed?vuserDistressed ->
+		if (vuserUndressed) then Monitoring3
+		else (if (STgtuserDistressed(vuserDistressed, medium)) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+}

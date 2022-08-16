@@ -1,0 +1,53 @@
+include "ticktock.csp"
+
+Timed(et) {
+	
+channel E0
+channel E1
+channel m0 : Bool
+
+-- Rule1 when E0 and (m0) then E1
+
+Rule1 = TriggerRule1; MonitoringRule1; Rule1
+
+TriggerRule1 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (vm0) then SKIP else TriggerRule1
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule1 = E1 -> SKIP
+
+-- Rule2 when E0 and (true) then E1
+
+Rule2 = TriggerRule2; MonitoringRule2; Rule2
+
+TriggerRule2 = let
+	MTrigger = if (true) then SKIP else TriggerRule2
+within E0 -> MTrigger
+
+MonitoringRule2 = E1 -> SKIP
+
+-- Rule3 when E0 and (false) then E1
+
+Rule3 = TriggerRule3; MonitoringRule3; Rule3
+
+TriggerRule3 = let
+	MTrigger = if (false) then SKIP else TriggerRule3
+within E0 -> MTrigger
+
+MonitoringRule3 = E1 -> SKIP
+
+-- Rule4 when E0 and (((m0) and (true)) or (false)) then E1
+
+Rule4 = TriggerRule4; MonitoringRule4; Rule4
+
+TriggerRule4 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (((vm0) and (true)) or (false)) then SKIP else TriggerRule4
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule4 = E1 -> SKIP
+
+}

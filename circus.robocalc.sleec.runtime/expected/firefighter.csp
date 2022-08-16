@@ -1,0 +1,130 @@
+include "ticktock.csp"
+
+Timed(et) {
+	
+channel BatteryCritical
+channel SoundAlarm
+channel temperature : Int
+channel personDetected : Bool
+channel GoHome
+channel windSpeed : STwindSpeed
+
+datatype STwindSpeed = light | moderate | strong
+
+STlewindSpeed(v1windSpeed, v2windSpeed) =
+	if v1windSpeed == light then true
+	else (if v1windSpeed == moderate then not member(v2windSpeed,{light})
+	else v2windSpeed == strong)
+	
+STeqwindSpeed(v1windSpeed, v2windSpeed) =
+	v1windSpeed == v2windSpeed
+	
+STltwindSpeed(v1windSpeed, v2windSpeed) =
+	STlewindSpeed(v1windSpeed, v2windSpeed) and STnewindSpeed(v1windSpeed, v2windSpeed)
+	
+STgtwindSpeed(v1windSpeed, v2windSpeed) =
+	STlewindSpeed(v2windSpeed, v1windSpeed)
+	
+STnewindSpeed(v1windSpeed, v2windSpeed) =
+	not STeqwindSpeed(v1windSpeed, v2windSpeed)
+	
+STgewindSpeed(v1windSpeed, v2windSpeed) =
+	STltwindSpeed(v2windSpeed, v1windSpeed)
+
+-- Rule1 when BatteryCritical then SoundAlarm
+
+Rule1 = TriggerRule1; MonitoringRule1; Rule1
+
+TriggerRule1 = BatteryCritical -> SKIP
+
+MonitoringRule1 = SoundAlarm -> SKIP
+
+-- Rule2 when BatteryCritical and ((temperature) > (35)) then SoundAlarm
+
+Rule2 = TriggerRule2; MonitoringRule2; Rule2
+
+TriggerRule2 = let
+	MTrigger = StartBy(temperature?vtemperature ->
+		if ((vtemperature) > (35)) then SKIP else TriggerRule2
+	,0)
+within BatteryCritical -> MTrigger
+
+MonitoringRule2 = SoundAlarm -> SKIP
+
+-- Rule3 when BatteryCritical and (((temperature) > (35)) or (personDetected)) then SoundAlarm
+
+Rule3 = TriggerRule3; MonitoringRule3; Rule3
+
+TriggerRule3 = let
+	MTrigger = StartBy(temperature?vtemperature ->
+		StartBy(personDetected?vpersonDetected ->
+			if (((vtemperature) > (35)) or (vpersonDetected)) then SKIP else TriggerRule3
+		,0)
+	,0)
+within BatteryCritical -> MTrigger
+
+MonitoringRule3 = SoundAlarm -> SKIP
+
+-- Rule4 when BatteryCritical then SoundAlarm
+-- unless (personDetected)
+
+Rule4 = TriggerRule4; MonitoringRule4; Rule4
+
+TriggerRule4 = BatteryCritical -> SKIP
+
+MonitoringRule4 = let
+	Monitoring1 = SoundAlarm -> SKIP
+	Monitoring2 = BatteryCritical -> MonitoringRule4
+		[] personDetected?x -> Monitoring2
+within StartBy(personDetected?vpersonDetected ->
+	if (vpersonDetected) then Monitoring2
+	else (Monitoring1)
+,0)
+
+-- Rule5 when BatteryCritical then SoundAlarm
+-- unless (personDetected) then GoHome
+
+Rule5 = TriggerRule5; MonitoringRule5; Rule5
+
+TriggerRule5 = BatteryCritical -> SKIP
+
+MonitoringRule5 = let
+	Monitoring1 = SoundAlarm -> SKIP
+	Monitoring2 = GoHome -> SKIP
+within StartBy(personDetected?vpersonDetected ->
+	if (vpersonDetected) then Monitoring2
+	else (Monitoring1)
+,0)
+
+-- Rule6 when BatteryCritical then SoundAlarmwithin 1 seconds
+-- otherwise GoHome
+
+Rule6 = TriggerRule6; MonitoringRule6; Rule6
+
+TriggerRule6 = BatteryCritical -> SKIP
+
+MonitoringRule6 = TimedInterrupt(SoundAlarm -> SKIP,(1 * 1),GoHome -> SKIP)
+
+-- Rule7 when BatteryCritical then SoundAlarm
+-- unless (personDetected) then GoHome
+-- unless ((temperature) > (35))
+
+Rule7 = TriggerRule7; MonitoringRule7; Rule7
+
+TriggerRule7 = BatteryCritical -> SKIP
+
+MonitoringRule7 = let
+	Monitoring1 = SoundAlarm -> SKIP
+	Monitoring2 = GoHome -> SKIP
+	Monitoring3 = BatteryCritical -> MonitoringRule7
+		[] personDetected?x -> Monitoring3
+		[] temperature?x -> Monitoring3
+within StartBy(personDetected?vpersonDetected ->
+	StartBy(temperature?vtemperature ->
+		if (vpersonDetected) then Monitoring3
+		else (if ((vtemperature) > (35)) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+}

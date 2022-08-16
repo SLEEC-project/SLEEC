@@ -1,0 +1,24 @@
+include "ticktock.csp"
+
+Timed(et) {
+	
+channel E0
+channel E1
+channel E2
+channel E3
+channel E4
+C0 = 5
+C1 = 6
+
+-- Rule1 when E0 then E1within 2 seconds
+-- otherwise E2within 3 minutes
+-- otherwise E3within 5 hours
+-- otherwise E4within 6 days
+
+Rule1 = TriggerRule1; MonitoringRule1; Rule1
+
+TriggerRule1 = E0 -> SKIP
+
+MonitoringRule1 = TimedInterrupt(E1 -> SKIP,(2 * 1),TimedInterrupt(E2 -> SKIP,(3 * 60),TimedInterrupt(E3 -> SKIP,(5 * 3600),StartBy(E4 -> SKIP,(6 * 86400)))))
+
+}

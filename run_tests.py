@@ -1,4 +1,5 @@
 import subprocess
+import filecmp
 import os
 import concurrent.futures
 
@@ -17,14 +18,17 @@ def compile(filenames):
 
 def validate(filename):
     csp = os.path.join('src-gen', filename + '.csp')
+    expected = os.path.join('expected', filename + '.csp')
+    result = {'name': filename}
     with open(os.path.join('log', filename + '.validation.log'), 'w+') as f:
         print(f'validating {filename}\n', end='')
-        result = subprocess.run(['refines', '--typecheck', csp],
+        output = subprocess.run(['refines', '--typecheck', csp],
                                 shell = True,
                                 stdout = f,
                                 stderr = f)
-    return {'name': filename,
-            'passed': result.returncode == 0}
+    result['validated'] = output.returncode == 0
+    result['checked'] = result['validated'] and filecmp.cmp(csp, expected)
+    return result
 
 os.chdir(os.path.dirname(__file__))
 jar = os.path.abspath('sleec.jar')
@@ -49,11 +53,14 @@ print('------------------------------')
 validation_results = [f.result() for f in futures]
 num_failed = 0
 for r in validation_results:
-    if r['passed']:
-        print(r['name'], 'passed')
+    if not r['validated']:
+        print(r['name'], 'failed validation')
+    elif not r['checked']:
+        print(r['name'], 'didn\'t match expected output')
     else:
-        num_failed += 1
-        print(r['name'], 'failed')
+        print(r['name'], 'passed')
+        continue
+    num_failed += 1
 
 print('------------------------------')
 

@@ -1,0 +1,94 @@
+include "ticktock.csp"
+
+Timed(et) {
+	
+channel E0
+channel E1
+channel m0 : Int
+channel m1 : Int
+
+-- Rule0 when E0 and ((m0) == (m1)) then E1
+
+Rule0 = TriggerRule0; MonitoringRule0; Rule0
+
+TriggerRule0 = let
+	MTrigger = StartBy(m0?vm0 ->
+		StartBy(m1?vm1 ->
+			if ((vm0) == (vm1)) then SKIP else TriggerRule0
+		,0)
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule0 = E1 -> SKIP
+
+-- Rule1 when E0 and ((m0) != (m1)) then E1
+
+Rule1 = TriggerRule1; MonitoringRule1; Rule1
+
+TriggerRule1 = let
+	MTrigger = StartBy(m0?vm0 ->
+		StartBy(m1?vm1 ->
+			if ((vm0) != (vm1)) then SKIP else TriggerRule1
+		,0)
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule1 = E1 -> SKIP
+
+-- Rule2 when E0 and ((m0) > (m1)) then E1
+
+Rule2 = TriggerRule2; MonitoringRule2; Rule2
+
+TriggerRule2 = let
+	MTrigger = StartBy(m0?vm0 ->
+		StartBy(m1?vm1 ->
+			if ((vm0) > (vm1)) then SKIP else TriggerRule2
+		,0)
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule2 = E1 -> SKIP
+
+-- Rule3 when E0 and ((m0) < (m1)) then E1
+
+Rule3 = TriggerRule3; MonitoringRule3; Rule3
+
+TriggerRule3 = let
+	MTrigger = StartBy(m0?vm0 ->
+		StartBy(m1?vm1 ->
+			if ((vm0) < (vm1)) then SKIP else TriggerRule3
+		,0)
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule3 = E1 -> SKIP
+
+-- Rule4 when E0 and ((m0) >= (m1)) then E1
+
+Rule4 = TriggerRule4; MonitoringRule4; Rule4
+
+TriggerRule4 = let
+	MTrigger = StartBy(m0?vm0 ->
+		StartBy(m1?vm1 ->
+			if ((vm0) >= (vm1)) then SKIP else TriggerRule4
+		,0)
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule4 = E1 -> SKIP
+
+-- Rule5 when E0 and ((m0) <= (m1)) then E1
+
+Rule5 = TriggerRule5; MonitoringRule5; Rule5
+
+TriggerRule5 = let
+	MTrigger = StartBy(m0?vm0 ->
+		StartBy(m1?vm1 ->
+			if ((vm0) <= (vm1)) then SKIP else TriggerRule5
+		,0)
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule5 = E1 -> SKIP
+
+}

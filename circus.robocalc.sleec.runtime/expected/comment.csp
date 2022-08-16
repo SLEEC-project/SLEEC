@@ -1,0 +1,16 @@
+include "ticktock.csp"
+
+Timed(et) {
+	
+channel E0
+channel E1
+
+-- Rule1 when E0 then E1
+
+Rule1 = TriggerRule1; MonitoringRule1; Rule1
+
+TriggerRule1 = E0 -> SKIP
+
+MonitoringRule1 = E1 -> SKIP
+
+}

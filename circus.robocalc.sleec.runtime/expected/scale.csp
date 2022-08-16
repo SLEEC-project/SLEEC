@@ -1,0 +1,115 @@
+include "ticktock.csp"
+
+Timed(et) {
+	
+channel m0 : STm0
+
+datatype STm0 = s0 | s1 | s2
+
+STlem0(v1m0, v2m0) =
+	if v1m0 == s0 then true
+	else (if v1m0 == s1 then not member(v2m0,{s0})
+	else v2m0 == s2)
+	
+STeqm0(v1m0, v2m0) =
+	v1m0 == v2m0
+	
+STltm0(v1m0, v2m0) =
+	STlem0(v1m0, v2m0) and STnem0(v1m0, v2m0)
+	
+STgtm0(v1m0, v2m0) =
+	STlem0(v2m0, v1m0)
+	
+STnem0(v1m0, v2m0) =
+	not STeqm0(v1m0, v2m0)
+	
+STgem0(v1m0, v2m0) =
+	STltm0(v2m0, v1m0)
+channel E0
+channel E1
+
+-- Rule1 when E0 and ((m0) < (s1)) then E1
+
+Rule1 = TriggerRule1; MonitoringRule1; Rule1
+
+TriggerRule1 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (STltm0(vm0, s1)) then SKIP else TriggerRule1
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule1 = E1 -> SKIP
+
+-- Rule2 when E0 and ((m0) == (s1)) then E1
+
+Rule2 = TriggerRule2; MonitoringRule2; Rule2
+
+TriggerRule2 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (STeqm0(vm0, s1)) then SKIP else TriggerRule2
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule2 = E1 -> SKIP
+
+-- Rule3 when E0 and ((m0) > (s1)) then E1
+
+Rule3 = TriggerRule3; MonitoringRule3; Rule3
+
+TriggerRule3 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (STgtm0(vm0, s1)) then SKIP else TriggerRule3
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule3 = E1 -> SKIP
+
+-- Rule4 when E0 and ((m0) != (s0)) then E1
+
+Rule4 = TriggerRule4; MonitoringRule4; Rule4
+
+TriggerRule4 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (STnem0(vm0, s0)) then SKIP else TriggerRule4
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule4 = E1 -> SKIP
+
+-- Rule5 when E0 and ((m0) <= (s0)) then E1
+
+Rule5 = TriggerRule5; MonitoringRule5; Rule5
+
+TriggerRule5 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (STlem0(vm0, s0)) then SKIP else TriggerRule5
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule5 = E1 -> SKIP
+
+-- Rule6 when E0 and ((m0) >= (s0)) then E1
+
+Rule6 = TriggerRule6; MonitoringRule6; Rule6
+
+TriggerRule6 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (STgem0(vm0, s0)) then SKIP else TriggerRule6
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule6 = E1 -> SKIP
+
+-- Rule7 when E0 and ((s2) >= (m0)) then E1
+
+Rule7 = TriggerRule7; MonitoringRule7; Rule7
+
+TriggerRule7 = let
+	MTrigger = StartBy(m0?vm0 ->
+		if (STgem0(s2, vm0)) then SKIP else TriggerRule7
+	,0)
+within E0 -> MTrigger
+
+MonitoringRule7 = E1 -> SKIP
+
+}
