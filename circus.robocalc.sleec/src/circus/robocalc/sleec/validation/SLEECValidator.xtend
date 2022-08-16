@@ -20,6 +20,7 @@ import circus.robocalc.sleec.sLEEC.Specification
 import circus.robocalc.sleec.sLEEC.Value
 import java.util.Set
 import org.eclipse.xtext.validation.Check
+import circus.robocalc.sleec.sLEEC.BoolValue
 
 /** 
  * This class contains custom validation rules. 
@@ -134,6 +135,7 @@ class SLEECValidator extends AbstractSLEECValidator {
 
 	def private isBoolean(MBoolExpr expr, Set<String> IDs) {
 		switch (expr) {
+			BoolValue,
 			Boolean,
 			Not,
 			BoolComp,
