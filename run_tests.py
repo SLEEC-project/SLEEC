@@ -7,7 +7,9 @@ def remove_ext(filename):
     return os.path.splitext(filename)[0]
 
 def compile(filenames):
-    sleec = [os.path.join('src', f + '.sleec') for f in files]
+    jar = os.path.join('..', 'sleec.jar')
+    assert(os.path.isfile(jar))
+    sleec = [os.path.join('src', f + '.sleec') for f in filenames]
     with open(os.path.join('log', 'compilation.log'), 'w+') as f:
         print('compiling')
         result = subprocess.run(['java', '-jar', jar, *sleec],
@@ -30,39 +32,41 @@ def validate(filename):
     result['checked'] = result['validated'] and filecmp.cmp(csp, expected)
     return result
 
-os.chdir(os.path.dirname(__file__))
-jar = os.path.abspath('sleec.jar')
-assert(os.path.isfile(jar))
-os.chdir('circus.robocalc.sleec.runtime')
-if not os.path.exists('log'):
-    os.mkdir('log')
+def main():
+    os.chdir(os.path.dirname(__file__))
+    os.chdir('circus.robocalc.sleec.runtime')
+    if not os.path.exists('log'):
+        os.mkdir('log')
 
-files = [remove_ext(f) for f in os.listdir('src') if '.sleec' in f]
+    filenames = [remove_ext(f) for f in os.listdir('src') if '.sleec' in f]
 
-if not compile(files):
-    print('compilation failed')
-    exit(1)
+    if not compile(filenames):
+        print('compilation failed')
+        exit(1)
 
-print('------------------------------')
+    print('------------------------------')
 
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    futures = [executor.submit(validate, f) for f in files]
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = [executor.submit(validate, f) for f in filenames]
 
-print('------------------------------')
+    print('------------------------------')
 
-validation_results = [f.result() for f in futures]
-num_failed = 0
-for r in validation_results:
-    if not r['validated']:
-        print(r['name'], 'failed validation')
-    elif not r['checked']:
-        print(r['name'], 'didn\'t match expected output')
-    else:
-        print(r['name'], 'passed')
-        continue
-    num_failed += 1
+    validation_results = [f.result() for f in futures]
+    num_failed = 0
+    for r in validation_results:
+        if not r['validated']:
+            print(r['name'], 'failed validation')
+        elif not r['checked']:
+            print(r['name'], 'didn\'t match expected output')
+        else:
+            print(r['name'], 'passed')
+            continue
+        num_failed += 1
 
-print('------------------------------')
+    print('------------------------------')
 
-print(num_failed, 'tests failed')
-exit(num_failed != 0)
+    print(num_failed, 'tests failed')
+    exit(num_failed != 0)
+
+if __name__ == '__main__':
+    main()
