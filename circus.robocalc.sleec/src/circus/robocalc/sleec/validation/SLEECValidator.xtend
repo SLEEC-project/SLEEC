@@ -8,7 +8,6 @@ import circus.robocalc.sleec.sLEEC.BoolComp
 import circus.robocalc.sleec.sLEEC.BoolValue
 import circus.robocalc.sleec.sLEEC.Boolean
 import circus.robocalc.sleec.sLEEC.Constant
-import circus.robocalc.sleec.sLEEC.Definition
 import circus.robocalc.sleec.sLEEC.Event
 import circus.robocalc.sleec.sLEEC.MBoolExpr
 import circus.robocalc.sleec.sLEEC.Measure
@@ -51,11 +50,28 @@ class SLEECValidator extends AbstractSLEECValidator {
 	def checkExprTypes(Specification s) {
 		val defBlock = s.defBlock
 		val ruleBlock = s.ruleBlock
-		val definitions = defBlock.eAllContents.filter(Definition).toList
-		val scaleParams = defBlock.eAllContents.filter(Scale).toList.map[scaleParams].flatten.map[name].toSet
-		val scaleIDs = definitions.filter[isScale].map[name].toSet
-		val booleanIDs = definitions.filter[isBoolean].map[name].toSet
-		val numericIDs = definitions.filter[isNumeric].map[name].toSet
+		val scaleParams = defBlock.eAllContents
+			.filter(Scale)
+			.toIterable
+			.flatMap[scaleParams]
+			.map[name]
+			.toSet
+		val scaleIDs = defBlock.eAllContents
+			.filter(Measure)
+			.filter[it.type instanceof Scale]
+			.map[name]
+			.toSet
+		val booleanIDs = defBlock.eAllContents
+			.filter(Measure)
+			.filter[it.type instanceof Boolean]
+			.map[name]
+			.toSet
+		val numericIDs = (defBlock.eAllContents
+			.filter(Measure)
+			.filter[it.type instanceof Numeric]
+			.map[name] + defBlock.eAllContents
+			.filter(Constant)
+			.map[name]).toSet
 		val IDs = numericIDs + scaleIDs + scaleParams + booleanIDs
 
 		// check for undefined variables
@@ -93,28 +109,6 @@ class SLEECValidator extends AbstractSLEECValidator {
 	// create set of all variables in the system
 	// find all the permutations of the variables
 	// rules are redundant if there is the same response for at least 2 permuations
-	}
-
-	def private isNumeric(Definition definition) {
-		switch (definition) {
-			Constant: true
-			Measure: (definition as Measure).type instanceof Numeric
-			default: false
-		}
-	}
-
-	def private isScale(Definition definition) {
-		switch (definition) {
-			Measure: (definition as Measure).type instanceof Scale
-			default: false
-		}
-	}
-
-	def private isBoolean(Definition definition) {
-		switch (definition) {
-			Measure: (definition as Measure).type instanceof Boolean
-			default: false
-		}
 	}
 
 	def private isNumeric(MBoolExpr expr, Set<String> IDs) {
