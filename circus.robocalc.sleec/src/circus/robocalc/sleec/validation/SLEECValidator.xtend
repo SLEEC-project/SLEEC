@@ -53,10 +53,9 @@ class SLEECValidator extends AbstractSLEECValidator {
 		val definitions = defBlock.eAllContents.filter(Definition).toList
 		val scaleParams = defBlock.eAllContents.filter(Scale).toList.map[scaleParams].flatten.toSet
 		val scaleIDs = definitions.filter[isScale].map[name].toSet
-		scaleIDs.addAll(scaleParams)
 		val booleanIDs = definitions.filter[isBoolean].map[name].toSet
 		val numericIDs = definitions.filter[isNumeric].map[name].toSet
-		val IDs = numericIDs + scaleIDs + booleanIDs
+		val IDs = numericIDs + scaleIDs + scaleParams + booleanIDs
 
 		// check for undefined variables
 		ruleBlock.eAllContents.filter(Atom).toIterable.forEach [ atom |
@@ -65,12 +64,16 @@ class SLEECValidator extends AbstractSLEECValidator {
 		]
 
 		// check the types of a relational operator
-		// either both arguments are either both numeric or both scale types
 		ruleBlock.eAllContents.filter(RelComp).forEach [ relComp |
+			// check that both arguments are numeric
 			if (isNumeric(relComp.left, numericIDs) != isNumeric(relComp.right, numericIDs))
 				error("Both operands must be numeric type", relComp, SLEECPackage.Literals.REL_COMP__OP)
-			else if (isScale(relComp.left, scaleIDs) != isScale(relComp.right, scaleIDs))
-				error("Both operands must be scale type", relComp, SLEECPackage.Literals.REL_COMP__OP)
+			// or check that both arguments are scale types
+			// with one argument being a measureID and the another being a scaleParam
+			// TODO check that the scaleParam matches the measureID
+			else if (isScaleID(relComp.left, scaleIDs) && isScaleID(relComp.right, scaleIDs) ||
+				isScaleParam(relComp.left, scaleParams) && isScaleParam(relComp.right, scaleParams))
+				error("One operand must be a measure and the other must be a scale", relComp, SLEECPackage.Literals.REL_COMP__OP)
 		]
 
 		// check types of comparison and not operators
@@ -84,6 +87,11 @@ class SLEECValidator extends AbstractSLEECValidator {
 			if (!isBoolean(not.expr, booleanIDs))
 				error("Operand must be boolean type", not, SLEECPackage.Literals.NOT__OP)
 		]
+
+	// check for conflicts
+	// create set of all variables in the system
+	// find all the permutations of the variables
+	// rules are redundant if there is the same response for at least 2 permuations
 	}
 
 	def private isNumeric(Definition definition) {
@@ -116,11 +124,12 @@ class SLEECValidator extends AbstractSLEECValidator {
 		}
 	}
 
-	def private isScale(MBoolExpr expr, Set<String> IDs) {
-		switch (expr) {
-			Atom: IDs.contains((expr as Atom).measureID)
-			default: false
-		}
+	def private isScaleID(MBoolExpr expr, Set<String> scaleIDs) {
+		expr instanceof Atom && scaleIDs.contains((expr as Atom).measureID)
+	}
+	
+	def private isScaleParam(MBoolExpr expr, Set<String> scaleParams) {
+		expr instanceof Atom && scaleParams.contains((expr as Atom).measureID)
 	}
 
 	def private isBoolean(MBoolExpr expr, Set<String> IDs) {
