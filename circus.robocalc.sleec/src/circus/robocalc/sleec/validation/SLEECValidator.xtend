@@ -41,6 +41,10 @@ class SLEECValidator extends AbstractSLEECValidator {
 	
 	Iterable<String> IDs
 	
+	Set<String> constIDs
+	
+	Iterable<String> valueIDs
+	
 	@Check
 	def checkEventName(Event e) {
 		if (!Character.isUpperCase(e.name.charAt(0)))
@@ -75,13 +79,17 @@ class SLEECValidator extends AbstractSLEECValidator {
 			.filter[it.type instanceof Boolean]
 			.map[name]
 			.toSet
-		this.numericIDs = (defBlock.eAllContents
+		this.numericIDs = defBlock.eAllContents
 			.filter(Measure)
 			.filter[it.type instanceof Numeric]
-			.map[name] + defBlock.eAllContents
+			.map[name]
+			.toSet
+		this.constIDs = defBlock.eAllContents
 			.filter(Constant)
-			.map[name]).toSet
-		this.IDs = numericIDs + scaleIDs + scaleParams + booleanIDs
+			.map[name]
+			.toSet
+		this.valueIDs = numericIDs + constIDs
+		this.IDs = numericIDs + constIDs + scaleIDs + scaleParams + booleanIDs
 		// check for undefined variables
 		ruleBlock.eAllContents.filter(Atom).toIterable.forEach [ atom |
 			if (!IDs.contains(atom.measureID))
@@ -132,7 +140,7 @@ class SLEECValidator extends AbstractSLEECValidator {
 	def private isNumeric(MBoolExpr expr) {
 		switch (expr) {
 			Value: true
-			Atom: numericIDs.contains((expr as Atom).measureID)
+			Atom: valueIDs.contains((expr as Atom).measureID)
 			default: false
 		}
 	}
