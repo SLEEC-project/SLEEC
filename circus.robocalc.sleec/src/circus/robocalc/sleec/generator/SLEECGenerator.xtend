@@ -169,7 +169,6 @@ class SLEECGenerator extends AbstractGenerator {
 	}
 	
 	private def CharSequence ME(List<String> mIDs, MBoolExpr mBE, String sp, String fp) {
-		// this removes the first element from mIDs
 		 val mID = mIDs.head
 		
 		// [[<>,mBE,sp,fp]]ME
@@ -306,7 +305,6 @@ class SLEECGenerator extends AbstractGenerator {
 	}
 	
 	// return an MBoolExpr as a string using CSP operators
-	// NOTE this may also convert time if time units are added to the grammar
 	private def CharSequence norm(MBoolExpr mBE) {
 		'(' + switch(mBE) {
 			BoolComp : norm(mBE as BoolComp)
