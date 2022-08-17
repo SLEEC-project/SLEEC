@@ -29,6 +29,18 @@ import java.util.List
  */
 class SLEECValidator extends AbstractSLEECValidator {
 
+	Map<String, List<String>> scales
+
+	Set<String> scaleIDs
+	
+	Set<String> scaleParams
+	
+	Set<String> booleanIDs
+	
+	Set<String> numericIDs
+	
+	Iterable<String> IDs
+	
 	@Check
 	def checkEventName(Event e) {
 		if (!Character.isUpperCase(e.name.charAt(0)))
@@ -52,24 +64,24 @@ class SLEECValidator extends AbstractSLEECValidator {
 	def checkExprTypes(Specification s) {
 		val defBlock = s.defBlock
 		val ruleBlock = s.ruleBlock
-		val Map<String, List<String>> scales = defBlock.eAllContents
+		this.scales = defBlock.eAllContents
 			.filter(Measure)
 			.filter[it.type instanceof Scale]
 			.toMap([name], [(it.type as Scale).scaleParams.map[name]])
-		val scaleIDs = scales.keySet
-		val scaleParams = scales.values.flatten.toSet
-		val booleanIDs = defBlock.eAllContents
+		this.scaleIDs = scales.keySet
+		this.scaleParams = scales.values.flatten.toSet
+		this.booleanIDs = defBlock.eAllContents
 			.filter(Measure)
 			.filter[it.type instanceof Boolean]
 			.map[name]
 			.toSet
-		val numericIDs = (defBlock.eAllContents
+		this.numericIDs = (defBlock.eAllContents
 			.filter(Measure)
 			.filter[it.type instanceof Numeric]
 			.map[name] + defBlock.eAllContents
 			.filter(Constant)
 			.map[name]).toSet
-		val IDs = numericIDs + scaleIDs + scaleParams + booleanIDs
+		this.IDs = numericIDs + scaleIDs + scaleParams + booleanIDs
 		// check for undefined variables
 		ruleBlock.eAllContents.filter(Atom).toIterable.forEach [ atom |
 			if (!IDs.contains(atom.measureID))
@@ -79,22 +91,22 @@ class SLEECValidator extends AbstractSLEECValidator {
 		// check the types of a relational operator
 		ruleBlock.eAllContents.filter(RelComp).forEach [ relComp |
 			// do nothing if both arguments are numeric
-			if (isNumeric(relComp.left, numericIDs) && isNumeric(relComp.right, numericIDs))
+			if (isNumeric(relComp.left) && isNumeric(relComp.right))
 				return;
 			
 			// raise an error if only one argument is numeric
-			if (isNumeric(relComp.left, numericIDs) != isNumeric(relComp.right, numericIDs))
+			if (isNumeric(relComp.left) != isNumeric(relComp.right))
 				error("Both operands must be numeric type", relComp, SLEECPackage.Literals.REL_COMP__OP)
 			
 			// check that both arguments are scale types
 			// with one argument being a measureID and the another being a scaleParam
-			if (isScaleID(relComp.left, scaleIDs) && isScaleID(relComp.right, scaleIDs) ||
-				isScaleParam(relComp.left, scaleParams) && isScaleParam(relComp.right, scaleParams))
+			if (isScaleID(relComp.left) && isScaleID(relComp.right) ||
+				isScaleParam(relComp.left) && isScaleParam(relComp.right))
 				error("One operand must be a measure and the other must be a scale", relComp, SLEECPackage.Literals.REL_COMP__OP)
 				
 			// check that the scale parameter matches the measure id
-			val String scaleID = ((isScaleID(relComp.left, scaleIDs) ? relComp.left : relComp.right) as Atom).measureID
-			val String scaleParam = ((isScaleParam(relComp.left, scaleParams) ? relComp.left : relComp.right) as Atom).measureID
+			val String scaleID = ((isScaleID(relComp.left) ? relComp.left : relComp.right) as Atom).measureID
+			val String scaleParam = ((isScaleParam(relComp.left) ? relComp.left : relComp.right) as Atom).measureID
 			if (!scales.get(scaleID).contains(scaleParam))
 				error(''''ScaleParam «scaleParam»' is not a member of MeasureID '«scaleID»'«»''', relComp, SLEECPackage.Literals.REL_COMP__OP)
 		]
@@ -102,12 +114,12 @@ class SLEECValidator extends AbstractSLEECValidator {
 		// check types of comparison and not operators
 		// operands can either be a boolean value or a boolean expression
 		ruleBlock.eAllContents.filter(BoolComp).forEach [ boolComp |
-			if (!isBoolean(boolComp.left, booleanIDs) || !isBoolean(boolComp.right, booleanIDs))
+			if (!isBoolean(boolComp.left) || !isBoolean(boolComp.right))
 				error("Both operands must be boolean type", boolComp, SLEECPackage.Literals.BOOL_COMP__OP)
 
 		]
 		ruleBlock.eAllContents.filter(Not).forEach [ not |
-			if (!isBoolean(not.expr, booleanIDs))
+			if (!isBoolean(not.expr))
 				error("Operand must be boolean type", not, SLEECPackage.Literals.NOT__OP)
 		]
 
@@ -117,30 +129,30 @@ class SLEECValidator extends AbstractSLEECValidator {
 	// rules are redundant if there is the same response for at least 2 permuations
 	}
 
-	def private isNumeric(MBoolExpr expr, Set<String> IDs) {
+	def private isNumeric(MBoolExpr expr) {
 		switch (expr) {
 			Value: true
-			Atom: IDs.contains((expr as Atom).measureID)
+			Atom: numericIDs.contains((expr as Atom).measureID)
 			default: false
 		}
 	}
 
-	def private isScaleID(MBoolExpr expr, Set<String> scaleIDs) {
+	def private isScaleID(MBoolExpr expr) {
 		expr instanceof Atom && scaleIDs.contains((expr as Atom).measureID)
 	}
 	
-	def private isScaleParam(MBoolExpr expr, Set<String> scaleParams) {
+	def private isScaleParam(MBoolExpr expr) {
 		expr instanceof Atom && scaleParams.contains((expr as Atom).measureID)
 	}
 
-	def private isBoolean(MBoolExpr expr, Set<String> IDs) {
+	def private isBoolean(MBoolExpr expr) {
 		switch (expr) {
 			BoolValue,
 			Boolean,
 			Not,
 			BoolComp,
 			RelComp: true
-			Atom: IDs.contains((expr as Atom).measureID)
+			Atom: booleanIDs.contains((expr as Atom).measureID)
 			default: false
 		}
 	}
