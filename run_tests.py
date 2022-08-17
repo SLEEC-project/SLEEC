@@ -20,6 +20,7 @@ def compile(filenames):
     return result.returncode == 0
 
 def validate(filename):
+    start = time.time()
     csp = os.path.join('src-gen', filename + '.csp')
     expected = os.path.join('expected', filename + '.csp')
     result = {'name': filename}
@@ -31,6 +32,7 @@ def validate(filename):
                                 stderr = f)
     result['validated'] = output.returncode == 0
     result['checked'] = result['validated'] and filecmp.cmp(csp, expected)
+    result['time'] = time.time() - start
     return result
 
 def main():
@@ -61,14 +63,16 @@ def main():
         elif not r['checked']:
             print(r['name'], 'didn\'t match expected output')
         else:
-            print(r['name'], 'passed')
+            print(r['name'], 'passed in %.3f seconds' % r['time'])
             continue
         num_failed += 1
 
     print('------------------------------')
 
-    print(num_failed, 'tests failed')
-    print('tests completed in', time.time() - start, 'seconds')
+    if num_failed:
+        print(num_failed, 'tests failed')
+    else:
+        print('testing completed in %.3f seconds' % (time.time() - start))
     exit(num_failed != 0)
 
 if __name__ == '__main__':
