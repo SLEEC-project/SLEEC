@@ -125,6 +125,7 @@ class SLEECGenerator extends AbstractGenerator {
 					
 				STge«mID»(v1«mID», v2«mID») =
 					STlt«mID»(v2«mID», v1«mID»)
+				
 				'''
 			}
 		}
