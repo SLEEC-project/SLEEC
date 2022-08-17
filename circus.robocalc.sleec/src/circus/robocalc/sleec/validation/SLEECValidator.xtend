@@ -30,7 +30,7 @@ import java.util.List
 class SLEECValidator extends AbstractSLEECValidator {
 
 	@Check
-	def chechEventName(Event e) {
+	def checkEventName(Event e) {
 		if (!Character.isUpperCase(e.name.charAt(0)))
 			warning("Event identifier should begin with capital letter", e, SLEECPackage.Literals.DEFINITION__NAME)
 	}
@@ -42,7 +42,7 @@ class SLEECValidator extends AbstractSLEECValidator {
 	}
 
 	@Check
-	def checkContantName(Constant c) {
+	def checkConstantName(Constant c) {
 		for (i : 0 ..< c.name.length)
 			if (Character.isLowerCase(c.name.charAt(i)))
 				warning("Constant identifier should be in all capitals.", c, SLEECPackage.Literals.DEFINITION__NAME)
