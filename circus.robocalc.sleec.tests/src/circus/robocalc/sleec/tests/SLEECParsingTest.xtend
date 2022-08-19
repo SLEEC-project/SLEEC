@@ -180,9 +180,81 @@ class SLEECParsingTest {
 	}
 	
 	@Test
-	def void test_conflicts_case_study() {
+	def void test_conflict0_case_study() {
 		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'conflicts.sleec'))
+			Files.readString(Paths.get(path + 'conflict0.sleec'))
+		)
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_conflict1_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'conflict1.sleec'))
+		)
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_conflict2_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'conflict2.sleec'))
+		)
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_conflict3_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'conflict3.sleec'))
+		)
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_conflict4_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'conflict4.sleec'))
+		)
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_conflict5_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'conflict5.sleec'))
+		)
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_conflict6_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'conflict6.sleec'))
+		)
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_conflict7_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'conflict7.sleec'))
+		)
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_conflict8_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'conflict8.sleec'))
+		)
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_conflict9_case_study() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'conflict9.sleec'))
 		)
 		validationTestHelper.assertNoIssues(result)
 	}
@@ -204,4 +276,6 @@ class SLEECParsingTest {
 		)
 		validationTestHelper.assertNoIssues(result)
 	}
+	
+	
 }
