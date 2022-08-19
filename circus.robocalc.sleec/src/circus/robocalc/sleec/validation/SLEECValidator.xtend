@@ -231,7 +231,7 @@ class SLEECValidator extends AbstractSLEECValidator {
 						switch (result) {
 							case 1: warning('''Redundant rule: «rule0.name», under «rule1.name».''', rule0, SLEECPackage.Literals.RULE__NAME)
 							case -1: warning('''Redundant rule: «rule1.name», under «rule0.name».''', rule1, SLEECPackage.Literals.RULE__NAME)
-							default: throw new AssertionError('???')
+							case 0: return
 						}
 					}		
 				}
