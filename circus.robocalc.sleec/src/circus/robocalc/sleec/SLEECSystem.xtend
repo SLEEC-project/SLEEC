@@ -110,10 +110,13 @@ class SLEECSystem {
 	
 	
 	def Integer eval(Value value) {
-		switch (value) {
-			case Constant: eval(value)
-			default: value.value
-		}
+		if (value === null)
+			Integer.MAX_VALUE
+		else
+			switch (value) {
+				case Constant: eval(value)
+				default: value.value
+			}
 	}
 	
 	def Integer eval(MBoolExpr expr) {

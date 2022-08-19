@@ -198,17 +198,42 @@ class SLEECValidator extends AbstractSLEECValidator {
 		System.out.println('trigger -> response:\t' + rules)
 		
 		// test for redundancies
-		rules.asMap.forEach[ trigger, triggeredRules |
-			for(i : 0 ..< triggeredRules.length)
+		rules.asMap.forEach [ trigger, triggeredRules |
+			for (i : 0 ..< triggeredRules.length)
 				for (j : i + 1 ..< triggeredRules.length) {
 					val rule0 = triggeredRules.get(i)
 					val rule1 = triggeredRules.get(j)
 					val set0 = ruleTriggered.get(rule0)
 					val set1 = ruleTriggered.get(rule1)
-					if (set0.containsAll(set1))
-						warning('''Redundant rule: «rule1.name», under «rule0.name».''', rule1, SLEECPackage.Literals.RULE__NAME)
-					else if (set1.containsAll(set0))
-						warning('''Redundant rule: «rule0.name», under «rule1.name».''', rule0, SLEECPackage.Literals.RULE__NAME)
+					// check for conflicts
+					if (rule0.response.not != rule1.response.not) {
+						// only 1 of the 2 rules as a not in their response
+						// TODO variable for ruleN.response
+						if (rule0.response.not && system.eval(rule0.response.value) < system.eval(rule1.response.value) ||
+							rule1.response.not && system.eval(rule0.response.value) > system.eval(rule1.response.value)) {
+							error('''«rule0.name» conflicts with «rule1.name».''', rule0, SLEECPackage.Literals.RULE__NAME)
+							error('''«rule1.name» conflicts with «rule0.name».''', rule1, SLEECPackage.Literals.RULE__NAME)
+							return
+						}
+					}
+					// check for redundancy
+					else {
+						val rule0Redundant = set1.containsAll(set0)
+						val rule1Redundant = set0.containsAll(set1)
+						var result = 
+							if (rule0Redundant && (!rule1Redundant || system.eval(rule0.response.value) < system.eval(rule1.response.value)))
+								1
+							else if (rule1Redundant)
+								-1
+							else
+								0
+						rule0.response.not && rule1.response.not ? result = -result
+						switch (result) {
+							case 1: warning('''Redundant rule: «rule0.name», under «rule1.name».''', rule0, SLEECPackage.Literals.RULE__NAME)
+							case -1: warning('''Redundant rule: «rule1.name», under «rule0.name».''', rule1, SLEECPackage.Literals.RULE__NAME)
+							default: throw new AssertionError('???')
+						}
+					}		
 				}
 		]
 		

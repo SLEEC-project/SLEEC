@@ -176,106 +176,51 @@ class SLEECParsingTest {
 		val result = parseHelper.parse(
 			Files.readString(Paths.get(path + 'dressing.sleec'))
 		)
-		validationTestHelper.assertNoIssues(result)
+		validationTestHelper.assertNoErrors(result)
 	}
 	
 	@Test
-	def void test_conflict0_case_study() {
+	def void test_redundant() {
 		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'conflict0.sleec'))
+			Files.readString(Paths.get(path + 'redundant.sleec'))
 		)
 		validationTestHelper.assertNoIssues(result)
 	}
 	
 	@Test
-	def void test_conflict1_case_study() {
+	def void test_redundant_warnings() {
 		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'conflict1.sleec'))
+			Files.readString(Paths.get(path + 'redundant_warnings.sleec'))
 		)
-		validationTestHelper.assertNoIssues(result)
-	}
-	
-	@Test
-	def void test_conflict2_case_study() {
-		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'conflict2.sleec'))
-		)
-		validationTestHelper.assertNoIssues(result)
-	}
-	
-	@Test
-	def void test_conflict3_case_study() {
-		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'conflict3.sleec'))
-		)
-		validationTestHelper.assertNoIssues(result)
-	}
-	
-	@Test
-	def void test_conflict4_case_study() {
-		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'conflict4.sleec'))
-		)
-		validationTestHelper.assertNoIssues(result)
-	}
-	
-	@Test
-	def void test_conflict5_case_study() {
-		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'conflict5.sleec'))
-		)
-		validationTestHelper.assertNoIssues(result)
-	}
-	
-	@Test
-	def void test_conflict6_case_study() {
-		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'conflict6.sleec'))
-		)
-		validationTestHelper.assertNoIssues(result)
-	}
-	
-	@Test
-	def void test_conflict7_case_study() {
-		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'conflict7.sleec'))
-		)
-		validationTestHelper.assertNoIssues(result)
-	}
-	
-	@Test
-	def void test_conflict8_case_study() {
-		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'conflict8.sleec'))
-		)
-		validationTestHelper.assertNoIssues(result)
-	}
-	
-	@Test
-	def void test_conflict9_case_study() {
-		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'conflict9.sleec'))
-		)
-		validationTestHelper.assertNoIssues(result)
-	}
-	
-	@Test
-	def void test_basic_redundancy() {
-		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'basic_redundancy.sleec'))
-		)
-		// NOTE if the string containing the error is a substring of the actual error message, the test will still pass.
-		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R2, under R3.')
+		validationTestHelper.assertNoErrors(result)
+		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R3, under R2.')
 		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R1, under R0.')
+		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R4, under R5.')
+		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R7, under R6.')
+		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R9, under R8.')
+		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R10, under R11.')
+		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R13, under R12.')
+		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R14, under R15.')
 	}
 	
 	@Test
-	def void test_basic_conflict() {
+	def void test_experiment() {
 		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'basic_conflict.sleec'))
+			Files.readString(Paths.get(path + 'experiment.sleec'))
 		)
 		validationTestHelper.assertNoIssues(result)
 	}
 	
-	
+	@Test
+	def void test_conflict_error() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'conflict_error.sleec'))
+		)
+		validationTestHelper.assertError(result, SLEECPackage.Literals.RULE, null, 'R12 conflicts with R13.')
+		validationTestHelper.assertError(result, SLEECPackage.Literals.RULE, null, 'R13 conflicts with R12.')
+		validationTestHelper.assertError(result, SLEECPackage.Literals.RULE, null, 'R8 conflicts with R9.')
+		validationTestHelper.assertError(result, SLEECPackage.Literals.RULE, null, 'R9 conflicts with R8.')
+		validationTestHelper.assertError(result, SLEECPackage.Literals.RULE, null, 'R0 conflicts with R1.')
+		validationTestHelper.assertError(result, SLEECPackage.Literals.RULE, null, 'R1 conflicts with R0.')
+	}
 }

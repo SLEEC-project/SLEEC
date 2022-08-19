@@ -7,12 +7,13 @@ def_start
 	event E1
 	event E2
 	event E3
+	event E7
 	measure m0 : boolean
 	measure m1 : boolean
 	measure m2 : numeric
 def_end
 
-rule_start
+rule_start 
 	// raise warning saying that E1 will always happen after E0
 	// suggest combining R0 and R1 to look like R2
 	R0 when E0 and m0 then E1
@@ -27,10 +28,6 @@ rule_start
 	// when m1 and m0 are true, ...
 	R6 when E0 and m0 then E1 within 10 seconds
 	R7 when E0 and m1 then E1 within 20 seconds
-	
-	// raise error that R8 and R9 conflict with each other
-	R8 when E0 and m0 then E1 within 10 seconds
-	R9 when E0 and m1 then not E1 within 20 seconds
 
 	// raise warning here about unexpected behaviour
 	R10 when E0 then E1
