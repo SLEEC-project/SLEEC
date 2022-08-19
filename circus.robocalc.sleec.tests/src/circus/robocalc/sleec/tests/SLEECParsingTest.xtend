@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
 import java.nio.file.Files
 import java.nio.file.Paths
+import circus.robocalc.sleec.sLEEC.SLEECPackage
 
 @ExtendWith(InjectionExtension)
 @InjectWith(SLEECInjectorProvider)
@@ -182,6 +183,24 @@ class SLEECParsingTest {
 	def void test_conflicts_case_study() {
 		val result = parseHelper.parse(
 			Files.readString(Paths.get(path + 'conflicts.sleec'))
+		)
+		validationTestHelper.assertNoIssues(result)
+	}
+	
+	@Test
+	def void test_basic_redundancy() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'basic_redundancy.sleec'))
+		)
+		// NOTE if the string containing the error is a substring of the actual error message, the test will still pass.
+		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R2, under R3.')
+		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R1, under R0.')
+	}
+	
+	@Test
+	def void test_basic_conflict() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'basic_conflict.sleec'))
 		)
 		validationTestHelper.assertNoIssues(result)
 	}
