@@ -1,0 +1,22 @@
+// rule conflict experiment
+
+def_start
+	event E0
+	event E1
+	event E2
+	event E3
+	measure m0 : boolean
+	measure m1 : boolean
+	measure m2 : numeric
+def_end
+
+rule_start
+
+	// raise warning here about unexpected behaviour
+	R10 when E0 then E1
+	R11 when E0 then E1 unless m0 then E2
+	// suggest writing like this instead
+	R12 when E0 then E1
+	R13 when E0 and m0 then E2
+	
+rule_end

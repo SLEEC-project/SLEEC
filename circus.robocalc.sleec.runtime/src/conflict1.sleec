@@ -1,0 +1,21 @@
+// rule conflict experiment
+
+def_start
+	event E0
+	event E1
+	event E2
+	event E3
+	measure m0 : boolean
+	measure m1 : boolean
+	measure m2 : numeric
+def_end
+
+rule_start
+
+	// raise warning to, suggest using R3 instead of R4 and R5
+	R3 when E0 and m2 < 10 or m2 > 20 then E1
+	R4 when E0 and m2 < 10 then E1
+	R5 when E0 and m2 > 20 then E1
+	
+	
+rule_end

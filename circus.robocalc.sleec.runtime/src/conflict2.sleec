@@ -1,0 +1,19 @@
+// rule conflict experiment
+
+def_start
+	event E0
+	event E1
+	event E2
+	event E3
+	measure m0 : boolean
+	measure m1 : boolean
+	measure m2 : numeric
+def_end
+
+rule_start
+
+	// when m1 and m0 are true, ...
+	R6 when E0 and m0 then E1 within 10 seconds
+	R7 when E0 and m1 then E1 within 20 seconds
+	
+rule_end

@@ -1,0 +1,19 @@
+// rule conflict experiment
+
+def_start
+	event E0
+	event E1
+	event E2
+	event E3
+	measure m0 : boolean
+	measure m1 : boolean
+	measure m2 : numeric
+def_end
+
+rule_start
+
+	// raise warning that R20 never happens
+	R19 when E0 and m2 < 20 then E1
+	R20 when E0 and m2 < 10 then E1
+	
+rule_end
