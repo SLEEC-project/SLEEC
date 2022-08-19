@@ -237,14 +237,11 @@ class SLEECValidator extends AbstractSLEECValidator {
 								1
 							else if (rule1Redundant)
 								-1
-							else
-								0
 						// if both rules have not, invert the result
 						rule0.response.not && rule1.response.not ? result = -result
 						switch (result) {
 							case 1: warning('''Redundant rule: «rule0.name», under «rule1.name».''', rule0, SLEECPackage.Literals.RULE__NAME)
 							case -1: warning('''Redundant rule: «rule1.name», under «rule0.name».''', rule1, SLEECPackage.Literals.RULE__NAME)
-							case 0: return
 						}
 					}		
 				}
