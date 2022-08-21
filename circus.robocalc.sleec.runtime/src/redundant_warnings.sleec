@@ -8,13 +8,13 @@ def_start
 	event E6
 	event E7
 	event E8
-	measure b : boolean
-	measure x : numeric
+	measure m0 : boolean
+	measure m1 : numeric
 def_end
 rule_start
 	// R1 is redundant
 	R0 when E0 then E1 within 20 seconds
-	R1 when E0 and b then E1 within 10 seconds
+	R1 when E0 and m0 then E1 within 10 seconds
 	
 	// R3 is redundant
 	R2 when E0 then E2 within 20 seconds
@@ -37,8 +37,8 @@ rule_start
 	R11 when E0 then not E6 within 10 seconds
 	
 	R12 when E7 then E1
-	R13 when E7 and b then E1
+	R13 when E7 and m0 then E1
 
-	R14 when E8 and x < 5 then E2
-	R15 when E8 and x < 7 then E2
+	R14 when E8 and m1 < 5 then E2
+	R15 when E8 and m1 < 7 then E2
 rule_end
