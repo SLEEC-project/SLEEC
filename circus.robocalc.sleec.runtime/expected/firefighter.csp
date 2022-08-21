@@ -31,6 +31,7 @@ STnewindSpeed(v1windSpeed, v2windSpeed) =
 STgewindSpeed(v1windSpeed, v2windSpeed) =
 	STltwindSpeed(v2windSpeed, v1windSpeed)
 
+
 -- Rule1 when BatteryCritical then SoundAlarm
 
 Rule1 = TriggerRule1; MonitoringRule1; Rule1

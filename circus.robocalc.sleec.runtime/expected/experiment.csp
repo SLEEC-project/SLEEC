@@ -6,6 +6,7 @@ channel E0
 channel E1
 channel E2
 channel E3
+channel E7
 channel m0 : Bool
 channel m1 : Bool
 channel m2 : Int
@@ -103,30 +104,6 @@ TriggerR7 = let
 within E0 -> MTrigger
 
 MonitoringR7 = StartBy(E1 -> SKIP,(20 * 1))
-
--- R8 when E0 and (m0) then E1within 10 seconds
-
-R8 = TriggerR8; MonitoringR8; R8
-
-TriggerR8 = let
-	MTrigger = StartBy(m0?vm0 ->
-		if (vm0) then SKIP else TriggerR8
-	,0)
-within E0 -> MTrigger
-
-MonitoringR8 = StartBy(E1 -> SKIP,(10 * 1))
-
--- R9 when E0 and (m1) then not E1 within 20 seconds
-
-R9 = TriggerR9; MonitoringR9; R9
-
-TriggerR9 = let
-	MTrigger = StartBy(m1?vm1 ->
-		if (vm1) then SKIP else TriggerR9
-	,0)
-within E0 -> MTrigger
-
-MonitoringR9 = WAIT((20 * 1))
 
 -- R10 when E0 then E1
 

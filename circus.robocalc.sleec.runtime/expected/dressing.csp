@@ -36,6 +36,7 @@ STneuserDistressed(v1userDistressed, v2userDistressed) =
 	
 STgeuserDistressed(v1userDistressed, v2userDistressed) =
 	STltuserDistressed(v2userDistressed, v1userDistressed)
+
 MAX_RESPONSE_TIME = 60
 
 -- Rule1 when DressingStarted then DressingSuccessful
