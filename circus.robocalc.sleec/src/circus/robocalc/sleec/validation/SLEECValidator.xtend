@@ -204,11 +204,14 @@ class SLEECValidator extends AbstractSLEECValidator {
 		
 		// check for conflicts and redundancies
 		rules.asMap.forEach [ trigger, triggeredRules |
-			for (i : 0 ..< triggeredRules.length)
+			for (i : 0 ..< triggeredRules.length){
+				
+				val rule0 = triggeredRules.get(i)
+				val set0 = ruleTriggered.get(rule0)
+				
 				for (j : i + 1 ..< triggeredRules.length) {
-					val rule0 = triggeredRules.get(i)
+					
 					val rule1 = triggeredRules.get(j)
-					val set0 = ruleTriggered.get(rule0)
 					val set1 = ruleTriggered.get(rule1)
 					// first check for conflicts
 					// conflicts happen when responses in the form are both triggered at the same time
@@ -216,13 +219,14 @@ class SLEECValidator extends AbstractSLEECValidator {
 					// not Event0 within y
 					// where y < x
 					if (rule0.response.not != rule1.response.not) {
-						// only 1 of the 2 rules as a not in their response
+						// only 1 of the 2 rules has a not in their response
 						if (rule0.response.not && system.eval(rule0.response.value) < system.eval(rule1.response.value) ||
 							rule1.response.not && system.eval(rule0.response.value) > system.eval(rule1.response.value)) {
 							error('''«rule0.name» conflicts with «rule1.name».''', rule0, SLEECPackage.Literals.RULE__NAME)
 							error('''«rule1.name» conflicts with «rule0.name».''', rule1, SLEECPackage.Literals.RULE__NAME)
 							return
 						}
+						
 					}
 					// then check for redundancies
 					else {
@@ -245,6 +249,12 @@ class SLEECValidator extends AbstractSLEECValidator {
 						}
 					}		
 				}
+				
+				// TODO: check that a rule does not conflict with itself
+				if (rule0.response.not){
+					
+				}
+			}
 		]
 //		System.out.println('finished')
 	}
