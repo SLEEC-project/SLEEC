@@ -8,20 +8,24 @@ def remove_ext(filename):
     return os.path.splitext(filename)[0]
 
 def compile(filenames):
-    jar = os.path.join('..', 'sleec.jar')
-    assert(os.path.isfile(jar))
-    sleec = [os.path.join('src', f + '.sleec') for f in filenames]
-    for f in filenames:
-        csp = os.path.join('src-gen', f + '.csp')
-        if os.path.exists(csp):
-            os.remove(csp)
-    with open(os.path.join('log', 'compilation.log'), 'w+') as f:
-        print('compiling')
-        result = subprocess.run(['java', '-jar', jar, *sleec],
-                                shell = True,
-                                stdout = f,
-                                stderr = f)
-    return result.returncode == 0
+    try:
+        jar = os.path.join('..', 'sleec.jar')
+#       assert(os.path.isfile(jar))
+        sleec = [os.path.join('src', f + '.sleec') for f in filenames]
+        for f in filenames:
+            csp = os.path.join('src-gen', f + '.csp')
+            if os.path.exists(csp):
+                os.remove(csp)
+        with open(os.path.join('log', 'compilation.log'), 'w+') as f:
+            print('compiling')
+            result = subprocess.run(['java', '-jar', jar, *sleec],
+                                    shell = True,
+                                    stdout = f,
+                                    stderr = f)
+        return result.returncode == 0
+    except FileNotFoundError:
+        print("The file could not be found.")        
+    
 
 def validate(filename):
     start = time.time()
