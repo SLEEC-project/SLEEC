@@ -11,6 +11,10 @@ def compile(filenames):
     jar = os.path.join('..', 'sleec.jar')
     assert(os.path.isfile(jar))
     sleec = [os.path.join('src', f + '.sleec') for f in filenames]
+    for f in filenames:
+        csp = os.path.join('src-gen', f + '.csp')
+        if os.path.exists(csp):
+            os.remove(csp)
     with open(os.path.join('log', 'compilation.log'), 'w+') as f:
         print('compiling')
         result = subprocess.run(['java', '-jar', jar, *sleec],
@@ -30,7 +34,8 @@ def validate(filename):
                                 shell = True,
                                 stdout = f,
                                 stderr = f)
-    result['validated'] = output.returncode == 0
+    result['compiled'] = os.path.exists(csp)
+    result['validated'] = result['compiled'] and output.returncode == 0
     result['checked'] = result['validated'] and filecmp.cmp(csp, expected)
     result['time'] = time.time() - start
     return result
@@ -58,7 +63,9 @@ def main():
     validation_results = [f.result() for f in futures]
     num_failed = 0
     for r in validation_results:
-        if not r['validated']:
+        if not r['compiled']:
+            print(r['name'], 'failed compilation')
+        elif not r['validated']:
             print(r['name'], 'failed validation')
         elif not r['checked']:
             print(r['name'], 'didn\'t match expected output')
