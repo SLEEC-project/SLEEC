@@ -14,6 +14,7 @@ import org.eclipse.xtext.generator.JavaIoFileSystemAccess
 import org.eclipse.xtext.util.CancelIndicator
 import org.eclipse.xtext.validation.CheckMode
 import org.eclipse.xtext.validation.IResourceValidator
+import org.eclipse.xtext.diagnostics.Severity
 
 class Main {
 
@@ -44,12 +45,11 @@ class Main {
 
 		// Validate the resource
 		val issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl)
-		if (!issues.empty) {
-			issues.forEach[System.err.println(it)]
-			return
-		}
+		issues.forEach[System.err.println(it)]
+		if (!issues.filter[severity==Severity.ERROR].isEmpty)
+			return;
 
-		// Configure and start the generator
+		// Configure and start the generator if there were no errors
 		fileAccess.outputPath = 'src-gen/'
 		val context = new GeneratorContext => [
 			cancelIndicator = CancelIndicator.NullImpl
