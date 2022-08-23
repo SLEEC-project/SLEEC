@@ -122,7 +122,7 @@ class SLEECValidator extends AbstractSLEECValidator {
 					} 
 				}
 			]
-		System.out.println('variable -> expression:\t' + expressions)
+//		System.out.println('variable -> expression:\t' + expressions)
 		
 		// find possible values for each variable to make each expression either true or false
 		// for numeric expressions x = 5, x < 3, x > 7 the values of x can be: 0, 5, 10
@@ -167,7 +167,7 @@ class SLEECValidator extends AbstractSLEECValidator {
 				}
 			}
 		]
-		System.out.println('variable -> value:\t' + values)
+//		System.out.println('variable -> value:\t' + values)
 		
 		// map between a rule and the index of the index of the combination of values of variables if that combination triggered the rule
 		// for:
@@ -186,21 +186,21 @@ class SLEECValidator extends AbstractSLEECValidator {
 			system.scales.values.forEach [
 				forEach[k, v|scales.put(k, v)]
 			]
-			System.out.println(variables)
+//			System.out.println(variables)
 			val evaluator = new SLEECEvaluator(variables, system.constants, scales)
 			ruleBlock.rules.forEach [ rule |
 				evaluator.eval(rule) ? ruleTriggered.put(rule, i)
 			]
 		]
-		System.out.println('expressions:\t' + expressions.values.length + '\t' + expressions.values.join(' '))
-		System.out.println('rule -> triggered?\t' + ruleTriggered)
+//		System.out.println('expressions:\t' + expressions.values.length + '\t' + expressions.values.join(' '))
+//		System.out.println('rule -> triggered?\t' + ruleTriggered)
 		
 		// group rules by matching trigger-response pair
 		val Multimap<Pair<String, String>, Rule> rules = HashMultimap.create()
 		ruleBlock.rules.forEach [ rule |
 			rules.put(rule.trigger.event.name -> rule.response.event.name, rule)
 		]
-		System.out.println('trigger -> response:\t' + rules)
+//		System.out.println('trigger -> response:\t' + rules)
 		
 		// check for conflicts and redundancies
 		rules.asMap.forEach [ trigger, triggeredRules |
@@ -246,7 +246,6 @@ class SLEECValidator extends AbstractSLEECValidator {
 					}		
 				}
 		]
-		
-		System.out.println('finished')
+//		System.out.println('finished')
 	}
 }

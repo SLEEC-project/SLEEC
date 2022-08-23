@@ -32,8 +32,6 @@ class SLEECEvaluator {
 	}
 
 	def Boolean eval(MBoolExpr expr) {
-		System.out.println(variables.keySet)
-		System.out.println(alpha(expr))
 		if (variables.keySet.containsAll(alpha(expr))) {
 			switch (expr) {
 				BoolComp: eval(expr)
