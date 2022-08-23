@@ -7,7 +7,16 @@ def_start
 	event E1
 	event E2
 	event E3
+	event E4
+	event E5
+	event E6
 	event E7
+	event E8
+	event E9
+	event E10
+	event E11
+	event E12
+	event E13
 	measure m0 : boolean
 	measure m1 : boolean
 	measure m2 : numeric
@@ -18,44 +27,42 @@ rule_start
 	// suggest combining R0 and R1 to look like R2
 	R0 when E0 and m0 then E1
 	R1 when E0 and not m0 then E1
-	R2 when E0 then E1
+	// R2 when E0 then E1
 
 	// raise warning to, suggest using R3 instead of R4 and R5
-	R3 when E0 and m2 < 10 or m2 > 20 then E1
-	R4 when E0 and m2 < 10 then E1
-	R5 when E0 and m2 > 20 then E1
+	// R3 when E0 and m2 < 10 or m2 > 20 then E2
+	R4 when E0 and m2 < 10 then E2
+	R5 when E0 and m2 > 20 then E2
 
 	// when m1 and m0 are true, ...
-	R6 when E0 and m0 then E1 within 10 seconds
-	R7 when E0 and m1 then E1 within 20 seconds
+	R6 when E0 and m0 then E3 within 10 seconds
+	R7 when E0 and m1 then E3 within 20 seconds
 
 	// raise warning here about unexpected behaviour
-	R10 when E0 then E1
-	R11 when E0 then E1 unless m0 then E2
+	R10 when E0 then E4
+	R11 when E0 then E4 unless m0 then E5
 	// suggest writing like this instead
-	R12 when E0 then E1
-	R13 when E0 and m0 then E2
+	// R12 when E0 then E4
+	// R13 when E0 and m0 then E5
 
 	// raise warning that first 'unless' is redundant
-	R14 when E0 then E1
-		unless m0 then E2
-		unless m0 then E3
+	R14 when E0 then E6
+		unless m0 then E7
+		unless m0 then E8
 	
 	// raise warning that first 'unless' is redundant
-	R15 when E0 then E1
-		unless m2 < 10 then E2
-		unless m2 < 20 then E3
+	R15 when E0 then E9
+		unless m2 < 10 then E10
+		unless m2 < 20 then E11
 		
-	// raise warning E1 never happens, R16 is redundant
+	// raise warning E12 never happens, R16 is redundant
 	// similar to a Java warning about if(true)
-	R16 when E0 and m0 and not m0 then E1
+	R16 when E0 and m0 and not m0 then E12
 	
-	// raise warning that E1 always happens
+	// raise warning that E13 always happens
 	// suggest writing like R18
-	R17 when E0 and m0 or not m0 then E1
-	R18 when E0 then E1
+	R17 when E0 and m0 or not m0 then E13
+	// R18 when E0 then E13
 	
-	// raise warning that R20 never happens
-	R19 when E0 and m2 < 20 then E1
-	R20 when E0 and m2 < 10 then E1
+	
 rule_end
