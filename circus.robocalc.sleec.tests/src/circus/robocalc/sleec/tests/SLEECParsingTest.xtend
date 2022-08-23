@@ -208,7 +208,8 @@ class SLEECParsingTest {
 		val result = parseHelper.parse(
 			Files.readString(Paths.get(path + 'experiment.sleec'))
 		)
-		validationTestHelper.assertNoIssues(result)
+		validationTestHelper.assertNoErrors(result)
+		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R10, under R11')
 	}
 	
 	@Test
