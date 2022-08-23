@@ -237,7 +237,7 @@ class SLEECValidator extends AbstractSLEECValidator {
 						// rule1 is redundant is result == -1
 						// no rules are redundant if result == 0
 						var result = 
-							if (rule0Redundant && (!rule1Redundant || system.eval(rule0.response.value) < system.eval(rule1.response.value)))
+							if (rule0Redundant && (!rule1Redundant || system.eval(rule0.response.value) <= system.eval(rule1.response.value)))
 								1
 							else if (rule1Redundant)
 								-1
