@@ -18,10 +18,8 @@ def compile(filenames):
                 os.remove(csp)
         with open(os.path.join('log', 'compilation.log'), 'w+') as f:
             print('compiling')
-            result = subprocess.run(['java', '-jar', jar, *sleec],
-                                    shell = True,
-                                    stdout = f,
-                                    stderr = f)
+            cmd = 'java -jar %s ' % jar + ' '.join(sleec)
+            result = subprocess.run(cmd, shell = True, stdout = f, stderr = f)
         return result.returncode == 0
     except FileNotFoundError:
         print("The file could not be found.")        
@@ -34,10 +32,8 @@ def validate(filename):
     result = {'name': filename}
     with open(os.path.join('log', filename + '.validation.log'), 'w+') as f:
         print(f'validating {filename}\n', end='')
-        output = subprocess.run(['refines', '--typecheck', csp],
-                                shell = True,
-                                stdout = f,
-                                stderr = f)
+        cmd = 'refines --typecheck ' + csp
+        output = subprocess.run(cmd, shell = True, stdout = f, stderr = f)
     result['compiled'] = os.path.exists(csp)
     result['validated'] = result['compiled'] and output.returncode == 0
     result['checked'] = result['validated'] and filecmp.cmp(csp, expected)
