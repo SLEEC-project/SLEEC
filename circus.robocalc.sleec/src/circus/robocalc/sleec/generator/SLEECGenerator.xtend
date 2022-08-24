@@ -31,6 +31,7 @@ import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import java.util.Set
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 /**
  * Generates code from your model files on save.
@@ -389,7 +390,7 @@ class SLEECGenerator extends AbstractGenerator {
 	
 	// replace each MeasureID in the AST with 'vmID'
 	private def <T extends EObject> replace(T AST, String vmID, String mID) {
-		val res = AST
+		val res = EcoreUtil.copy(AST)
 		if(res instanceof Atom)
 			res.measureID = vmID
 		else
