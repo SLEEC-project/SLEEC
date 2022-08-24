@@ -251,7 +251,9 @@ class SLEECValidator extends AbstractSLEECValidator {
 				}
 				
 				// TODO: check that a rule does not conflict with itself
-				if (rule0.response.not){
+				if (rule0.defeaters !== null){
+					// rule0 is redundant if conditions of a defeater are a 
+					// subset of original conditions / previous defeaters
 					
 				}
 			}
