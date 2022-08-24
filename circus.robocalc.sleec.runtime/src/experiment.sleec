@@ -104,7 +104,7 @@ rule_start
 
 	// raise warning here about unexpected behaviour
 	// R10 when Ea then E4
-	// asdfasd f fd fd sd
+	// R11 when Ea and m0 then E5
 	R10 when Ea then E4
 	R11 when Ea then E4 unless m0 then E5
 rule_end
