@@ -26,19 +26,22 @@ def compile(filenames):
     
 
 def validate(filename):
-    start = time.time()
-    csp = os.path.join('src-gen', filename + '.csp')
-    expected = os.path.join('expected', filename + '.csp')
-    result = {'name': filename}
-    with open(os.path.join('log', filename + '.validation.log'), 'w+') as f:
-        print(f'validating {filename}\n', end='')
-        cmd = 'refines --typecheck ' + csp
-        output = subprocess.run(cmd, shell = True, stdout = f, stderr = f)
-    result['compiled'] = os.path.exists(csp)
-    result['validated'] = result['compiled'] and output.returncode == 0
-    result['checked'] = result['validated'] and filecmp.cmp(csp, expected)
-    result['time'] = time.time() - start
-    return result
+    try:
+        start = time.time()
+        csp = os.path.join('src-gen', filename + '.csp')
+        expected = os.path.join('expected', filename + '.csp')
+        result = {'name': filename}
+        with open(os.path.join('log', filename + '.validation.log'), 'w+') as f:
+            print(f'validating {filename}\n', end='')
+            cmd = 'refines --typecheck ' + csp
+            output = subprocess.run(cmd, shell = True, stdout = f, stderr = f)
+        result['compiled'] = os.path.exists(csp)
+        result['validated'] = result['compiled'] and output.returncode == 0
+        result['checked'] = result['validated'] and filecmp.cmp(csp, expected)
+        result['time'] = time.time() - start
+        return result
+    except FileNotFoundError:
+        print("The file could not be found.")    
 
 def main():
     start = time.time()
