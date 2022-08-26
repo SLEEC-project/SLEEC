@@ -24,6 +24,7 @@ import java.util.List
 import java.util.Set
 import org.eclipse.xtext.validation.Check
 import java.util.HashMap
+import java.util.Collections
 
 /** 
  * This class contains custom validation rules. 
@@ -251,9 +252,15 @@ class SLEECValidator extends AbstractSLEECValidator {
 				}
 				
 				// TODO: check that a rule does not conflict with itself
-				if (rule0.defeaters !== null){
+				if (rule0.trigger.expr !== null){
 					// rule0 is redundant if conditions of a defeater are a 
 					// subset of original conditions / previous defeaters
+					
+					val List<Pair<MBoolExpr, String>> conditions = rule0.defeaters.map[expr -> response.event.name].toList 
+					Collections.singletonList(rule0.trigger.expr -> rule0.response.event.name)
+					for (j : 0 ..<conditions.length()){
+						
+					}
 					
 				}
 			}
