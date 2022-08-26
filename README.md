@@ -5,8 +5,8 @@ This repository contains the Xtext projects for the parser and code generator fo
 
 * Java 11
 * Eclipse 2021-12 (Java 11 must already be installed before installing eclipse)
-* Sirius 7.0.1 <https://download.eclipse.org/sirius/updates/releases/7.0.1/2021-06/>
-* Xtext 2.25.0 can be found in the standard repository in <http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/> but the option "Show only the latest versions of available software" needs to be unchecked.
+* Sirius 7.0.1 Update Site for eclipse: <https://download.eclipse.org/sirius/updates/releases/7.0.1/2021-06/>
+* Xtext 2.25.0 Update Site for eclipse: <http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/> but the option "Show only the latest versions of available software" needs to be unchecked.
 * Maven
 * Git
 
