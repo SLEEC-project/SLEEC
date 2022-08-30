@@ -24,7 +24,6 @@ import java.util.List
 import java.util.Set
 import org.eclipse.xtext.validation.Check
 import java.util.HashMap
-import java.util.Collections
 
 /** 
  * This class contains custom validation rules. 
