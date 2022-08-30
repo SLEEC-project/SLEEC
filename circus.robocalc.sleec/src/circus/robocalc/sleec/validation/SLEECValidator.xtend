@@ -32,16 +32,24 @@ import java.util.Collections
  */
 class SLEECValidator extends AbstractSLEECValidator {
 	
+	// variable names being used by ticktock.csp can cause problems if used here
+	// TODO: check def block as well as rule block for var names
+	var List<String> invalid_names = newArrayList("STOP", "P", "Q", "c", "d")
+	
 	@Check
 	def checkEventName(Event e) {
 		if (!Character.isUpperCase(e.name.charAt(0)))
 			warning("Event identifier should begin with capital letter", e, SLEECPackage.Literals.DEFINITION__NAME)
+		if (invalid_names.contains(e.name))
+			error("Invalid variable name: " + e.name + ".", e, SLEECPackage.Literals.DEFINITION__NAME)
 	}
 
 	@Check
 	def checkMeasureName(Measure m) {
 		if (!Character.isLowerCase(m.name.charAt(0)))
 			warning("Measure identifier should begin with lower case letter", m, SLEECPackage.Literals.DEFINITION__NAME)
+		if (invalid_names.contains(m.name))
+			error("Invalid variable name: " + m.name + ".", m, SLEECPackage.Literals.DEFINITION__NAME)
 	}
 
 	@Check
@@ -49,6 +57,19 @@ class SLEECValidator extends AbstractSLEECValidator {
 		for (i : 0 ..< c.name.length)
 			if (Character.isLowerCase(c.name.charAt(i)))
 				warning("Constant identifier should be in all capitals.", c, SLEECPackage.Literals.DEFINITION__NAME)
+		if (invalid_names.contains(c.name))
+			error("Invalid variable name: " + c.name + ".", c, SLEECPackage.Literals.DEFINITION__NAME)
+	}
+	
+	@Check
+	def checkVarNames(Specification s){
+		val defBlock = s.defBlock
+		
+		// check for invalid variable names
+		defBlock.eAllContents.filter(Atom).toIterable.forEach [ atom |
+			if (invalid_names.contains(atom.measureID))
+				error("Invalid variable name: " + atom.measureID + ".", atom, SLEECPackage.Literals.ATOM__MEASURE_ID)
+		]
 	}
 
 	@Check
@@ -66,6 +87,9 @@ class SLEECValidator extends AbstractSLEECValidator {
 				system.constants.keySet		
 			if (!variableIDs.contains(atom.measureID))
 				error("Unknown variable: " + atom.measureID, atom, SLEECPackage.Literals.ATOM__MEASURE_ID)
+			// check for invalid variable names
+//			if (invalid_names.contains(atom.measureID))
+//				error("Invalid variable name: " + atom.measureID, atom, SLEECPackage.Literals.ATOM__MEASURE_ID)
 		]
 
 		// check the types of a relational operator
@@ -252,17 +276,17 @@ class SLEECValidator extends AbstractSLEECValidator {
 				}
 				
 				// TODO: check that a rule does not conflict with itself
-				if (rule0.trigger.expr !== null){
-					// rule0 is redundant if conditions of a defeater are a 
-					// subset of original conditions / previous defeaters
-					
-					val List<Pair<MBoolExpr, String>> conditions = rule0.defeaters.map[expr -> response.event.name].toList 
-					Collections.singletonList(rule0.trigger.expr -> rule0.response.event.name)
-					for (j : 0 ..<conditions.length()){
-						
-					}
-					
-				}
+//				if (rule0.trigger.expr !== null){
+//					// rule0 is redundant if conditions of a defeater are a 
+//					// subset of original conditions / previous defeaters
+//					
+//					val List<Pair<MBoolExpr, String>> conditions = rule0.defeaters.map[expr -> response.event.name].toList 
+//					Collections.singletonList(rule0.trigger.expr -> rule0.response.event.name)
+//					for (j : 0 ..<conditions.length()){
+//						
+//					}
+//					
+//				}
 			}
 		]
 //		System.out.println('finished')
