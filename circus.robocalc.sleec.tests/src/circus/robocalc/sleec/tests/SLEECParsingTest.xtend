@@ -14,6 +14,8 @@ import org.junit.jupiter.api.^extension.ExtendWith
 import java.nio.file.Files
 import java.nio.file.Paths
 import circus.robocalc.sleec.sLEEC.SLEECPackage
+import java.io.File
+import org.junit.Assert
 
 @ExtendWith(InjectionExtension)
 @InjectWith(SLEECInjectorProvider)
@@ -23,12 +25,19 @@ class SLEECParsingTest {
 	
 	val path = '../circus.robocalc.sleec.runtime/src/'
 	
+	
+	// check if generated csp files are empty 
 	@Test
-	def void test_ifEmpty() {
-		
+	def void test_empty() {
+		val csp_files = new File("../circus.robocalc.sleec.runtime/src-gen/").listFiles()
+		for (file : csp_files) {			
+			val emptyFile = (file.length() == 0L)
+			Assert.assertFalse(emptyFile)
+		}		
 	}
 	
-	// individual SLEEC rule tests
+	
+	// --------- individual SLEEC rule tests --------------
 	
 	@Test
 	def void test_basic() {
