@@ -32,6 +32,7 @@ import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import java.util.Set
 import org.eclipse.emf.ecore.util.EcoreUtil
+import java.util.HashSet
 
 /**
  * Generates code from your model files on save.
@@ -57,6 +58,8 @@ class SLEECGenerator extends AbstractGenerator {
 		fsa.generateFile(
 			resource.getURI().trimFileExtension().lastSegment() + '.csp', '''
 			include "ticktock.csp"
+			external prioritise
+			instance MSN = MS(Capabilities)
 			
 			Timed(et) {
 				
@@ -148,10 +151,37 @@ class SLEECGenerator extends AbstractGenerator {
 		
 		Monitoring«rID» = «RDS(resp, dfts, trig, alpha(resp) + dfts.flatMap[ alpha(it) ], 'Monitoring'+rID)»
 		
+		-- alphabet for «rID» 
+		A«rID» = «generateAlphabet(r)»
+		
 		'''
 	}
 
 	// -----------------------------------------------------------
+	
+	
+	private def generateAlphabet(Rule r){
+		// creates an alphabet containing all the event IDs and measure IDs used in a rule		
+		var Set<String> ruleAlphabet = new HashSet<String>()
+		
+		ruleAlphabet.add(r.trigger.event.name)
+		ruleAlphabet.add(r.response.event.name)
+
+		// TODO add remaining events to alphabet
+		val ruleEvents = r.eAllContents
+							.filter(Event)
+							.toList
+		for (event : ruleEvents){
+			ruleAlphabet.add(event.name)
+		}
+		ruleAlphabet.addAll(alpha(r))		
+		'''«ruleAlphabet»
+		'''
+		
+	}
+	
+	
+	// -----------------------------------------------------------	
 	
 	private def TG(Trigger trig, String sp, String fp) {
 		val eID = trig.event.name
@@ -179,7 +209,7 @@ class SLEECGenerator extends AbstractGenerator {
 		'''
 			
 		// [[<mID>^mIDs,mBE[vmID/mID],sp,fp]]ME
-		else '''
+		else'''
 			StartBy(«mID»?v«mID» ->
 				«ME(mIDs.subList(1, mIDs.size), replace(mBE, 'v'+mID, mID), sp, fp)»
 			,0)
@@ -406,7 +436,7 @@ class SLEECGenerator extends AbstractGenerator {
 	// functions used for AST printing TODO this could be done during serialisation
 	
 	private def CharSequence show(Rule r) '''
-		-- «r.name» when «show(r.trigger)» then «show(r.response)»«r.defeaters.map[show].join('')»
+		-- «r.name» when «show(r.trigger)» then «show(r.response)» «r.defeaters.map[show].join('')»
 	'''
 
 	private def show(Trigger t) {
@@ -423,7 +453,7 @@ class SLEECGenerator extends AbstractGenerator {
 			r.event.name + if (r.value === null)
 				''
 			else 
-				'within ' + norm(r.value) + ' ' + show(r.unit) + if(r.response === null)
+				' within ' + norm(r.value) + ' ' + show(r.unit) + if(r.response === null)
 					''
 				else
 					'\n-- otherwise ' + show(r.response)
