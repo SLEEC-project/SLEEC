@@ -59,16 +59,16 @@ class SLEECGenerator extends AbstractGenerator {
 			resource.getURI().trimFileExtension().lastSegment() + '.csp', '''
 			include "ticktock.csp"
 			external prioritise
-			instance MSN = MS(Capabilities)
 			
-			Timed(et) {
-				
 			«resource.allContents
 				.filter(Definition)
 				.toIterable
 				.map[D]
 				.join('')»
 			
+					
+			Timed(et) {
+							
 			«resource.allContents
 				.filter(Rule)
 				.toIterable
