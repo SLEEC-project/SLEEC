@@ -152,7 +152,7 @@ class SLEECGenerator extends AbstractGenerator {
 		Monitoring«rID» = «RDS(resp, dfts, trig, alpha(resp) + dfts.flatMap[ alpha(it) ], 'Monitoring'+rID)»
 		
 		-- alphabet for «rID» 
-		A«rID» = «generateAlphabet(r)»
+		A«rID» = {|«generateAlphabet(r)»|}
 		
 		'''
 	}
@@ -164,22 +164,30 @@ class SLEECGenerator extends AbstractGenerator {
 		// creates an alphabet containing all the event IDs and measure IDs used in a rule		
 		var Set<String> ruleAlphabet = new HashSet<String>()
 		
-		ruleAlphabet.add(r.trigger.event.name)
-		ruleAlphabet.add(r.response.event.name)
-
-		// TODO add remaining events to alphabet
-		val ruleEvents = r.eAllContents
-							.filter(Event)
-							.toList
-		for (event : ruleEvents){
-			ruleAlphabet.add(event.name)
-		}
+		ruleAlphabet.add(r.trigger.event.name)		
+		getResponseEvents(r.response, ruleAlphabet)
 		ruleAlphabet.addAll(alpha(r))		
-		'''«ruleAlphabet»
-		'''
-		
+		// ruleAlphabet.toList
+		var String alphString = ''
+		for (i : 0 ..< ruleAlphabet.size){
+			val element = ruleAlphabet.get(i)
+			if (i == (ruleAlphabet.size - 1)){
+				alphString += element
+			}else {
+				alphString += element + ', '
+			}			
+		}		
+		'''«alphString»'''		
 	}
 	
+	private def getResponseEvents(Response r, Set<String> ruleAlphabet){
+		val resp = r.response	
+		if (resp === null){
+			ruleAlphabet.add(r.event.name)
+		} else {		
+			getResponseEvents(resp, ruleAlphabet)
+		}		
+	}
 	
 	// -----------------------------------------------------------	
 	
