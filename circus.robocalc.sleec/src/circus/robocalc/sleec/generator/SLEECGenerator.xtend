@@ -104,6 +104,10 @@ class SLEECGenerator extends AbstractGenerator {
 				.toIterable
 				.map[ rule | show(rule) + '\n' + R(rule) ]
 				.join('')»
+				
+			-- ASSERTIONS --
+			«generateAssertions(resource)»
+			
 			}
 		''')
 	}
@@ -191,14 +195,13 @@ class SLEECGenerator extends AbstractGenerator {
 		Monitoring«rID» = «RDS(resp, dfts, trig, alpha(resp) + dfts.flatMap[ alpha(it) ], 'Monitoring'+rID)»
 		
 		-- alphabet for «rID» 
-		A«rID» = {|«generateAlphabet(r)»|}
-		
+		A«rID» = {|«alphabetString(r)»|}
+		SLEEC«rID» = timed_priority(«rID»)
 		'''
 	}
 
 	// -----------------------------------------------------------
-	
-	
+		
 	private def generateAlphabet(Rule r){
 		// creates an alphabet containing all the event IDs and measure IDs used in a rule		
 		var Set<String> ruleAlphabet = new HashSet<String>()
@@ -206,17 +209,9 @@ class SLEECGenerator extends AbstractGenerator {
 		ruleAlphabet.add(r.trigger.event.name)		
 		getResponseEvents(r.response, ruleAlphabet)
 		ruleAlphabet.addAll(alpha(r))		
-		// ruleAlphabet.toList
-		var String alphString = ''
-		for (i : 0 ..< ruleAlphabet.size){
-			val element = ruleAlphabet.get(i)
-			if (i == (ruleAlphabet.size - 1)){
-				alphString += element
-			}else {
-				alphString += element + ', '
-			}			
-		}		
-		'''«alphString»'''		
+		
+		return ruleAlphabet
+				
 	}
 	
 	private def getResponseEvents(Response r, Set<String> ruleAlphabet){
@@ -226,6 +221,21 @@ class SLEECGenerator extends AbstractGenerator {
 		} else {		
 			getResponseEvents(resp, ruleAlphabet)
 		}		
+	}
+	
+	private def alphabetString(Rule r){
+		
+		val Set<String> ruleAlphabet = new HashSet<String>(generateAlphabet(r))
+		var String alphString = ''
+		for (i : 0 ..< ruleAlphabet.size){
+			val element = ruleAlphabet.get(i)
+			if (i == (ruleAlphabet.size - 1)){
+				alphString += element
+			}else {
+				alphString += element + ', '
+			}			
+		}		
+		'''«alphString»'''
 	}
 	
 	// -----------------------------------------------------------	
@@ -357,6 +367,39 @@ class SLEECGenerator extends AbstractGenerator {
 			fp
 		else
 			EDS(dfts.head, EDS(dfts.tail, fp, n-1), n)
+	}
+
+	// -----------------------------------------------------------
+		
+	private def generateAssertions(Resource resource) {
+		
+		val rules = resource.allContents.filter(Rule).toList
+		
+		for (i : 1..< rules.size - 1) {
+			
+			var firstRule = rules.get(i)
+			var firstAlphabet = generateAlphabet(firstRule)
+			
+			for (j : i+1 ..< rules.size - 2) {
+				
+				var secondRule = rules.get(j)
+				var secondAlphabet = generateAlphabet(secondRule)
+				// Check intersection of rule alphabets
+				var intersection = new HashSet<String>(firstAlphabet)
+				intersection.retainAll(secondAlphabet)
+				
+				if (!intersection.isEmpty){
+					
+//					'''SLEEC«firstRule.name»«secondRule.name» = «CP(firstRule, secondRule)»
+//					'''
+					CP(firstRule, secondRule)
+				}
+			}
+		}
+	}
+	
+	private def CP(Rule firstRule, Rule secondRule){
+		
 	}
 	
 	// -----------------------------------------------------------
