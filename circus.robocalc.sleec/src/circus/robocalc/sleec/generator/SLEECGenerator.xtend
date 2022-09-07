@@ -106,6 +106,7 @@ class SLEECGenerator extends AbstractGenerator {
 				.join('')»
 				
 			-- ASSERTIONS --
+			
 			«generateAssertions(resource)»
 			
 			}
@@ -197,6 +198,8 @@ class SLEECGenerator extends AbstractGenerator {
 		-- alphabet for «rID» 
 		A«rID» = {|«alphabetString(r)»|}
 		SLEEC«rID» = timed_priority(«rID»)
+		
+		
 		'''
 	}
 
@@ -214,10 +217,11 @@ class SLEECGenerator extends AbstractGenerator {
 				
 	}
 	
-	private def getResponseEvents(Response r, Set<String> ruleAlphabet){
+	private def Set<String> getResponseEvents(Response r, Set<String> ruleAlphabet){
 		val resp = r.response	
 		if (resp === null){
 			ruleAlphabet.add(r.event.name)
+			return ruleAlphabet
 		} else {		
 			getResponseEvents(resp, ruleAlphabet)
 		}		
@@ -375,12 +379,12 @@ class SLEECGenerator extends AbstractGenerator {
 		
 		val rules = resource.allContents.filter(Rule).toList
 		
-		for (i : 1..< rules.size - 1) {
+		for (i : 0..< rules.size - 2) {
 			
 			var firstRule = rules.get(i)
 			var firstAlphabet = generateAlphabet(firstRule)
 			
-			for (j : i+1 ..< rules.size - 2) {
+			for (j : i+1 ..< rules.size - 1) {
 				
 				var secondRule = rules.get(j)
 				var secondAlphabet = generateAlphabet(secondRule)
@@ -389,18 +393,39 @@ class SLEECGenerator extends AbstractGenerator {
 				intersection.retainAll(secondAlphabet)
 				
 				if (!intersection.isEmpty){
-					
-//					'''SLEEC«firstRule.name»«secondRule.name» = «CP(firstRule, secondRule)»
-//					'''
-					CP(firstRule, secondRule)
+					return '''
+					«CC(firstRule, secondRule)»
+					«UC(firstRule, secondRule)»
+					'''
 				}
 			}
 		}
 	}
 	
-	private def CP(Rule firstRule, Rule secondRule){
+	private def CC(Rule firstRule, Rule secondRule){
+		// [[r1,r2]]CC
+		'''assert timed_priority(«CP(firstRule, secondRule)»):[deadlock-free]
 		
+		'''
 	}
+	
+	private def CP(Rule firstRule, Rule secondRule){
+		//[[r1,r2]]CP
+		'''«firstRule.name»|[inter({|«alphabetString(firstRule)»|}, {|«alphabetString(secondRule)»)|}]|«secondRule.name»'''
+	}
+
+	private def UC(Rule firstRule, Rule secondRule){
+		//[[r1,r2]]UC
+		'''assert not
+	  MSN::C3(timed_priority(«CP(firstRule, secondRule)» \ «alpha(firstRule) + alpha(secondRule)»)
+	  [T=
+	  MSN::C3(timed_priority(«firstRule.name» \ «(alpha(firstRule) + alpha(secondRule)).toString»)
+		   
+		   
+		'''
+		
+	}	
+	
 	
 	// -----------------------------------------------------------
 	
