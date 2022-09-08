@@ -79,13 +79,7 @@ class SLEECGenerator extends AbstractGenerator {
 								.filter(Event)
 								.toIterable
 								.map[Cap]
-								.join(',' + '\n   ')»,
-				 «resource.allContents
-								.filter(Definition)
-								.filter(Measure)
-								.toIterable
-								.map[Cap]
-								.join(',' + '\n')»
+								.join(',' + '\n   ')»«CapM(resource)»
 			  |}
 			Measures =
 			  {| «resource.allContents
@@ -120,6 +114,21 @@ class SLEECGenerator extends AbstractGenerator {
 	
 	private def Cap(Definition d) {
 		'''«d.name»'''
+	}
+	private def CapM(Resource resource){
+		
+		// if measures exist, add to list of capabilities
+		if (!resource.allContents.filter(Definition).filter(Measure).isEmpty) {
+			return ''',
+	 «resource.allContents
+				.filter(Definition)
+				.filter(Measure)
+				.toIterable
+				.map[Cap]
+				.join(',' + '\n')»'''						
+		} else {
+			return ''''''
+		}
 	}
 	private def Meas(Definition d) {
 		'''«d.name»'''
@@ -204,47 +213,8 @@ class SLEECGenerator extends AbstractGenerator {
 		
 		
 		'''
-	}
+	}	
 
-	// -----------------------------------------------------------
-		
-	private def generateAlphabet(Rule r){
-		// creates an alphabet containing all the event IDs and measure IDs used in a rule		
-		var Set<String> ruleAlphabet = new HashSet<String>()
-		
-		ruleAlphabet.add(r.trigger.event.name)		
-		getResponseEvents(r.response, ruleAlphabet)
-		ruleAlphabet.addAll(alpha(r))		
-		
-		return ruleAlphabet
-				
-	}
-	
-	private def Set<String> getResponseEvents(Response r, Set<String> ruleAlphabet){
-		val resp = r.response	
-		if (resp === null){
-			ruleAlphabet.add(r.event.name)
-			return ruleAlphabet
-		} else {		
-			getResponseEvents(resp, ruleAlphabet)
-		}		
-	}
-	
-	private def alphabetString(Rule r){
-		
-		val Set<String> ruleAlphabet = new HashSet<String>(generateAlphabet(r))
-		var String alphString = ''
-		for (i : 0 ..< ruleAlphabet.size){
-			val element = ruleAlphabet.get(i)
-			if (i == (ruleAlphabet.size - 1)){
-				alphString += element
-			}else {
-				alphString += element + ', '
-			}			
-		}		
-		'''«alphString»'''
-	}
-	
 	// -----------------------------------------------------------	
 	
 	private def TG(Trigger trig, String sp, String fp) {
@@ -382,12 +352,12 @@ class SLEECGenerator extends AbstractGenerator {
 		
 		var assertions = ''
 		
-		for (i : 0..< rules.size - 2) {
+		for (i : 0..< rules.size - 1) {
 			
 			var firstRule = rules.get(i)
 			var firstAlphabet = generateAlphabet(firstRule)
 			
-			for (j : i+1 ..< rules.size - 1) {
+			for (j : i+1 ..< rules.size) {
 				
 				var secondRule = rules.get(j)
 				var secondAlphabet = generateAlphabet(secondRule)
@@ -420,16 +390,16 @@ class SLEECGenerator extends AbstractGenerator {
 	
 	private def CP(Rule firstRule, Rule secondRule){
 		//[[r1,r2]]CP
-		'''«firstRule.name»|[inter({|«alphabetString(firstRule)»|}, {|«alphabetString(secondRule)»)|}]|«secondRule.name»'''
+		'''«firstRule.name»[|inter({|«alphabetString(firstRule)», «alphabetString(secondRule)»|})|]«secondRule.name»'''
 	}
 
 	private def UC(Rule firstRule, Rule secondRule){
 		//[[r1,r2]]UC
 		'''
 		assert not
-		  MSN::C3(timed_priority(«CP(firstRule, secondRule)» \ «alpha(firstRule) + alpha(secondRule)»)
+		  MSN::C3(timed_priority(«CP(firstRule, secondRule)» \ {|«alphaString(firstRule)», «alphaString(secondRule)»|})
 		  [T=
-		  MSN::C3(timed_priority(«firstRule.name» \ «(alpha(firstRule) + alpha(secondRule)).toString»)
+		  MSN::C3(timed_priority(«firstRule.name» \ {|«alphaString(firstRule)», «alphaString(secondRule)»|})
 		   
 		   
 		'''
@@ -437,9 +407,69 @@ class SLEECGenerator extends AbstractGenerator {
 	}	
 	
 	
+	
 	// -----------------------------------------------------------
 	
 	// helper functions used in the translation rules:
+	
+	// Returns string of all eventIDs and measureIDs of a rule
+	private def alphabetString(Rule r){
+		
+		val Set<String> ruleAlphabet = new HashSet<String>(generateAlphabet(r))
+		var String alphString = ''
+		for (i : 0 ..< ruleAlphabet.size){
+			val element = ruleAlphabet.get(i)
+			if (i == (ruleAlphabet.size - 1)){
+				alphString += element
+			}else {
+				alphString += element + ', '
+			}			
+		}		
+		'''«alphString»'''
+	}
+		
+	// Returns a string of all measureIDs (but not eventIDs) of a rule
+	private def alphaString(Rule r){
+		
+		val alphaList = new HashSet<String>(alpha(r))
+		
+		var String alphString = ''
+		
+		for (i : 0 ..< alphaList.size){
+			val element = alphaList.get(i)
+			if (i == (alphaList.size - 1)){
+				alphString += element
+			}else {
+				alphString += element + ', '
+			}			
+		}		
+		'''«alphString»'''
+	}
+	
+	// Returns a set of all eventIDs and measureIDs of a rule
+	private def generateAlphabet(Rule r){
+		
+		// creates an alphabet containing all the event IDs and measure IDs used in a rule		
+		var Set<String> ruleAlphabet = new HashSet<String>()
+		
+		ruleAlphabet.add(r.trigger.event.name)		
+		getResponseEvents(r.response, ruleAlphabet)
+		ruleAlphabet.addAll(alpha(r))		
+		
+		return ruleAlphabet
+				
+	}
+	
+	// Returns eventIDs from all responses in a rule recursively
+	private def Set<String> getResponseEvents(Response r, Set<String> ruleAlphabet){
+		val resp = r.response	
+		if (resp === null){
+			ruleAlphabet.add(r.event.name)
+			return ruleAlphabet
+		} else {		
+			getResponseEvents(resp, ruleAlphabet)
+		}		
+	}
 	
 	// Returns a list of all the MeasureIds in AST
 	private def <T extends EObject> List<String> alpha(T AST) {
