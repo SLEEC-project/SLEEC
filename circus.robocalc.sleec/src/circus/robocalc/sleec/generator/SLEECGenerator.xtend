@@ -107,7 +107,10 @@ class SLEECGenerator extends AbstractGenerator {
 				
 			-- ASSERTIONS --
 			
-			«generateAssertions(resource)»
+			«resource.allContents
+							.filter(Rule)
+							.toList
+							.generateAssertions»
 			
 			}
 		''')
@@ -375,9 +378,9 @@ class SLEECGenerator extends AbstractGenerator {
 
 	// -----------------------------------------------------------
 		
-	private def generateAssertions(Resource resource) {
+	private def generateAssertions(List<Rule> rules){
 		
-		val rules = resource.allContents.filter(Rule).toList
+		var assertions = ''
 		
 		for (i : 0..< rules.size - 2) {
 			
@@ -393,18 +396,24 @@ class SLEECGenerator extends AbstractGenerator {
 				intersection.retainAll(secondAlphabet)
 				
 				if (!intersection.isEmpty){
-					return '''
+					assertions += '''
 					«CC(firstRule, secondRule)»
 					«UC(firstRule, secondRule)»
 					'''
 				}
 			}
 		}
+		if (assertions === ''){
+			return '''-- No intersections of rules; no assertions can be made. --'''
+		}else {
+			return assertions		
+		}
 	}
 	
 	private def CC(Rule firstRule, Rule secondRule){
 		// [[r1,r2]]CC
-		'''assert timed_priority(«CP(firstRule, secondRule)»):[deadlock-free]
+		'''
+		assert timed_priority(«CP(firstRule, secondRule)»):[deadlock-free]
 		
 		'''
 	}
@@ -416,10 +425,11 @@ class SLEECGenerator extends AbstractGenerator {
 
 	private def UC(Rule firstRule, Rule secondRule){
 		//[[r1,r2]]UC
-		'''assert not
-	  MSN::C3(timed_priority(«CP(firstRule, secondRule)» \ «alpha(firstRule) + alpha(secondRule)»)
-	  [T=
-	  MSN::C3(timed_priority(«firstRule.name» \ «(alpha(firstRule) + alpha(secondRule)).toString»)
+		'''
+		assert not
+		  MSN::C3(timed_priority(«CP(firstRule, secondRule)» \ «alpha(firstRule) + alpha(secondRule)»)
+		  [T=
+		  MSN::C3(timed_priority(«firstRule.name» \ «(alpha(firstRule) + alpha(secondRule)).toString»)
 		   
 		   
 		'''
