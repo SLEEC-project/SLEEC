@@ -368,6 +368,8 @@ class SLEECGenerator extends AbstractGenerator {
 				if (!intersection.isEmpty){
 					// [[r1, r2]]CC
 					assertions += '''
+					-- Checking «firstRule.name» with «secondRule.name»:
+					
 					intersection«firstRule.name»«secondRule.name» = «CP(firstRule, secondRule)»
 					SLEEC«firstRule.name»«secondRule.name» = timed_priority(intersection«firstRule.name»«secondRule.name»)
 					
