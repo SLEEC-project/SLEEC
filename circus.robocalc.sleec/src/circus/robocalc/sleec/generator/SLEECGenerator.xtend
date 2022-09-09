@@ -367,6 +367,7 @@ class SLEECGenerator extends AbstractGenerator {
 				
 				if (!intersection.isEmpty){
 					// [[r1, r2]]CC
+					// [[r1, r2]]UC
 					assertions += '''
 					-- Checking «firstRule.name» with «secondRule.name»:
 					
@@ -395,21 +396,6 @@ class SLEECGenerator extends AbstractGenerator {
 		'''«firstRule.name»[|inter({|«alphabetString(firstRule)»|}, {|«alphabetString(secondRule)»|})|]«secondRule.name»'''
 	}
 
-//	private def UC(Rule firstRule, Rule secondRule){
-//		//[[r1,r2]]UC
-//		'''
-//		assert not
-//		  MSN::C3(timed_priority(«CP(firstRule, secondRule)» \ {|«alphaString(firstRule)», «alphaString(secondRule)»|})
-//		  [T=
-//		  MSN::C3(timed_priority(«firstRule.name» \ {|«alphaString(firstRule)», «alphaString(secondRule)»|})
-//		   
-//		   
-//		'''
-//		
-//	}	
-	
-	
-	
 	// -----------------------------------------------------------
 	
 	// helper functions used in the translation rules:
@@ -430,23 +416,6 @@ class SLEECGenerator extends AbstractGenerator {
 		'''«alphString»'''
 	}
 		
-	// Returns a string of all measureIDs (but not eventIDs) of a rule
-	private def alphaString(Rule r){
-		
-		val alphaList = new HashSet<String>(alpha(r))
-		
-		var String alphString = ''
-		
-		for (i : 0 ..< alphaList.size){
-			val element = alphaList.get(i)
-			if (i == (alphaList.size - 1)){
-				alphString += element
-			}else {
-				alphString += element + ', '
-			}			
-		}		
-		'''«alphString»'''
-	}
 	
 	// Returns a set of all eventIDs and measureIDs of a rule
 	private def generateAlphabet(Rule r){

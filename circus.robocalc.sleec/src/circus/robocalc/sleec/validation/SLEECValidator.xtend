@@ -32,7 +32,6 @@ import java.util.HashMap
 class SLEECValidator extends AbstractSLEECValidator {
 	
 	// variable names being used by ticktock.csp can cause problems if used here
-	// TODO: check def block as well as rule block for var names
 	var List<String> invalid_names = newArrayList("STOP", "P", "Q", "c", "d")
 	
 	@Check
@@ -86,9 +85,6 @@ class SLEECValidator extends AbstractSLEECValidator {
 				system.constants.keySet		
 			if (!variableIDs.contains(atom.measureID))
 				error("Unknown variable: " + atom.measureID, atom, SLEECPackage.Literals.ATOM__MEASURE_ID)
-			// check for invalid variable names
-//			if (invalid_names.contains(atom.measureID))
-//				error("Invalid variable name: " + atom.measureID, atom, SLEECPackage.Literals.ATOM__MEASURE_ID)
 		]
 
 		// check the types of a relational operator
