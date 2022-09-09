@@ -63,8 +63,7 @@ class SLEECGenerator extends AbstractGenerator {
 		
 		fsa.generateFile(
 			resource.getURI().trimFileExtension().lastSegment() + '.csp', '''
-			include "ticktock.csp"
-			external prioritise
+			include "tick-tock.csp"
 			
 			
 			«resource.allContents
