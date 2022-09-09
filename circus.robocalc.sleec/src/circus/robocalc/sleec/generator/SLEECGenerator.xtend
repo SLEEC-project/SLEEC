@@ -366,9 +366,17 @@ class SLEECGenerator extends AbstractGenerator {
 				intersection.retainAll(secondAlphabet)
 				
 				if (!intersection.isEmpty){
+					// [[r1, r2]]CC
 					assertions += '''
-					«CC(firstRule, secondRule)»
-					«UC(firstRule, secondRule)»
+					intersection«firstRule.name»«secondRule.name» = «CP(firstRule, secondRule)»
+					SLEEC«firstRule.name»«secondRule.name» = timed_priority(intersection«firstRule.name»«secondRule.name»)
+					
+					assert SLEEC«firstRule.name»«secondRule.name»:[deadlock-free]					
+					assert not MSN::C3(SLEEC«firstRule.name»«secondRule.name») [T= MSN::C3(SLEEC«firstRule.name»)
+					
+					assert not MSN::C3(SLEEC«firstRule.name») [T= MSN::C3(SLEEC«firstRule.name»«secondRule.name»)
+					
+					
 					'''
 				}
 			}
@@ -378,33 +386,25 @@ class SLEECGenerator extends AbstractGenerator {
 		}else {
 			return assertions		
 		}
-	}
-	
-	private def CC(Rule firstRule, Rule secondRule){
-		// [[r1,r2]]CC
-		'''
-		assert timed_priority(«CP(firstRule, secondRule)»):[deadlock-free]
-		
-		'''
-	}
+	}	
 	
 	private def CP(Rule firstRule, Rule secondRule){
 		//[[r1,r2]]CP
-		'''«firstRule.name»[|inter({|«alphabetString(firstRule)», «alphabetString(secondRule)»|})|]«secondRule.name»'''
+		'''«firstRule.name»[|inter({|«alphabetString(firstRule)»|}, {|«alphabetString(secondRule)»|})|]«secondRule.name»'''
 	}
 
-	private def UC(Rule firstRule, Rule secondRule){
-		//[[r1,r2]]UC
-		'''
-		assert not
-		  MSN::C3(timed_priority(«CP(firstRule, secondRule)» \ {|«alphaString(firstRule)», «alphaString(secondRule)»|})
-		  [T=
-		  MSN::C3(timed_priority(«firstRule.name» \ {|«alphaString(firstRule)», «alphaString(secondRule)»|})
-		   
-		   
-		'''
-		
-	}	
+//	private def UC(Rule firstRule, Rule secondRule){
+//		//[[r1,r2]]UC
+//		'''
+//		assert not
+//		  MSN::C3(timed_priority(«CP(firstRule, secondRule)» \ {|«alphaString(firstRule)», «alphaString(secondRule)»|})
+//		  [T=
+//		  MSN::C3(timed_priority(«firstRule.name» \ {|«alphaString(firstRule)», «alphaString(secondRule)»|})
+//		   
+//		   
+//		'''
+//		
+//	}	
 	
 	
 	
