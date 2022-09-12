@@ -14,8 +14,8 @@ import org.junit.jupiter.api.^extension.ExtendWith
 import java.nio.file.Files
 import java.nio.file.Paths
 import circus.robocalc.sleec.sLEEC.SLEECPackage
-import java.io.File
-import org.junit.Assert
+// import java.io.File
+// import org.junit.Assert
 
 @ExtendWith(InjectionExtension)
 @InjectWith(SLEECInjectorProvider)
@@ -26,15 +26,15 @@ class SLEECParsingTest {
 	val path = '../circus.robocalc.sleec.runtime/src/'
 	
 	
-	// check if generated csp files are empty 
-	@Test
-	def void test_empty() {
-		val csp_files = new File("../circus.robocalc.sleec.runtime/src-gen/").listFiles()
-		for (file : csp_files) {			
-			val emptyFile = (file.length() == 0L)
-			Assert.assertFalse(emptyFile)
-		}		
-	}
+//	// check if generated csp files are empty 
+//	@Test
+//	def void test_empty() {
+//		val csp_files = new File("../circus.robocalc.sleec.runtime/src-gen/").listFiles()
+//		for (file : csp_files) {			
+//			val emptyFile = (file.length() == 0L)
+//			validationTestHelper.assertTrue()
+//		}		
+//	}
 	
 	
 	// --------- individual SLEEC rule tests --------------
@@ -198,26 +198,26 @@ class SLEECParsingTest {
 		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R10, under R11.')
 		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R13, under R12.')
 		validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R14, under R15.')
-		try {
-					validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R8, under R9.')
-		} catch (org.junit.ComparisonFailure e){
-			validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R9, under R8.')
-		}
+//		try {
+//					validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R8, under R9.')
+//		} catch (org.junit.ComparisonFailure e){
+//			validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R9, under R8.')
+//		}
 	}
 	
-	@Test
-	def void test_experiment() {
-		val result = parseHelper.parse(
-			Files.readString(Paths.get(path + 'experiment.sleec'))
-		)
-		validationTestHelper.assertNoErrors(result)
-		try {
-			validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R11, under R10')
-		}			
-		catch (org.junit.ComparisonFailure e){
-			validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R10, under R11')
-		}
-	}
+//	@Test
+//	def void test_experiment() {
+//		val result = parseHelper.parse(
+//			Files.readString(Paths.get(path + 'experiment.sleec'))
+//		)
+//		validationTestHelper.assertNoErrors(result)
+//		try {
+//			validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R11, under R10')
+//		}			
+//		catch (org.junit.ComparisonFailure e){
+//			validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R10, under R11')
+//		}
+//	}
 	
 	@Test
 	def void test_conflict_error() {
