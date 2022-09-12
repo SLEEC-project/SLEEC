@@ -1,5 +1,4 @@
-include "ticktock.csp"
-external prioritise
+include "tick-tock.csp"
 
 
 channel BatteryCritical
