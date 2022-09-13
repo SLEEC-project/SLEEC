@@ -3,6 +3,10 @@ import subprocess
 import time
 import re
 
+def remove_ext(filename):
+    return os.path.splitext(filename)[0]
+
+
 def getMethodNames(filename):
     
     os.chdir('src/circus/robocalc/sleec/tests')
@@ -14,13 +18,13 @@ def getMethodNames(filename):
     return methodnames
 
 
-def runTest(methodname):
+def runTest(methodname, cmd):
 
     print('\n--------------------------------------\n')
     
     with open(os.path.join('log', methodname + '.log'), 'w+') as f:
         print('Running ' + methodname + '...')
-        cmd = 'mvn clean test -DTest=' + methodname
+        cmd += '#' + methodname
         result = subprocess.run(cmd, shell=True, stdout = f, stderr = f)
         return result.returncode == 0
 
@@ -32,10 +36,11 @@ def main():
         os.mkdir('log')    
     
     for f in os.listdir('src/circus/robocalc/sleec/tests'):
+        cmd = 'mvn test -Dtest=' + remove_ext(f)
         methodnames = getMethodNames(f)
         os.chdir('../../../../..')
         for m in methodnames:
-            result = runTest(m)
+            result = runTest(m, cmd)
             if not result:
                 print(m + ' failed.')
             else:
