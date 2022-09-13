@@ -14,6 +14,7 @@ import org.junit.jupiter.api.^extension.ExtendWith
 import java.nio.file.Files
 import java.nio.file.Paths
 import circus.robocalc.sleec.sLEEC.SLEECPackage
+
 // import java.io.File
 // import org.junit.Assert
 
@@ -24,18 +25,7 @@ class SLEECParsingTest {
 	@Inject ValidationTestHelper validationTestHelper
 	
 	val path = '../circus.robocalc.sleec.runtime/src/'
-	
-	
-//	// check if generated csp files are empty 
-//	@Test
-//	def void test_empty() {
-//		val csp_files = new File("../circus.robocalc.sleec.runtime/src-gen/").listFiles()
-//		for (file : csp_files) {			
-//			val emptyFile = (file.length() == 0L)
-//			validationTestHelper.assertTrue()
-//		}		
-//	}
-	
+		
 	
 	// --------- individual SLEEC rule tests --------------
 	
@@ -205,19 +195,20 @@ class SLEECParsingTest {
 //		}
 	}
 	
-//	@Test
-//	def void test_experiment() {
-//		val result = parseHelper.parse(
-//			Files.readString(Paths.get(path + 'experiment.sleec'))
-//		)
-//		validationTestHelper.assertNoErrors(result)
+	@Test
+	def void test_experiment() {
+		val result = parseHelper.parse(
+			Files.readString(Paths.get(path + 'experiment.sleec'))
+		)
+		validationTestHelper.assertNoErrors(result)
+		
 //		try {
 //			validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R11, under R10')
 //		}			
 //		catch (org.junit.ComparisonFailure e){
 //			validationTestHelper.assertWarning(result, SLEECPackage.Literals.RULE, null, 'Redundant rule: R10, under R11')
 //		}
-//	}
+	}
 	
 	@Test
 	def void test_conflict_error() {
