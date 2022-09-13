@@ -615,7 +615,7 @@ class SLEECGenerator extends AbstractGenerator {
 	// Generates ticktock.csp in src-gen if it does not exist.
 	// -----------------------------------------------------------
 	private def generateTickTock(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		fsa.generateFile('ticktock.csp', '''---------------------------------------------------------------------------
+		fsa.generateFile('tick-tock.csp', '''---------------------------------------------------------------------------
 	-- Below, we have the encoding of the tock-CSP semantics ------------------
 	---------------------------------------------------------------------------
 	
