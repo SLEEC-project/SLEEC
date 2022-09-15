@@ -24,6 +24,7 @@ import java.util.List
 import java.util.Set
 import org.eclipse.xtext.validation.Check
 import java.util.HashMap
+import java.util.Collections
 
 /** 
  * This class contains custom validation rules. 
@@ -86,7 +87,7 @@ class SLEECValidator extends AbstractSLEECValidator {
 			if (!variableIDs.contains(atom.measureID))
 				error("Unknown variable: " + atom.measureID, atom, SLEECPackage.Literals.ATOM__MEASURE_ID)
 		]
-
+		
 		// check the types of a relational operator
 		ruleBlock.eAllContents.filter(RelComp).forEach [ relComp |
 			// do nothing if both arguments are numeric
@@ -109,7 +110,7 @@ class SLEECValidator extends AbstractSLEECValidator {
 			if (!system.scales.get(scaleID).contains(scaleParam))
 				error(''''ScaleParam «scaleParam»' is not a member of MeasureID '«scaleID»'«»''', relComp, SLEECPackage.Literals.REL_COMP__OP)
 		]
-
+		
 		// check types of comparison and not operators
 		// operands can either be a boolean value or a boolean expression
 		ruleBlock.eAllContents.filter(BoolComp).forEach [ boolComp |
@@ -269,21 +270,17 @@ class SLEECValidator extends AbstractSLEECValidator {
 						}
 					}		
 				}
-				
-				// TODO: check that a rule does not conflict with itself
-//				if (rule0.trigger.expr !== null){
-//					// rule0 is redundant if conditions of a defeater are a 
-//					// subset of original conditions / previous defeaters
-//					
-//					val List<Pair<MBoolExpr, String>> conditions = rule0.defeaters.map[expr -> response.event.name].toList 
-//					Collections.singletonList(rule0.trigger.expr -> rule0.response.event.name)
-//					for (j : 0 ..<conditions.length()){
-//						
-//					}
-//					
-//				}
-			}
+			}	
 		]
-//		System.out.println('finished')
+		
+		// Checks a rule's components are not self-conflicting
+		for (rule : ruleBlock.rules) {
+			
+			val List<Pair<MBoolExpr, String>> conditions = (Collections.singletonList(rule.trigger.expr -> rule.response.event.name) + rule.defeaters.map[expr -> response.event.name].toList).toList
+			
+			System.out.println('conditions for ' + rule.name + ': \t' + conditions)
+		}		
+		
+		System.out.println('finished')
 	}
 }
