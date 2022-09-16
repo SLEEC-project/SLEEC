@@ -24,7 +24,7 @@ import java.util.List
 import java.util.Set
 import org.eclipse.xtext.validation.Check
 import java.util.HashMap
-import java.util.Collections
+// import java.util.Collections
 
 /** 
  * This class contains custom validation rules. 
@@ -274,13 +274,13 @@ class SLEECValidator extends AbstractSLEECValidator {
 		]
 		
 		// Checks a rule's components are not self-conflicting
-		for (rule : ruleBlock.rules) {
+//		for (rule : ruleBlock.rules) {
 			
-			val List<Pair<MBoolExpr, String>> conditions = (Collections.singletonList(rule.trigger.expr -> rule.response.event.name) + rule.defeaters.map[expr -> response.event.name].toList).toList
+			// val List<Pair<MBoolExpr, String>> conditions = (Collections.singletonList(rule.trigger.expr -> rule.response.event.name) + rule.defeaters.map[expr -> response.event.name].toList).toList
 			
-			System.out.println('conditions for ' + rule.name + ': \t' + conditions)
-		}		
+			// System.out.println('conditions for ' + rule.name + ': \t' + conditions)
+//		}		
 		
-		System.out.println('finished')
+		// System.out.println('finished')
 	}
 }
