@@ -9,7 +9,7 @@ def remove_ext(filename):
 
 def getMethodNames(filename):
     
-    os.chdir('src/circus/robocalc/sleec/tests')
+    os.chdir('xtend-gen/circus/robocalc/sleec/tests')
     text_file = open(filename)
     data = text_file.read()
     text_file.close()
@@ -34,8 +34,10 @@ def main():
     os.chdir('circus.robocalc.sleec.tests')
     if not os.path.exists('log'):
         os.mkdir('log')    
+
+    test_files = [f for f in os.listdir('xtend-gen/circus/robocalc/sleec/tests') if f.endswith('.java')]
     
-    for f in os.listdir('src/circus/robocalc/sleec/tests'):
+    for f in test_files:
         cmd = 'mvn test -Dtest=' + remove_ext(f)
         methodnames = getMethodNames(f)
         os.chdir('../../../../..')
