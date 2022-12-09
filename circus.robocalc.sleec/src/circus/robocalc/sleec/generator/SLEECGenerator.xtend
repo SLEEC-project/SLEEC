@@ -56,7 +56,7 @@ class SLEECGenerator extends AbstractGenerator {
 			.map[name]
 			.toSet
 		
-		val ticktock = new File("../src-gen/ticktock.csp")
+		val ticktock = new File("../src-gen/tick-tock.csp")
 		if (!ticktock.exists()){
 			generateTickTock(resource, fsa, context)
 		}
