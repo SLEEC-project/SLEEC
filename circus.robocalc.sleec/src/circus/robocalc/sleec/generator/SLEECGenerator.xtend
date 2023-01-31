@@ -177,7 +177,7 @@ class SLEECGenerator extends AbstractGenerator {
 					STle«mID»(v1«mID», v2«mID») and STne«mID»(v1«mID», v2«mID»)
 					
 				STgt«mID»(v1«mID», v2«mID») =
-					STle«mID»(v2«mID», v1«mID»)
+					STlt«mID»(v2«mID», v1«mID»)
 					
 				STne«mID»(v1«mID», v2«mID») =
 					not STeq«mID»(v1«mID», v2«mID»)
