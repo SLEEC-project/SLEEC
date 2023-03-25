@@ -33,7 +33,7 @@ RuleBlock:
 ;
 
 Rule:
-	name=RuleID 'when' trigger=Trigger 'then' response=Response defeaters+=Defeater*
+	name=RuleID 'when' trigger=Trigger 'then' response=Response//(Response {Rule.response=current} defeaters+=Defeater*)
 ;
 
 Trigger:
@@ -66,12 +66,23 @@ Atom returns MBoolExpr:
 	{Atom} measureID=ID | Value | '(' MBoolExpr ')' | BoolValue
 ;
 
-Response:
-	event=[Event] ('within' value=Value unit=TimeUnit ('otherwise' response=Response)?)? | not?='not' event=[Event] 'within' value=Value unit=TimeUnit
+Response returns Response:
+	constraint=Constraint (defeater+=Defeater*)? 
+	| '{' constraint=Constraint (defeater+=Defeater*)? '}' 
 ;
 
+InnerResponse returns Response:
+	constraint=Constraint | '{' constraint=Constraint (defeater+=Defeater*) '}' 
+;
+
+Constraint:
+	event=[Event] ('within' value=Value unit=TimeUnit ('otherwise' response=InnerResponse)?)? |
+	 not?='not' event=[Event] 'within' value=Value unit=TimeUnit
+;
+
+
 Defeater:
-	'unless' expr=MBoolExpr ('then' response=Response)?
+	 'unless' expr=MBoolExpr ('then' response=InnerResponse)? //| '{' response=Response '}'
 ;
 
 enum RelOp:
