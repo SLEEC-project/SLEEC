@@ -342,7 +342,7 @@ class SLEECGenerator extends AbstractGenerator {
 		if(dfts.isEmpty)
 			fp
 		else
-			EDS(dfts.last, EDS(dfts.head, fp, n-1), n)
+			EDS(dfts.last, EDS(dfts.take(n-2), fp, n-1), n)
 	}
 
 	// -----------------------------------------------------------
