@@ -197,7 +197,7 @@ class SLEECGenerator extends AbstractGenerator {
 		val trig = r.trigger
 		val resp = r.response
 		val dfts = resp.defeater
-		val alpha = alphaM(resp)
+		val alpha = alphaM(resp)+alphaE(resp)
 		// [[rID when trig then resp dfts]]R
 		'''
 		«rID» = Trigger«rID»; Monitoring«rID»; «rID»
