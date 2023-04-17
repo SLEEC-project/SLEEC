@@ -288,7 +288,7 @@ class SLEECGenerator extends AbstractGenerator {
 		
 		// [[eID within v tU otherwise resp]]RP
 		else {
-			'''TimedInterrupt(«eID» -> SKIP,«norm(v, tU)»,«RDS(resp,resp.defeater,t,ARDS,mp)»)'''
+			'''TimedInterruptSeq(«eID»,«norm(v, tU)»,«RDS(resp,resp.defeater,t,ARDS,mp)»)'''
 			
 			}
 	}
