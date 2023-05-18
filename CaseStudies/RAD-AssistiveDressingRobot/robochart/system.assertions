@@ -1,0 +1,464 @@
+package SystemAssertions
+timed csp Instantiations associated to Dressing csp-begin
+
+-- OPERATION BOUNDS
+
+-- MODULE CONSTANTS
+
+-- CONTROLLER CONSTANTS
+
+-- STATEMACHINE CONSTANTS
+
+-- OPERATION CONSTANTS
+
+-- BASIC TYPES
+-- generate nat
+nametype core_nat = { 0..2}
+-- generate int
+nametype core_int = { -2..2}
+-- generate string
+nametype core_string = LSeq(Char,2)
+-- generate boolean
+nametype core_boolean = Bool
+-- generate real
+nametype core_real = { -2..2} 
+
+-- VECTOR TYPES AND OPERATIONS
+
+
+-- CLOCKS
+-- generate core_clock_type
+nametype core_clock_type = {0..1801}
+
+-- BASIC FUNCTIONS			
+-- generate Plus
+Plus(e1,e2,T) = if member(e1+e2,T) then e1+e2 else e1
+
+-- generate Minus
+Minus(e1,e2,T) = if member(e1-e2,T) then e1-e2 else e1
+
+-- generate Mult
+Mult(e1,e2,T) = if member(e1*e2,T) then e1*e2 else e1
+
+-- generate Div
+Div(e1,e2,T) = if member(e1/e2,T) then e1/e2 else e1
+
+-- generate Modulus
+Modulus(e1,e2,T) = if member(e1%e2,T) then e1%e2 else e1
+
+-- generate Neg
+Neg(e1,T) = if member(-e1,T) then -e1 else e1
+
+-- generate gt
+gt(Distress_high,x__) = true
+gt(Distress_medium,Distress_low) = true
+-- generate vt
+vt(x__,Time_seconds) = x__
+vt(x__,Time_minutes) = x__*60
+
+-- Additional tock-CSP operators not defined built-in by RoboTool:
+et(_) = 0
+
+Timed(et) {
+-- Strict timed interrupt
+channel finishedp__, finishedq__, timeout__
+
+-- Behaves as P__ until it either terminates, or, after exactly
+-- d__ time units behaves as Q__.
+TTimedInterrupt(P__,d__,Q__) =
+  ((((P__; EDeadline(finishedp__,0))
+    /\ timeout__ -> (RUN(diff(Events,{finishedp__,finishedq__,timeout__}))
+                   /\ finishedq__ -> SKIP)
+   )
+     [| Events |]
+   TRT__(d__,Q__)) \ {finishedp__, finishedq__, timeout__}); SKIP
+}
+
+-- Auxiliary counter for TTimedInterrupt definition above.
+TRT__(d__,Q__) =
+	if d__ > 0
+        then RUN(diff(Events,{finishedp__, finishedq__, timeout__, tock}))
+		  	 /\ (finishedp__ -> SKIP [] tock -> TRT__(d__-1,Q__))
+	    else timeout__ -> Q__; finishedq__ -> SKIP
+	    
+TimedInterruptSeq(e__,d__,Q__) =
+	let
+		TT(n__) = if n__ < d__ then TimeOut_1(e__ -> SKIP,TT(n__ + 1)) else Q__
+	within
+		TT(0)
+
+Rename(P__) = 
+	P__[[	system::Module::DressingStarted.in<-DressingStarted,
+			system::Module::DressingComplete.out<-DressingComplete,
+			system::Module::DressingAbandoned.in<-DressingAbandoned,
+			system::Module::CurtainOpenRqt.in<-CurtainOpenRqt,
+			system::Module::CurtainsOpened.out<-CurtainsOpened,
+			system::Module::refuseRequest.out<-RefuseRequest,
+			system::Module::UserFallen.in<-UserFallen,
+			system::Module::userUnderDressed.in<-userUnderDressed,
+			system::Module::roomTemperature.in<-roomTemperature,
+			system::Module::assentToSupportCalls1.in<-assentToSupportCalls,
+			system::Module::assentToSupportCalls2.in<-assentToSupportCalls,
+			system::Module::supportCalled1.in<-SupportCalled,
+			system::Module::supportCalled2.in<-SupportCalled,
+			system::Module::retryAgreed.out<-RetryAgreed,
+			system::Module::userDistressed.in.STuserDistressed2RC(x__)<-userDistressed.x__ | x__ <- STuserDistressed
+	]]
+
+STuserDistressed2RC(low) = Distress_low
+STuserDistressed2RC(medium) = Distress_medium
+STuserDistressed2RC(high) = Distress_high
+
+-- Original SLEEC formulation below 
+
+channel DressingStarted
+channel DressingComplete
+channel DressingAbandoned
+channel CurtainOpenRqt
+channel CurtainsOpened
+channel RefuseRequest
+channel UserFallen
+channel userUnderDressed : Bool
+channel roomTemperature : core_int
+channel assentToSupportCalls : Bool
+channel SupportCalled
+channel RetryAgreed
+channel userDistressed : STuserDistressed
+
+datatype STuserDistressed = low | medium | high
+
+STleuserDistressed(v1userDistressed, v2userDistressed) =
+	if v1userDistressed == low then true
+	else (if v1userDistressed == medium then not member(v2userDistressed,{low})
+	else v2userDistressed == high)
+	
+STequserDistressed(v1userDistressed, v2userDistressed) =
+	v1userDistressed == v2userDistressed
+	
+STltuserDistressed(v1userDistressed, v2userDistressed) =
+	STleuserDistressed(v1userDistressed, v2userDistressed) and STneuserDistressed(v1userDistressed, v2userDistressed)
+	
+STgtuserDistressed(v1userDistressed, v2userDistressed) =
+	STltuserDistressed(v2userDistressed, v1userDistressed)
+	
+STneuserDistressed(v1userDistressed, v2userDistressed) =
+	not STequserDistressed(v1userDistressed, v2userDistressed)
+	
+STgeuserDistressed(v1userDistressed, v2userDistressed) =
+	STltuserDistressed(v2userDistressed, v1userDistressed)
+
+MAX_RESPONSE_TIME = 60
+	
+Capabilities = 
+  {| DressingStarted,
+     DressingComplete,
+     DressingAbandoned,
+     CurtainOpenRqt,
+     CurtainsOpened,
+     RefuseRequest,
+     UserFallen,
+     SupportCalled,
+     RetryAgreed,
+  	 userUnderDressed,
+  	 roomTemperature,
+  	 assentToSupportCalls,
+  	 userDistressed
+  |}
+Measures =
+  {| userUnderDressed,
+     roomTemperature,
+     assentToSupportCalls,
+     userDistressed
+  |}
+  
+SUVEvents = union(Capabilities,{|system::Module::CallSupportCall|})
+	
+instance MSN = model_shifting(Capabilities)
+Timed(et) {
+
+-- Rule1 when DressingStarted then DressingComplete within 2 minutes 
+-- unless ((roomTemperature) < (19)) then DressingComplete within 90 seconds
+-- unless ((roomTemperature) < (17)) then DressingComplete within 60 seconds
+
+Rule1 = TriggerRule1; MonitoringRule1; Rule1
+
+TriggerRule1 = DressingStarted -> SKIP	[] DressingComplete -> TriggerRule1
+	[] DressingComplete -> TriggerRule1
+	[] DressingComplete -> TriggerRule1
+
+
+MonitoringRule1 = let
+	Monitoring1 = StartBy(DressingComplete -> SKIP,(2 * 60))
+	Monitoring2 = StartBy(DressingComplete -> SKIP,(90 * 1))
+	Monitoring3 = StartBy(DressingComplete -> SKIP,(60 * 1))
+within StartBy(roomTemperature?vroomTemperature ->
+	StartBy(roomTemperature?vroomTemperature ->
+		if ((vroomTemperature) < (17)) then Monitoring3
+		else (if ((vroomTemperature) < (19)) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+-- alphabet for Rule1 
+ARule1 = {|roomTemperature, DressingComplete, DressingStarted|}
+TRule1 = {|DressingStarted|}
+RRule1 = {|DressingComplete|}
+SLEECRule1 = timed_priority(Rule1)
+
+-- Rule2 when CurtainOpenRqt then CurtainsOpened within 60 seconds 
+-- unless (userUnderDressed) then RefuseRequest within 30 seconds
+-- unless ((userDistressed) > (medium)) then CurtainsOpened within 60 seconds
+
+Rule2 = TriggerRule2; MonitoringRule2; Rule2
+
+TriggerRule2 = CurtainOpenRqt -> SKIP	[] CurtainsOpened -> TriggerRule2
+	[] RefuseRequest -> TriggerRule2
+	[] CurtainsOpened -> TriggerRule2
+
+
+MonitoringRule2 = let
+	Monitoring1 = StartBy(CurtainsOpened -> SKIP,(60 * 1))
+	Monitoring2 = StartBy(RefuseRequest -> SKIP,(30 * 1))
+	Monitoring3 = StartBy(CurtainsOpened -> SKIP,(60 * 1))
+within StartBy(userUnderDressed?vuserUnderDressed ->
+	StartBy(userDistressed?vuserDistressed ->
+		if (STgtuserDistressed(vuserDistressed, medium)) then Monitoring3
+		else (if (vuserUnderDressed) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+-- alphabet for Rule2
+ARule2 = {|userDistressed, RefuseRequest, CurtainOpenRqt, userUnderDressed, CurtainsOpened|}
+TRule2 = {|CurtainOpenRqt|}
+RRule2 = {|CurtainsOpened,RefuseRequest|}
+SLEECRule2 = timed_priority(Rule2)
+
+
+-- Rule3 when UserFallen then SupportCalled 
+-- unless (not (assentToSupportCalls))
+
+Rule3 = TriggerRule3; MonitoringRule3; Rule3
+
+TriggerRule3 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule3
+
+
+MonitoringRule3 = let
+	Monitoring1 = TimedInterruptSeq(SupportCalled,60,SKIP)
+	Monitoring2 = UserFallen -> MonitoringRule3	[] SupportCalled -> Monitoring2
+	 
+		[] SupportCalled -> Monitoring2
+within StartBy(assentToSupportCalls?vassentToSupportCalls ->
+	if (not (vassentToSupportCalls)) then Monitoring2
+	else (Monitoring1)
+,0)
+
+-- alphabet for Rule3 
+ARule3 = {|SupportCalled, UserFallen, assentToSupportCalls|}
+TRule3 = {|UserFallen|}
+RRule3 = {|SupportCalled|}
+SLEECRule3 = timed_priority(Rule3)
+
+-- Rule4 when DressingAbandoned then RetryAgreed within 2 minutes
+-- otherwise SupportCalled 
+
+Rule4 = TriggerRule4; MonitoringRule4; Rule4
+
+TriggerRule4 = DressingAbandoned -> SKIP	[] RetryAgreed -> TriggerRule4
+	[] SupportCalled -> TriggerRule4
+
+
+MonitoringRule4 = TimedInterruptSeq(RetryAgreed,(2 * 60),let
+	Monitoring1 = SupportCalled -> SKIP
+	Monitoring2 = DressingAbandoned -> MonitoringRule4	[] RetryAgreed -> Monitoring2
+		[] SupportCalled -> Monitoring2
+	
+		[] RetryAgreed -> Monitoring2
+		[] SupportCalled -> Monitoring2
+within StartBy(assentToSupportCalls?vassentToSupportCalls ->
+	if (not (vassentToSupportCalls)) then Monitoring2
+	else (Monitoring1)
+,0)
+)
+
+-- alphabet for Rule4 
+ARule4 = {|RetryAgreed, SupportCalled, DressingAbandoned, assentToSupportCalls|}
+TRule4 = {|DressingAbandoned|}
+RRule4 = {|SupportCalled, RetryAgreed|}
+SLEECRule4 = timed_priority(Rule4)
+
+-- ASSERTIONS --
+
+-- No intersections of rules; no assertions can be made. --
+
+--Measures =
+--  {| userUnderDressed,
+--     roomTemperature,
+--     assentToSupportCalls,
+--     userDistressed
+--  |}
+--
+-- For the measures, we can define an environment that holds
+-- the value of each measure.
+
+channel i_userUnderDressed : Bool
+channel i_roomTemperature : core_int
+channel i_assentToSupportCalls : Bool
+channel i_userDistressed : STuserDistressed
+
+Memory = 
+		userUnderDressed?x__ -> Measure_userUnderDressed(x__)
+	|||	roomTemperature?x__ -> Measure_roomTemperature(x__)
+	||| assentToSupportCalls?x__ -> Measure_assentToSupportCalls(x__)
+	||| userDistressed?x__ -> Measure_userDistressed(x__)
+	
+Measure_userUnderDressed(x__) =
+	userUnderDressed?x__ -> Measure_userUnderDressed(x__)
+	[]
+	i_userUnderDressed!x__ -> Measure_userUnderDressed(x__)
+	
+Measure_roomTemperature(x__) =
+	roomTemperature?x__ -> Measure_roomTemperature(x__)
+	[]
+	i_roomTemperature!x__ -> Measure_roomTemperature(x__)
+	
+Measure_assentToSupportCalls(x__) =
+	assentToSupportCalls?x__ -> Measure_assentToSupportCalls(x__)
+	[]
+	i_assentToSupportCalls!x__ -> Measure_assentToSupportCalls(x__)
+	
+Measure_userDistressed(x__) =
+	userDistressed?x__ -> Measure_userDistressed(x__)
+	[]
+	i_userDistressed!x__ -> Measure_userDistressed(x__)
+}
+
+MRename(P__) = 
+	P__[[ 	userDistressed <- i_userDistressed,
+			userUnderDressed <- i_userUnderDressed,
+			roomTemperature <- i_roomTemperature,
+			assentToSupportCalls <- i_assentToSupportCalls
+		]]
+		
+MeasureInternalChannels = {|i_userUnderDressed,i_roomTemperature, i_assentToSupportCalls, i_userDistressed|}
+
+csp-end
+
+timed csp Spec1 csp-begin
+Timed(et) {
+Spec1 = timed_priority(
+			(
+				MRename(SLEECRule1 [|ARule1|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+csp-end
+
+timed csp Spec2 csp-begin
+Timed(et) {
+Spec2 = timed_priority(
+			(
+				MRename(SLEECRule2 [|ARule2|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+csp-end
+
+timed csp Spec3 csp-begin
+Timed(et) {
+Spec3 = timed_priority(
+			(
+				MRename(SLEECRule3 [|ARule3|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+csp-end
+
+timed csp Spec4 csp-begin
+Timed(et) {
+Spec4 = timed_priority(
+			(
+				MRename(SLEECRule4 [|ARule4|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+csp-end
+ 
+timed csp RC associated to system::Module csp-begin
+RC = Rename(system::Module::D__(1))
+-- Alphabet of RC will be the same as that of Capabilities, since Rename
+-- applies renaming of RC events to those used as Capabilities.
+RC__sem__events = Capabilities
+csp-end
+
+timed csp RC4_1 associated to system::Module csp-begin
+RC4_1 = Rename(system::Module::D__(1)) 
+		[| {|UserFallen,DressingStarted|} |]
+	    (CHAOS({|DressingStarted|}) /\ UserFallen -> SKIP)
+
+-- Alphabet of RC will be the same as that of Capabilities, since Rename
+-- applies renaming of RC events to those used as Capabilities.
+RC4_1__sem__events = Capabilities
+csp-end
+
+timed csp RC4_2 associated to system::Module csp-begin
+RC4_2 = Rename(system::Module::D__(1)) 
+		[| {|UserFallen,DressingStarted|} |]
+	  --(CHAOS({|DressingStarted|}) /\ UserFallen -> SKIP)
+	  (DressingStarted -> SKIP
+	   []
+	   UserFallen -> SKIP
+	  )
+
+-- Alphabet of RC will be the same as that of Capabilities, since Rename
+-- applies renaming of RC events to those used as Capabilities.
+RC4_2__sem__events = Capabilities
+csp-end
+ 
+timed assertion Check1 : RC refines Spec1 in the traces model
+timed assertion Check2 : RC refines Spec2 in the traces model
+timed assertion Check3 : RC refines Spec3 in the traces model
+timed assertion Check4 : RC refines Spec4 in the traces model
+timed assertion Check4Mod1 : RC4_1 refines Spec4 in the traces model
+timed assertion Check4Mod2 : RC4_2 refines Spec4 in the traces model
+
+timed csp ConflictChecking csp-begin
+
+channel l_assentToSupportCalls, r_assentToSupportCalls : Bool
+
+Timed(et) {
+	
+-- Checking Rule3 with Rule4:
+intersectionRule3Rule4 = 
+  let
+EnvRule3Rule4 = EnvassentToSupportCalls
+    EnvassentToSupportCalls = assentToSupportCalls?x__ -> VEnvassentToSupportCalls(x__)
+    VEnvassentToSupportCalls(x__) = assentToSupportCalls!x__ -> VEnvassentToSupportCalls(x__) 
+  within 
+	
+  (Rule3[|diff(inter({|SupportCalled, UserFallen|}, {|RetryAgreed, SupportCalled, DressingAbandoned|}),{|assentToSupportCalls|})|]Rule4)
+  [| {|assentToSupportCalls|} |]
+  	EnvRule3Rule4
+  SLEECRule3Rule4 = timed_priority(intersectionRule3Rule4)
+					
+  assert SLEECRule3Rule4:[deadlock-free]					
+  assert not MSN::C3(timed_priority(SLEECRule3Rule4 \{|assentToSupportCalls|})) [T= MSN::C3(timed_priority(SLEECRule3 \{|assentToSupportCalls|}))
+					
+ --assert not MSN::C3(SLEECRule3) [T= MSN::C3(SLEECRule3Rule4)
+					
+  SLEECRule3Rule4CF   = prioritise(
+  timed_priority(intersectionRule3Rule4)
+  [[ tock <- tock, tock <- tock' ]],
+  <diff(Events,{|tock',tock|}),{|tock|}>)\{|tock|}
+										
+  assert SLEECRule3Rule4CF  :[divergence-free]
+
+}
+csp-end
