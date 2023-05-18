@@ -1,5 +1,5 @@
-# SLEEC
-This repository contains the Xtext projects for the parser and code generator for SLEEC
+# SLEECVAL
+This repository contains the Xtext projects for the parser and code generator for SLEEC requirements
 
 ### Development platform requirements ###
 
