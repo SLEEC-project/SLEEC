@@ -1,0 +1,1309 @@
+
+--
+-- RoboChart generator version 3.0.0.202306261132
+-- Automatically generated on 31-08-2023 11:09:14
+--
+-- Iterated compression status: true
+-- Assertions compression status: false
+--
+
+include "defs/Dressing.csp"
+include "defs/file_common_defs.csp"
+include "defs/state_timed_defs.csp"
+include "defs/robochart_defs.csp"
+include "defs/core_defs.csp"
+include "defs/core_timed_defs.csp"
+include "defs/system_defs.csp"
+include "defs/system.csp"
+
+channel r__
+
+-- OPERATION BOUNDS
+
+-- MODULE CONSTANTS
+
+-- CONTROLLER CONSTANTS
+
+-- STATEMACHINE CONSTANTS
+
+-- OPERATION CONSTANTS
+
+-- BASIC TYPES
+-- generate nat
+nametype core_nat = { 0..2}
+-- generate int
+nametype core_int = { -2..2}
+-- generate string
+nametype core_string = LSeq(Char,2)
+-- generate boolean
+nametype core_boolean = Bool
+-- generate real
+nametype core_real = { -2..2} 
+
+-- VECTOR TYPES AND OPERATIONS
+
+
+-- CLOCKS
+-- generate core_clock_type
+nametype core_clock_type = {0..1801}
+
+-- BASIC FUNCTIONS			
+-- generate Plus
+Plus(e1,e2,T) = if member(e1+e2,T) then e1+e2 else e1
+
+-- generate Minus
+Minus(e1,e2,T) = if member(e1-e2,T) then e1-e2 else e1
+
+-- generate Mult
+Mult(e1,e2,T) = if member(e1*e2,T) then e1*e2 else e1
+
+-- generate Div
+Div(e1,e2,T) = if member(e1/e2,T) then e1/e2 else e1
+
+-- generate Modulus
+Modulus(e1,e2,T) = if member(e1%e2,T) then e1%e2 else e1
+
+-- generate Neg
+Neg(e1,T) = if member(-e1,T) then -e1 else e1
+
+-- generate gt
+gt(Distress_high,x__) = true
+gt(Distress_medium,Distress_low) = true
+-- generate vt
+vt(x__,Time_seconds) = x__
+vt(x__,Time_minutes) = x__*60
+
+-- Additional tock-CSP operators not defined built-in by RoboTool:
+et(_) = 0
+
+Timed(et) {
+-- Strict timed interrupt
+channel finishedp__, finishedq__, timeout__
+
+-- Behaves as P__ until it either terminates, or, after exactly
+-- d__ time units behaves as Q__.
+TTimedInterrupt(P__,d__,Q__) =
+  ((((P__; EDeadline(finishedp__,0))
+    /\ timeout__ -> (RUN(diff(Events,{finishedp__,finishedq__,timeout__}))
+                   /\ finishedq__ -> SKIP)
+   )
+     [| Events |]
+   TRT__(d__,Q__)) \ {finishedp__, finishedq__, timeout__}); SKIP
+}
+
+-- Auxiliary counter for TTimedInterrupt definition above.
+TRT__(d__,Q__) =
+	if d__ > 0
+        then RUN(diff(Events,{finishedp__, finishedq__, timeout__, tock}))
+		  	 /\ (finishedp__ -> SKIP [] tock -> TRT__(d__-1,Q__))
+	    else timeout__ -> Q__; finishedq__ -> SKIP
+	    
+TimedInterruptSeq(e__,d__,Q__) =
+	let
+		TT(n__) = if n__ < d__ then TimeOut_1(e__ -> SKIP,TT(n__ + 1)) else Q__
+	within
+		TT(0)
+
+Rename(P__) = 
+	P__[[	system::Module::DressingStarted.in<-DressingStarted,
+			system::Module::DressingComplete.out<-DressingComplete,
+			system::Module::DressingAbandoned.in<-DressingAbandoned,
+			system::Module::CurtainOpenRqt.in<-CurtainOpenRqt,
+			system::Module::CurtainsOpened.out<-CurtainsOpened,
+			system::Module::refuseRequest.out<-RefuseRequest,
+			system::Module::UserFallen.in<-UserFallen,
+			system::Module::userUnderDressed.in<-userUnderDressed,
+			system::Module::roomTemperature.in<-roomTemperature,
+			system::Module::assentToSupportCalls1.in<-assentToSupportCalls,
+			system::Module::assentToSupportCalls2.in<-assentToSupportCalls,
+			system::Module::supportCalled1.in<-SupportCalled,
+			system::Module::supportCalled2.in<-SupportCalled,
+			system::Module::retryAgreed.out<-RetryAgreed,
+			system::Module::userDistressed.in.STuserDistressed2RC(x__)<-userDistressed.x__ | x__ <- STuserDistressed
+	]]
+
+STuserDistressed2RC(slow) = Distress_low
+STuserDistressed2RC(smedium) = Distress_medium
+STuserDistressed2RC(shigh) = Distress_high
+
+-- Every event the SUV could engage in, including beyond the capabilities of
+-- a SLEEC spec.
+SUVEvents = union(Capabilities,{|system::Module::CallSupportCall|})
+
+-- For the measures, we can define an environment that holds
+-- the value of each measure.
+
+channel i_userUnderDressed : Bool
+channel i_roomTemperature : core_int
+channel i_assentToSupportCalls : Bool
+channel i_userDistressed : STuserDistressed
+
+Timed(et) {
+
+Memory = 
+		userUnderDressed?x__ -> Measure_userUnderDressed(x__)
+	|||	roomTemperature?x__ -> Measure_roomTemperature(x__)
+	||| assentToSupportCalls?x__ -> Measure_assentToSupportCalls(x__)
+	||| userDistressed?x__ -> Measure_userDistressed(x__)
+	
+Measure_userUnderDressed(x__) =
+	userUnderDressed?x__ -> Measure_userUnderDressed(x__)
+	[]
+	i_userUnderDressed!x__ -> Measure_userUnderDressed(x__)
+	
+Measure_roomTemperature(x__) =
+	roomTemperature?x__ -> Measure_roomTemperature(x__)
+	[]
+	i_roomTemperature!x__ -> Measure_roomTemperature(x__)
+	
+Measure_assentToSupportCalls(x__) =
+	assentToSupportCalls?x__ -> Measure_assentToSupportCalls(x__)
+	[]
+	i_assentToSupportCalls!x__ -> Measure_assentToSupportCalls(x__)
+	
+Measure_userDistressed(x__) =
+	userDistressed?x__ -> Measure_userDistressed(x__)
+	[]
+	i_userDistressed!x__ -> Measure_userDistressed(x__)
+
+MRename(P__) = 
+	P__[[ 	userDistressed <- i_userDistressed,
+			userUnderDressed <- i_userUnderDressed,
+			roomTemperature <- i_roomTemperature,
+			assentToSupportCalls <- i_assentToSupportCalls
+		]]
+		
+MeasureInternalChannels = {|i_userUnderDressed,i_roomTemperature, i_assentToSupportCalls, i_userDistressed|}
+}
+
+-- Original SLEEC formulation below 
+
+channel CurtainOpenRqt
+channel CurtainsOpened
+channel RefuseRequest
+channel InformUser 							-- not in SUV
+channel DressingStarted
+channel CloseCurtains 						-- not in SUV
+channel userUnderDressed : Bool
+channel medicalEmergency : Bool 			-- not in SUV
+channel userDistressed : STuserDistressed
+
+datatype STuserDistressed = slow | smedium | shigh
+
+STleuserDistressed(v1userDistressed, v2userDistressed) =
+	if v1userDistressed == slow then true
+	else (if v1userDistressed == smedium then not member(v2userDistressed,{slow})
+	else v2userDistressed == shigh)
+	
+STequserDistressed(v1userDistressed, v2userDistressed) =
+	v1userDistressed == v2userDistressed
+	
+STltuserDistressed(v1userDistressed, v2userDistressed) =
+	STleuserDistressed(v1userDistressed, v2userDistressed) and STneuserDistressed(v1userDistressed, v2userDistressed)
+	
+STgtuserDistressed(v1userDistressed, v2userDistressed) =
+	STltuserDistressed(v2userDistressed, v1userDistressed)
+	
+STneuserDistressed(v1userDistressed, v2userDistressed) =
+	not STequserDistressed(v1userDistressed, v2userDistressed)
+	
+STgeuserDistressed(v1userDistressed, v2userDistressed) =
+	STltuserDistressed(v2userDistressed, v1userDistressed)
+
+channel roomDark : Bool 					-- not in SUV
+channel notVisible : Bool 					-- not in SUV
+channel userAssent : Bool 
+channel consentGrantedwithinXmonths : Bool 	-- not in SUV
+channel EmotionRecognitionDetected 			-- not in SUV
+channel competentIndicatorRequired : Bool 	-- not in SUV
+channel competentToGrantConsent : Bool 		-- not in SUV
+channel dressPreferenceTypeA : Bool 		-- not in SUV
+channel genderTypeB : Bool 					-- not in SUV
+channel DressinginClotingX 					-- not in SUV
+channel userAdvices : Bool 					-- not in SUV
+channel clothingItemNotFound : Bool 		-- not in SUV
+channel InteractionStarted 					-- not in SUV
+channel InformUserThisIsAgentnotHuman 		-- not in SUV
+channel userConfused : Bool 				-- not in SUV
+channel buildingFloor : STbuildingFloor 	-- not in SUV
+
+datatype STbuildingFloor = f1 | f2 | f3 | f4 | f5 | f6 | f7 | f8 | f9 | f10
+
+STlebuildingFloor(v1buildingFloor, v2buildingFloor) =
+	if v1buildingFloor == f1 then true
+	else (if v1buildingFloor == f2 then not member(v2buildingFloor,{f1})
+	else (if v1buildingFloor == f3 then not member(v2buildingFloor,{f1, f2})
+	else (if v1buildingFloor == f4 then not member(v2buildingFloor,{f1, f2, f3})
+	else (if v1buildingFloor == f5 then not member(v2buildingFloor,{f1, f2, f3, f4})
+	else (if v1buildingFloor == f6 then not member(v2buildingFloor,{f1, f2, f3, f4, f5})
+	else (if v1buildingFloor == f7 then not member(v2buildingFloor,{f1, f2, f3, f4, f5, f6})
+	else (if v1buildingFloor == f8 then not member(v2buildingFloor,{f1, f2, f3, f4, f5, f6, f7})
+	else (if v1buildingFloor == f9 then not member(v2buildingFloor,{f1, f2, f3, f4, f5, f6, f7, f8})
+	else v2buildingFloor == f10))))))))
+	
+STeqbuildingFloor(v1buildingFloor, v2buildingFloor) =
+	v1buildingFloor == v2buildingFloor
+	
+STltbuildingFloor(v1buildingFloor, v2buildingFloor) =
+	STlebuildingFloor(v1buildingFloor, v2buildingFloor) and STnebuildingFloor(v1buildingFloor, v2buildingFloor)
+	
+STgtbuildingFloor(v1buildingFloor, v2buildingFloor) =
+	STltbuildingFloor(v2buildingFloor, v1buildingFloor)
+	
+STnebuildingFloor(v1buildingFloor, v2buildingFloor) =
+	not STeqbuildingFloor(v1buildingFloor, v2buildingFloor)
+	
+STgebuildingFloor(v1buildingFloor, v2buildingFloor) =
+	STltbuildingFloor(v2buildingFloor, v1buildingFloor)
+
+channel theUserHasBeenInformed : Bool 				-- not in SUV
+channel UserRequestInfo 							-- not in SUV
+channel ProvideInfo 								-- not in SUV
+channel informationAvailable : Bool 				-- not in SUV
+channel InformUserandandReferToHumanCarer 			-- not in SUV
+channel informationDisclosureNotPermitted : Bool 	-- not in SUV
+channel ObtainAssent								-- not in SUV
+channel admininisteringMedication : Bool			-- not in SUV
+channel userCompetenceIndicator : {0..5}			-- not in SUV
+N = 5
+channel CheckForandObtainProxy
+channel withholdingActivityPhysicalHarm : STwithholdingActivityPhysicalHarm
+
+datatype STwithholdingActivityPhysicalHarm = low | moderate | severe
+
+STlewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	if v1withholdingActivityPhysicalHarm == low then true
+	else (if v1withholdingActivityPhysicalHarm == moderate then not member(v2withholdingActivityPhysicalHarm,{low})
+	else v2withholdingActivityPhysicalHarm == severe)
+	
+STeqwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	v1withholdingActivityPhysicalHarm == v2withholdingActivityPhysicalHarm
+	
+STltwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	STlewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) and STnewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm)
+	
+STgtwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	STltwithholdingActivityPhysicalHarm(v2withholdingActivityPhysicalHarm, v1withholdingActivityPhysicalHarm)
+	
+STnewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	not STeqwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm)
+	
+STgewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	STltwithholdingActivityPhysicalHarm(v2withholdingActivityPhysicalHarm, v1withholdingActivityPhysicalHarm)
+
+channel consentGranted : Bool					-- not in SUV
+channel consentIndicatorRequired : Bool			-- not in SUV
+channel StopActivity							-- not in SUV
+channel consentIndicatorisWithdrawn : Bool		-- not in SUV
+channel consentIndicatorisRevoked : Bool		-- not in SUV
+channel CollectionStarted						-- not in SUV
+channel StoreMinInfo							-- not in SUV
+channel DressingSuccessful						-- not in SUV
+channel FallAssessed							-- not in SUV
+channel userUndressed : Bool			
+channel userUnresponsive : Bool					-- not in SUV
+channel OpenCurtainsRequested					-- Why is this different from CurtainOpenRqt?
+channel HealthChecked							-- not in SUV
+channel roomTemperature : core_int				-- {5..25} Replaced with RC csp type.
+channel DressingComplete
+MAX_RESPONSE_TIME = 60
+channel UserFallen
+channel assentToSupportCalls : Bool
+channel SupportCalled
+channel emergency : Bool						-- not in SUV
+channel DressingAbandoned
+channel RetryAgreed
+	
+Capabilities = 
+  {| CurtainOpenRqt,
+     CurtainsOpened,
+     RefuseRequest,
+     InformUser,
+     DressingStarted,
+     CloseCurtains,
+     EmotionRecognitionDetected,
+     DressinginClotingX,
+     InteractionStarted,
+     InformUserThisIsAgentnotHuman,
+     UserRequestInfo,
+     ProvideInfo,
+     InformUserandandReferToHumanCarer,
+     ObtainAssent,
+     CheckForandObtainProxy,
+     StopActivity,
+     CollectionStarted,
+     StoreMinInfo,
+     DressingSuccessful,
+     FallAssessed,
+     OpenCurtainsRequested,
+     HealthChecked,
+     DressingComplete,
+     UserFallen,
+     SupportCalled,
+     DressingAbandoned,
+     RetryAgreed,
+  	 userUnderDressed,
+  	 medicalEmergency,
+  	 userDistressed,
+  	 roomDark,
+  	 notVisible,
+  	 userAssent,
+  	 consentGrantedwithinXmonths,
+  	 competentIndicatorRequired,
+  	 competentToGrantConsent,
+  	 dressPreferenceTypeA,
+  	 genderTypeB,
+  	 userAdvices,
+  	 clothingItemNotFound,
+  	 userConfused,
+  	 buildingFloor,
+  	 theUserHasBeenInformed,
+  	 informationAvailable,
+  	 informationDisclosureNotPermitted,
+  	 admininisteringMedication,
+  	 userCompetenceIndicator,
+  	 withholdingActivityPhysicalHarm,
+  	 consentGranted,
+  	 consentIndicatorRequired,
+  	 consentIndicatorisWithdrawn,
+  	 consentIndicatorisRevoked,
+  	 userUndressed,
+  	 userUnresponsive,
+  	 roomTemperature,
+  	 assentToSupportCalls,
+  	 emergency
+  |}
+Measures =
+  {| userUnderDressed,
+     medicalEmergency,
+     userDistressed,
+     roomDark,
+     notVisible,
+     userAssent,
+     consentGrantedwithinXmonths,
+     competentIndicatorRequired,
+     competentToGrantConsent,
+     dressPreferenceTypeA,
+     genderTypeB,
+     userAdvices,
+     clothingItemNotFound,
+     userConfused,
+     buildingFloor,
+     theUserHasBeenInformed,
+     informationAvailable,
+     informationDisclosureNotPermitted,
+     admininisteringMedication,
+     userCompetenceIndicator,
+     withholdingActivityPhysicalHarm,
+     consentGranted,
+     consentIndicatorRequired,
+     consentIndicatorisWithdrawn,
+     consentIndicatorisRevoked,
+     userUndressed,
+     userUnresponsive,
+     roomTemperature,
+     assentToSupportCalls,
+     emergency
+  |}
+	
+instance MSN = model_shifting(Capabilities)
+Timed(et) {
+
+-- Rule1 when CurtainOpenRqt then CurtainsOpened 
+-- unless (userUnderDressed) then RefuseRequest
+-- unless ((userDistressed) > (smedium)) then CurtainsOpened
+
+Rule1 = TriggerRule1; MonitoringRule1; Rule1
+
+TriggerRule1 = CurtainOpenRqt -> SKIP	[] CurtainsOpened -> TriggerRule1
+	[] RefuseRequest -> TriggerRule1
+	[] CurtainsOpened -> TriggerRule1
+
+
+MonitoringRule1 = let
+	Monitoring1 = CurtainsOpened -> SKIP
+	Monitoring2 = RefuseRequest -> SKIP
+	Monitoring3 = CurtainsOpened -> SKIP
+within StartBy(userUnderDressed?vuserUnderDressed ->
+	StartBy(userDistressed?vuserDistressed ->
+		if (STgtuserDistressed(vuserDistressed, smedium)) then Monitoring3
+		else (if (vuserUnderDressed) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+-- alphabet for Rule1 
+ARule1 = {|RefuseRequest, userDistressed, CurtainOpenRqt, userUnderDressed, CurtainsOpened|}
+SLEECRule1 = timed_priority(Rule1)
+
+
+-- Rule2 when DressingStarted then CloseCurtains 
+-- unless (medicalEmergency)
+-- unless ((buildingFloor) >= (f5))
+-- unless ((roomDark) and (notVisible))
+-- unless (not (userAssent))
+
+Rule2 = TriggerRule2; MonitoringRule2; Rule2
+
+TriggerRule2 = DressingStarted -> SKIP	[] CloseCurtains -> TriggerRule2
+
+
+MonitoringRule2 = let
+	Monitoring1 = CloseCurtains -> SKIP
+	Monitoring2 = DressingStarted -> MonitoringRule2	[] CloseCurtains -> Monitoring2
+	
+		[] CloseCurtains -> Monitoring2
+	Monitoring3 = DressingStarted -> MonitoringRule2	[] CloseCurtains -> Monitoring3
+	
+		[] CloseCurtains -> Monitoring3
+	Monitoring4 = DressingStarted -> MonitoringRule2	[] CloseCurtains -> Monitoring4
+	
+		[] CloseCurtains -> Monitoring4
+	Monitoring5 = DressingStarted -> MonitoringRule2	[] CloseCurtains -> Monitoring5
+	
+		[] CloseCurtains -> Monitoring5
+within StartBy(medicalEmergency?vmedicalEmergency ->
+	StartBy(buildingFloor?vbuildingFloor ->
+		StartBy(roomDark?vroomDark ->
+			StartBy(notVisible?vnotVisible ->
+				StartBy(userAssent?vuserAssent ->
+					if (not (vuserAssent)) then Monitoring5
+					else (if ((vroomDark) and (vnotVisible)) then Monitoring4
+					else (if (STgebuildingFloor(vbuildingFloor, f5)) then Monitoring3
+					else (if (vmedicalEmergency) then Monitoring2
+					else (Monitoring1))))
+				,0)
+			,0)
+		,0)
+	,0)
+,0)
+
+-- alphabet for Rule2 
+ARule2 = {|roomDark, notVisible, userAssent, DressingStarted, CloseCurtains, medicalEmergency, buildingFloor|}
+SLEECRule2 = timed_priority(Rule2)
+
+
+-- Rule3 when EmotionRecognitionDetected and ((userDistressed) > (smedium)) then InformUser 
+-- unless (consentGrantedwithinXmonths)
+-- unless ((not (competentIndicatorRequired)) or (not (competentToGrantConsent)))
+
+Rule3 = TriggerRule3; MonitoringRule3; Rule3
+
+TriggerRule3 = let
+	MTrigger = StartBy(userDistressed?vuserDistressed ->
+		if (STgtuserDistressed(vuserDistressed, smedium)) then SKIP else TriggerRule3
+	,0)
+within EmotionRecognitionDetected -> MTrigger 
+	[] InformUser -> TriggerRule3
+
+MonitoringRule3 = let
+	Monitoring1 = InformUser -> SKIP
+	Monitoring2 = let
+		MTrigger = StartBy(userDistressed?vuserDistressed ->
+			if (STgtuserDistressed(vuserDistressed, smedium)) then MonitoringRule3 else Monitoring2
+		,0)
+	within EmotionRecognitionDetected -> MTrigger 
+		[] InformUser -> Monitoring2
+		[] InformUser -> Monitoring2
+	Monitoring3 = let
+		MTrigger = StartBy(userDistressed?vuserDistressed ->
+			if (STgtuserDistressed(vuserDistressed, smedium)) then MonitoringRule3 else Monitoring3
+		,0)
+	within EmotionRecognitionDetected -> MTrigger 
+		[] InformUser -> Monitoring3
+		[] InformUser -> Monitoring3
+within StartBy(consentGrantedwithinXmonths?vconsentGrantedwithinXmonths ->
+	StartBy(competentIndicatorRequired?vcompetentIndicatorRequired ->
+		StartBy(competentToGrantConsent?vcompetentToGrantConsent ->
+			if ((not (vcompetentIndicatorRequired)) or (not (vcompetentToGrantConsent))) then Monitoring3
+			else (if (vconsentGrantedwithinXmonths) then Monitoring2
+			else (Monitoring1))
+		,0)
+	,0)
+,0)
+
+-- alphabet for Rule3 
+ARule3 = {|InformUser, userDistressed, competentIndicatorRequired, competentToGrantConsent, consentGrantedwithinXmonths, EmotionRecognitionDetected|}
+SLEECRule3 = timed_priority(Rule3)
+
+
+-- Rule4 when DressingStarted and ((dressPreferenceTypeA) and (genderTypeB)) then DressinginClotingX 
+-- unless (userAdvices)
+-- unless (medicalEmergency)
+-- unless (clothingItemNotFound) then InformUser
+
+Rule4 = TriggerRule4; MonitoringRule4; Rule4
+
+TriggerRule4 = let
+	MTrigger = StartBy(dressPreferenceTypeA?vdressPreferenceTypeA ->
+		StartBy(genderTypeB?vgenderTypeB ->
+			if ((vdressPreferenceTypeA) and (vgenderTypeB)) then SKIP else TriggerRule4
+		,0)
+	,0)
+within DressingStarted -> MTrigger 
+	[] DressinginClotingX -> TriggerRule4
+	[] InformUser -> TriggerRule4
+
+MonitoringRule4 = let
+	Monitoring1 = DressinginClotingX -> SKIP
+	Monitoring2 = let
+		MTrigger = StartBy(dressPreferenceTypeA?vdressPreferenceTypeA ->
+			StartBy(genderTypeB?vgenderTypeB ->
+				if ((vdressPreferenceTypeA) and (vgenderTypeB)) then MonitoringRule4 else Monitoring2
+			,0)
+		,0)
+	within DressingStarted -> MTrigger 
+		[] DressinginClotingX -> Monitoring2
+		[] InformUser -> Monitoring2
+		[] DressinginClotingX -> Monitoring2
+		[] InformUser -> Monitoring2
+	Monitoring3 = let
+		MTrigger = StartBy(dressPreferenceTypeA?vdressPreferenceTypeA ->
+			StartBy(genderTypeB?vgenderTypeB ->
+				if ((vdressPreferenceTypeA) and (vgenderTypeB)) then MonitoringRule4 else Monitoring3
+			,0)
+		,0)
+	within DressingStarted -> MTrigger 
+		[] DressinginClotingX -> Monitoring3
+		[] InformUser -> Monitoring3
+		[] DressinginClotingX -> Monitoring3
+		[] InformUser -> Monitoring3
+	Monitoring4 = InformUser -> SKIP
+within StartBy(userAdvices?vuserAdvices ->
+	StartBy(medicalEmergency?vmedicalEmergency ->
+		StartBy(clothingItemNotFound?vclothingItemNotFound ->
+			if (vclothingItemNotFound) then Monitoring4
+			else (if (vmedicalEmergency) then Monitoring3
+			else (if (vuserAdvices) then Monitoring2
+			else (Monitoring1)))
+		,0)
+	,0)
+,0)
+
+-- alphabet for Rule4 
+ARule4 = {|InformUser, dressPreferenceTypeA, clothingItemNotFound, userAdvices, genderTypeB, DressinginClotingX, DressingStarted, medicalEmergency|}
+SLEECRule4 = timed_priority(Rule4)
+
+
+-- Rule5 when InteractionStarted then InformUserThisIsAgentnotHuman 
+-- unless (medicalEmergency)
+-- unless (not (userConfused))
+-- unless (theUserHasBeenInformed)
+
+Rule5 = TriggerRule5; MonitoringRule5; Rule5
+
+TriggerRule5 = InteractionStarted -> SKIP	[] InformUserThisIsAgentnotHuman -> TriggerRule5
+
+
+MonitoringRule5 = let
+	Monitoring1 = InformUserThisIsAgentnotHuman -> SKIP
+	Monitoring2 = InteractionStarted -> MonitoringRule5	[] InformUserThisIsAgentnotHuman -> Monitoring2
+	
+		[] InformUserThisIsAgentnotHuman -> Monitoring2
+	Monitoring3 = InteractionStarted -> MonitoringRule5	[] InformUserThisIsAgentnotHuman -> Monitoring3
+	
+		[] InformUserThisIsAgentnotHuman -> Monitoring3
+	Monitoring4 = InteractionStarted -> MonitoringRule5	[] InformUserThisIsAgentnotHuman -> Monitoring4
+	
+		[] InformUserThisIsAgentnotHuman -> Monitoring4
+within StartBy(medicalEmergency?vmedicalEmergency ->
+	StartBy(userConfused?vuserConfused ->
+		StartBy(theUserHasBeenInformed?vtheUserHasBeenInformed ->
+			if (vtheUserHasBeenInformed) then Monitoring4
+			else (if (not (vuserConfused)) then Monitoring3
+			else (if (vmedicalEmergency) then Monitoring2
+			else (Monitoring1)))
+		,0)
+	,0)
+,0)
+
+-- alphabet for Rule5 
+ARule5 = {|InteractionStarted, InformUserThisIsAgentnotHuman, theUserHasBeenInformed, userConfused, medicalEmergency|}
+SLEECRule5 = timed_priority(Rule5)
+
+
+-- Rule6 when UserRequestInfo then ProvideInfo 
+-- unless (not (informationAvailable)) then InformUserandandReferToHumanCarer
+-- unless (informationDisclosureNotPermitted) then InformUserandandReferToHumanCarer
+
+Rule6 = TriggerRule6; MonitoringRule6; Rule6
+
+TriggerRule6 = UserRequestInfo -> SKIP	[] ProvideInfo -> TriggerRule6
+	[] InformUserandandReferToHumanCarer -> TriggerRule6
+	[] InformUserandandReferToHumanCarer -> TriggerRule6
+
+
+MonitoringRule6 = let
+	Monitoring1 = ProvideInfo -> SKIP
+	Monitoring2 = InformUserandandReferToHumanCarer -> SKIP
+	Monitoring3 = InformUserandandReferToHumanCarer -> SKIP
+within StartBy(informationAvailable?vinformationAvailable ->
+	StartBy(informationDisclosureNotPermitted?vinformationDisclosureNotPermitted ->
+		if (vinformationDisclosureNotPermitted) then Monitoring3
+		else (if (not (vinformationAvailable)) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+-- alphabet for Rule6 
+ARule6 = {|ProvideInfo, UserRequestInfo, InformUserandandReferToHumanCarer, informationDisclosureNotPermitted, informationAvailable|}
+SLEECRule6 = timed_priority(Rule6)
+
+
+-- Rule7 when DressingStarted and (admininisteringMedication) then ObtainAssent 
+-- unless ((userCompetenceIndicator) == (N)) then CheckForandObtainProxy
+-- unless (medicalEmergency)
+-- unless ((withholdingActivityPhysicalHarm) >= (moderate))
+-- unless (consentGranted)
+-- unless (not (consentIndicatorRequired))
+-- unless ((consentIndicatorisWithdrawn) or (consentIndicatorisRevoked)) then StopActivity
+
+Rule7 = TriggerRule7; MonitoringRule7; Rule7
+
+TriggerRule7 = let
+	MTrigger = StartBy(admininisteringMedication?vadmininisteringMedication ->
+		if (vadmininisteringMedication) then SKIP else TriggerRule7
+	,0)
+within DressingStarted -> MTrigger 
+	[] ObtainAssent -> TriggerRule7
+	[] CheckForandObtainProxy -> TriggerRule7
+	[] StopActivity -> TriggerRule7
+
+MonitoringRule7 = let
+	Monitoring1 = ObtainAssent -> SKIP
+	Monitoring2 = CheckForandObtainProxy -> SKIP
+	Monitoring3 = let
+		MTrigger = StartBy(admininisteringMedication?vadmininisteringMedication ->
+			if (vadmininisteringMedication) then MonitoringRule7 else Monitoring3
+		,0)
+	within DressingStarted -> MTrigger 
+		[] ObtainAssent -> Monitoring3
+		[] CheckForandObtainProxy -> Monitoring3
+		[] StopActivity -> Monitoring3
+		[] ObtainAssent -> Monitoring3
+		[] CheckForandObtainProxy -> Monitoring3
+		[] StopActivity -> Monitoring3
+	Monitoring4 = let
+		MTrigger = StartBy(admininisteringMedication?vadmininisteringMedication ->
+			if (vadmininisteringMedication) then MonitoringRule7 else Monitoring4
+		,0)
+	within DressingStarted -> MTrigger 
+		[] ObtainAssent -> Monitoring4
+		[] CheckForandObtainProxy -> Monitoring4
+		[] StopActivity -> Monitoring4
+		[] ObtainAssent -> Monitoring4
+		[] CheckForandObtainProxy -> Monitoring4
+		[] StopActivity -> Monitoring4
+	Monitoring5 = let
+		MTrigger = StartBy(admininisteringMedication?vadmininisteringMedication ->
+			if (vadmininisteringMedication) then MonitoringRule7 else Monitoring5
+		,0)
+	within DressingStarted -> MTrigger 
+		[] ObtainAssent -> Monitoring5
+		[] CheckForandObtainProxy -> Monitoring5
+		[] StopActivity -> Monitoring5
+		[] ObtainAssent -> Monitoring5
+		[] CheckForandObtainProxy -> Monitoring5
+		[] StopActivity -> Monitoring5
+	Monitoring6 = let
+		MTrigger = StartBy(admininisteringMedication?vadmininisteringMedication ->
+			if (vadmininisteringMedication) then MonitoringRule7 else Monitoring6
+		,0)
+	within DressingStarted -> MTrigger 
+		[] ObtainAssent -> Monitoring6
+		[] CheckForandObtainProxy -> Monitoring6
+		[] StopActivity -> Monitoring6
+		[] ObtainAssent -> Monitoring6
+		[] CheckForandObtainProxy -> Monitoring6
+		[] StopActivity -> Monitoring6
+	Monitoring7 = StopActivity -> SKIP
+within StartBy(userCompetenceIndicator?vuserCompetenceIndicator ->
+	StartBy(medicalEmergency?vmedicalEmergency ->
+		StartBy(withholdingActivityPhysicalHarm?vwithholdingActivityPhysicalHarm ->
+			StartBy(consentGranted?vconsentGranted ->
+				StartBy(consentIndicatorRequired?vconsentIndicatorRequired ->
+					StartBy(consentIndicatorisWithdrawn?vconsentIndicatorisWithdrawn ->
+						StartBy(consentIndicatorisRevoked?vconsentIndicatorisRevoked ->
+							if ((vconsentIndicatorisWithdrawn) or (vconsentIndicatorisRevoked)) then Monitoring7
+							else (if (not (vconsentIndicatorRequired)) then Monitoring6
+							else (if (vconsentGranted) then Monitoring5
+							else (if (STgewithholdingActivityPhysicalHarm(vwithholdingActivityPhysicalHarm, moderate)) then Monitoring4
+							else (if (vmedicalEmergency) then Monitoring3
+							else (if ((vuserCompetenceIndicator) == (N)) then Monitoring2
+							else (Monitoring1))))))
+						,0)
+					,0)
+				,0)
+			,0)
+		,0)
+	,0)
+,0)
+
+-- alphabet for Rule7 
+ARule7 = {|consentIndicatorisWithdrawn, consentIndicatorRequired, medicalEmergency, consentIndicatorisRevoked, CheckForandObtainProxy, userCompetenceIndicator, StopActivity, withholdingActivityPhysicalHarm, consentGranted, DressingStarted, ObtainAssent, admininisteringMedication|}
+SLEECRule7 = timed_priority(Rule7)
+
+
+-- Rule8 when CollectionStarted then StoreMinInfo 
+
+Rule8 = TriggerRule8; MonitoringRule8; Rule8
+
+TriggerRule8 = CollectionStarted -> SKIP	[] StoreMinInfo -> TriggerRule8
+
+
+MonitoringRule8 = StoreMinInfo -> SKIP
+
+-- alphabet for Rule8 
+ARule8 = {|StoreMinInfo, CollectionStarted|}
+SLEECRule8 = timed_priority(Rule8)
+
+
+-- Rule12 when DressingStarted and (userUnderDressed) then DressingComplete within 2 minutes 
+-- unless ((roomTemperature) < (19)) then DressingComplete within 9 seconds
+-- unless ((roomTemperature) < (17)) then DressingComplete within 6 seconds
+
+Rule12 = TriggerRule12; MonitoringRule12; Rule12
+
+TriggerRule12 = let
+	MTrigger = StartBy(userUnderDressed?vuserUnderDressed ->
+		if (vuserUnderDressed) then SKIP else TriggerRule12
+	,0)
+within DressingStarted -> MTrigger 
+	[] DressingComplete -> TriggerRule12
+	[] DressingComplete -> TriggerRule12
+	[] DressingComplete -> TriggerRule12
+
+MonitoringRule12 = let
+	Monitoring1 = StartBy(DressingComplete -> SKIP,(2 * 60))
+	Monitoring2 = StartBy(DressingComplete -> SKIP,(9 * 1))
+	Monitoring3 = StartBy(DressingComplete -> SKIP,(6 * 1))
+within StartBy(roomTemperature?vroomTemperature ->
+	StartBy(roomTemperature?vroomTemperature ->
+		if ((vroomTemperature) < (17)) then Monitoring3
+		else (if ((vroomTemperature) < (19)) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+-- alphabet for Rule12 
+ARule12 = {|roomTemperature, DressingComplete, userUnderDressed, DressingStarted|}
+SLEECRule12 = timed_priority(Rule12)
+
+
+-- Rule22 when CurtainOpenRqt then CurtainsOpened within 6 seconds 
+-- unless (userUnderDressed) then RefuseRequest within 3 seconds
+-- unless ((userDistressed) > (smedium)) then CurtainsOpened within 60 seconds
+
+Rule22 = TriggerRule22; MonitoringRule22; Rule22
+
+TriggerRule22 = CurtainOpenRqt -> SKIP	[] CurtainsOpened -> TriggerRule22
+	[] RefuseRequest -> TriggerRule22
+	[] CurtainsOpened -> TriggerRule22
+
+
+MonitoringRule22 = let
+	Monitoring1 = StartBy(CurtainsOpened -> SKIP,(6 * 1))
+	Monitoring2 = StartBy(RefuseRequest -> SKIP,(3 * 1))
+	Monitoring3 = StartBy(CurtainsOpened -> SKIP,(60 * 1))
+within StartBy(userUnderDressed?vuserUnderDressed ->
+	StartBy(userDistressed?vuserDistressed ->
+		if (STgtuserDistressed(vuserDistressed, smedium)) then Monitoring3
+		else (if (vuserUnderDressed) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+-- alphabet for Rule22 
+ARule22 = {|RefuseRequest, userDistressed, CurtainOpenRqt, userUnderDressed, CurtainsOpened|}
+SLEECRule22 = timed_priority(Rule22)
+
+
+-- Rule32 when UserFallen then SupportCalled within 1 minutes 
+-- unless (not (assentToSupportCalls))
+-- unless (emergency)
+
+Rule32 = TriggerRule32; MonitoringRule32; Rule32
+
+TriggerRule32 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule32
+
+
+MonitoringRule32 = let
+	Monitoring1 = StartBy(SupportCalled -> SKIP,(1 * 60))
+	Monitoring2 = UserFallen -> MonitoringRule32	[] SupportCalled -> Monitoring2
+	
+		[] SupportCalled -> Monitoring2
+	Monitoring3 = UserFallen -> MonitoringRule32	[] SupportCalled -> Monitoring3
+	
+		[] SupportCalled -> Monitoring3
+within StartBy(assentToSupportCalls?vassentToSupportCalls ->
+	StartBy(emergency?vemergency ->
+		if (vemergency) then Monitoring3
+		else (if (not (vassentToSupportCalls)) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+-- alphabet for Rule32 
+ARule32 = {|SupportCalled, UserFallen, assentToSupportCalls, emergency|}
+SLEECRule32 = timed_priority(Rule32)
+
+
+-- Rule42 when DressingAbandoned then RetryAgreed within 3 minutes
+-- otherwise SupportCalled 
+
+Rule42 = TriggerRule42; MonitoringRule42; Rule42
+
+TriggerRule42 = DressingAbandoned -> SKIP	[] RetryAgreed -> TriggerRule42
+	[] SupportCalled -> TriggerRule42
+
+
+MonitoringRule42 = TimedInterruptSeq(RetryAgreed,(3 * 60),let
+	Monitoring1 = SupportCalled -> SKIP
+	Monitoring2 = DressingAbandoned -> MonitoringRule42	[] RetryAgreed -> Monitoring2
+		[] SupportCalled -> Monitoring2
+	
+		[] RetryAgreed -> Monitoring2
+		[] SupportCalled -> Monitoring2
+within StartBy(assentToSupportCalls?vassentToSupportCalls ->
+	if (not (vassentToSupportCalls)) then Monitoring2
+	else (Monitoring1)
+,0)
+)
+
+-- alphabet for Rule42 
+ARule42 = {|RetryAgreed, SupportCalled, DressingAbandoned, assentToSupportCalls|}
+SLEECRule42 = timed_priority(Rule42)
+
+
+-- Rule52 when DressingStarted and ((roomTemperature) >= (19)) then DressingComplete within 2 minutes 
+
+Rule52 = TriggerRule52; MonitoringRule52; Rule52
+
+TriggerRule52 = let
+	MTrigger = StartBy(roomTemperature?vroomTemperature ->
+		if ((vroomTemperature) >= (19)) then SKIP else TriggerRule52
+	,0)
+within DressingStarted -> MTrigger 
+	[] DressingComplete -> TriggerRule52
+
+MonitoringRule52 = StartBy(DressingComplete -> SKIP,(2 * 60))
+
+-- alphabet for Rule52 
+ARule52 = {|roomTemperature, DressingComplete, DressingStarted|}
+SLEECRule52 = timed_priority(Rule52)
+
+
+-- Rule13 when DressingStarted then DressingSuccessful 
+
+Rule13 = TriggerRule13; MonitoringRule13; Rule13
+
+TriggerRule13 = DressingStarted -> SKIP	[] DressingSuccessful -> TriggerRule13
+
+
+MonitoringRule13 = DressingSuccessful -> SKIP
+
+-- alphabet for Rule13 
+ARule13 = {|DressingSuccessful, DressingStarted|}
+SLEECRule13 = timed_priority(Rule13)
+
+
+-- Rule23 when FallAssessed and (userUnresponsive) then SupportCalled 
+
+Rule23 = TriggerRule23; MonitoringRule23; Rule23
+
+TriggerRule23 = let
+	MTrigger = StartBy(userUnresponsive?vuserUnresponsive ->
+		if (vuserUnresponsive) then SKIP else TriggerRule23
+	,0)
+within FallAssessed -> MTrigger 
+	[] SupportCalled -> TriggerRule23
+
+MonitoringRule23 = SupportCalled -> SKIP
+
+-- alphabet for Rule23 
+ARule23 = {|userUnresponsive, SupportCalled, FallAssessed|}
+SLEECRule23 = timed_priority(Rule23)
+
+
+-- Rule33 when OpenCurtainsRequested and (userUndressed) then not CurtainsOpened within 6 seconds 
+
+Rule33 = TriggerRule33; MonitoringRule33; Rule33
+
+TriggerRule33 = let
+	MTrigger = StartBy(userUndressed?vuserUndressed ->
+		if (vuserUndressed) then SKIP else TriggerRule33
+	,0)
+within OpenCurtainsRequested -> MTrigger 
+	[] CurtainsOpened -> TriggerRule33
+
+MonitoringRule33 = WAIT((6 * 1))
+
+-- alphabet for Rule33 
+ARule33 = {|OpenCurtainsRequested, userUndressed, CurtainsOpened|}
+SLEECRule33 = timed_priority(Rule33)
+
+
+-- Rule43 when UserFallen then SupportCalled 
+
+Rule43 = TriggerRule43; MonitoringRule43; Rule43
+
+TriggerRule43 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule43
+
+
+MonitoringRule43 = SupportCalled -> SKIP
+
+-- alphabet for Rule43 
+ARule43 = {|SupportCalled, UserFallen|}
+SLEECRule43 = timed_priority(Rule43)
+
+
+-- Rule53 when UserFallen then SupportCalled within 1 minutes 
+
+Rule53 = TriggerRule53; MonitoringRule53; Rule53
+
+TriggerRule53 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule53
+
+
+MonitoringRule53 = StartBy(SupportCalled -> SKIP,(1 * 60))
+
+-- alphabet for Rule53 
+ARule53 = {|SupportCalled, UserFallen|}
+SLEECRule53 = timed_priority(Rule53)
+
+
+-- Rule63 when UserFallen then HealthChecked within 3 seconds
+-- otherwise SupportCalled within 60 seconds 
+
+Rule63 = TriggerRule63; MonitoringRule63; Rule63
+
+TriggerRule63 = UserFallen -> SKIP	[] HealthChecked -> TriggerRule63
+	[] SupportCalled -> TriggerRule63
+
+
+MonitoringRule63 = TimedInterruptSeq(HealthChecked,(3 * 1),StartBy(SupportCalled -> SKIP,(60 * 1)))
+
+-- alphabet for Rule63 
+ARule63 = {|SupportCalled, UserFallen, HealthChecked|}
+SLEECRule63 = timed_priority(Rule63)
+
+
+-- Rule73 when OpenCurtainsRequested then CurtainsOpened within 6 seconds 
+
+Rule73 = TriggerRule73; MonitoringRule73; Rule73
+
+TriggerRule73 = OpenCurtainsRequested -> SKIP	[] CurtainsOpened -> TriggerRule73
+
+
+MonitoringRule73 = StartBy(CurtainsOpened -> SKIP,(6 * 1))
+
+-- alphabet for Rule73 
+ARule73 = {|OpenCurtainsRequested, CurtainsOpened|}
+SLEECRule73 = timed_priority(Rule73)
+
+
+-- Rule83 when OpenCurtainsRequested then CurtainsOpened within 6 seconds 
+-- unless (userUndressed) then RefuseRequest within 3 seconds
+-- unless ((userDistressed) > (smedium)) then CurtainsOpened within 6 seconds
+
+Rule83 = TriggerRule83; MonitoringRule83; Rule83
+
+TriggerRule83 = OpenCurtainsRequested -> SKIP	[] CurtainsOpened -> TriggerRule83
+	[] RefuseRequest -> TriggerRule83
+	[] CurtainsOpened -> TriggerRule83
+
+
+MonitoringRule83 = let
+	Monitoring1 = StartBy(CurtainsOpened -> SKIP,(6 * 1))
+	Monitoring2 = StartBy(RefuseRequest -> SKIP,(3 * 1))
+	Monitoring3 = StartBy(CurtainsOpened -> SKIP,(6 * 1))
+within StartBy(userUndressed?vuserUndressed ->
+	StartBy(userDistressed?vuserDistressed ->
+		if (STgtuserDistressed(vuserDistressed, smedium)) then Monitoring3
+		else (if (vuserUndressed) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+-- alphabet for Rule83 
+ARule83 = {|RefuseRequest, userDistressed, OpenCurtainsRequested, userUndressed, CurtainsOpened|}
+SLEECRule83 = timed_priority(Rule83)
+}
+
+Timed(et) {
+Spec1 = timed_priority(
+			(
+				MRename(SLEECRule1 [|ARule1|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec2 = timed_priority(
+			(
+				MRename(SLEECRule2 [|ARule2|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec3 = timed_priority(
+			(
+				MRename(SLEECRule3 [|ARule3|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec4 = timed_priority(
+			(
+				MRename(SLEECRule4 [|ARule4|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec5 = timed_priority(
+			(
+				MRename(SLEECRule5 [|ARule5|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec6 = timed_priority(
+			(
+				MRename(SLEECRule6 [|ARule6|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec7 = timed_priority(
+			(
+				MRename(SLEECRule7 [|ARule7|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec8 = timed_priority(
+			(
+				MRename(SLEECRule8 [|ARule8|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec12 = timed_priority(
+			(
+				MRename(SLEECRule12 [|ARule12|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec13 = timed_priority(
+			(
+				MRename(SLEECRule13 [|ARule13|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec22 = timed_priority(
+			(
+				MRename(SLEECRule22 [|ARule22|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec23 = timed_priority(
+			(
+				MRename(SLEECRule23 [|ARule23|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec32 = timed_priority(
+			(
+				MRename(SLEECRule32 [|ARule32|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec33 = timed_priority(
+			(
+				MRename(SLEECRule32 [|ARule32|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec42 = timed_priority(
+			(
+				MRename(SLEECRule42 [|ARule42|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec43 = timed_priority(
+			(
+				MRename(SLEECRule43 [|ARule43|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec52 = timed_priority(
+			(
+				MRename(SLEECRule52 [|ARule52|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec53 = timed_priority(
+			(
+				MRename(SLEECRule53 [|ARule53|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec63 = timed_priority(
+			(
+				MRename(SLEECRule63 [|ARule63|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec73 = timed_priority(
+			(
+				MRename(SLEECRule73 [|ARule73|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+Timed(et) {
+Spec83 = timed_priority(
+			(
+				MRename(SLEECRule83 [|ARule83|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
+RC = Rename(system::Module::D__(1))
+-- Alphabet of RC will be the same as that of Capabilities, since Rename
+-- applies renaming of RC events to those used as Capabilities.
+RC__sem__events = Capabilities
+
+-- Check1 - refinement
+assert Spec1 [T= RC
+
+-- Check2 - refinement
+assert Spec2 [T= RC
+
+-- Check3 - refinement
+assert Spec3 [T= RC
+
+-- Check4 - refinement
+assert Spec4 [T= RC
+
+-- Check5 - refinement
+assert Spec5 [T= RC
+
+-- Check6 - refinement
+assert Spec6 [T= RC
+
+-- Check7 - refinement
+assert Spec7 [T= RC
+
+-- Check8 - refinement
+assert Spec8 [T= RC
+
+-- Check12 - refinement
+assert Spec12 [T= RC
+
+-- Check22 - refinement
+assert Spec22 [T= RC
+
+-- Check32 - refinement
+assert Spec32 [T= RC
+
+-- Check42 - refinement
+assert Spec42 [T= RC
+
+-- Check52 - refinement
+assert Spec52 [T= RC
+
+-- Check13 - refinement
+assert Spec13 [T= RC
+
+-- Check23 - refinement
+assert Spec23 [T= RC
+
+-- Check33 - refinement
+assert Spec33 [T= RC
+
+-- Check43 - refinement
+assert Spec43 [T= RC
+
+-- Check53 - refinement
+assert Spec53 [T= RC
+
+-- Check63 - refinement
+assert Spec63 [T= RC
+
+-- Check73 - refinement
+assert Spec73 [T= RC
+
+-- Check83 - refinement
+assert Spec83 [T= RC
+

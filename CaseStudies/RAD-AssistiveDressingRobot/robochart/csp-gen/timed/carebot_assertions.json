@@ -1,0 +1,86 @@
+[
+{ "name": "timed RC refines Spec1 (Check1) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec2 (Check2) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec3 (Check3) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec4 (Check4) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec5 (Check5) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec6 (Check6) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec7 (Check7) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec8 (Check8) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec12 (Check12) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec22 (Check22) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec32 (Check32) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec42 (Check42) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec52 (Check52) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec13 (Check13) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec23 (Check23) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec33 (Check33) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec43 (Check43) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec53 (Check53) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec63 (Check63) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec73 (Check73) [traces model]",
+  "type": "refines",
+  "negated": false 
+},
+{ "name": "timed RC refines Spec83 (Check83) [traces model]",
+  "type": "refines",
+  "negated": false 
+}
+			]
