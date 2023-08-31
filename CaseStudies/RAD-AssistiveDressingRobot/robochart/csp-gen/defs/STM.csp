@@ -1,7 +1,7 @@
 
 --
--- RoboChart generator version 3.0.0.202302061250
--- Automatically generated on 23-05-2023 22:09:41
+-- RoboChart generator version 3.0.0.202306261132
+-- Automatically generated on 31-08-2023 19:18:09
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -69,8 +69,8 @@ exports
 	channel SupportCalled: InOut
 	
 	-- Declaring call and ret events for undefined operations
-	channel CallSupportCall: core_boolean
 	channel AbandonDressingCall: core_boolean
+	channel CallSupportCall: core_boolean
 	channel OpenCurtainsCall: core_boolean.Distress
 	channel DressingCall: core_int
 	
@@ -105,8 +105,8 @@ exports
 		retryAgreed,
 		refuseRequest,
 		SupportCalled
-	,	CallSupportCall,
-		AbandonDressingCall,
+	,	AbandonDressingCall,
+		CallSupportCall,
 		OpenCurtainsCall,
 		DressingCall
 		|}
@@ -210,10 +210,10 @@ exports
 	-- If it is in the context of a controller, the required operations not provided by the
 	-- controller will be declared here, and the defined operations will be defined in the
 	-- context of the Controller module, and therefore within scope of the state machine module.
-	CALL__CallSupport(id__,
-				param_assent) 	= CallSupportCall.param_assent -> SKIP
 	CALL__AbandonDressing(id__,
 				param_assent) 	= AbandonDressingCall.param_assent -> SKIP
+	CALL__CallSupport(id__,
+				param_assent) 	= CallSupportCall.param_assent -> SKIP
 	CALL__OpenCurtains(id__,
 				param_underDressed,
 				param_distress) 	= OpenCurtainsCall.param_underDressed.param_distress -> SKIP

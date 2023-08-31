@@ -1,7 +1,7 @@
 
 --
--- RoboChart generator version 3.0.0.202302061250
--- Automatically generated on 18-05-2023 15:31:36
+-- RoboChart generator version 3.0.0.202306261132
+-- Automatically generated on 31-08-2023 19:18:10
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -319,7 +319,7 @@ exports
 	
 	-- Transitions
 	Transitions(id__) = ((let
-		Trans = share__choice(get_distress?distress -> get_underDressed?underDressed -> (
+		Trans = share__choice(get_underDressed?underDressed -> get_distress?distress -> (
 			((share__ -> SKIP
 			 [] dbisim((true)&(internal__!NID_i0 -> SKIP ;  ((SKIP ; Idle::enter -> SKIP))))
 			 	 [] dbisim((true)&(CurtainOpenRqt__!NID_Idle.in -> SKIP ;  share__choice(exit -> SKIP) ; (share__choice(exited -> SKIP) ; true&(share__choice(userUnderDressed.in?underDressed -> (SStop /\ set_underDressed!underDressed -> SKIP)));true&(share__choice(userDistressed.in?distress -> (SStop /\ set_distress!distress -> SKIP))) ; j0::enter -> SKIP)))
@@ -387,16 +387,16 @@ exports
 					 [[j0::interrupt <- x__ | x__ <- {|internal__.NID_j0,internal__.NID_j0|}]]
 					 )
 					  [[ share__ <- x__ | x__ <- {| share__ |} ]] 
-					  [[set_distress <- setL_distress,set_underDressed <- setL_underDressed]]
+					  [[set_underDressed <- setL_underDressed,set_distress <- setL_distress]]
 					 )
 					 [| union(union(union(flowevts,transSync),{terminate}),{|share__
-					 			,setL_distress
 					 			,setL_underDressed
+					 			,setL_distress
 					|}) |]
 					 ((i0::enter -> Transitions(id__))
-					  [[ share__ <- x__ | x__ <- {| share__,setL_distress,setL_underDressed |} ]]
+					  [[ share__ <- x__ | x__ <- {| share__,setL_underDressed,setL_distress |} ]]
 					 )
-					)[[setL_distress <- set_distress,setL_underDressed <- set_underDressed]]
+					)[[setL_underDressed <- set_underDressed,setL_distress <- set_distress]]
 					)
 				)
 				 \ hideSet)
@@ -496,16 +496,16 @@ exports
 					 [[j0::interrupt <- x__ | x__ <- {|internal__.NID_j0,internal__.NID_j0|}]]
 					 )
 					  [[ share__ <- x__ | x__ <- {| share__ |} ]] 
-					  [[set_distress <- setL_distress,set_underDressed <- setL_underDressed]]
+					  [[set_underDressed <- setL_underDressed,set_distress <- setL_distress]]
 					 )
 					 [| union(union(union(flowevts,transSync),{terminate}),{|share__
-					 			,setL_distress
 					 			,setL_underDressed
+					 			,setL_distress
 					|}) |]
 					 ((i0::enter -> Transitions(id__))
-					  [[ share__ <- x__ | x__ <- {| share__,setL_distress,setL_underDressed |} ]]
+					  [[ share__ <- x__ | x__ <- {| share__,setL_underDressed,setL_distress |} ]]
 					 )
-					)[[setL_distress <- set_distress,setL_underDressed <- set_underDressed]]
+					)[[setL_underDressed <- set_underDressed,setL_distress <- set_distress]]
 					)
 				)
 				 \ hideSet)

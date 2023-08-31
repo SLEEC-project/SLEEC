@@ -1,7 +1,7 @@
 
 --
--- RoboChart generator version 3.0.0.202302061250
--- Automatically generated on 23-05-2023 22:09:41
+-- RoboChart generator version 3.0.0.202306261132
+-- Automatically generated on 31-08-2023 19:18:10
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -1221,10 +1221,19 @@
 			localClockResets = {|clockReset.CLID_C|}
 			
 			
+			channel get_CLID_s0 : core_clock_type 
 			channel get_CLID_f0 : core_clock_type 
 			channel get_CLID_C : core_clock_type 
-			channel get_CLID_s0 : core_clock_type 
 			--channel increment__
+			
+			CLID_s0_clock_type(id__) = 
+				let
+					max = (clock_type_max(Union({
+			{}
+			}))+1)
+				ctype = {0..max}
+			within
+				if member(max,core_clock_type) then ctype else error("core_clock_type is not wide enough")
 			
 			CLID_f0_clock_type(id__) = 
 				let
@@ -1240,15 +1249,6 @@
 					max = (clock_type_max(Union({
 			{},
 			({vt(30,Time_minutes)})
-			}))+1)
-				ctype = {0..max}
-			within
-				if member(max,core_clock_type) then ctype else error("core_clock_type is not wide enough")
-			
-			CLID_s0_clock_type(id__) = 
-				let
-					max = (clock_type_max(Union({
-			{}
 			}))+1)
 				ctype = {0..max}
 			within
@@ -1430,7 +1430,7 @@
 				-- Transitions
 				Transitions(id__,
 							param_assent) = ((let
-					Trans = share__choice(get_CLID_C?C:CLID_C_clock_type(id__) -> get_done?done -> TimeOut_1(
+					Trans = share__choice(get_done?done -> get_CLID_C?C:CLID_C_clock_type(id__) -> TimeOut_1(
 						 (share__ -> SKIP
 						 [] dbisim((true)&(internal__!NID_i0 -> SKIP ;  ((SKIP ; s0::enter -> SKIP))))
 						 [] dbisim((done)&(internal__!NID_s0 -> SKIP ;  share__choice(exit -> SKIP) ; (share__choice(exited -> SKIP) ; SKIP ; f0::enter -> SKIP)))
@@ -1495,17 +1495,17 @@
 								 [[i0::interrupt <- x__ | x__ <- {|internal__.NID_i0|}]]
 								 )
 								  [[ share__ <- x__ | x__ <- {| share__ |} ]] 
-								  [[clockReset.CLID_C <- clockResetL.CLID_C,set_done <- setL_done]]
+								  [[set_done <- setL_done,clockReset.CLID_C <- clockResetL.CLID_C]]
 								 )
 								 [| union(union(union(flowevts,transSync),{terminate}),{|share__
-								 			,clockResetL.CLID_C
 								 			,setL_done
+								 			,clockResetL.CLID_C
 								|}) |]
 								 ((i0::enter -> Transitions(id__,
 								 			param_assent))
-								  [[ share__ <- x__ | x__ <- {| share__,clockResetL.CLID_C,setL_done |} ]]
+								  [[ share__ <- x__ | x__ <- {| share__,setL_done,clockResetL.CLID_C |} ]]
 								 )
-								)[[clockResetL.CLID_C <- clockReset.CLID_C,setL_done <- set_done]]
+								)[[setL_done <- set_done,clockResetL.CLID_C <- clockReset.CLID_C]]
 								)
 							)
 							 \ hideSet)
@@ -1593,17 +1593,17 @@
 								 [[i0::interrupt <- x__ | x__ <- {|internal__.NID_i0|}]]
 								 )
 								  [[ share__ <- x__ | x__ <- {| share__ |} ]] 
-								  [[clockReset.CLID_C <- clockResetL.CLID_C,set_done <- setL_done]]
+								  [[set_done <- setL_done,clockReset.CLID_C <- clockResetL.CLID_C]]
 								 )
 								 [| union(union(union(flowevts,transSync),{terminate}),{|share__
-								 			,clockResetL.CLID_C
 								 			,setL_done
+								 			,clockResetL.CLID_C
 								|}) |]
 								 ((i0::enter -> Transitions(id__,
 								 			param_assent))
-								  [[ share__ <- x__ | x__ <- {| share__,clockResetL.CLID_C,setL_done |} ]]
+								  [[ share__ <- x__ | x__ <- {| share__,setL_done,clockResetL.CLID_C |} ]]
 								 )
-								)[[clockResetL.CLID_C <- clockReset.CLID_C,setL_done <- set_done]]
+								)[[setL_done <- set_done,clockResetL.CLID_C <- clockReset.CLID_C]]
 								)
 							)
 							 \ hideSet)
@@ -2359,22 +2359,6 @@
 				-- controller will be declared here, and the defined operations will be defined in the
 				-- context of the Controller module, and therefore within scope of the state machine module.
 				
-				CALL__AbandonDressing(id__,
-							param_assent) = (OP_AbandonDressing::O__(id__,
-							param_assent))
-				[[
-					OP_AbandonDressing::retryAgreed <- retryAgreed,
-					OP_AbandonDressing::refuseRequest <- refuseRequest,
-					OP_AbandonDressing::SupportCalled <- SupportCalled
-				]]
-				CALL__CallSupport(id__,
-							param_assent) = (OP_CallSupport::O__(id__,
-							param_assent))
-				[[
-					OP_CallSupport::retryAgreed <- retryAgreed,
-					OP_CallSupport::refuseRequest <- refuseRequest,
-					OP_CallSupport::SupportCalled <- SupportCalled
-				]]
 				CALL__OpenCurtains(id__,
 							param_underDressed,
 							param_distress) = (OP_OpenCurtains::O__(id__,
@@ -2391,6 +2375,22 @@
 				CALL__Dressing(id__,
 							param_temp) = (OP_Dressing::O__(id__,
 							param_temp))
+				CALL__AbandonDressing(id__,
+							param_assent) = (OP_AbandonDressing::O__(id__,
+							param_assent))
+				[[
+					OP_AbandonDressing::retryAgreed <- retryAgreed,
+					OP_AbandonDressing::refuseRequest <- refuseRequest,
+					OP_AbandonDressing::SupportCalled <- SupportCalled
+				]]
+				CALL__CallSupport(id__,
+							param_assent) = (OP_CallSupport::O__(id__,
+							param_assent))
+				[[
+					OP_CallSupport::retryAgreed <- retryAgreed,
+					OP_CallSupport::refuseRequest <- refuseRequest,
+					OP_CallSupport::SupportCalled <- SupportCalled
+				]]
 				-- END of Operation calls --
 			
 				-- STM processes

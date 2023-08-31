@@ -1,7 +1,7 @@
 
 --
 -- RoboChart generator version 3.0.0.202306261132
--- Automatically generated on 31-08-2023 11:09:14
+-- Automatically generated on 31-08-2023 19:18:09
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -11,6 +11,7 @@ include "defs/Dressing.csp"
 include "defs/file_common_defs.csp"
 include "defs/state_timed_defs.csp"
 include "defs/robochart_defs.csp"
+include "defs/file_rad_defs.csp"
 include "defs/core_defs.csp"
 include "defs/core_timed_defs.csp"
 include "defs/system_defs.csp"
@@ -302,11 +303,11 @@ channel DressingSuccessful						-- not in SUV
 channel FallAssessed							-- not in SUV
 channel userUndressed : Bool			
 channel userUnresponsive : Bool					-- not in SUV
-channel OpenCurtainsRequested					-- Why is this different from CurtainOpenRqt?
+channel CurtainsOpenRqt							
 channel HealthChecked							-- not in SUV
 channel roomTemperature : core_int				-- {5..25} Replaced with RC csp type.
 channel DressingComplete
-MAX_RESPONSE_TIME = 60
+MAX_RESPONSE_TIME = 60 
 channel UserFallen
 channel assentToSupportCalls : Bool
 channel SupportCalled
@@ -335,7 +336,7 @@ Capabilities =
      StoreMinInfo,
      DressingSuccessful,
      FallAssessed,
-     OpenCurtainsRequested,
+     CurtainsOpenRqt,
      HealthChecked,
      DressingComplete,
      UserFallen,
@@ -408,34 +409,6 @@ Measures =
 	
 instance MSN = model_shifting(Capabilities)
 Timed(et) {
-
--- Rule1 when CurtainOpenRqt then CurtainsOpened 
--- unless (userUnderDressed) then RefuseRequest
--- unless ((userDistressed) > (smedium)) then CurtainsOpened
-
-Rule1 = TriggerRule1; MonitoringRule1; Rule1
-
-TriggerRule1 = CurtainOpenRqt -> SKIP	[] CurtainsOpened -> TriggerRule1
-	[] RefuseRequest -> TriggerRule1
-	[] CurtainsOpened -> TriggerRule1
-
-
-MonitoringRule1 = let
-	Monitoring1 = CurtainsOpened -> SKIP
-	Monitoring2 = RefuseRequest -> SKIP
-	Monitoring3 = CurtainsOpened -> SKIP
-within StartBy(userUnderDressed?vuserUnderDressed ->
-	StartBy(userDistressed?vuserDistressed ->
-		if (STgtuserDistressed(vuserDistressed, smedium)) then Monitoring3
-		else (if (vuserUnderDressed) then Monitoring2
-		else (Monitoring1))
-	,0)
-,0)
-
--- alphabet for Rule1 
-ARule1 = {|RefuseRequest, userDistressed, CurtainOpenRqt, userUnderDressed, CurtainsOpened|}
-SLEECRule1 = timed_priority(Rule1)
-
 
 -- Rule2 when DressingStarted then CloseCurtains 
 -- unless (medicalEmergency)
@@ -790,64 +763,6 @@ ARule12 = {|roomTemperature, DressingComplete, userUnderDressed, DressingStarted
 SLEECRule12 = timed_priority(Rule12)
 
 
--- Rule22 when CurtainOpenRqt then CurtainsOpened within 6 seconds 
--- unless (userUnderDressed) then RefuseRequest within 3 seconds
--- unless ((userDistressed) > (smedium)) then CurtainsOpened within 60 seconds
-
-Rule22 = TriggerRule22; MonitoringRule22; Rule22
-
-TriggerRule22 = CurtainOpenRqt -> SKIP	[] CurtainsOpened -> TriggerRule22
-	[] RefuseRequest -> TriggerRule22
-	[] CurtainsOpened -> TriggerRule22
-
-
-MonitoringRule22 = let
-	Monitoring1 = StartBy(CurtainsOpened -> SKIP,(6 * 1))
-	Monitoring2 = StartBy(RefuseRequest -> SKIP,(3 * 1))
-	Monitoring3 = StartBy(CurtainsOpened -> SKIP,(60 * 1))
-within StartBy(userUnderDressed?vuserUnderDressed ->
-	StartBy(userDistressed?vuserDistressed ->
-		if (STgtuserDistressed(vuserDistressed, smedium)) then Monitoring3
-		else (if (vuserUnderDressed) then Monitoring2
-		else (Monitoring1))
-	,0)
-,0)
-
--- alphabet for Rule22 
-ARule22 = {|RefuseRequest, userDistressed, CurtainOpenRqt, userUnderDressed, CurtainsOpened|}
-SLEECRule22 = timed_priority(Rule22)
-
-
--- Rule32 when UserFallen then SupportCalled within 1 minutes 
--- unless (not (assentToSupportCalls))
--- unless (emergency)
-
-Rule32 = TriggerRule32; MonitoringRule32; Rule32
-
-TriggerRule32 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule32
-
-
-MonitoringRule32 = let
-	Monitoring1 = StartBy(SupportCalled -> SKIP,(1 * 60))
-	Monitoring2 = UserFallen -> MonitoringRule32	[] SupportCalled -> Monitoring2
-	
-		[] SupportCalled -> Monitoring2
-	Monitoring3 = UserFallen -> MonitoringRule32	[] SupportCalled -> Monitoring3
-	
-		[] SupportCalled -> Monitoring3
-within StartBy(assentToSupportCalls?vassentToSupportCalls ->
-	StartBy(emergency?vemergency ->
-		if (vemergency) then Monitoring3
-		else (if (not (vassentToSupportCalls)) then Monitoring2
-		else (Monitoring1))
-	,0)
-,0)
-
--- alphabet for Rule32 
-ARule32 = {|SupportCalled, UserFallen, assentToSupportCalls, emergency|}
-SLEECRule32 = timed_priority(Rule32)
-
-
 -- Rule42 when DressingAbandoned then RetryAgreed within 3 minutes
 -- otherwise SupportCalled 
 
@@ -925,89 +840,13 @@ ARule23 = {|userUnresponsive, SupportCalled, FallAssessed|}
 SLEECRule23 = timed_priority(Rule23)
 
 
--- Rule33 when OpenCurtainsRequested and (userUndressed) then not CurtainsOpened within 6 seconds 
-
-Rule33 = TriggerRule33; MonitoringRule33; Rule33
-
-TriggerRule33 = let
-	MTrigger = StartBy(userUndressed?vuserUndressed ->
-		if (vuserUndressed) then SKIP else TriggerRule33
-	,0)
-within OpenCurtainsRequested -> MTrigger 
-	[] CurtainsOpened -> TriggerRule33
-
-MonitoringRule33 = WAIT((6 * 1))
-
--- alphabet for Rule33 
-ARule33 = {|OpenCurtainsRequested, userUndressed, CurtainsOpened|}
-SLEECRule33 = timed_priority(Rule33)
-
-
--- Rule43 when UserFallen then SupportCalled 
-
-Rule43 = TriggerRule43; MonitoringRule43; Rule43
-
-TriggerRule43 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule43
-
-
-MonitoringRule43 = SupportCalled -> SKIP
-
--- alphabet for Rule43 
-ARule43 = {|SupportCalled, UserFallen|}
-SLEECRule43 = timed_priority(Rule43)
-
-
--- Rule53 when UserFallen then SupportCalled within 1 minutes 
-
-Rule53 = TriggerRule53; MonitoringRule53; Rule53
-
-TriggerRule53 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule53
-
-
-MonitoringRule53 = StartBy(SupportCalled -> SKIP,(1 * 60))
-
--- alphabet for Rule53 
-ARule53 = {|SupportCalled, UserFallen|}
-SLEECRule53 = timed_priority(Rule53)
-
-
--- Rule63 when UserFallen then HealthChecked within 3 seconds
--- otherwise SupportCalled within 60 seconds 
-
-Rule63 = TriggerRule63; MonitoringRule63; Rule63
-
-TriggerRule63 = UserFallen -> SKIP	[] HealthChecked -> TriggerRule63
-	[] SupportCalled -> TriggerRule63
-
-
-MonitoringRule63 = TimedInterruptSeq(HealthChecked,(3 * 1),StartBy(SupportCalled -> SKIP,(60 * 1)))
-
--- alphabet for Rule63 
-ARule63 = {|SupportCalled, UserFallen, HealthChecked|}
-SLEECRule63 = timed_priority(Rule63)
-
-
--- Rule73 when OpenCurtainsRequested then CurtainsOpened within 6 seconds 
-
-Rule73 = TriggerRule73; MonitoringRule73; Rule73
-
-TriggerRule73 = OpenCurtainsRequested -> SKIP	[] CurtainsOpened -> TriggerRule73
-
-
-MonitoringRule73 = StartBy(CurtainsOpened -> SKIP,(6 * 1))
-
--- alphabet for Rule73 
-ARule73 = {|OpenCurtainsRequested, CurtainsOpened|}
-SLEECRule73 = timed_priority(Rule73)
-
-
--- Rule83 when OpenCurtainsRequested then CurtainsOpened within 6 seconds 
+-- Rule83 when CurtainOpenRqt then CurtainsOpened within 6 seconds 
 -- unless (userUndressed) then RefuseRequest within 3 seconds
 -- unless ((userDistressed) > (smedium)) then CurtainsOpened within 6 seconds
 
 Rule83 = TriggerRule83; MonitoringRule83; Rule83
 
-TriggerRule83 = OpenCurtainsRequested -> SKIP	[] CurtainsOpened -> TriggerRule83
+TriggerRule83 = CurtainOpenRqt -> SKIP	[] CurtainsOpened -> TriggerRule83
 	[] RefuseRequest -> TriggerRule83
 	[] CurtainsOpened -> TriggerRule83
 
@@ -1025,18 +864,44 @@ within StartBy(userUndressed?vuserUndressed ->
 ,0)
 
 -- alphabet for Rule83 
-ARule83 = {|RefuseRequest, userDistressed, OpenCurtainsRequested, userUndressed, CurtainsOpened|}
+ARule83 = {|RefuseRequest, userDistressed, CurtainOpenRqt, userUndressed, CurtainsOpened|}
 SLEECRule83 = timed_priority(Rule83)
-}
 
-Timed(et) {
-Spec1 = timed_priority(
-			(
-				MRename(SLEECRule1 [|ARule1|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+
+-- Rule3263 when UserFallen then HealthChecked within 3 seconds
+-- otherwise SupportCalled within 1 minutes 
+-- unless (not (assentToSupportCalls))
+-- unless (emergency)
+
+Rule3263 = TriggerRule3263; MonitoringRule3263; Rule3263
+
+TriggerRule3263 = UserFallen -> SKIP	[] HealthChecked -> TriggerRule3263
+	[] SupportCalled -> TriggerRule3263
+
+
+MonitoringRule3263 = let
+	Monitoring1 = TimedInterruptSeq(HealthChecked,(3 * 1),StartBy(SupportCalled -> SKIP,(1 * 60)))
+	Monitoring2 = UserFallen -> MonitoringRule3263	[] HealthChecked -> Monitoring2
+		[] SupportCalled -> Monitoring2
+	
+		[] HealthChecked -> Monitoring2
+		[] SupportCalled -> Monitoring2
+	Monitoring3 = UserFallen -> MonitoringRule3263	[] HealthChecked -> Monitoring3
+		[] SupportCalled -> Monitoring3
+	
+		[] HealthChecked -> Monitoring3
+		[] SupportCalled -> Monitoring3
+within StartBy(assentToSupportCalls?vassentToSupportCalls ->
+	StartBy(emergency?vemergency ->
+		if (vemergency) then Monitoring3
+		else (if (not (vassentToSupportCalls)) then Monitoring2
+		else (Monitoring1))
+	,0)
+,0)
+
+-- alphabet for Rule3263 
+ARule3263 = {|SupportCalled, UserFallen, assentToSupportCalls, emergency, HealthChecked|}
+SLEECRule3263 = timed_priority(Rule3263)
 }
 
 Timed(et) {
@@ -1120,69 +985,9 @@ Spec12 = timed_priority(
 }
 
 Timed(et) {
-Spec13 = timed_priority(
-			(
-				MRename(SLEECRule13 [|ARule13|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-
-Timed(et) {
-Spec22 = timed_priority(
-			(
-				MRename(SLEECRule22 [|ARule22|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-
-Timed(et) {
-Spec23 = timed_priority(
-			(
-				MRename(SLEECRule23 [|ARule23|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-
-Timed(et) {
-Spec32 = timed_priority(
-			(
-				MRename(SLEECRule32 [|ARule32|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-
-Timed(et) {
-Spec33 = timed_priority(
-			(
-				MRename(SLEECRule32 [|ARule32|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-
-Timed(et) {
 Spec42 = timed_priority(
 			(
 				MRename(SLEECRule42 [|ARule42|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-
-Timed(et) {
-Spec43 = timed_priority(
-			(
-				MRename(SLEECRule43 [|ARule43|] TCHAOS(SUVEvents)) 
 				[| MeasureInternalChannels |]
 				Memory
 			)\MeasureInternalChannels
@@ -1200,9 +1005,9 @@ Spec52 = timed_priority(
 }
 
 Timed(et) {
-Spec53 = timed_priority(
+Spec13 = timed_priority(
 			(
-				MRename(SLEECRule53 [|ARule53|] TCHAOS(SUVEvents)) 
+				MRename(SLEECRule13 [|ARule12|] TCHAOS(SUVEvents)) 
 				[| MeasureInternalChannels |]
 				Memory
 			)\MeasureInternalChannels
@@ -1210,19 +1015,9 @@ Spec53 = timed_priority(
 }
 
 Timed(et) {
-Spec63 = timed_priority(
+Spec23 = timed_priority(
 			(
-				MRename(SLEECRule63 [|ARule63|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-
-Timed(et) {
-Spec73 = timed_priority(
-			(
-				MRename(SLEECRule73 [|ARule73|] TCHAOS(SUVEvents)) 
+				MRename(SLEECRule23 [|ARule23|] TCHAOS(SUVEvents)) 
 				[| MeasureInternalChannels |]
 				Memory
 			)\MeasureInternalChannels
@@ -1239,13 +1034,20 @@ Spec83 = timed_priority(
 		)
 }
 
+Timed(et) {
+Spec3263 = timed_priority(
+			(
+				MRename(SLEECRule3263 [|ARule3263|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+
 RC = Rename(system::Module::D__(1))
 -- Alphabet of RC will be the same as that of Capabilities, since Rename
 -- applies renaming of RC events to those used as Capabilities.
 RC__sem__events = Capabilities
-
--- Check1 - refinement
-assert Spec1 [T= RC
 
 -- Check2 - refinement
 assert Spec2 [T= RC
@@ -1271,12 +1073,6 @@ assert Spec8 [T= RC
 -- Check12 - refinement
 assert Spec12 [T= RC
 
--- Check22 - refinement
-assert Spec22 [T= RC
-
--- Check32 - refinement
-assert Spec32 [T= RC
-
 -- Check42 - refinement
 assert Spec42 [T= RC
 
@@ -1289,21 +1085,9 @@ assert Spec13 [T= RC
 -- Check23 - refinement
 assert Spec23 [T= RC
 
--- Check33 - refinement
-assert Spec33 [T= RC
-
--- Check43 - refinement
-assert Spec43 [T= RC
-
--- Check53 - refinement
-assert Spec53 [T= RC
-
--- Check63 - refinement
-assert Spec63 [T= RC
-
--- Check73 - refinement
-assert Spec73 [T= RC
-
 -- Check83 - refinement
 assert Spec83 [T= RC
+
+-- Check3263 - refinement
+assert Spec3263 [T= RC
 

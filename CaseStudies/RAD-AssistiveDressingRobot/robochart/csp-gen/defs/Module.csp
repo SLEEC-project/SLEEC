@@ -1,7 +1,7 @@
 
 --
--- RoboChart generator version 3.0.0.202302061250
--- Automatically generated on 23-05-2023 22:09:41
+-- RoboChart generator version 3.0.0.202306261132
+-- Automatically generated on 31-08-2023 19:18:10
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -2057,22 +2057,6 @@ module Module
 				-- controller will be declared here, and the defined operations will be defined in the
 				-- context of the Controller module, and therefore within scope of the state machine module.
 				
-				CALL__AbandonDressing(id__,
-							param_assent) = (OP_AbandonDressing::O__(id__,
-							param_assent))
-				[[
-					OP_AbandonDressing::retryAgreed <- retryAgreed,
-					OP_AbandonDressing::refuseRequest <- refuseRequest,
-					OP_AbandonDressing::SupportCalled <- SupportCalled
-				]]
-				CALL__CallSupport(id__,
-							param_assent) = (OP_CallSupport::O__(id__,
-							param_assent))
-				[[
-					OP_CallSupport::retryAgreed <- retryAgreed,
-					OP_CallSupport::refuseRequest <- refuseRequest,
-					OP_CallSupport::SupportCalled <- SupportCalled
-				]]
 				CALL__OpenCurtains(id__,
 							param_underDressed,
 							param_distress) = (OP_OpenCurtains::O__(id__,
@@ -2089,6 +2073,22 @@ module Module
 				CALL__Dressing(id__,
 							param_temp) = (OP_Dressing::O__(id__,
 							param_temp))
+				CALL__AbandonDressing(id__,
+							param_assent) = (OP_AbandonDressing::O__(id__,
+							param_assent))
+				[[
+					OP_AbandonDressing::retryAgreed <- retryAgreed,
+					OP_AbandonDressing::refuseRequest <- refuseRequest,
+					OP_AbandonDressing::SupportCalled <- SupportCalled
+				]]
+				CALL__CallSupport(id__,
+							param_assent) = (OP_CallSupport::O__(id__,
+							param_assent))
+				[[
+					OP_CallSupport::retryAgreed <- retryAgreed,
+					OP_CallSupport::refuseRequest <- refuseRequest,
+					OP_CallSupport::SupportCalled <- SupportCalled
+				]]
 				-- END of Operation calls --
 				
 				-- STM processes

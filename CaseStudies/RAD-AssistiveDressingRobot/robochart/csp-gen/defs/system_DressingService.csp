@@ -1,7 +1,7 @@
 
 --
--- RoboChart generator version 3.0.0.202302061250
--- Automatically generated on 18-05-2023 15:31:36
+-- RoboChart generator version 3.0.0.202306261132
+-- Automatically generated on 31-08-2023 19:18:10
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -57,9 +57,9 @@ exports
 	channel SupportCalled: InOut
 	
 	-- Declaring call and ret events for undefined operations
+	channel RetryCall
 	channel DressCall: core_int
 	channel ClearCall
-	channel RetryCall
 	channel CallSupportDecisionCall
 	
 	enterSS = {|
@@ -90,9 +90,9 @@ exports
 		roomTemperature,
 		assentToSupportCalls,
 		SupportCalled
-	,	DressCall,
+	,	RetryCall,
+		DressCall,
 		ClearCall,
-		RetryCall,
 		CallSupportDecisionCall
 		|}
 
@@ -345,10 +345,10 @@ exports
 	-- If it is in the context of a controller, the required operations not provided by the
 	-- controller will be declared here, and the defined operations will be defined in the
 	-- context of the Controller module, and therefore within scope of the state machine module.
+	CALL__Retry(id__) 	= RetryCall -> SKIP
 	CALL__Dress(id__,
 				param_temp) 	= DressCall.param_temp -> SKIP
 	CALL__Clear(id__) 	= ClearCall -> SKIP
-	CALL__Retry(id__) 	= RetryCall -> SKIP
 	CALL__CallSupportDecision(id__) 	= CallSupportDecisionCall -> SKIP
 	
 	-- END of Operation calls --
