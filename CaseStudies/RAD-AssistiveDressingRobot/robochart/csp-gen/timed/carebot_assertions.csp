@@ -748,8 +748,8 @@ within DressingStarted -> MTrigger
 
 MonitoringRule12 = let
 	Monitoring1 = StartBy(DressingComplete -> SKIP,(2 * 60))
-	Monitoring2 = StartBy(DressingComplete -> SKIP,(9 * 1))
-	Monitoring3 = StartBy(DressingComplete -> SKIP,(6 * 1))
+	Monitoring2 = StartBy(DressingComplete -> SKIP,(90 * 1))
+	Monitoring3 = StartBy(DressingComplete -> SKIP,(60 * 1))
 within StartBy(roomTemperature?vroomTemperature ->
 	StartBy(roomTemperature?vroomTemperature ->
 		if ((vroomTemperature) < (17)) then Monitoring3
@@ -910,7 +910,7 @@ Spec2 = timed_priority(
 				MRename(SLEECRule2 [|ARule2|] TCHAOS(SUVEvents)) 
 				[| MeasureInternalChannels |]
 				Memory
-			)\MeasureInternalChannels
+			)\(MeasureInternalChannels) --,{|medicalEmergency,buildingFloor,roomDark,notVisible,userAssent|})
 		)
 }
 
