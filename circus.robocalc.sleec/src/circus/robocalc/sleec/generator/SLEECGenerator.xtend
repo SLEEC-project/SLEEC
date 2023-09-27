@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import java.util.HashSet
 import java.io.File
 import circus.robocalc.sleec.sLEEC.Constraint
+import java.util.LinkedHashSet
 
 /**
  * Generates code from your model files on save.
@@ -44,27 +45,20 @@ class SLEECGenerator extends AbstractGenerator {
 
 	Set<String> scaleIDs
 	Set<String> measureIDs
-	
+
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		this.scaleIDs = resource.allContents
-			.filter(Measure)
-			.filter[ it.type instanceof Scale ]
-			.map[ 'v' + it.name ]
-			.toSet
-		this.measureIDs = resource.allContents
-			.filter(Measure)
-			.map[name]
-			.toSet
-		
+		this.scaleIDs = resource.allContents.filter(Measure).filter[it.type instanceof Scale].map['v' + it.name].toSet
+		this.measureIDs = resource.allContents.filter(Measure).map[name].toSet
+
 		val ticktock = new File("../src-gen/ticktock.csp")
-		if (!ticktock.exists()){
+		if (!ticktock.exists()) {
 			generateTickTock(resource, fsa, context)
 		}
-		
-		fsa.generateFile(
-			resource.getURI().trimFileExtension().lastSegment() + '.csp', '''
+
+		fsa.generateFile(resource.getURI().trimFileExtension().lastSegment() + '.csp', '''
 			include "tick-tock.csp"
 			
+			--Specify the integer intervals for type Int e.g. {0..30}. 
 			
 			«resource.allContents
 				.filter(Definition)
@@ -108,14 +102,14 @@ class SLEECGenerator extends AbstractGenerator {
 			}
 		''')
 	}
-	
+
 	// -----------------------------------------------------------
-	
 	private def Cap(Definition d) {
 		'''«d.name»'''
 	}
-	private def CapM(Resource resource){
-		
+
+	private def CapM(Resource resource) {
+
 		// if measures exist, add to list of capabilities
 		if (!resource.allContents.filter(Definition).filter(Measure).isEmpty) {
 			return ''',
@@ -124,214 +118,215 @@ class SLEECGenerator extends AbstractGenerator {
 				.filter(Measure)
 				.toIterable
 				.map[Cap]
-				.join(',' + '\n')»'''						
+				.join(',' + '\n')»'''
 		} else {
 			return ''''''
 		}
 	}
+
 	private def Meas(Definition d) {
 		'''«d.name»'''
 	}
-	
+
 	// -----------------------------------------------------------
-	
 	private def D(Definition d) {
 		switch d {
 			// [[event eID]]D
-			Event : '''
+			Event: '''
 				channel «d.name»
 			'''
 			// [[measure mID : T]]D
-			Measure : '''
+			Measure: '''
 				channel «d.name» : «T(d.type, d.name)»
 			'''
 			// constant cID = v]]D
-			Constant : '''
+			Constant: '''
 				«d.name» = «norm(d.value)»
 			'''
 		}
 	}
-	
+
 	private def T(Type t, String mID) {
 		switch t {
-			Boolean : 'Bool'
-			Numeric : 'Int'
-			Scale : { 
+			Boolean:
+				'Bool'
+			Numeric:
+				'Int'
+			Scale: {
 				val sps = t.scaleParams.map[name]
 				'''
-				ST«mID»
-				
-				datatype ST«mID» = «sps.join(" | ")»
-				
-				STle«mID»(v1«mID», v2«mID») =
-					if v1«mID» == «sps.head» then true
-					«(1 ..< sps.size - 1).map[
+					ST«mID»
+					
+					datatype ST«mID» = «sps.join(" | ")»
+					
+					STle«mID»(v1«mID», v2«mID») =
+						if v1«mID» == «sps.head» then true
+						«(1 ..< sps.size - 1).map[
 						'''else (if v1«mID» == «sps.get(it)» then not member(v2«mID»,{«sps.take(it).join(', ')»})'''
 					].join('\n')»
-					else v2«mID» == «sps.last»«')'.repeat(sps.size-2)»
+						else v2«mID» == «sps.last»«')'.repeat(sps.size-2)»
+						
+					STeq«mID»(v1«mID», v2«mID») =
+						v1«mID» == v2«mID»
+						
+					STlt«mID»(v1«mID», v2«mID») =
+						STle«mID»(v1«mID», v2«mID») and STne«mID»(v1«mID», v2«mID»)
+						
+					STgt«mID»(v1«mID», v2«mID») =
+						STlt«mID»(v2«mID», v1«mID»)
+						
+					STne«mID»(v1«mID», v2«mID») =
+						not STeq«mID»(v1«mID», v2«mID»)
+						
+					STge«mID»(v1«mID», v2«mID») =
+						STlt«mID»(v2«mID», v1«mID»)
 					
-				STeq«mID»(v1«mID», v2«mID») =
-					v1«mID» == v2«mID»
-					
-				STlt«mID»(v1«mID», v2«mID») =
-					STle«mID»(v1«mID», v2«mID») and STne«mID»(v1«mID», v2«mID»)
-					
-				STgt«mID»(v1«mID», v2«mID») =
-					STlt«mID»(v2«mID», v1«mID»)
-					
-				STne«mID»(v1«mID», v2«mID») =
-					not STeq«mID»(v1«mID», v2«mID»)
-					
-				STge«mID»(v1«mID», v2«mID») =
-					STlt«mID»(v2«mID», v1«mID»)
-				
 				'''
 			}
 		}
 	}
-	
-	// -----------------------------------------------------------
 
+	// -----------------------------------------------------------
 	private def R(Rule r) {
 		val rID = r.name
 		val trig = r.trigger
 		val resp = r.response
-		val dfts = resp.defeater
-		val alpha = alphaM(resp)+alphaE(resp)
+		val alpha = alphaE(resp)
+		
+	
 		// [[rID when trig then resp dfts]]R
 		'''
-		«rID» = Trigger«rID»; Monitoring«rID»; «rID»
-		
-		Trigger«rID» = «TG(trig, 'SKIP', 'Trigger'+rID)»
-		
-		Monitoring«rID» = «RDS(resp, dfts, trig, alpha,  'Monitoring'+rID)»
-		
-		-- alphabet for «rID» 
-		A«rID» = {|«alphabetString(r)»|}
-		SLEEC«rID» = timed_priority(«rID»)
-		
-		
+			«rID» = Trigger«rID»; Monitoring«rID»; «rID»
+			
+			Trigger«rID» = «TG(trig, alpha, 'SKIP', 'Trigger'+rID)»
+			
+			Monitoring«rID» = «RDS(resp, trig, alpha,  'Monitoring'+rID)»
+			
+			-- alphabet for «rID» 
+			A«rID» = {|«alphabetString(r)»|}
+			SLEEC«rID» = timed_priority(«rID»)
+			
+			
 		'''
-	}	
+	}
 
 	// -----------------------------------------------------------	
-	
-	private def TG(Trigger trig, String sp, String fp) {
+	private def TG(Trigger trig, Iterable<String> AR, String sp, String fp) {
 		val eID = trig.event.name
 		val mBE = trig.expr
-		
-		// [[eID,sp,fp]]TG
-		if(mBE === null) '''
-			«eID» -> «sp»
-		'''
-		
-		// [[eID and mBE,sp,fp]]TG
-		else '''
-			let
-				MTrigger = «ME(alphaMtree(mBE), mBE, sp, fp)»
-			within «eID» -> MTrigger
-		'''
+
+		// [[eID,AR, sp,fp]]TG
+		if (mBE === null)
+			'''
+				«eID» -> «sp»«AR.map[ '''	[] «it» -> «fp»''' ].join('\n')»
+				
+			'''
+		// [[eID and mBE, AR, sp,fp]]TG
+		else
+			'''
+				let
+					MTrigger = «ME(alphaMtree(mBE), mBE, sp, fp)»
+				within «eID» -> MTrigger «sp.join('\n')»«AR.map[ '''	[] «it» -> «fp»''' ].join('\n')»
+			'''
 	}
-	
+
 	private def CharSequence ME(List<String> mIDs, MBoolExpr mBE, String sp, String fp) {
-		 val mID = mIDs.head
-		
+		val mID = mIDs.head
+
 		// [[<>,mBE,sp,fp]]ME
-		if(mID === null) '''
-			if «norm(mBE)» then «sp» else «fp»
-		'''
-			
+		if (mID === null)
+			'''
+				if «norm(mBE)» then «sp» else «fp»
+			'''
 		// [[<mID>^mIDs,mBE[vmID/mID],sp,fp]]ME
-		else'''
-			StartBy(«mID»?v«mID» ->
-				«ME(mIDs.subList(1, mIDs.size), replace(mBE, 'v'+mID, mID), sp, fp)»
-			,0)
-		'''
+		else
+			'''
+				StartBy(«mID»?v«mID» ->
+					«ME(mIDs.subList(1, mIDs.size), replace(mBE, 'v'+mID, mID), sp, fp)»
+				,0)
+			'''
 	}
-	
+
 	// -----------------------------------------------------------
-	
-	private def RDS(Response resp, Iterable<Defeater> dfts, Trigger t, Iterable<String> ARDS, String mp) {
+	private def RDS(Response resp, Trigger t, Iterable<String> ARDS, String mp) {
+		val dfts = resp.defeater
 		// [[resp,trig,ARDS,mp]]RDS
-		if(dfts.isEmpty)
-			C(resp,dfts,t,ARDS,mp)
-		
+		if (dfts.isEmpty)
+			C(resp.constraint, t, ARDS, mp)
 		// [[resp dfts,trig,ARDS,mp]]RDS
-		else '''
-			let
-				«LRDS(resp, dfts, t, ARDS, mp, 1)»
-			within «CDS(dfts.flatMap[alphaMtree], dfts, dfts.size+1)»
-		'''
+		else
+			'''
+				let
+					«LRDS(resp, dfts, t, ARDS, mp, 1)»
+				within «CDS(dfts.flatMap[alphaMtree], dfts, dfts.size+1)»
+			'''
 	}
-		
+
 	// -----------------------------------------------------------
-	
-	private def CharSequence C(Response r,Iterable<Defeater> dfts, Trigger t, Iterable<String> ARDS, String mp) {
-		val eID = r.constraint.event.name
-		val v = r.constraint.value
-		val tU = r.constraint.unit
-		val resp = r.constraint.response
-		val respList = getAllResponses(r)
+	private def CharSequence C(Constraint const,  Trigger t, Iterable<String> ARDS, String mp) {
+		val eID = const.event.name
+		val v = const.value
+		val tU = const.unit
+		val resp = const.response
+		//val respList = getAllResponses(r)
 		
-		
-		// [[not eID within v tU]]
-		if(r.constraint.not) 
-			'''WAIT(«norm(v, tU)»)'''
-		
-		// [[eID]]RP
-		else if(v === null)
+		//[[eID, trig, ARDS, mp]] C
+		if (v === null)
 			'''«eID» -> SKIP'''
 		
-		// [[eID within v tU]]RP
-		else if(resp === null)
-			'''StartBy(«eID» -> SKIP,«norm(v, tU)»)'''
-		
-		// [[eID within v tU otherwise resp]]RP
+		else if (resp === null) {
+			// [[not eID within v tU, trig, ARDS, mp]]
+			if (const.not)
+				'''WAIT(«norm(v, tU)»)'''
+			// [[eID within v tU, trig, ARDS, mp]] C
+			else 
+				'''StartBy(«eID» -> SKIP,«norm(v, tU)»)'''
+		}
+		// [[eID within v tU otherwise resp, trig, ARDS, mp]]C
 		else {
-			'''TimedInterruptSeq(«eID»,«norm(v, tU)»,«RDS(resp,resp.defeater,t,ARDS,mp)»)'''
-			
-			}
+			'''TimedInterruptSeq(«eID»,«norm(v, tU)»,«RDS(resp,t,ARDS,mp)»)'''
+
+		}
 	}
-	
+
 	// -----------------------------------------------------------
-	
 	private def LRDS(Response resp, Trigger trig, Iterable<String> AR, String mp, Integer n) {
 		// [[<resp>,trig,AR,mp,n]]
-		// assuming RP is used instead of R as the argument is a response
-		if(resp !== null) '''
-			Monitoring«n» = «C(resp,resp.defeater,trig,AR,mp)»
-		'''
-		
-		// [[<SKIP>,trig,AR,mp,n]]
-		else '''
-			Monitoring«n» = «TG(trig, mp, '''Monitoring«n»''')»
-			«AR.map[ '''	[] «it» -> Monitoring«n»''' ].join('\n')»
-		'''
+		if (resp !== null)
+			'''
+				Monitoring«n» = «C(resp.constraint,trig,AR,mp)»
+			'''
+		// [[<NOREP>,trig,AR,mp,n]]
+		else
+			'''
+				Monitoring«n» = «TG(trig, AR,mp, '''Monitoring«n»''')»
+				«AR.map[ '''	[] «it» -> Monitoring«n»''' ].join('\n')»
+			'''
 	}
-	
+
 	// [[<resp>^resps,trig,AR,mp,n]]LRDS
-	private def CharSequence LRDS(Response resp, Iterable<Defeater> dfts, Trigger trig, Iterable<String> AR, String mp, Integer n) '''
+	private def CharSequence LRDS(Response resp, Iterable<Defeater> dfts, Trigger trig, Iterable<String> AR, String mp,
+		Integer n) { '''
 		«LRDS(resp, trig, AR, mp, n)»
 		«if(!dfts.isEmpty)
 			LRDS(dfts.head.response, dfts.tail, trig, AR, mp, n+1)»
 	'''
-
+}
 	// -----------------------------------------------------------	
-	
 	private def CharSequence CDS(Iterable<String> mIDs, Iterable<Defeater> dfts, Integer n) {
 		// [[<>,dfts,n]]CDS
-		if(mIDs.isEmpty)
+		if (mIDs.isEmpty)
 			return EDS(dfts, 'Monitoring1', n)
-		
+
 		// [[<mID>^mIDs,dfts,n]]CDS
 		val mID = mIDs.head
 		'''
-		StartBy(«mID»?v«mID» ->
-			«CDS(mIDs.tail, dfts.map[ replace(it, 'v'+mID, mID) ], n)»
-		,0)
+			StartBy(«mID»?v«mID» ->
+				«CDS(mIDs.tail, dfts.map[ replace(it, 'v'+mID, mID) ], n)»
+			,0)
 		'''
 	}
-	
+
 	// [[unless mBE,fp,n]]EDS
 	// [[unless mBE then resp,fp,n]]EDS
 	private def EDS(Defeater dft, CharSequence fp, Integer n) {
@@ -340,195 +335,226 @@ class SLEECGenerator extends AbstractGenerator {
 		if «norm(mBE)» then Monitoring«n»
 		else («fp»)'''
 	}
-	
+
 	// [[dfts dft,fp,n]]EDS
 	private def CharSequence EDS(Iterable<Defeater> dfts, CharSequence fp, Integer n) {
-		if(dfts.isEmpty)
+		if (dfts.isEmpty)
 			fp
 		else
-			EDS(dfts.last, EDS(dfts.take(n-2), fp, n-1), n)
+			EDS(dfts.last, EDS(dfts.take(n - 2), fp, n - 1), n)
 	}
 
 	// -----------------------------------------------------------
-		
-	private def generateAssertions(List<Rule> rules){
-		
+	private def generateAssertions(List<Rule> rules) {
+
 		var assertions = ''
-		
-		for (i : 0..< rules.size - 1) {
-			
+		var measurePrint = ''
+
+		for (i : 0 ..< rules.size - 1) {
+
 			var firstRule = rules.get(i)
 			var firstAlphabet = generateAlphabet(firstRule)
-			
-			for (j : i+1 ..< rules.size) {
-				
+
+			for (j : i + 1 ..< rules.size) {
+
 				var secondRule = rules.get(j)
 				var secondAlphabet = generateAlphabet(secondRule)
 				// Check intersection of rule alphabets
 				var intersection = new HashSet<String>(firstAlphabet)
 				intersection.retainAll(secondAlphabet)
-				
-				if (!intersection.isEmpty){
+				if (!intersection.isEmpty) {
 					// [[r1, r2]]CC
 					// [[r1, r2]]UC
+					var unionMeasures = new LinkedHashSet<String>(alphaMtree(firstRule));
+					unionMeasures.addAll(alphaMtree(secondRule));
+					var firstRuleMeasures = alphaMtree(firstRule)
+					var secondRuleMeasures = alphaMtree(secondRule)
 					assertions += '''
-					-- Checking «firstRule.name» with «secondRule.name»:
-					
-					intersection«firstRule.name»«secondRule.name» = «CP(firstRule, secondRule)»
-					SLEEC«firstRule.name»«secondRule.name» = timed_priority(intersection«firstRule.name»«secondRule.name»)
-					
-					assert SLEEC«firstRule.name»«secondRule.name»:[deadlock-free]					
-					assert not MSN::C3(SLEEC«firstRule.name»«secondRule.name») [T= MSN::C3(SLEEC«firstRule.name»)
-					
-					assert not MSN::C3(SLEEC«firstRule.name») [T= MSN::C3(SLEEC«firstRule.name»«secondRule.name»)
-					
-					
+						
+						
+						
 					'''
+					assertions += '''-- Checking «firstRule.name» with «secondRule.name»:
+					'''
+					assertions += '''intersection«firstRule.name»«secondRule.name» = 
+					'''
+					assertions += '''  let
+					'''
+					if (unionMeasures.size == 0) {
+						assertions += '''    Env«firstRule.name»«secondRule.name» = SKIP'''
+					} else if (unionMeasures.size == 1) {
+						assertions += '''Env«firstRule.name»«secondRule.name» = Env«unionMeasures.get(0)»
+						'''
+					} else { // (unionMeasures.size >1)
+						for (m : 0 ..< unionMeasures.size) {
+							val element = unionMeasures.get(m)
+							if (m == 0) {
+								assertions += '''    Env«firstRule.name»«secondRule.name» = Env«element»'''
+
+							} else if (m > 0) {
+								assertions += '''||| Env«element»
+								'''
+							}
+						}
+					}
+
+					for (m : 0 ..< unionMeasures.size) {
+						val element = unionMeasures.get(m)
+						assertions += '''    Env«element» = «element»?x__ -> VEnv«element»(x__)
+    VEnv«element»(x__) = «element»!x__ -> VEnv«element»(x__) 
+  '''
+					}
+
+					assertions += '''  within 
+	
+  «CP(firstRule, secondRule, String.join(",",unionMeasures))»
+  SLEEC«firstRule.name»«secondRule.name» = timed_priority(intersection«firstRule.name»«secondRule.name»)
+					
+  assert SLEEC«firstRule.name»«secondRule.name»:[deadlock-free]					
+  assert not MSN::C3(timed_priority(SLEEC«firstRule.name»«secondRule.name» \{|«String.join(",",unionMeasures)»|})) [T= MSN::C3(timed_priority(SLEEC«firstRule.name» \{|«String.join(",",firstRuleMeasures)»|}))
+  assert not MSN::C3(timed_priority(SLEEC«firstRule.name»«secondRule.name» \{|«String.join(",",unionMeasures)»|})) [T= MSN::C3(timed_priority(SLEEC«secondRule.name» \{|«String.join(",",secondRuleMeasures)»|}))
+ 				
+ --assert not MSN::C3(SLEEC«firstRule.name») [T= MSN::C3(SLEEC«firstRule.name»«secondRule.name»)
+					
+  SLEEC«firstRule.name»«secondRule.name»CF   = prioritise(
+  timed_priority(intersection«firstRule.name»«secondRule.name»)
+  [[ tock <- tock, tock <- tock' ]],
+  <diff(Events,{|tock',tock|}),{|tock|}>)\{|tock|}
+										
+  assert SLEEC«firstRule.name»«secondRule.name»CF  :[divergence-free]
+  '''
+
 				}
+
 			}
 		}
-		if (assertions === ''){
+		if (assertions === '') {
 			return '''-- No intersections of rules; no assertions can be made. --'''
-		}else {
-			return assertions		
+		} else {
+			return assertions
 		}
-	}	
-	
-	private def CP(Rule firstRule, Rule secondRule){
-		//[[r1,r2]]CP
-		'''«firstRule.name»[|inter({|«alphabetString(firstRule)»|}, {|«alphabetString(secondRule)»|})|]«secondRule.name»'''
+	}
+
+	private def CP(Rule firstRule, Rule secondRule, CharSequence measures) {
+		// [[r1,r2]]CP
+		'''
+			(«firstRule.name»[|diff(inter({|«alphabetString(firstRule)»|}, {|«alphabetString(secondRule)»|}),{|«measures»|})|]«secondRule.name»)
+			[| {|«measures»|} |]
+				Env«firstRule.name»«secondRule.name»
+		'''
 	}
 
 	// -----------------------------------------------------------
-	
 	// helper functions used in the translation rules:
-	
 	// Returns string of all eventIDs and measureIDs of a rule
-	private def alphabetString(Rule r){
-		
+	private def alphabetString(Rule r) {
+
 		val Set<String> ruleAlphabet = new HashSet<String>(generateAlphabet(r))
 		var String alphString = ''
-		for (i : 0 ..< ruleAlphabet.size){
+		for (i : 0 ..< ruleAlphabet.size) {
 			val element = ruleAlphabet.get(i)
-			if (i == (ruleAlphabet.size - 1)){
+			if (i == (ruleAlphabet.size - 1)) {
 				alphString += element
-			}else {
+			} else {
 				alphString += element + ', '
-			}			
-		}		
+			}
+		}
 		'''«alphString»'''
 	}
-	
-	
-		
-		
-	
+
 	// Returns a set of all eventIDs and measureIDs of a rule
-	private def generateAlphabet(Rule r){
-		
+	private def generateAlphabet(Rule r) {
+
 		// creates an alphabet containing all the event IDs and measure IDs used in a rule		
 		var Set<String> ruleAlphabet = new HashSet<String>()
-		
-		ruleAlphabet.add(r.trigger.event.name)		
-		//getResponseEvents(r.response, ruleAlphabet)
-		ruleAlphabet.addAll(alphaMtree(r)+alphaE(r))		
-		
+
+		ruleAlphabet.add(r.trigger.event.name)
+		// getResponseEvents(r.response, ruleAlphabet)
+		ruleAlphabet.addAll(alphaE(r)+alphaMtree(r))
+
 		return ruleAlphabet
-				
+
 	}
-	
-	
+
 	// Returns a list of all the MeasureIds in AST
 	private def <T extends EObject> List<String> alphaMtree(T AST) {
 		// eAllContents does not include the root of the tree
 		// so this will return an empty list if AST is an instance of Atom, which is an error
 		// so first check that AST is an instance of atom
-		val Iterable<Atom> leaves = if(AST instanceof Atom)
-			// create a 1 element list with the atom's measureID
-			Collections.singleton(AST as Atom)
-		else
-			AST.eAllContents
-				.filter(Atom)
-				.toList
+		val Iterable<Atom> leaves = if (AST instanceof Atom)
+				// create a 1 element list with the atom's measureID
+				Collections.singleton(AST as Atom)
+			else
+				AST.eAllContents.filter(Atom).toList
 		// the name of an atom can either be a measureID or a scaleParam
 		// filter out the scaleParams 
-		return leaves
-			.map[measureID]
-			.filter[this.measureIDs.contains(it)]
-			.toList
+		return leaves.map[measureID].filter[this.measureIDs.contains(it)].toList
 	}
-	
+
 	private def <T extends EObject> List<String> alphaM(T AST) {
 		val listMeasures = alphaMtree(AST)
 		var list = newArrayList
-		
-		for(value : listMeasures) {
-			list.add(value+ "?x")
+
+		for (value : listMeasures) {
+			list.add(value + "?x")
 		}
 		return list
-		
+
 	}
+
 	// Returns a list of all the EventIds in AST
 	private def <T extends EObject> List<String> alphaE(T AST) {
 		// eAllContents does not include the root of the tree
 		// so this will return an empty list if AST is an instance of Atom, which is an error
 		// so first check that AST is an instance of atom
-		val Iterable<Constraint> leaves = if(AST instanceof Constraint)
-			// create a 1 element list with the atom's measureID
-			Collections.singleton(AST as Constraint)
-		else
-			AST.eAllContents
-				.filter(Constraint)
-				.toList
+		val Iterable<Constraint> leaves = if (AST instanceof Constraint)
+				// create a 1 element list with the atom's measureID
+				Collections.singleton(AST as Constraint)
+			else
+				AST.eAllContents.filter(Constraint).toList
 		// the name of an atom can either be a measureID or a scaleParam
 		// filter out the scaleParams 
-		return leaves
-			.map[event.name]
-			.toList
+		return leaves.map[event.name].toList
 	}
-	
-	private def <T extends EObject> List<Response> getAllResponses(T AST){
-		val Iterable<Response> leaves = if(AST instanceof Response)
-			Collections.singleton(AST as Response)
-		else
-			AST.eAllContents
-				.filter(Response)
-				.toList
-		
-		return leaves
-			.map[constraint.response]
-			.toList
-		
+
+	private def <T extends EObject> List<Response> getAllResponses(T AST) {
+		val Iterable<Response> leaves = if (AST instanceof Response)
+				Collections.singleton(AST as Response)
+			else
+				AST.eAllContents.filter(Response).toList
+
+		return leaves.map[constraint.response].toList
+
 	}
+
 	// return an MBoolExpr as a string using CSP operators
 	private def CharSequence norm(MBoolExpr mBE) {
-		'(' + switch(mBE) {
-			BoolComp : norm(mBE as BoolComp)
-			Not : norm(mBE as Not)
-			RelComp : norm(mBE as RelComp)
-			Atom : norm(mBE as Atom)
-			Value : norm(mBE as Value)
-			BoolValue : norm(mBE as BoolValue)
+		'(' + switch (mBE) {
+			BoolComp: norm(mBE as BoolComp)
+			Not: norm(mBE as Not)
+			RelComp: norm(mBE as RelComp)
+			Atom: norm(mBE as Atom)
+			Value: norm(mBE as Value)
+			BoolValue: norm(mBE as BoolValue)
 		} + ')'
 	}
-	
+
 	private def norm(BoolComp b) {
-		norm(b.left) + switch(b.op) {
-			case AND : ' and '
-			case OR : ' or '
+		norm(b.left) + switch (b.op) {
+			case AND: ' and '
+			case OR: ' or '
 		} + norm(b.right)
 	}
-	
-	private def norm(Not n) {	
+
+	private def norm(Not n) {
 		// no need to check that n.expr is null
 		'not ' + norm(n.expr)
 	}
-	
+
 	private def norm(RelComp r) {
 		// the validation pass ensures that one of the arguments is a measureID
 		// so the case where both are scaleParams can be ignored
-		if(isScaleID(r.left) || isScaleID(r.right))
-		{
+		if (isScaleID(r.left) || isScaleID(r.right)) {
 			// if the arguments are scale types then they are atoms
 			val left = (r.left as Atom).measureID
 			val right = (r.right as Atom).measureID
@@ -541,64 +567,57 @@ class SLEECGenerator extends AbstractGenerator {
 				case GREATER_EQUAL : 'ge'
 				case EQUAL : 'eq'
 			}»«scaleType»(«left», «right»)'''
-		}
-		else
-			norm(r.left) + switch(r.op) {
-				case LESS_THAN : ' < '
-				case GREATER_THAN : ' > '
-				case NOT_EQUAL : ' != '
-				case LESS_EQUAL : ' <= '
-				case GREATER_EQUAL : ' >= '
-				case EQUAL : ' == '
+		} else
+			norm(r.left) + switch (r.op) {
+				case LESS_THAN: ' < '
+				case GREATER_THAN: ' > '
+				case NOT_EQUAL: ' != '
+				case LESS_EQUAL: ' <= '
+				case GREATER_EQUAL: ' >= '
+				case EQUAL: ' == '
 			} + norm(r.right)
 	}
-	
+
 	private def norm(Atom a) {
 		a.measureID
 	}
-	
+
 	private def CharSequence norm(Value v) {
-		if(v.constant === null)
+		if (v.constant === null)
 			v.value.toString
 		else
 			norm(v.constant.value)
 	}
-	
+
 	private def norm(BoolValue b) {
 		b.value.toString
 	}
-	
+
 	// Convert value to seconds.
 	// NOTE the standard unit may need to be changed from seconds depending on the implementation.
-	private def norm(Value v, TimeUnit tU)
-		'''(«norm(v)» * «norm(tU)»)'''
-		
+	private def norm(Value v, TimeUnit tU) '''(«norm(v)» * «norm(tU)»)'''
+
 	private def Integer norm(TimeUnit tU) {
-		switch(tU) {
-			case SECONDS : 1
-			case MINUTES : 60
-			case HOURS : 60 * norm(TimeUnit.MINUTES)
-			case DAYS : 24 * norm(TimeUnit.HOURS)
+		switch (tU) {
+			case SECONDS: 1
+			case MINUTES: 60
+			case HOURS: 60 * norm(TimeUnit.MINUTES)
+			case DAYS: 24 * norm(TimeUnit.HOURS)
 		}
 	}
-	
+
 	// replace each MeasureID in the AST with 'vmID'
 	private def <T extends EObject> replace(T AST, String vmID, String mID) {
 		val res = EcoreUtil.copy(AST)
-		if(res instanceof Atom)
+		if (res instanceof Atom)
 			res.measureID = vmID
 		else
-			res.eAllContents
-				.filter(Atom)
-				.filter[ it.measureID == mID ]
-				.forEach[ it.measureID = vmID ]
+			res.eAllContents.filter(Atom).filter[it.measureID == mID].forEach[it.measureID = vmID]
 		return res
 	}
-	
+
 	// -----------------------------------------------------------
-	
 	// functions used for AST printing TODO this could be done during serialisation
-	
 	private def CharSequence show(Rule r) '''
 		-- «r.name» when «show(r.trigger)» then «show(r.response)» «r.response.defeater.map[show].join('')»
 	'''
@@ -616,45 +635,46 @@ class SLEECGenerator extends AbstractGenerator {
 		else
 			r.constraint.event.name + if (r.constraint.value === null)
 				''
-			else 
-				' within ' + norm(r.constraint.value) + ' ' + show(r.constraint.unit) + if(r.constraint.response === null)
-					''
-				else
-					'\n-- otherwise ' + show(r.constraint.response)
+			else
+				' within ' + norm(r.constraint.value) + ' ' + show(r.constraint.unit) +
+					if (r.constraint.response === null)
+						''
+					else
+						'\n-- otherwise ' + show(r.constraint.response)
 	}
-	
+
 	private def show(TimeUnit t) {
-		switch(t) {
+		switch (t) {
 			case SECONDS: 'seconds'
 			case MINUTES: 'minutes'
 			case HOURS: 'hours'
 			case DAYS: 'days'
 		}
 	}
-	
+
 	private def show(Defeater d) {
-		'\n-- unless ' + norm(d.expr) + if(d.response === null)
+		'\n-- unless ' + norm(d.expr) + if (d.response === null)
 			''
 		else
 			' then ' + show(d.response)
 	}
-	
+
 	// -----------------------------------------------------------
-	
 	private def isScaleID(MBoolExpr m) {
 		m instanceof Atom && isScaleID((m as Atom).measureID)
 	}
-	
+
 	private def isScaleID(String measureID) {
 		this.scaleIDs.contains(measureID)
 	}
-	
-	
+
 	// -----------------------------------------------------------
 	// Generates ticktock.csp in src-gen if it does not exist.
 	// -----------------------------------------------------------
 	private def generateTickTock(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		fsa.generateFile('tick-tock.csp', '''---------------------------------------------------------------------------
+		fsa.generateFile(
+			'tick-tock.csp',
+			'''---------------------------------------------------------------------------
 		-- Pedro Ribeiro <pedro.ribeiro@york.ac.uk>
 		-- Department of Computer Science
 		-- University of York
@@ -1017,7 +1037,7 @@ class SLEECGenerator extends AbstractGenerator {
 		---------------------------------------------------------------------------
 
 	'''
-			)
+		)
 	}
-	
+
 }
