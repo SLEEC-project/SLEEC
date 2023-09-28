@@ -173,6 +173,55 @@ Measures =
   
 SUVEvents = union(Capabilities,{|system::Module::CallSupportCall|})
 	
+datatype Measure = 
+	m_userUnderDressed | 
+	m_roomTemperature | 
+	m_userDistressed | 
+	m_assentToSupportCalls
+
+m2in(m_userUnderDressed) = {|userUnderDressed|}
+m2in(m_roomTemperature) = {|roomTemperature|}
+m2in(m_userDistressed) = {|userDistressed|}
+m2in(m_assentToSupportCalls) = {|assentToSupportCalls|}
+
+GMemory(m__,i__,o__) =
+	let
+        Mem = m__?x__ -> (Provide(x__) /\ tock -> Mem)
+        Provide(x__) = i__!x__ -> Provide(x__)
+					   [] ([] e__ : o__ @ e__ -> Provide(x__))
+    within
+        Mem
+
+GMem(m_userUnderDressed,o__) = GMemory(userUnderDressed,i_userUnderDressed,o__)
+GMem(m_roomTemperature,o__) = GMemory(roomTemperature,i_roomTemperature,o__)
+GMem(m_userDistressed,o__) = GMemory(userDistressed,i_userDistressed,o__)
+GMem(m_assentToSupportCalls,o__) = GMemory(assentToSupportCalls,i_assentToSupportCalls,o__)
+
+GMemExternal(m_userUnderDressed) = {|userUnderDressed|}
+GMemExternal(m_roomTemperature) = {|roomTemperature|}
+GMemExternal(m_userDistressed) = {|userDistressed|}
+GMemExternal(m_assentToSupportCalls) = {|assentToSupportCalls|}
+
+GMemInternal(m_userUnderDressed) = {|i_userUnderDressed|}
+GMemInternal(m_roomTemperature) = {|i_roomTemperature|}
+GMemInternal(m_userDistressed) = {|i_userDistressed|}
+GMemInternal(m_assentToSupportCalls) = {|i_assentToSupportCalls|}
+
+GMemHide(P__,m_userUnderDressed) = P__[[userUnderDressed <- i_userUnderDressed]]
+GMemHide(P__,m_roomTemperature) = P__[[roomTemperature <- i_roomTemperature]]
+GMemHide(P__,m_userDistressed) = P__[[userDistressed <- i_userDistressed]]
+GMemHide(P__,m_assentToSupportCalls) = P__[[assentToSupportCalls <- i_assentToSupportCalls]]
+
+GMemorySet(s__,o__) = [| union({tock},o__) |] e__ : s__ @ GMem(e__,o__)
+GMemoryRenameSet(P__,s__) = GMemoryRenameSeq(P__,seq(s__))
+GMemoryRenameSeq(P__,<>) = P__
+GMemoryRenameSeq(P__,<s__>^ms) = GMemHide(GMemoryRenameSeq(P__,ms),s__)
+
+GMemoryInternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemInternal(m__) }
+GMemoryExternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemExternal(m__) }
+
+ARuleToGMeasureSet(alpha) = { m__ | m__ <- Measure, inter(m2in(m__),alpha) == m2in(m__) }
+
 instance MSN = model_shifting(Capabilities)
 Timed(et) {
 
@@ -244,7 +293,7 @@ TriggerRule3 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule3
 
 MonitoringRule3 = let
 	Monitoring1 = TimedInterruptSeq(SupportCalled,60,SKIP)
-	Monitoring2 = UserFallen -> MonitoringRule3	[] SupportCalled -> Monitoring2
+	Monitoring2 = SKIP -- Changed from: UserFallen -> MonitoringRule3	[] SupportCalled -> Monitoring2
 	 
 		[] SupportCalled -> Monitoring2
 within StartBy(assentToSupportCalls?vassentToSupportCalls ->
@@ -258,8 +307,8 @@ TRule3 = {|UserFallen|}
 RRule3 = {|SupportCalled|}
 SLEECRule3 = timed_priority(Rule3)
 
--- Rule4 when DressingAbandoned then RetryAgreed within 2 minutes
--- otherwise SupportCalled 
+-- Rule4 when DressingAbandoned then { RetryAgreed within 2 minutes
+-- otherwise { SupportCalled unless not assentToSupportCalls } }
 
 Rule4 = TriggerRule4; MonitoringRule4; Rule4
 
@@ -269,11 +318,11 @@ TriggerRule4 = DressingAbandoned -> SKIP	[] RetryAgreed -> TriggerRule4
 
 MonitoringRule4 = TimedInterruptSeq(RetryAgreed,(2 * 60),let
 	Monitoring1 = SupportCalled -> SKIP
-	Monitoring2 = DressingAbandoned -> MonitoringRule4	[] RetryAgreed -> Monitoring2
-		[] SupportCalled -> Monitoring2
-	
-		[] RetryAgreed -> Monitoring2
-		[] SupportCalled -> Monitoring2
+	Monitoring2 = SKIP -- Changed from before
+		--	DressingAbandoned -> MonitoringRule4	[] RetryAgreed -> Monitoring2
+		-- [] SupportCalled -> Monitoring2
+		-- [] RetryAgreed -> Monitoring2
+		-- [] SupportCalled -> Monitoring2
 within StartBy(assentToSupportCalls?vassentToSupportCalls ->
 	if (not (vassentToSupportCalls)) then Monitoring2
 	else (Monitoring1)
@@ -343,6 +392,22 @@ MeasureInternalChannels = {|i_userUnderDressed,i_roomTemperature, i_assentToSupp
 
 csp-end
 
+timed csp RSpec1 csp-begin
+Timed(et) {
+RSpec1 = timed_priority(
+			let
+				AlphaRule = ARule1
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule1 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
 timed csp Spec1 csp-begin
 Timed(et) {
 Spec1 = timed_priority(
@@ -352,6 +417,22 @@ Spec1 = timed_priority(
 				Memory
 			)\MeasureInternalChannels
 		)
+}
+csp-end
+
+timed csp RC1 csp-begin
+Timed(et) {
+	RC1 = timed_priority(
+		let
+			AlphaRule = ARule1
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
@@ -367,6 +448,38 @@ Spec2 = timed_priority(
 }
 csp-end
 
+timed csp RSpec2 csp-begin
+Timed(et) {
+RSpec2 = timed_priority(
+			let
+				AlphaRule = ARule2
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule2 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RC2 csp-begin
+Timed(et) {
+	RC2 = timed_priority(
+		let
+			AlphaRule = ARule2
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
 timed csp Spec3 csp-begin
 Timed(et) {
 Spec3 = timed_priority(
@@ -379,6 +492,38 @@ Spec3 = timed_priority(
 }
 csp-end
 
+timed csp RSpec3 csp-begin
+Timed(et) {
+RSpec3 = timed_priority(
+			let
+				AlphaRule = ARule3
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule3 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RC3 csp-begin
+Timed(et) {
+	RC3 = timed_priority(
+		let
+			AlphaRule = ARule3
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
 timed csp Spec4 csp-begin
 Timed(et) {
 Spec4 = timed_priority(
@@ -388,6 +533,38 @@ Spec4 = timed_priority(
 				Memory
 			)\MeasureInternalChannels
 		)
+}
+csp-end
+
+timed csp RSpec4 csp-begin
+Timed(et) {
+RSpec4 = timed_priority(
+			let
+				AlphaRule = ARule4
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule4 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RC4 csp-begin
+Timed(et) {
+	RC4 = timed_priority(
+		let
+			AlphaRule = ARule4
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
  
@@ -422,6 +599,11 @@ RC4_2 = Rename(system::Module::D__(1))
 RC4_2__sem__events = Capabilities
 csp-end
  
+timed assertion RCheck1 : RC1 refines RSpec1 in the traces model
+timed assertion RCheck2 : RC2 refines RSpec2 in the traces model
+timed assertion RCheck3 : RC3 refines RSpec3 in the traces model
+timed assertion RCheck4 : RC4 refines RSpec4 in the traces model
+
 timed assertion Check1 : RC refines Spec1 in the traces model
 timed assertion Check2 : RC refines Spec2 in the traces model
 timed assertion Check3 : RC refines Spec3 in the traces model

@@ -195,7 +195,7 @@ STgeuserDistressed(v1userDistressed, v2userDistressed) =
 
 channel roomDark : Bool 					-- not in SUV
 channel notVisible : Bool 					-- not in SUV
-channel userAssent : Bool 
+channel userAssent, i_userAssent : Bool 
 channel consentGrantedwithinXmonths : Bool 	-- not in SUV
 channel EmotionRecognitionDetected 			-- not in SUV
 channel competentIndicatorRequired : Bool 	-- not in SUV
@@ -296,7 +296,60 @@ channel SupportCalled
 channel emergency : Bool						-- not in SUV
 channel DressingAbandoned
 channel RetryAgreed
-	
+
+datatype Measure = 
+	m_userAssent | 
+	m_userUnderDressed | 
+	m_roomTemperature | 
+	m_userDistressed | 
+	m_assentToSupportCalls
+
+m2in(m_userAssent) = {|userAssent|}
+m2in(m_userUnderDressed) = {|userUnderDressed|}
+m2in(m_roomTemperature) = {|roomTemperature|}
+m2in(m_userDistressed) = {|userDistressed|}
+m2in(m_assentToSupportCalls) = {|assentToSupportCalls|}
+
+-- mInternal(m_userAssent) = i_userAssent
+-- mInternal(m_userUnderDressed) = i_userUnderDressed
+-- mInternal(m_roomTemperature) = i_roomTemperature
+-- mInternal(m_userDistressed) = i_userDistressed
+-- mInternal(m_assentToSupportCalls) = i_assentToSupportCalls
+
+GMemory(m__,i__) =
+	let
+        Mem = m__?x__ -> (Provide(x__) /\ tock -> Mem)
+        Provide(x__) = i__!x__ -> Provide(x__)
+    within
+        Mem
+
+GMem(m_userAssent) = GMemory(userAssent,i_userAssent)
+GMem(m_userUnderDressed) = GMemory(userUnderDressed,i_userUnderDressed)
+GMem(m_roomTemperature) = GMemory(roomTemperature,i_roomTemperature)
+GMem(m_userDistressed) = GMemory(userDistressed,i_userDistressed)
+GMem(m_assentToSupportCalls) = GMemory(assentToSupportCalls,i_assentToSupportCalls)
+
+GMemInternal(m_userAssent) = {|i_userAssent|}
+GMemInternal(m_userUnderDressed) = {|i_userUnderDressed|}
+GMemInternal(m_roomTemperature) = {|i_roomTemperature|}
+GMemInternal(m_userDistressed) = {|i_userDistressed|}
+GMemInternal(m_assentToSupportCalls) = {|i_assentToSupportCalls|}
+
+GMemHide(P__,m_userAssent) = P__[[userAssent <- i_userAssent]]
+GMemHide(P__,m_userUnderDressed) = P__[[userAssent <- i_userUnderDressed]]
+GMemHide(P__,m_roomTemperature) = P__[[roomTemperature <- i_roomTemperature]]
+GMemHide(P__,m_userDistressed) = P__[[userDistressed <- i_userDistressed]]
+GMemHide(P__,m_assentToSupportCalls) = P__[[assentToSupportCalls <- i_assentToSupportCalls]]
+
+GMemorySet(s__) = [| {tock} |] e__ : s__ @ GMem(e__)
+GMemoryRenameSet(P__,s__) = GMemoryRenameSeq(P__,seq(s__))
+GMemoryRenameSeq(P__,<>) = P__
+GMemoryRenameSeq(P__,<s__>^ms) = GMemHide(GMemoryRenameSeq(P__,ms),s__)
+
+GMemoryInternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemInternal(m__) }
+
+ARuleToGMeasureSet(alpha) = { m__ | m__ <- Measure, inter(m2in(m__),alpha) == m2in(m__) }
+
 Capabilities = 
   {| CurtainOpenRqt,
      CurtainsOpened,
@@ -892,12 +945,30 @@ csp-end
 timed csp Spec2 csp-begin
 Timed(et) {
 Spec2 = timed_priority(
+		let
+			Measures = ARuleToGMeasureSet(ARule2)
+		within
 			(
-				MRename(SLEECRule2 [|ARule2|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
+				GMemoryRenameSet(SLEECRule2 ||| CRUN(diff(Capabilities,ARule2)),Measures)
+				[| GMemoryInternalEvents(Measures) |]
+				GMemorySet(Measures)
+			) \GMemoryInternalEvents(Measures)
 		)
+}
+csp-end
+
+timed csp RC2 csp-begin
+Timed(et) {
+	RC2 = timed_priority(
+		let
+			Measures = ARuleToGMeasureSet(ARule2)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| GMemoryInternalEvents(Measures) |]
+				GMemorySet(Measures)
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
