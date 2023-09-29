@@ -187,8 +187,7 @@ m2in(m_assentToSupportCalls) = {|assentToSupportCalls|}
 GMemory(m__,i__,o__) =
 	let
         Mem = m__?x__ -> (Provide(x__) /\ tock -> Mem)
-        Provide(x__) = i__!x__ -> Provide(x__)
-					   [] ([] e__ : o__ @ e__ -> Provide(x__))
+        Provide(x__) = RUN(union({|i__.x__|},o__))
     within
         Mem
 
@@ -401,8 +400,8 @@ RSpec1 = timed_priority(
 			within
 				(
 					GMemoryRenameSet(SLEECRule1 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
-					[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-					GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
 				) \GMemoryInternalEvents(Measures)
 	)
 }
@@ -429,8 +428,8 @@ Timed(et) {
 		within
 			(
 				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
-				[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-				GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
 			) \GMemoryInternalEvents(Measures)
 	)
 }
@@ -457,8 +456,8 @@ RSpec2 = timed_priority(
 			within
 				(
 					GMemoryRenameSet(SLEECRule2 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
-					[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-					GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
 				) \GMemoryInternalEvents(Measures)
 	)
 }
@@ -473,8 +472,8 @@ Timed(et) {
 		within
 			(
 				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
-				[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-				GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
 			) \GMemoryInternalEvents(Measures)
 	)
 }
@@ -501,8 +500,8 @@ RSpec3 = timed_priority(
 			within
 				(
 					GMemoryRenameSet(SLEECRule3 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
-					[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-					GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
 				) \GMemoryInternalEvents(Measures)
 	)
 }
@@ -517,8 +516,8 @@ Timed(et) {
 		within
 			(
 				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
-				[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-				GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
 			) \GMemoryInternalEvents(Measures)
 	)
 }
@@ -545,8 +544,8 @@ RSpec4 = timed_priority(
 			within
 				(
 					GMemoryRenameSet(SLEECRule4 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
-					[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-					GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
 				) \GMemoryInternalEvents(Measures)
 	)
 }
@@ -561,8 +560,8 @@ Timed(et) {
 		within
 			(
 				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
-				[| union(diff(AlphaRule,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-				GMemorySet(Measures,diff(AlphaRule,GMemoryExternalEvents(Measures)))
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
 			) \GMemoryInternalEvents(Measures)
 	)
 }

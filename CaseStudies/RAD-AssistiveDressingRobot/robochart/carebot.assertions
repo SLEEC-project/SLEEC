@@ -316,18 +316,24 @@ m2in(m_assentToSupportCalls) = {|assentToSupportCalls|}
 -- mInternal(m_userDistressed) = i_userDistressed
 -- mInternal(m_assentToSupportCalls) = i_assentToSupportCalls
 
-GMemory(m__,i__) =
+GMemory(m__,i__,o__) =
 	let
         Mem = m__?x__ -> (Provide(x__) /\ tock -> Mem)
-        Provide(x__) = i__!x__ -> Provide(x__)
+        Provide(x__) = RUN(union({|i__.x__|},o__))
     within
         Mem
 
-GMem(m_userAssent) = GMemory(userAssent,i_userAssent)
-GMem(m_userUnderDressed) = GMemory(userUnderDressed,i_userUnderDressed)
-GMem(m_roomTemperature) = GMemory(roomTemperature,i_roomTemperature)
-GMem(m_userDistressed) = GMemory(userDistressed,i_userDistressed)
-GMem(m_assentToSupportCalls) = GMemory(assentToSupportCalls,i_assentToSupportCalls)
+GMem(m_userAssent,o__) = GMemory(userAssent,i_userAssent,o__)
+GMem(m_userUnderDressed,o__) = GMemory(userUnderDressed,i_userUnderDressed,o__)
+GMem(m_roomTemperature,o__) = GMemory(roomTemperature,i_roomTemperature,o__)
+GMem(m_userDistressed,o__) = GMemory(userDistressed,i_userDistressed,o__)
+GMem(m_assentToSupportCalls,o__) = GMemory(assentToSupportCalls,i_assentToSupportCalls,o__)
+
+GMemExternal(m_userAssent) = {|userAssent|}
+GMemExternal(m_userUnderDressed) = {|userUnderDressed|}
+GMemExternal(m_roomTemperature) = {|roomTemperature|}
+GMemExternal(m_userDistressed) = {|userDistressed|}
+GMemExternal(m_assentToSupportCalls) = {|assentToSupportCalls|}
 
 GMemInternal(m_userAssent) = {|i_userAssent|}
 GMemInternal(m_userUnderDressed) = {|i_userUnderDressed|}
@@ -336,17 +342,18 @@ GMemInternal(m_userDistressed) = {|i_userDistressed|}
 GMemInternal(m_assentToSupportCalls) = {|i_assentToSupportCalls|}
 
 GMemHide(P__,m_userAssent) = P__[[userAssent <- i_userAssent]]
-GMemHide(P__,m_userUnderDressed) = P__[[userAssent <- i_userUnderDressed]]
+GMemHide(P__,m_userUnderDressed) = P__[[userUnderDressed <- i_userUnderDressed]]
 GMemHide(P__,m_roomTemperature) = P__[[roomTemperature <- i_roomTemperature]]
 GMemHide(P__,m_userDistressed) = P__[[userDistressed <- i_userDistressed]]
 GMemHide(P__,m_assentToSupportCalls) = P__[[assentToSupportCalls <- i_assentToSupportCalls]]
 
-GMemorySet(s__) = [| {tock} |] e__ : s__ @ GMem(e__)
+GMemorySet(s__,o__) = [| union({tock},o__) |] e__ : s__ @ GMem(e__,o__)
 GMemoryRenameSet(P__,s__) = GMemoryRenameSeq(P__,seq(s__))
 GMemoryRenameSeq(P__,<>) = P__
 GMemoryRenameSeq(P__,<s__>^ms) = GMemHide(GMemoryRenameSeq(P__,ms),s__)
 
 GMemoryInternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemInternal(m__) }
+GMemoryExternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemExternal(m__) }
 
 ARuleToGMeasureSet(alpha) = { m__ | m__ <- Measure, inter(m2in(m__),alpha) == m2in(m__) }
 
@@ -767,8 +774,8 @@ SLEECRule8 = timed_priority(Rule8)
 
 
 -- Rule12 when DressingStarted and (userUnderDressed) then DressingComplete within 2 minutes 
--- unless ((roomTemperature) < (19)) then DressingComplete within 9 seconds
--- unless ((roomTemperature) < (17)) then DressingComplete within 6 seconds
+-- unless ((roomTemperature) < (19)) then DressingComplete within 90 seconds
+-- unless ((roomTemperature) < (17)) then DressingComplete within 60 seconds
 
 Rule12 = TriggerRule12; MonitoringRule12; Rule12
 
@@ -783,8 +790,8 @@ within DressingStarted -> MTrigger
 
 MonitoringRule12 = let
 	Monitoring1 = StartBy(DressingComplete -> SKIP,(2 * 60))
-	Monitoring2 = StartBy(DressingComplete -> SKIP,(9 * 1))
-	Monitoring3 = StartBy(DressingComplete -> SKIP,(6 * 1))
+	Monitoring2 = StartBy(DressingComplete -> SKIP,(90 * 1))
+	Monitoring3 = StartBy(DressingComplete -> SKIP,(60 * 1))
 within StartBy(roomTemperature?vroomTemperature ->
 	StartBy(roomTemperature?vroomTemperature ->
 		if ((vroomTemperature) < (17)) then Monitoring3
@@ -945,14 +952,11 @@ csp-end
 timed csp Spec2 csp-begin
 Timed(et) {
 Spec2 = timed_priority(
-		let
-			Measures = ARuleToGMeasureSet(ARule2)
-		within
 			(
-				GMemoryRenameSet(SLEECRule2 ||| CRUN(diff(Capabilities,ARule2)),Measures)
-				[| GMemoryInternalEvents(Measures) |]
-				GMemorySet(Measures)
-			) \GMemoryInternalEvents(Measures)
+				MRename(SLEECRule2 [|ARule2|] TCHAOS(SUVEvents)) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
 		)
 }
 csp-end
@@ -960,14 +964,15 @@ csp-end
 timed csp RC2 csp-begin
 Timed(et) {
 	RC2 = timed_priority(
-		let
-			Measures = ARuleToGMeasureSet(ARule2)
-		within
-			(
-				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
-				[| GMemoryInternalEvents(Measures) |]
-				GMemorySet(Measures)
-			) \GMemoryInternalEvents(Measures)
+			let
+				AlphaRule = ARule2
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule2 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
 	)
 }
 csp-end
@@ -1056,6 +1061,39 @@ Spec12 = timed_priority(
 }
 csp-end
 
+timed csp RSpec12 csp-begin
+Timed(et) {
+RSpec12 = timed_priority(
+			let
+				AlphaRule = ARule12
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule12 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+
+timed csp RC12 csp-begin
+Timed(et) {
+	RC12 = timed_priority(
+		let
+			AlphaRule = ARule12
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
 timed csp Spec42 csp-begin
 Timed(et) {
 Spec42 = timed_priority(
@@ -1136,6 +1174,9 @@ RC__sem__events = Capabilities
 csp-end
  
 //timed assertion Check1 : RC refines Spec1 in the traces model
+
+timed assertion RCheck12 : RC12 refines RSpec12 in the traces model
+
 timed assertion Check2 : RC refines Spec2 in the traces model
 timed assertion Check3 : RC refines Spec3 in the traces model
 timed assertion Check4 : RC refines Spec4 in the traces model

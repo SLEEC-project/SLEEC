@@ -1,4 +1,11 @@
-package SystemAssertions import System timed assertion Check1 : RC refines Spec1 in the traces model timed assertion Check2 : RC refines Spec2 in the traces model timed assertion Check3 : RC refines Spec3 in the traces model timed csp Instantiations associated to UAV csp-begin
+package SystemAssertions 
+import System 
+
+//timed assertion Check1 : RC refines Spec1 in the traces model 
+//timed assertion Check2 : RC refines Spec2 in the traces model 
+//timed assertion Check3 : RC refines Spec3 in the traces model 
+
+timed csp Instantiations associated to UAV csp-begin
 
 -- OPERATION BOUNDS
 
@@ -154,7 +161,51 @@ Measures =
      temperature,
      windSpeed
   |}
+
+datatype Measure = 
+	m_personNearby | 
+	m_temperature | 
+	m_windSpeed
+
+m2in(m_personNearby) = {|personNearby|}
+m2in(m_temperature) = {|temperature|}
+m2in(m_windSpeed) = {|windSpeed|}
+
+GMemory(m__,i__,o__) =
+	let
+        Mem = m__?x__ -> (Provide(x__) /\ tock -> Mem)
+        Provide(x__) = RUN(union({|i__.x__|},o__))
+    within
+        Mem
+
+GMem(m_personNearby,o__) = GMemory(personNearby,i_personNearby,o__)
+GMem(m_temperature,o__) = GMemory(temperature,i_temperature,o__)
+GMem(m_windSpeed,o__) = GMemory(windSpeed,i_windSpeed,o__)
+
+GMemExternal(m_personNearby) = {|personNearby|}
+GMemExternal(m_temperature) = {|temperature|}
+GMemExternal(m_windSpeed) = {|windSpeed|}
+
+GMemInternal(m_personNearby) = {|i_personNearby|}
+GMemInternal(m_temperature) = {|i_temperature|}
+GMemInternal(m_windSpeed) = {|i_windSpeed|}
+
+GMemHide(P__,m_personNearby) = P__[[personNearby <- i_personNearby]]
+GMemHide(P__,m_temperature) = P__[[temperature <- i_temperature]]
+GMemHide(P__,m_windSpeed) = P__[[windSpeed <- i_windSpeed]]
+
+GMemorySet(s__,o__) = [| union({tock},o__) |] e__ : s__ @ GMem(e__,o__)
+GMemoryRenameSet(P__,s__) = GMemoryRenameSeq(P__,seq(s__))
+GMemoryRenameSeq(P__,<>) = P__
+GMemoryRenameSeq(P__,<s__>^ms) = GMemHide(GMemoryRenameSeq(P__,ms),s__)
+
+GMemoryInternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemInternal(m__) }
+GMemoryExternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemExternal(m__) }
+
+ARuleToGMeasureSet(alpha) = { m__ | m__ <- Measure, inter(m2in(m__),alpha) == m2in(m__) }
 	
+SUVEvents = Capabilities
+
 instance MSN = model_shifting(Capabilities)
 Timed(et) {
 
@@ -216,11 +267,12 @@ TriggerRule4 = CameraStart -> SKIP
 MonitoringRule4 = let
 	Monitoring1 = SoundAlarm -> SKIP
 	Monitoring2 = GoHome -> SKIP
-	Monitoring3 = CameraStart -> MonitoringRule4
-		[] personNearby?x -> Monitoring3
-		[] temperature?x -> Monitoring3
-		[] SoundAlarm -> Monitoring3
-		[] GoHome -> Monitoring3
+	Monitoring3 = SKIP -- Changed in new revision of the semantics.
+		-- CameraStart -> MonitoringRule4
+		-- [] personNearby?x -> Monitoring3
+		-- [] temperature?x -> Monitoring3
+		-- [] SoundAlarm -> Monitoring3
+		-- [] GoHome -> Monitoring3
 within StartBy(personNearby?vpersonNearby ->
 	StartBy(temperature?vtemperature ->
 		if ((vtemperature) > (35)) then Monitoring3
@@ -292,7 +344,41 @@ Spec1 = timed_priority(
 			)\MeasureInternalChannels
 		)
 }
-csp-end timed csp Spec2 csp-begin
+csp-end
+
+timed csp RC1 csp-begin
+Timed(et) {
+	RC1 = timed_priority(
+		let
+			AlphaRule = ARule1
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(Rename(UAV::O__(1))\{|UAV::terminate|});STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RSpec1 csp-begin
+Timed(et) {
+RSpec1 = timed_priority(
+			let
+				AlphaRule = ARule1
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule1 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end 
+
+timed csp Spec2 csp-begin
 Timed(et) {
 Spec2 = timed_priority(
 			(
@@ -302,7 +388,41 @@ Spec2 = timed_priority(
 			)\MeasureInternalChannels
 		)
 }
-csp-end timed csp Spec3 csp-begin
+csp-end 
+
+timed csp RC2 csp-begin
+Timed(et) {
+	RC2 = timed_priority(
+		let
+			AlphaRule = ARule2
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(Rename(UAV::O__(1))\{|UAV::terminate|});STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RSpec2 csp-begin
+Timed(et) {
+RSpec2 = timed_priority(
+			let
+				AlphaRule = ARule2
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule2 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end 
+
+timed csp Spec3 csp-begin
 Timed(et) {
 Spec3 = timed_priority(
 			(
@@ -312,7 +432,86 @@ Spec3 = timed_priority(
 			)\MeasureInternalChannels
 		)
 }
-csp-end timed csp RC associated to UAV csp-begin
+csp-end 
+
+timed csp RSpec3 csp-begin
+Timed(et) {
+RSpec3 = timed_priority(
+			let
+				AlphaRule = ARule3
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule3 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end 
+
+timed csp RC3 csp-begin
+Timed(et) {
+	RC3 = timed_priority(
+		let
+			AlphaRule = ARule3
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(Rename(UAV::O__(1))\{|UAV::terminate|});STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+
+timed csp Spec4 csp-begin
+Timed(et) {
+Spec4 = timed_priority(
+			(
+				(MRename(SLEECRule4) [|ARule4|] TCHAOS(union(Capabilities,CapabilitiesSUV))) 
+				[| MeasureInternalChannels |]
+				Memory
+			)\MeasureInternalChannels
+		)
+}
+csp-end 
+
+timed csp RSpec4 csp-begin
+Timed(et) {
+RSpec4 = timed_priority(
+			let
+				AlphaRule = ARule4
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule4 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end 
+
+timed csp RC4 csp-begin
+Timed(et) {
+	RC4 = timed_priority(
+		let
+			AlphaRule = ARule4
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(Rename(UAV::O__(1))\{|UAV::terminate|});STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RC associated to UAV csp-begin
 Timed(et) { 
 	RC = timed_priority(
 		--(
@@ -328,3 +527,13 @@ Timed(et) {
 -- applies renaming of RC events to those used as Capabilities.
 RC__sem__events = union(Capabilities,CapabilitiesSUV)
 csp-end
+
+timed assertion RCheck1 : RC1 refines RSpec1 in the traces model
+timed assertion RCheck2 : RC2 refines RSpec2 in the traces model
+timed assertion RCheck3 : RC3 refines RSpec3 in the traces model
+timed assertion RCheck4 : RC4 refines RSpec4 in the traces model
+
+timed assertion Check1 : RC refines Spec1 in the traces model
+timed assertion Check2 : RC refines Spec2 in the traces model
+timed assertion Check3 : RC refines Spec3 in the traces model
+timed assertion Check4 : RC refines Spec4 in the traces model
