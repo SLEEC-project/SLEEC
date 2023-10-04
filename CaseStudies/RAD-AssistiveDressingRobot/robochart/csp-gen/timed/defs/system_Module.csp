@@ -1,7 +1,7 @@
 
 --
 -- RoboChart generator version 3.0.0.202306261132
--- Automatically generated on 31-08-2023 19:18:10
+-- Automatically generated on 04-10-2023 17:59:02
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -192,11 +192,11 @@ module system_Module
 				localClockResets = {||}
 				
 				
-				channel get_CLID_CallSupport : core_clock_type 
 				channel get_CLID_f0 : core_clock_type 
+				channel get_CLID_CallSupport : core_clock_type 
 				--channel increment__
 				
-				CLID_CallSupport_clock_type(id__) = 
+				CLID_f0_clock_type(id__) = 
 					let
 						max = (clock_type_max(Union({
 				{}
@@ -205,7 +205,7 @@ module system_Module
 				within
 					if member(max,core_clock_type) then ctype else error("core_clock_type is not wide enough")
 				
-				CLID_f0_clock_type(id__) = 
+				CLID_CallSupport_clock_type(id__) = 
 					let
 						max = (clock_type_max(Union({
 				{}
@@ -2304,20 +2304,11 @@ module system_Module
 				
 				
 				channel get_CLID_Idle : core_clock_type 
-				channel get_CLID_Dressing : core_clock_type 
 				channel get_CLID_Abandoned : core_clock_type 
+				channel get_CLID_Dressing : core_clock_type 
 				--channel increment__
 				
 				CLID_Idle_clock_type(id__) = 
-					let
-						max = (clock_type_max(Union({
-				{}
-				}))+1)
-					ctype = {0..max}
-				within
-					if member(max,core_clock_type) then ctype else error("core_clock_type is not wide enough")
-				
-				CLID_Dressing_clock_type(id__) = 
 					let
 						max = (clock_type_max(Union({
 				{}
@@ -2331,6 +2322,15 @@ module system_Module
 						max = (clock_type_max(Union({
 				{},
 				({60})
+				}))+1)
+					ctype = {0..max}
+				within
+					if member(max,core_clock_type) then ctype else error("core_clock_type is not wide enough")
+				
+				CLID_Dressing_clock_type(id__) = 
+					let
+						max = (clock_type_max(Union({
+				{}
 				}))+1)
 					ctype = {0..max}
 				within
@@ -2624,18 +2624,12 @@ module system_Module
 					-- controller will be declared here, and the defined operations will be defined in the
 					-- context of the Controller module, and therefore within scope of the state machine module.
 					
-					CALL__CallSupportDecision(id__) = (OP_CallSupportDecision::O__(id__))
+					CALL__Dress(id__,
+								param_temp) = (OP_Dress::O__(id__,
+								param_temp))
 					[[
-						OP_CallSupportDecision::assentToSupportCalls <- assentToSupportCalls,
-						OP_CallSupportDecision::SupportCalled <- SupportCalled
-					]]
-					[[
-						OP_CallSupportDecision::CallSupportCall <- CallSupportCall
-					]]
-					CALL__Retry(id__) = (OP_Retry::O__(id__))
-					[[
-						OP_Retry::get_retry <- get_retry,
-						OP_Retry::set_retry <- set_retry
+						OP_Dress::get_completed <- get_completed,
+						OP_Dress::set_completed <- set_completed
 					]]
 					CALL__Clear(id__) = (OP_Clear::O__(id__))
 					[[
@@ -2644,12 +2638,18 @@ module system_Module
 						OP_Clear::get_completed <- get_completed,
 						OP_Clear::set_completed <- set_completed
 					]]
-					CALL__Dress(id__,
-								param_temp) = (OP_Dress::O__(id__,
-								param_temp))
+					CALL__Retry(id__) = (OP_Retry::O__(id__))
 					[[
-						OP_Dress::get_completed <- get_completed,
-						OP_Dress::set_completed <- set_completed
+						OP_Retry::get_retry <- get_retry,
+						OP_Retry::set_retry <- set_retry
+					]]
+					CALL__CallSupportDecision(id__) = (OP_CallSupportDecision::O__(id__))
+					[[
+						OP_CallSupportDecision::assentToSupportCalls <- assentToSupportCalls,
+						OP_CallSupportDecision::SupportCalled <- SupportCalled
+					]]
+					[[
+						OP_CallSupportDecision::CallSupportCall <- CallSupportCall
 					]]
 					-- END of Operation calls --
 				
@@ -2686,7 +2686,7 @@ module system_Module
 					
 					-- Transitions
 					Transitions(id__) = ((let
-						Trans = share__choice(get_completed?completed -> get_retry?retry -> get_CLID_Abandoned?Abandoned:CLID_Abandoned_clock_type(id__) -> TimeOut_1(
+						Trans = share__choice(get_CLID_Abandoned?Abandoned:CLID_Abandoned_clock_type(id__) -> get_completed?completed -> get_retry?retry -> TimeOut_1(
 							 (share__ -> SKIP
 							 [] dbisim((true)&(internal__!NID_i0 -> SKIP ;  ((SKIP ; Idle::enter -> SKIP))))
 							 [] dbisim((true)&(DressingStarted__!NID_Idle.in -> SKIP ;  share__choice(exit -> SKIP) ; (share__choice(exited -> SKIP) ; SKIP ; Dressing::enter -> SKIP)))
@@ -2754,17 +2754,17 @@ module system_Module
 									 [[i0::interrupt <- x__ | x__ <- {|internal__.NID_i0|}]]
 									 )
 									  [[ share__ <- x__ | x__ <- {| share__ |} ]] 
-									  [[set_completed <- setL_completed,set_retry <- setL_retry,Abandoned::entered <- Abandoned::enteredL]]
+									  [[Abandoned::entered <- Abandoned::enteredL,set_completed <- setL_completed,set_retry <- setL_retry]]
 									 )
 									 [| union(union(union(flowevts,transSync),{terminate}),{|share__
+									 			,Abandoned::enteredL
 									 			,setL_completed
 									 			,setL_retry
-									 			,Abandoned::enteredL
 									|}) |]
 									 ((i0::enter -> Transitions(id__))
-									  [[ share__ <- x__ | x__ <- {| share__,setL_completed,setL_retry,Abandoned::enteredL |} ]]
+									  [[ share__ <- x__ | x__ <- {| share__,Abandoned::enteredL,setL_completed,setL_retry |} ]]
 									 )
-									)[[setL_completed <- set_completed,setL_retry <- set_retry,Abandoned::enteredL <- Abandoned::entered]]
+									)[[Abandoned::enteredL <- Abandoned::entered,setL_completed <- set_completed,setL_retry <- set_retry]]
 									)
 								)
 								 \ hideSet)
@@ -2789,7 +2789,7 @@ module system_Module
 					
 					Behaviour(id__) = 
 						dbisim((let
-							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_Dressing,Dressing::entered,get_CLID_Abandoned,Abandoned::entered|}
+							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_Abandoned,Abandoned::entered,get_CLID_Dressing,Dressing::entered|}
 						 within
 							(MachineBody(id__) [| union(stateClockSync,{terminate}) |] StateClocks(id__)) \ union(stateClockSync,enteredSS)
 						)
@@ -2797,7 +2797,7 @@ module system_Module
 					
 					IteratedBehaviour(id__) = 
 						dbisim((let
-							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_Dressing,Dressing::entered,get_CLID_Abandoned,Abandoned::entered|}
+							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_Abandoned,Abandoned::entered,get_CLID_Dressing,Dressing::entered|}
 						 within
 							(dbisim(
 								sbisim(
@@ -2806,13 +2806,13 @@ module system_Module
 											dbisim(
 												sbisim(
 													MachineBody(id__)
-													[| {|get_CLID_Abandoned,Abandoned::entered,terminate|} |]
-													dbisim(Clock_CLID_Abandoned(id__,0))
-												)\{|get_CLID_Abandoned|}
+													[| {|get_CLID_Dressing,Dressing::entered,terminate|} |]
+													dbisim(Clock_CLID_Dressing(id__,0))
+												)\{|get_CLID_Dressing|}
 											)
-											[| {|get_CLID_Dressing,Dressing::entered,terminate|} |]
-											dbisim(Clock_CLID_Dressing(id__,0))
-										)\{|get_CLID_Dressing|}
+											[| {|get_CLID_Abandoned,Abandoned::entered,terminate|} |]
+											dbisim(Clock_CLID_Abandoned(id__,0))
+										)\{|get_CLID_Abandoned|}
 									)
 									[| {|get_CLID_Idle,Idle::entered,terminate|} |]
 									dbisim(Clock_CLID_Idle(id__,0))
@@ -2908,17 +2908,17 @@ module system_Module
 									 [[i0::interrupt <- x__ | x__ <- {|internal__.NID_i0|}]]
 									 )
 									  [[ share__ <- x__ | x__ <- {| share__ |} ]] 
-									  [[set_completed <- setL_completed,set_retry <- setL_retry,Abandoned::entered <- Abandoned::enteredL]]
+									  [[Abandoned::entered <- Abandoned::enteredL,set_completed <- setL_completed,set_retry <- setL_retry]]
 									 )
 									 [| union(union(union(flowevts,transSync),{terminate}),{|share__
+									 			,Abandoned::enteredL
 									 			,setL_completed
 									 			,setL_retry
-									 			,Abandoned::enteredL
 									|}) |]
 									 ((i0::enter -> Transitions(id__))
-									  [[ share__ <- x__ | x__ <- {| share__,setL_completed,setL_retry,Abandoned::enteredL |} ]]
+									  [[ share__ <- x__ | x__ <- {| share__,Abandoned::enteredL,setL_completed,setL_retry |} ]]
 									 )
-									)[[setL_completed <- set_completed,setL_retry <- set_retry,Abandoned::enteredL <- Abandoned::entered]]
+									)[[Abandoned::enteredL <- Abandoned::entered,setL_completed <- set_completed,setL_retry <- set_retry]]
 									)
 								)
 								 \ hideSet)
@@ -2943,7 +2943,7 @@ module system_Module
 					
 					Behaviour_VS_O(id__) = 
 						dbisim((let
-							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_Dressing,Dressing::entered,get_CLID_Abandoned,Abandoned::entered|}
+							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_Abandoned,Abandoned::entered,get_CLID_Dressing,Dressing::entered|}
 						 within
 							(MachineBody_VS_O(id__) [| union(stateClockSync,{terminate}) |] StateClocks(id__)) \ diff(union(stateClockSync,enteredSS),enteredSS)
 						)
@@ -2951,7 +2951,7 @@ module system_Module
 					
 					IteratedBehaviour_VS_O(id__) = 
 						dbisim((let
-							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_Dressing,Dressing::entered,get_CLID_Abandoned,Abandoned::entered|}
+							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_Abandoned,Abandoned::entered,get_CLID_Dressing,Dressing::entered|}
 						 within
 							(dbisim(
 								sbisim(
@@ -2960,13 +2960,13 @@ module system_Module
 											dbisim(
 												sbisim(
 													MachineBody_VS_O(id__)
-													[| {|get_CLID_Abandoned,Abandoned::entered,terminate|} |]
-													dbisim(Clock_CLID_Abandoned(id__,0))
-												)\{|get_CLID_Abandoned|}
+													[| {|get_CLID_Dressing,Dressing::entered,terminate|} |]
+													dbisim(Clock_CLID_Dressing(id__,0))
+												)\{|get_CLID_Dressing|}
 											)
-											[| {|get_CLID_Dressing,Dressing::entered,terminate|} |]
-											dbisim(Clock_CLID_Dressing(id__,0))
-										)\{|get_CLID_Dressing|}
+											[| {|get_CLID_Abandoned,Abandoned::entered,terminate|} |]
+											dbisim(Clock_CLID_Abandoned(id__,0))
+										)\{|get_CLID_Abandoned|}
 									)
 									[| {|get_CLID_Idle,Idle::entered,terminate|} |]
 									dbisim(Clock_CLID_Idle(id__,0))
@@ -3085,13 +3085,6 @@ module system_Module
 							get_CLID_Idle!x__ -> Clock_CLID_Idle(id__,x__)
 							[]
 							terminate -> SKIP,Clock_CLID_Idle(id__,clock_type_plus(x__,1,CLID_Idle_clock_type(id__))))
-					Clock_CLID_Dressing(id__,x__) = 
-						TimeOut_1(
-							Dressing::entered -> Clock_CLID_Dressing(id__,0)
-							[]
-							get_CLID_Dressing!x__ -> Clock_CLID_Dressing(id__,x__)
-							[]
-							terminate -> SKIP,Clock_CLID_Dressing(id__,clock_type_plus(x__,1,CLID_Dressing_clock_type(id__))))
 					Clock_CLID_Abandoned(id__,x__) = 
 						TimeOut_1(
 							Abandoned::entered -> Clock_CLID_Abandoned(id__,0)
@@ -3099,16 +3092,23 @@ module system_Module
 							get_CLID_Abandoned!x__ -> Clock_CLID_Abandoned(id__,x__)
 							[]
 							terminate -> SKIP,Clock_CLID_Abandoned(id__,clock_type_plus(x__,1,CLID_Abandoned_clock_type(id__))))
+					Clock_CLID_Dressing(id__,x__) = 
+						TimeOut_1(
+							Dressing::entered -> Clock_CLID_Dressing(id__,0)
+							[]
+							get_CLID_Dressing!x__ -> Clock_CLID_Dressing(id__,x__)
+							[]
+							terminate -> SKIP,Clock_CLID_Dressing(id__,clock_type_plus(x__,1,CLID_Dressing_clock_type(id__))))
 					
 					StateClocks(id__) = dbisim(Clock_CLID_Idle(id__,0))
 					[| { terminate } |] (
-					dbisim(Clock_CLID_Dressing(id__,0))
-					[| { terminate } |] (
 					dbisim(Clock_CLID_Abandoned(id__,0))
+					[| { terminate } |] (
+					dbisim(Clock_CLID_Dressing(id__,0))
 					)
 					)
 					
-					stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_Dressing,Dressing::entered,get_CLID_Abandoned,Abandoned::entered|}
+					stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_Abandoned,Abandoned::entered,get_CLID_Dressing,Dressing::entered|}
 					
 					-- Shared memory
 					-- Shared memory variables
@@ -3209,11 +3209,11 @@ module system_Module
 				localClockResets = {||}
 				
 				
-				channel get_CLID_OpenCurtains : core_clock_type 
 				channel get_CLID_Idle : core_clock_type 
+				channel get_CLID_OpenCurtains : core_clock_type 
 				--channel increment__
 				
-				CLID_OpenCurtains_clock_type(id__) = 
+				CLID_Idle_clock_type(id__) = 
 					let
 						max = (clock_type_max(Union({
 				{}
@@ -3222,7 +3222,7 @@ module system_Module
 				within
 					if member(max,core_clock_type) then ctype else error("core_clock_type is not wide enough")
 				
-				CLID_Idle_clock_type(id__) = 
+				CLID_OpenCurtains_clock_type(id__) = 
 					let
 						max = (clock_type_max(Union({
 				{}
@@ -3601,7 +3601,7 @@ module system_Module
 					
 					Behaviour(id__) = 
 						dbisim((let
-							stateClockSync = {|get_CLID_OpenCurtains,OpenCurtains::entered,get_CLID_Idle,Idle::entered|}
+							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_OpenCurtains,OpenCurtains::entered|}
 						 within
 							(MachineBody(id__) [| union(stateClockSync,{terminate}) |] StateClocks(id__)) \ union(stateClockSync,enteredSS)
 						)
@@ -3609,20 +3609,20 @@ module system_Module
 					
 					IteratedBehaviour(id__) = 
 						dbisim((let
-							stateClockSync = {|get_CLID_OpenCurtains,OpenCurtains::entered,get_CLID_Idle,Idle::entered|}
+							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_OpenCurtains,OpenCurtains::entered|}
 						 within
 							(dbisim(
 								sbisim(
 									dbisim(
 										sbisim(
 											MachineBody(id__)
-											[| {|get_CLID_Idle,Idle::entered,terminate|} |]
-											dbisim(Clock_CLID_Idle(id__,0))
-										)\{|get_CLID_Idle|}
+											[| {|get_CLID_OpenCurtains,OpenCurtains::entered,terminate|} |]
+											dbisim(Clock_CLID_OpenCurtains(id__,0))
+										)\{|get_CLID_OpenCurtains|}
 									)
-									[| {|get_CLID_OpenCurtains,OpenCurtains::entered,terminate|} |]
-									dbisim(Clock_CLID_OpenCurtains(id__,0))
-								)\{|get_CLID_OpenCurtains|}
+									[| {|get_CLID_Idle,Idle::entered,terminate|} |]
+									dbisim(Clock_CLID_Idle(id__,0))
+								)\{|get_CLID_Idle|}
 							)
 							) \ union(stateClockSync,enteredSS)
 						)
@@ -3742,7 +3742,7 @@ module system_Module
 					
 					Behaviour_VS_O(id__) = 
 						dbisim((let
-							stateClockSync = {|get_CLID_OpenCurtains,OpenCurtains::entered,get_CLID_Idle,Idle::entered|}
+							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_OpenCurtains,OpenCurtains::entered|}
 						 within
 							(MachineBody_VS_O(id__) [| union(stateClockSync,{terminate}) |] StateClocks(id__)) \ diff(union(stateClockSync,enteredSS),enteredSS)
 						)
@@ -3750,20 +3750,20 @@ module system_Module
 					
 					IteratedBehaviour_VS_O(id__) = 
 						dbisim((let
-							stateClockSync = {|get_CLID_OpenCurtains,OpenCurtains::entered,get_CLID_Idle,Idle::entered|}
+							stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_OpenCurtains,OpenCurtains::entered|}
 						 within
 							(dbisim(
 								sbisim(
 									dbisim(
 										sbisim(
 											MachineBody_VS_O(id__)
-											[| {|get_CLID_Idle,Idle::entered,terminate|} |]
-											dbisim(Clock_CLID_Idle(id__,0))
-										)\{|get_CLID_Idle|}
+											[| {|get_CLID_OpenCurtains,OpenCurtains::entered,terminate|} |]
+											dbisim(Clock_CLID_OpenCurtains(id__,0))
+										)\{|get_CLID_OpenCurtains|}
 									)
-									[| {|get_CLID_OpenCurtains,OpenCurtains::entered,terminate|} |]
-									dbisim(Clock_CLID_OpenCurtains(id__,0))
-								)\{|get_CLID_OpenCurtains|}
+									[| {|get_CLID_Idle,Idle::entered,terminate|} |]
+									dbisim(Clock_CLID_Idle(id__,0))
+								)\{|get_CLID_Idle|}
 							)
 							) \ diff(union(stateClockSync,enteredSS),enteredSS)
 						)
@@ -3855,13 +3855,6 @@ module system_Module
 					
 					clockSync = {||}
 					
-					Clock_CLID_OpenCurtains(id__,x__) = 
-						TimeOut_1(
-							OpenCurtains::entered -> Clock_CLID_OpenCurtains(id__,0)
-							[]
-							get_CLID_OpenCurtains!x__ -> Clock_CLID_OpenCurtains(id__,x__)
-							[]
-							terminate -> SKIP,Clock_CLID_OpenCurtains(id__,clock_type_plus(x__,1,CLID_OpenCurtains_clock_type(id__))))
 					Clock_CLID_Idle(id__,x__) = 
 						TimeOut_1(
 							Idle::entered -> Clock_CLID_Idle(id__,0)
@@ -3869,13 +3862,20 @@ module system_Module
 							get_CLID_Idle!x__ -> Clock_CLID_Idle(id__,x__)
 							[]
 							terminate -> SKIP,Clock_CLID_Idle(id__,clock_type_plus(x__,1,CLID_Idle_clock_type(id__))))
+					Clock_CLID_OpenCurtains(id__,x__) = 
+						TimeOut_1(
+							OpenCurtains::entered -> Clock_CLID_OpenCurtains(id__,0)
+							[]
+							get_CLID_OpenCurtains!x__ -> Clock_CLID_OpenCurtains(id__,x__)
+							[]
+							terminate -> SKIP,Clock_CLID_OpenCurtains(id__,clock_type_plus(x__,1,CLID_OpenCurtains_clock_type(id__))))
 					
-					StateClocks(id__) = dbisim(Clock_CLID_OpenCurtains(id__,0))
+					StateClocks(id__) = dbisim(Clock_CLID_Idle(id__,0))
 					[| { terminate } |] (
-					dbisim(Clock_CLID_Idle(id__,0))
+					dbisim(Clock_CLID_OpenCurtains(id__,0))
 					)
 					
-					stateClockSync = {|get_CLID_OpenCurtains,OpenCurtains::entered,get_CLID_Idle,Idle::entered|}
+					stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_OpenCurtains,OpenCurtains::entered|}
 					
 					-- Shared memory
 					-- Shared memory variables

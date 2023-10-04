@@ -1,13 +1,13 @@
 
 --
 -- RoboChart generator version 3.0.0.202306261132
--- Automatically generated on 31-08-2023 19:18:09
+-- Automatically generated on 04-10-2023 17:47:24
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
 --
 
--- data definitions used by /RAD0/common.rct
+-- data definitions used by platform:/resource/RAD0/common.rct
 datatype Distress = Distress_low | Distress_medium | Distress_high
 Distress_is(Distress_low,Distress_low) = true
 Distress_is(_,Distress_low) = false

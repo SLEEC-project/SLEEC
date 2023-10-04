@@ -1,5 +1,5 @@
 package SystemAssertions
-timed csp Instantiations associated to Dressing csp-begin
+timed csp Instantiations associated to system::Module csp-begin
 
 -- OPERATION BOUNDS
 
@@ -120,44 +120,6 @@ channel i_userUnderDressed : Bool
 channel i_roomTemperature : core_int
 channel i_assentToSupportCalls : Bool
 channel i_userDistressed : STuserDistressed
-
-Timed(et) {
-
-Memory = 
-		userUnderDressed?x__ -> Measure_userUnderDressed(x__)
-	|||	roomTemperature?x__ -> Measure_roomTemperature(x__)
-	||| assentToSupportCalls?x__ -> Measure_assentToSupportCalls(x__)
-	||| userDistressed?x__ -> Measure_userDistressed(x__)
-	
-Measure_userUnderDressed(x__) =
-	userUnderDressed?x__ -> Measure_userUnderDressed(x__)
-	[]
-	i_userUnderDressed!x__ -> Measure_userUnderDressed(x__)
-	
-Measure_roomTemperature(x__) =
-	roomTemperature?x__ -> Measure_roomTemperature(x__)
-	[]
-	i_roomTemperature!x__ -> Measure_roomTemperature(x__)
-	
-Measure_assentToSupportCalls(x__) =
-	assentToSupportCalls?x__ -> Measure_assentToSupportCalls(x__)
-	[]
-	i_assentToSupportCalls!x__ -> Measure_assentToSupportCalls(x__)
-	
-Measure_userDistressed(x__) =
-	userDistressed?x__ -> Measure_userDistressed(x__)
-	[]
-	i_userDistressed!x__ -> Measure_userDistressed(x__)
-
-MRename(P__) = 
-	P__[[ 	userDistressed <- i_userDistressed,
-			userUnderDressed <- i_userUnderDressed,
-			roomTemperature <- i_roomTemperature,
-			assentToSupportCalls <- i_assentToSupportCalls
-		]]
-		
-MeasureInternalChannels = {|i_userUnderDressed,i_roomTemperature, i_assentToSupportCalls, i_userDistressed|}
-}
 
 -- Original SLEEC formulation below 
 
@@ -948,22 +910,9 @@ SLEECRule3263 = timed_priority(Rule3263)
 
 csp-end
 
-
-timed csp Spec2 csp-begin
+timed csp RCSpec2 associated to Dressing csp-begin
 Timed(et) {
-Spec2 = timed_priority(
-			(
-				MRename(SLEECRule2 [|ARule2|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-csp-end
-
-timed csp RC2 csp-begin
-Timed(et) {
-	RC2 = timed_priority(
+	RCSpec2 = timed_priority(
 			let
 				AlphaRule = ARule2
 				Measures = ARuleToGMeasureSet(AlphaRule)
@@ -977,93 +926,217 @@ Timed(et) {
 }
 csp-end
 
-timed csp Spec3 csp-begin
+timed csp RC2 csp-begin
 Timed(et) {
-Spec3 = timed_priority(
+	RC2 = timed_priority(
+		let
+			AlphaRule = ARule2
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				MRename(SLEECRule3 [|ARule3|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp Spec4 csp-begin
+timed csp RCSpec3 csp-begin
 Timed(et) {
-Spec4 = timed_priority(
-			(
-				MRename(SLEECRule4 [|ARule4|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+	RCSpec3 = timed_priority(
+			let
+				AlphaRule = ARule3
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule3 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp Spec5 csp-begin
+timed csp RC3 csp-begin
 Timed(et) {
-Spec5 = timed_priority(
+	RC3 = timed_priority(
+		let
+			AlphaRule = ARule3
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				MRename(SLEECRule5 [|ARule5|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp Spec6 csp-begin
+timed csp RCSpec4 csp-begin
 Timed(et) {
-Spec6 = timed_priority(
-			(
-				MRename(SLEECRule6 [|ARule6|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+	RCSpec4 = timed_priority(
+			let
+				AlphaRule = ARule4
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule4 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp Spec7 csp-begin
+timed csp RC4 csp-begin
 Timed(et) {
-Spec7 = timed_priority(
+	RC4 = timed_priority(
+		let
+			AlphaRule = ARule4
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				MRename(SLEECRule7 [|ARule7|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp Spec8 csp-begin
+timed csp RCSpec5 csp-begin
 Timed(et) {
-Spec8 = timed_priority(
-			(
-				MRename(SLEECRule8 [|ARule8|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+	RCSpec5 = timed_priority(
+			let
+				AlphaRule = ARule5
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule5 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp Spec12 csp-begin
+timed csp RC5 csp-begin
 Timed(et) {
-Spec12 = timed_priority(
+	RC5 = timed_priority(
+		let
+			AlphaRule = ARule5
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				MRename(SLEECRule12 [|ARule12|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp RSpec12 csp-begin
+timed csp RCSpec6 csp-begin
 Timed(et) {
-RSpec12 = timed_priority(
+	RCSpec6 = timed_priority(
+			let
+				AlphaRule = ARule6
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule6 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RC6 csp-begin
+Timed(et) {
+	RC6 = timed_priority(
+		let
+			AlphaRule = ARule6
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RCSpec7 csp-begin
+Timed(et) {
+	RCSpec7 = timed_priority(
+			let
+				AlphaRule = ARule7
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule7 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RC7 csp-begin
+Timed(et) {
+	RC7 = timed_priority(
+		let
+			AlphaRule = ARule7
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RCSpec8 csp-begin
+Timed(et) {
+	RCSpec8 = timed_priority(
+			let
+				AlphaRule = ARule8
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule8 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RC8 csp-begin
+Timed(et) {
+	RC8 = timed_priority(
+		let
+			AlphaRule = ARule8
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RCSpec12 csp-begin
+Timed(et) {
+	RCSpec12 = timed_priority(
 			let
 				AlphaRule = ARule12
 				Measures = ARuleToGMeasureSet(AlphaRule)
@@ -1076,7 +1149,6 @@ RSpec12 = timed_priority(
 	)
 }
 csp-end
-
 
 timed csp RC12 csp-begin
 Timed(et) {
@@ -1094,100 +1166,213 @@ Timed(et) {
 }
 csp-end
 
-timed csp Spec42 csp-begin
+timed csp RCSpec42 csp-begin
 Timed(et) {
-Spec42 = timed_priority(
-			(
-				MRename(SLEECRule42 [|ARule42|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+	RCSpec42 = timed_priority(
+			let
+				AlphaRule = ARule42
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule42 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp Spec52 csp-begin
+timed csp RC42 csp-begin
 Timed(et) {
-Spec52 = timed_priority(
+	RC42 = timed_priority(
+		let
+			AlphaRule = ARule42
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				MRename(SLEECRule52 [|ARule52|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp Spec13 csp-begin
+timed csp RCSpec52 csp-begin
 Timed(et) {
-Spec13 = timed_priority(
-			(
-				MRename(SLEECRule13 [|ARule12|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+	RCSpec52 = timed_priority(
+			let
+				AlphaRule = ARule52
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule52 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp Spec23 csp-begin
+timed csp RC52 csp-begin
 Timed(et) {
-Spec23 = timed_priority(
+	RC52 = timed_priority(
+		let
+			AlphaRule = ARule52
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				MRename(SLEECRule23 [|ARule23|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp Spec83 csp-begin
+timed csp RCSpec13 csp-begin
 Timed(et) {
-Spec83 = timed_priority(
-			(
-				MRename(SLEECRule83 [|ARule83|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+	RCSpec13 = timed_priority(
+			let
+				AlphaRule = ARule13
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule13 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
 
-timed csp Spec3263 csp-begin
+timed csp RC13 csp-begin
 Timed(et) {
-Spec3263 = timed_priority(
+	RC13 = timed_priority(
+		let
+			AlphaRule = ARule13
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				MRename(SLEECRule3263 [|ARule3263|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 csp-end
- 
-timed csp RC associated to system::Module csp-begin
-RC = Rename(system::Module::D__(1))
--- Alphabet of RC will be the same as that of Capabilities, since Rename
--- applies renaming of RC events to those used as Capabilities.
-RC__sem__events = Capabilities
+
+timed csp RCSpec23 csp-begin
+Timed(et) {
+	RCSpec23 = timed_priority(
+			let
+				AlphaRule = ARule23
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule23 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
 csp-end
- 
+
+timed csp RC23 csp-begin
+Timed(et) {
+	RC23 = timed_priority(
+		let
+			AlphaRule = ARule23
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RCSpec83 csp-begin
+Timed(et) {
+	RCSpec83 = timed_priority(
+			let
+				AlphaRule = ARule83
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule83 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RC83 csp-begin
+Timed(et) {
+	RC83 = timed_priority(
+		let
+			AlphaRule = ARule83
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RCSpec3263 csp-begin
+Timed(et) {
+	RCSpec3263 = timed_priority(
+			let
+				AlphaRule = ARule3263
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule3263 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+
+timed csp RC3263 csp-begin
+Timed(et) {
+	RC3263 = timed_priority(
+		let
+			AlphaRule = ARule3263
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+csp-end
+  
 //timed assertion Check1 : RC refines Spec1 in the traces model
 
-timed assertion RCheck12 : RC12 refines RSpec12 in the traces model
+timed assertion RCheck12 : RC12 refines RCSpec12 in the traces model
 
-timed assertion Check2 : RC refines Spec2 in the traces model
-timed assertion Check3 : RC refines Spec3 in the traces model
-timed assertion Check4 : RC refines Spec4 in the traces model
-timed assertion Check5 : RC refines Spec5 in the traces model
-timed assertion Check6 : RC refines Spec6 in the traces model
-timed assertion Check7 : RC refines Spec7 in the traces model
-timed assertion Check8 : RC refines Spec8 in the traces model
-timed assertion Check12 : RC refines Spec12 in the traces model
-timed assertion Check42 : RC refines Spec42 in the traces model
-timed assertion Check52 : RC refines Spec52 in the traces model
-timed assertion Check13 : RC refines Spec13 in the traces model
-timed assertion Check23 : RC refines Spec23 in the traces model
-timed assertion Check83 : RC refines Spec83 in the traces model
-timed assertion Check3263 : RC refines Spec3263 in the traces model
+timed assertion Check2 : RC2 refines RCSpec2 in the traces model
+timed assertion Check3 : RC3 refines RCSpec3 in the traces model
+timed assertion Check4 : RC4 refines RCSpec4 in the traces model
+timed assertion Check5 : RC5 refines RCSpec5 in the traces model
+timed assertion Check6 : RC6 refines RCSpec6 in the traces model
+timed assertion Check7 : RC7 refines RCSpec7 in the traces model
+timed assertion Check8 : RC8 refines RCSpec8 in the traces model
+timed assertion Check12 : RC12 refines RCSpec12 in the traces model
+timed assertion Check42 : RC42 refines RCSpec42 in the traces model
+timed assertion Check52 : RC52 refines RCSpec52 in the traces model
+timed assertion Check13 : RC13 refines RCSpec13 in the traces model
+timed assertion Check23 : RC23 refines RCSpec23 in the traces model
+timed assertion Check83 : RC83 refines RCSpec83 in the traces model
+timed assertion Check3263 : RC3263 refines RCSpec3263 in the traces model

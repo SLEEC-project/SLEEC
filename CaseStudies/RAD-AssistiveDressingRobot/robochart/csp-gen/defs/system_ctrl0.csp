@@ -1,7 +1,7 @@
 
 --
 -- RoboChart generator version 3.0.0.202306261132
--- Automatically generated on 31-08-2023 19:18:10
+-- Automatically generated on 04-10-2023 17:59:02
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -2070,18 +2070,12 @@
 			-- controller will be declared here, and the defined operations will be defined in the
 			-- context of the Controller module, and therefore within scope of the state machine module.
 			
-			CALL__CallSupportDecision(id__) = (OP_CallSupportDecision::O__(id__))
+			CALL__Dress(id__,
+						param_temp) = (OP_Dress::O__(id__,
+						param_temp))
 			[[
-				OP_CallSupportDecision::assentToSupportCalls <- assentToSupportCalls,
-				OP_CallSupportDecision::SupportCalled <- SupportCalled
-			]]
-			[[
-				OP_CallSupportDecision::CallSupportCall <- CallSupportCall
-			]]
-			CALL__Retry(id__) = (OP_Retry::O__(id__))
-			[[
-				OP_Retry::get_retry <- get_retry,
-				OP_Retry::set_retry <- set_retry
+				OP_Dress::get_completed <- get_completed,
+				OP_Dress::set_completed <- set_completed
 			]]
 			CALL__Clear(id__) = (OP_Clear::O__(id__))
 			[[
@@ -2090,12 +2084,18 @@
 				OP_Clear::get_completed <- get_completed,
 				OP_Clear::set_completed <- set_completed
 			]]
-			CALL__Dress(id__,
-						param_temp) = (OP_Dress::O__(id__,
-						param_temp))
+			CALL__Retry(id__) = (OP_Retry::O__(id__))
 			[[
-				OP_Dress::get_completed <- get_completed,
-				OP_Dress::set_completed <- set_completed
+				OP_Retry::get_retry <- get_retry,
+				OP_Retry::set_retry <- set_retry
+			]]
+			CALL__CallSupportDecision(id__) = (OP_CallSupportDecision::O__(id__))
+			[[
+				OP_CallSupportDecision::assentToSupportCalls <- assentToSupportCalls,
+				OP_CallSupportDecision::SupportCalled <- SupportCalled
+			]]
+			[[
+				OP_CallSupportDecision::CallSupportCall <- CallSupportCall
 			]]
 			-- END of Operation calls --
 			
