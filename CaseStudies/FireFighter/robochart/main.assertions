@@ -262,7 +262,7 @@ SLEECRule3 = timed_priority(Rule3)
 
 Rule4 = TriggerRule4; MonitoringRule4; Rule4
 
-TriggerRule4 = CameraStart -> SKIP
+TriggerRule4 = CameraStart -> SKIP [] SoundAlarm -> TriggerRule4 [] GoHome -> TriggerRule4
 
 MonitoringRule4 = let
 	Monitoring1 = SoundAlarm -> SKIP
@@ -285,7 +285,6 @@ within StartBy(personNearby?vpersonNearby ->
 ARule4 = {|CameraStart, GoHome, personNearby, temperature, SoundAlarm|}
 SLEECRule4 = timed_priority(Rule4)
 
-
 -- For the measures, we can define an environment process that holds
 -- the value of each measure, so that the order in which they are
 -- read is masquerared for the purposes of verification.
@@ -294,38 +293,6 @@ channel i_personNearby : Bool
 channel i_temperature : TemperatureRange
 channel i_windSpeed : STwindSpeed
 
-Memory = 
-	--	StartBy(personNearby?x__ -> Measure_personNearby(x__),0)
-	--|||	StartBy(temperature?x__ -> Measure_temperature(x__),0)
-	--|||	StartBy(windSpeed?x__ -> Measure_windSpeed(x__),0)
-		personNearby?x__ -> Measure_personNearby(x__)
-	|||	temperature?x__ -> Measure_temperature(x__)
-	|||	windSpeed?x__ -> Measure_windSpeed(x__)
-	
-Measure_personNearby(x__) =
-	personNearby?x__ -> Measure_personNearby(x__)
-	[]
-	i_personNearby!x__ -> Measure_personNearby(x__)
-	
-Measure_temperature(x__) =
-	temperature?x__ -> Measure_temperature(x__)
-	[]
-	i_temperature!x__ -> Measure_temperature(x__)
-	
-Measure_windSpeed(x__) =
-	windSpeed?x__ -> Measure_windSpeed(x__)
-	[]
-	i_windSpeed!x__ -> Measure_windSpeed(x__)	
-}
-
-MRename(P__) = 
-	P__[[ 	personNearby <- i_personNearby,
-			temperature <- i_temperature,
-			windSpeed <- i_windSpeed
-		]]
-		
-MeasureInternalChannels = {|i_personNearby,i_temperature,i_windSpeed|}
-
 CapabilitiesSUV =
   {|
   	BatteryCritical,
@@ -333,18 +300,8 @@ CapabilitiesSUV =
   	SoundAlarm,
   	GoHome
   |}
-
-csp-end timed csp Spec1 csp-begin
-Timed(et) {
-Spec1 = timed_priority(
-			(
-				(MRename(SLEECRule1) [|ARule1|] TCHAOS(union(Capabilities,CapabilitiesSUV))) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
 }
-csp-end
+csp-end 
 
 timed csp RC1 csp-begin
 Timed(et) {
@@ -375,18 +332,6 @@ RSpec1 = timed_priority(
 					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
 				) \GMemoryInternalEvents(Measures)
 	)
-}
-csp-end 
-
-timed csp Spec2 csp-begin
-Timed(et) {
-Spec2 = timed_priority(
-			(
-				(MRename(SLEECRule2) [|ARule2|] TCHAOS(union(Capabilities,CapabilitiesSUV))) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
 }
 csp-end 
 
@@ -422,18 +367,6 @@ RSpec2 = timed_priority(
 }
 csp-end 
 
-timed csp Spec3 csp-begin
-Timed(et) {
-Spec3 = timed_priority(
-			(
-				(MRename(SLEECRule3) [|ARule3|] TCHAOS(union(Capabilities,CapabilitiesSUV))) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-csp-end 
-
 timed csp RSpec3 csp-begin
 Timed(et) {
 RSpec3 = timed_priority(
@@ -465,19 +398,6 @@ Timed(et) {
 	)
 }
 csp-end
-
-
-timed csp Spec4 csp-begin
-Timed(et) {
-Spec4 = timed_priority(
-			(
-				(MRename(SLEECRule4) [|ARule4|] TCHAOS(union(Capabilities,CapabilitiesSUV))) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-csp-end 
 
 timed csp RSpec4 csp-begin
 Timed(et) {
@@ -511,29 +431,7 @@ Timed(et) {
 }
 csp-end
 
-timed csp RC associated to UAV csp-begin
-Timed(et) { 
-	RC = timed_priority(
-		--(
-			--MRename(
-				Rename(UAV::O__(1))\{|UAV::terminate|};STOP
-			--)
-			--[| MeasureInternalChannels |]
-			--Memory
-		--) \MeasureInternalChannels
-	)
-}
--- Alphabet of RC will be the same as that of Capabilities, since Rename
--- applies renaming of RC events to those used as Capabilities.
-RC__sem__events = union(Capabilities,CapabilitiesSUV)
-csp-end
-
 timed assertion RCheck1 : RC1 refines RSpec1 in the traces model
 timed assertion RCheck2 : RC2 refines RSpec2 in the traces model
 timed assertion RCheck3 : RC3 refines RSpec3 in the traces model
 timed assertion RCheck4 : RC4 refines RSpec4 in the traces model
-
-timed assertion Check1 : RC refines Spec1 in the traces model
-timed assertion Check2 : RC refines Spec2 in the traces model
-timed assertion Check3 : RC refines Spec3 in the traces model
-timed assertion Check4 : RC refines Spec4 in the traces model

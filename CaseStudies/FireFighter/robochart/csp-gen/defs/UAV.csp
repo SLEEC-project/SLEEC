@@ -1,7 +1,7 @@
 
 --
--- RoboChart generator version 3.0.0.202302061250
--- Automatically generated on 15-05-2023 14:18:58
+-- RoboChart generator version 3.0.0.202306261132
+-- Automatically generated on 04-10-2023 17:51:44
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -440,23 +440,23 @@ exports
 				 	]]
 				 )
 				 )
-				  [[ share__ <- x__ | x__ <- {| share__,setR_person,setR_temp,setR_wind |} ]] 
-				  [[set_person <- setL_person,set_temp <- setL_temp,set_wind <- setL_wind]]
+				  [[ share__ <- x__ | x__ <- {| share__,setR_temp,setR_wind,setR_person |} ]] 
+				  [[set_temp <- setL_temp,set_wind <- setL_wind,set_person <- setL_person]]
 				 )
 				 [| union(union(enteredSS,{| interrupt, terminate |}),{|share__
-				 			,setL_person
 				 			,setL_temp
 				 			,setL_wind
-				 			,setR_person
-				 			 			,setR_temp
+				 			,setL_person
+				 			,setR_temp
 				 			 			,setR_wind
+				 			 			,setR_person
 				 			|}) |]
 				 ((During)
-				  [[ share__ <- x__ | x__ <- {| share__,setL_person,setL_temp,setL_wind |} ]]
-				  [[set_person <- setR_person,set_temp <- setR_temp,set_wind <- setR_wind]]
+				  [[ share__ <- x__ | x__ <- {| share__,setL_temp,setL_wind,setL_person |} ]]
+				  [[set_temp <- setR_temp,set_wind <- setR_wind,set_person <- setR_person]]
 				 )
-				)[[setL_person <- set_person,setL_temp <- set_temp,setL_wind <- set_wind]]
-				 [[setR_person <- set_person,setR_temp <- set_temp,setR_wind <- set_wind]]
+				)[[setL_temp <- set_temp,setL_wind <- set_wind,setL_person <- set_person]]
+				 [[setR_temp <- set_temp,setR_wind <- set_wind,setR_person <- set_person]]
 				)\union(enteredSS,{terminate}) 
 			)
 			During 		= share__choice(([] e__ : enteredSS @ e__ -> SKIP))
@@ -539,23 +539,23 @@ exports
 				 	]]
 				 )
 				 )
-				  [[ share__ <- x__ | x__ <- {| share__,setR_person,setR_temp,setR_wind |} ]] 
-				  [[set_person <- setL_person,set_temp <- setL_temp,set_wind <- setL_wind]]
+				  [[ share__ <- x__ | x__ <- {| share__,setR_temp,setR_wind,setR_person |} ]] 
+				  [[set_temp <- setL_temp,set_wind <- setL_wind,set_person <- setL_person]]
 				 )
 				 [| union(union(enteredSS,{| interrupt, terminate |}),{|share__
-				 			,setL_person
 				 			,setL_temp
 				 			,setL_wind
-				 			,setR_person
-				 			 			,setR_temp
+				 			,setL_person
+				 			,setR_temp
 				 			 			,setR_wind
+				 			 			,setR_person
 				 			|}) |]
 				 ((During)
-				  [[ share__ <- x__ | x__ <- {| share__,setL_person,setL_temp,setL_wind |} ]]
-				  [[set_person <- setR_person,set_temp <- setR_temp,set_wind <- setR_wind]]
+				  [[ share__ <- x__ | x__ <- {| share__,setL_temp,setL_wind,setL_person |} ]]
+				  [[set_temp <- setR_temp,set_wind <- setR_wind,set_person <- setR_person]]
 				 )
-				)[[setL_person <- set_person,setL_temp <- set_temp,setL_wind <- set_wind]]
-				 [[setR_person <- set_person,setR_temp <- set_temp,setR_wind <- set_wind]]
+				)[[setL_temp <- set_temp,setL_wind <- set_wind,setL_person <- set_person]]
+				 [[setR_temp <- set_temp,setR_wind <- set_wind,setR_person <- set_person]]
 				)\{terminate} 
 			)
 			During 		= share__choice(([] e__ : enteredSS @ e__ -> SKIP))
