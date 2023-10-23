@@ -1,22 +1,5 @@
-
---
--- RoboChart generator version 3.0.0.202306261132
--- Automatically generated on 19-10-2023 12:31:29
---
--- Iterated compression status: true
--- Assertions compression status: false
---
-
-include "defs/Dressing.csp"
-include "defs/file_common_defs.csp"
-include "defs/state_timed_defs.csp"
-include "defs/robochart_defs.csp"
-include "defs/core_defs.csp"
-include "defs/core_timed_defs.csp"
-include "defs/system_defs.csp"
-include "defs/system.csp"
-
-channel r__
+package SystemAssertions
+timed csp Instantiations associated to system::Module csp-begin
 
 -- OPERATION BOUNDS
 
@@ -132,145 +115,6 @@ SUVEvents = union(Capabilities,{|system::Module::CallSupportCall|})
 
 -- For the measures, we can define an environment that holds
 -- the value of each measure.
-
--- Original SLEEC formulation below 
-
-channel CurtainOpenRqt
-channel CurtainsOpened
-channel RefuseRequest
-channel InformUser 							-- not in SUV
-channel DressingStarted
-channel CloseCurtains 						-- not in SUV
-channel userUnderDressed, i_userUnderDressed : Bool
-channel medicalEmergency, i_medicalEmergency : Bool
-channel userDistressed, i_userDistressed : STuserDistressed
-
-datatype STuserDistressed = slow | smedium | shigh
-
-STleuserDistressed(v1userDistressed, v2userDistressed) =
-	if v1userDistressed == slow then true
-	else (if v1userDistressed == smedium then not member(v2userDistressed,{slow})
-	else v2userDistressed == shigh)
-	
-STequserDistressed(v1userDistressed, v2userDistressed) =
-	v1userDistressed == v2userDistressed
-	
-STltuserDistressed(v1userDistressed, v2userDistressed) =
-	STleuserDistressed(v1userDistressed, v2userDistressed) and STneuserDistressed(v1userDistressed, v2userDistressed)
-	
-STgtuserDistressed(v1userDistressed, v2userDistressed) =
-	STltuserDistressed(v2userDistressed, v1userDistressed)
-	
-STneuserDistressed(v1userDistressed, v2userDistressed) =
-	not STequserDistressed(v1userDistressed, v2userDistressed)
-	
-STgeuserDistressed(v1userDistressed, v2userDistressed) =
-	STltuserDistressed(v2userDistressed, v1userDistressed)
-
-channel roomDark, i_roomDark : Bool
-channel notVisible, i_notVisible : Bool
-channel userAssent, i_userAssent : Bool
-channel consentGrantedwithinXmonths, i_consentGrantedwithinXmonths : Bool
-channel EmotionRecognitionDetected
-channel competentIndicatorRequired, i_competentIndicatorRequired : Bool
-channel competentToGrantConsent, i_competentToGrantConsent : Bool
-channel dressPreferenceTypeA, i_dressPreferenceTypeA : Bool
-channel genderTypeB, i_genderTypeB : Bool
-channel DressinginClotingX
-channel userAdvices, i_userAdvices : Bool
-channel clothingItemNotFound, i_clothingItemNotFound : Bool
-channel InteractionStarted
-channel InformUserThisIsAgentnotHuman
-channel userConfused, i_userConfused : Bool
-channel buildingFloor, i_buildingFloor : STbuildingFloor
-
-datatype STbuildingFloor = f1 | f2 | f3 | f4 | f5 | f6 | f7 | f8 | f9 | f10
-
-STlebuildingFloor(v1buildingFloor, v2buildingFloor) =
-	if v1buildingFloor == f1 then true
-	else (if v1buildingFloor == f2 then not member(v2buildingFloor,{f1})
-	else (if v1buildingFloor == f3 then not member(v2buildingFloor,{f1, f2})
-	else (if v1buildingFloor == f4 then not member(v2buildingFloor,{f1, f2, f3})
-	else (if v1buildingFloor == f5 then not member(v2buildingFloor,{f1, f2, f3, f4})
-	else (if v1buildingFloor == f6 then not member(v2buildingFloor,{f1, f2, f3, f4, f5})
-	else (if v1buildingFloor == f7 then not member(v2buildingFloor,{f1, f2, f3, f4, f5, f6})
-	else (if v1buildingFloor == f8 then not member(v2buildingFloor,{f1, f2, f3, f4, f5, f6, f7})
-	else (if v1buildingFloor == f9 then not member(v2buildingFloor,{f1, f2, f3, f4, f5, f6, f7, f8})
-	else v2buildingFloor == f10))))))))
-	
-STeqbuildingFloor(v1buildingFloor, v2buildingFloor) =
-	v1buildingFloor == v2buildingFloor
-	
-STltbuildingFloor(v1buildingFloor, v2buildingFloor) =
-	STlebuildingFloor(v1buildingFloor, v2buildingFloor) and STnebuildingFloor(v1buildingFloor, v2buildingFloor)
-	
-STgtbuildingFloor(v1buildingFloor, v2buildingFloor) =
-	STltbuildingFloor(v2buildingFloor, v1buildingFloor)
-	
-STnebuildingFloor(v1buildingFloor, v2buildingFloor) =
-	not STeqbuildingFloor(v1buildingFloor, v2buildingFloor)
-	
-STgebuildingFloor(v1buildingFloor, v2buildingFloor) =
-	STltbuildingFloor(v2buildingFloor, v1buildingFloor)
-
-channel theUserHasBeenInformed, i_theUserHasBeenInformed : Bool
-channel UserRequestInfo
-channel ProvideInfo
-channel informationAvailable, i_informationAvailable : Bool
-channel InformUserandandReferToHumanCarer
-channel informationDisclosureNotPermitted, i_informationDisclosureNotPermitted : Bool
-channel ObtainAssent
-channel admininisteringMedication, i_admininisteringMedication : Bool
-channel userCompetenceIndicator, i_userCompetenceIndicator : {0..5}
-N = 5
-channel CheckForandObtainProxy
-channel withholdingActivityPhysicalHarm, i_withholdingActivityPhysicalHarm : STwithholdingActivityPhysicalHarm
-
-
-datatype STwithholdingActivityPhysicalHarm = low | moderate | severe
-
-STlewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
-	if v1withholdingActivityPhysicalHarm == low then true
-	else (if v1withholdingActivityPhysicalHarm == moderate then not member(v2withholdingActivityPhysicalHarm,{low})
-	else v2withholdingActivityPhysicalHarm == severe)
-	
-STeqwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
-	v1withholdingActivityPhysicalHarm == v2withholdingActivityPhysicalHarm
-	
-STltwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
-	STlewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) and STnewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm)
-	
-STgtwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
-	STltwithholdingActivityPhysicalHarm(v2withholdingActivityPhysicalHarm, v1withholdingActivityPhysicalHarm)
-	
-STnewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
-	not STeqwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm)
-	
-STgewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
-	STltwithholdingActivityPhysicalHarm(v2withholdingActivityPhysicalHarm, v1withholdingActivityPhysicalHarm)
-
-channel consentGranted, i_consentGranted : Bool
-channel consentIndicatorRequired, i_consentIndicatorRequired : Bool
-channel StopActivity
-channel consentIndicatorisWithdrawn, i_consentIndicatorisWithdrawn : Bool
-channel consentIndicatorisRevoked, i_consentIndicatorisRevoked : Bool
-channel CollectionStarted
-channel StoreMinInfo
-channel DressingSuccessful
-channel FallAssessed
-channel userUndressed, i_userUndressed : Bool
-channel userUnresponsive, i_userUnresponsive : Bool
-channel OpenCurtainsRequested
-channel HealthChecked
-channel roomTemperature, i_roomTemperature : union({0},{ 5..25})
-channel DressingComplete
-MAX_RESPONSE_TIME = 60
-channel UserFallen
-channel assentToSupportCalls, i_assentToSupportCalls : Bool
-channel SupportCalled
-channel emergency, i_emergency : Bool
-channel DressingAbandoned
-channel RetryAgreed
 
 datatype Measure = 
 	m_userUnderDressed |
@@ -466,7 +310,7 @@ GMemHide(P__,m_roomTemperature) = P__[[roomTemperature <- i_roomTemperature]]
 GMemHide(P__,m_assentToSupportCalls) = P__[[assentToSupportCalls <- i_assentToSupportCalls]]
 GMemHide(P__,m_emergency) = P__[[emergency <- i_emergency]]
 
-GMemorySet(s__,o__) = [| union({tock},o__) |] e__ : s__ @ GMem(e__,o__)
+GMemorySet(s__,o__) = if s__== {} then CRUN(o__) else [| union({tock},o__) |] e__ : s__ @ GMem(e__,o__)
 GMemoryRenameSet(P__,s__) = GMemoryRenameSeq(P__,seq(s__))
 GMemoryRenameSeq(P__,<>) = P__
 GMemoryRenameSeq(P__,<s__>^ms) = GMemHide(GMemoryRenameSeq(P__,ms),s__)
@@ -476,6 +320,324 @@ GMemoryExternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemExternal(m__) }
 
 ARuleToGMeasureSet(alpha) = { m__ | m__ <- Measure, inter(m2in(m__),alpha) == m2in(m__) }
 
+
+-- Original SLEEC formulation below 
+channel CurtainOpenRqt
+channel CurtainsOpened
+channel RefuseRequest
+channel InformUser
+channel DressingStarted
+channel CloseCurtains
+channel userUnderDressed, i_userUnderDressed : Bool
+Mem_userUnderDressed(o__) =
+	let
+		Mem =  userUnderDressed?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_userUnderDressed.x__|},o__))
+	within
+		Mem
+channel medicalEmergency, i_medicalEmergency : Bool
+Mem_medicalEmergency(o__) =
+	let
+		Mem =  medicalEmergency?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_medicalEmergency.x__|},o__))
+	within
+		Mem
+channel userDistressed, i_userDistressed : STuserDistressed
+
+datatype STuserDistressed = slow | smedium | shigh
+
+STleuserDistressed(v1userDistressed, v2userDistressed) =
+	if v1userDistressed == slow then true
+	else (if v1userDistressed == smedium then not member(v2userDistressed,{slow})
+	else v2userDistressed == shigh)
+	
+STequserDistressed(v1userDistressed, v2userDistressed) =
+	v1userDistressed == v2userDistressed
+	
+STltuserDistressed(v1userDistressed, v2userDistressed) =
+	STleuserDistressed(v1userDistressed, v2userDistressed) and STneuserDistressed(v1userDistressed, v2userDistressed)
+	
+STgtuserDistressed(v1userDistressed, v2userDistressed) =
+	STltuserDistressed(v2userDistressed, v1userDistressed)
+	
+STneuserDistressed(v1userDistressed, v2userDistressed) =
+	not STequserDistressed(v1userDistressed, v2userDistressed)
+	
+STgeuserDistressed(v1userDistressed, v2userDistressed) =
+	STltuserDistressed(v2userDistressed, v1userDistressed)
+
+Mem_userDistressed(o__) =
+	let
+		Mem =  userDistressed?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_userDistressed.x__|},o__))
+	within
+		Mem
+channel roomDark, i_roomDark : Bool
+Mem_roomDark(o__) =
+	let
+		Mem =  roomDark?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_roomDark.x__|},o__))
+	within
+		Mem
+channel notVisible, i_notVisible : Bool
+Mem_notVisible(o__) =
+	let
+		Mem =  notVisible?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_notVisible.x__|},o__))
+	within
+		Mem
+channel userAssent, i_userAssent : Bool
+Mem_userAssent(o__) =
+	let
+		Mem =  userAssent?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_userAssent.x__|},o__))
+	within
+		Mem
+channel consentGrantedwithinXmonths, i_consentGrantedwithinXmonths : Bool
+Mem_consentGrantedwithinXmonths(o__) =
+	let
+		Mem =  consentGrantedwithinXmonths?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_consentGrantedwithinXmonths.x__|},o__))
+	within
+		Mem
+channel EmotionRecognitionDetected
+channel competentIndicatorRequired, i_competentIndicatorRequired : Bool
+Mem_competentIndicatorRequired(o__) =
+	let
+		Mem =  competentIndicatorRequired?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_competentIndicatorRequired.x__|},o__))
+	within
+		Mem
+channel competentToGrantConsent, i_competentToGrantConsent : Bool
+Mem_competentToGrantConsent(o__) =
+	let
+		Mem =  competentToGrantConsent?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_competentToGrantConsent.x__|},o__))
+	within
+		Mem
+channel dressPreferenceTypeA, i_dressPreferenceTypeA : Bool
+Mem_dressPreferenceTypeA(o__) =
+	let
+		Mem =  dressPreferenceTypeA?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_dressPreferenceTypeA.x__|},o__))
+	within
+		Mem
+channel genderTypeB, i_genderTypeB : Bool
+Mem_genderTypeB(o__) =
+	let
+		Mem =  genderTypeB?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_genderTypeB.x__|},o__))
+	within
+		Mem
+channel DressinginClotingX
+channel userAdvices, i_userAdvices : Bool
+Mem_userAdvices(o__) =
+	let
+		Mem =  userAdvices?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_userAdvices.x__|},o__))
+	within
+		Mem
+channel clothingItemNotFound, i_clothingItemNotFound : Bool
+Mem_clothingItemNotFound(o__) =
+	let
+		Mem =  clothingItemNotFound?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_clothingItemNotFound.x__|},o__))
+	within
+		Mem
+channel InteractionStarted
+channel InformUserThisIsAgentnotHuman
+channel userConfused, i_userConfused : Bool
+Mem_userConfused(o__) =
+	let
+		Mem =  userConfused?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_userConfused.x__|},o__))
+	within
+		Mem
+channel buildingFloor, i_buildingFloor : STbuildingFloor
+
+datatype STbuildingFloor = f1 | f2 | f3 | f4 | f5 | f6 | f7 | f8 | f9 | f10
+
+STlebuildingFloor(v1buildingFloor, v2buildingFloor) =
+	if v1buildingFloor == f1 then true
+	else (if v1buildingFloor == f2 then not member(v2buildingFloor,{f1})
+	else (if v1buildingFloor == f3 then not member(v2buildingFloor,{f1, f2})
+	else (if v1buildingFloor == f4 then not member(v2buildingFloor,{f1, f2, f3})
+	else (if v1buildingFloor == f5 then not member(v2buildingFloor,{f1, f2, f3, f4})
+	else (if v1buildingFloor == f6 then not member(v2buildingFloor,{f1, f2, f3, f4, f5})
+	else (if v1buildingFloor == f7 then not member(v2buildingFloor,{f1, f2, f3, f4, f5, f6})
+	else (if v1buildingFloor == f8 then not member(v2buildingFloor,{f1, f2, f3, f4, f5, f6, f7})
+	else (if v1buildingFloor == f9 then not member(v2buildingFloor,{f1, f2, f3, f4, f5, f6, f7, f8})
+	else v2buildingFloor == f10))))))))
+	
+STeqbuildingFloor(v1buildingFloor, v2buildingFloor) =
+	v1buildingFloor == v2buildingFloor
+	
+STltbuildingFloor(v1buildingFloor, v2buildingFloor) =
+	STlebuildingFloor(v1buildingFloor, v2buildingFloor) and STnebuildingFloor(v1buildingFloor, v2buildingFloor)
+	
+STgtbuildingFloor(v1buildingFloor, v2buildingFloor) =
+	STltbuildingFloor(v2buildingFloor, v1buildingFloor)
+	
+STnebuildingFloor(v1buildingFloor, v2buildingFloor) =
+	not STeqbuildingFloor(v1buildingFloor, v2buildingFloor)
+	
+STgebuildingFloor(v1buildingFloor, v2buildingFloor) =
+	STltbuildingFloor(v2buildingFloor, v1buildingFloor)
+
+Mem_buildingFloor(o__) =
+	let
+		Mem =  buildingFloor?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_buildingFloor.x__|},o__))
+	within
+		Mem
+channel theUserHasBeenInformed, i_theUserHasBeenInformed : Bool
+Mem_theUserHasBeenInformed(o__) =
+	let
+		Mem =  theUserHasBeenInformed?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_theUserHasBeenInformed.x__|},o__))
+	within
+		Mem
+channel UserRequestInfo
+channel ProvideInfo
+channel informationAvailable, i_informationAvailable : Bool
+Mem_informationAvailable(o__) =
+	let
+		Mem =  informationAvailable?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_informationAvailable.x__|},o__))
+	within
+		Mem
+channel InformUserandandReferToHumanCarer
+channel informationDisclosureNotPermitted, i_informationDisclosureNotPermitted : Bool
+Mem_informationDisclosureNotPermitted(o__) =
+	let
+		Mem =  informationDisclosureNotPermitted?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_informationDisclosureNotPermitted.x__|},o__))
+	within
+		Mem
+channel ObtainAssent
+channel admininisteringMedication, i_admininisteringMedication : Bool
+Mem_admininisteringMedication(o__) =
+	let
+		Mem =  admininisteringMedication?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_admininisteringMedication.x__|},o__))
+	within
+		Mem
+channel userCompetenceIndicator, i_userCompetenceIndicator : {0..5}
+Mem_userCompetenceIndicator(o__) =
+	let
+		Mem =  userCompetenceIndicator?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_userCompetenceIndicator.x__|},o__))
+	within
+		Mem
+N = 5
+channel CheckForandObtainProxy
+channel withholdingActivityPhysicalHarm, i_withholdingActivityPhysicalHarm : STwithholdingActivityPhysicalHarm
+
+datatype STwithholdingActivityPhysicalHarm = low | moderate | severe
+
+STlewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	if v1withholdingActivityPhysicalHarm == low then true
+	else (if v1withholdingActivityPhysicalHarm == moderate then not member(v2withholdingActivityPhysicalHarm,{low})
+	else v2withholdingActivityPhysicalHarm == severe)
+	
+STeqwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	v1withholdingActivityPhysicalHarm == v2withholdingActivityPhysicalHarm
+	
+STltwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	STlewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) and STnewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm)
+	
+STgtwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	STltwithholdingActivityPhysicalHarm(v2withholdingActivityPhysicalHarm, v1withholdingActivityPhysicalHarm)
+	
+STnewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	not STeqwithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm)
+	
+STgewithholdingActivityPhysicalHarm(v1withholdingActivityPhysicalHarm, v2withholdingActivityPhysicalHarm) =
+	STltwithholdingActivityPhysicalHarm(v2withholdingActivityPhysicalHarm, v1withholdingActivityPhysicalHarm)
+
+Mem_withholdingActivityPhysicalHarm(o__) =
+	let
+		Mem =  withholdingActivityPhysicalHarm?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_withholdingActivityPhysicalHarm.x__|},o__))
+	within
+		Mem
+channel consentGranted, i_consentGranted : Bool
+Mem_consentGranted(o__) =
+	let
+		Mem =  consentGranted?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_consentGranted.x__|},o__))
+	within
+		Mem
+channel consentIndicatorRequired, i_consentIndicatorRequired : Bool
+Mem_consentIndicatorRequired(o__) =
+	let
+		Mem =  consentIndicatorRequired?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_consentIndicatorRequired.x__|},o__))
+	within
+		Mem
+channel StopActivity
+channel consentIndicatorisWithdrawn, i_consentIndicatorisWithdrawn : Bool
+Mem_consentIndicatorisWithdrawn(o__) =
+	let
+		Mem =  consentIndicatorisWithdrawn?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_consentIndicatorisWithdrawn.x__|},o__))
+	within
+		Mem
+channel consentIndicatorisRevoked, i_consentIndicatorisRevoked : Bool
+Mem_consentIndicatorisRevoked(o__) =
+	let
+		Mem =  consentIndicatorisRevoked?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_consentIndicatorisRevoked.x__|},o__))
+	within
+		Mem
+channel CollectionStarted
+channel StoreMinInfo
+channel DressingSuccessful
+channel FallAssessed
+channel userUndressed, i_userUndressed : Bool
+Mem_userUndressed(o__) =
+	let
+		Mem =  userUndressed?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_userUndressed.x__|},o__))
+	within
+		Mem
+channel userUnresponsive, i_userUnresponsive : Bool
+Mem_userUnresponsive(o__) =
+	let
+		Mem =  userUnresponsive?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_userUnresponsive.x__|},o__))
+	within
+		Mem
+channel OpenCurtainsRequested
+channel HealthChecked
+channel roomTemperature, i_roomTemperature : {0..25}
+Mem_roomTemperature(o__) =
+	let
+		Mem =  roomTemperature?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_roomTemperature.x__|},o__))
+	within
+		Mem
+channel DressingComplete
+MAX_RESPONSE_TIME = 60
+channel UserFallen
+channel assentToSupportCalls, i_assentToSupportCalls : Bool
+Mem_assentToSupportCalls(o__) =
+	let
+		Mem =  assentToSupportCalls?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_assentToSupportCalls.x__|},o__))
+	within
+		Mem
+channel SupportCalled
+channel emergency, i_emergency : Bool
+Mem_emergency(o__) =
+	let
+		Mem =  emergency?x__ -> (Provide(x__) /\ tock -> Mem)
+		Provide(x__) = RUN(union({|i_emergency.x__|},o__))
+	within
+		Mem
+channel DressingAbandoned
+channel RetryAgreed
+	
 Capabilities = 
   {| CurtainOpenRqt,
      CurtainsOpened,
@@ -567,44 +729,8 @@ Measures =
      assentToSupportCalls,
      emergency
   |}
-
 	
-instance MSN = model_shifting(Capabilities)
 Timed(et) {
-
--- Rule1 when CurtainOpenRqt then CurtainsOpened 
--- unless (userUnderDressed) then RefuseRequest
--- unless ((userDistressed) > (smedium)) then CurtainsOpened
-
-Rule1 = TriggerRule1; MonitoringRule1; Rule1
-
-TriggerRule1 = CurtainOpenRqt -> SKIP	[] CurtainsOpened -> TriggerRule1
-	[] RefuseRequest -> TriggerRule1
-	[] CurtainsOpened -> TriggerRule1
-
-
-MonitoringRule1 = let
-	Monitoring1 = CurtainsOpened -> SKIP
-	Monitoring2 = RefuseRequest -> SKIP
-	Monitoring3 = CurtainsOpened -> SKIP
-within StartBy(userUnderDressed?vuserUnderDressed ->
-	StartBy(userDistressed?vuserDistressed ->
-		if (STgtuserDistressed(vuserDistressed, smedium)) then Monitoring3
-		else (if (vuserUnderDressed) then Monitoring2
-		else (Monitoring1))
-	,0)
-,0)
-
--- alphabet for Rule1 
-ARule1 = {|RefuseRequest, userDistressed, CurtainOpenRqt, userUnderDressed, CurtainsOpened|}
-SLEECRule1 = timed_priority(Rule1)
-
-
--- Rule2 when DressingStarted then CloseCurtains 
--- unless (medicalEmergency)
--- unless ((buildingFloor) >= (f5))
--- unless ((roomDark) and (notVisible))
--- unless (not (userAssent))
 
 -- Rule2 when DressingStarted then CloseCurtains 
 -- unless (medicalEmergency)
@@ -620,21 +746,9 @@ TriggerRule2 = DressingStarted -> SKIP	[] CloseCurtains -> TriggerRule2
 MonitoringRule2 = let
 	Monitoring1 = CloseCurtains -> SKIP
 	Monitoring2 = SKIP
-	-- DressingStarted -> MonitoringRule2	[] CloseCurtains -> Monitoring2
-	
-	-- 	[] CloseCurtains -> Monitoring2
 	Monitoring3 = SKIP
-	-- DressingStarted -> MonitoringRule2	[] CloseCurtains -> Monitoring3
-	
-	-- 	[] CloseCurtains -> Monitoring3
 	Monitoring4 = SKIP
-	-- DressingStarted -> MonitoringRule2	[] CloseCurtains -> Monitoring4
-	
-	-- 	[] CloseCurtains -> Monitoring4
 	Monitoring5 = SKIP
-	-- DressingStarted -> MonitoringRule2	[] CloseCurtains -> Monitoring5
-	
-	-- 	[] CloseCurtains -> Monitoring5
 within StartBy(medicalEmergency?vmedicalEmergency ->
 	StartBy(buildingFloor?vbuildingFloor ->
 		StartBy(roomDark?vroomDark ->
@@ -671,20 +785,8 @@ within EmotionRecognitionDetected -> MTrigger
 
 MonitoringRule3 = let
 	Monitoring1 = InformUser -> SKIP
-	Monitoring2 = let
-		MTrigger = StartBy(userDistressed?vuserDistressed ->
-			if (STgtuserDistressed(vuserDistressed, smedium)) then MonitoringRule3 else Monitoring2
-		,0)
-	within EmotionRecognitionDetected -> MTrigger 
-		[] InformUser -> Monitoring2
-		[] InformUser -> Monitoring2
-	Monitoring3 = let
-		MTrigger = StartBy(userDistressed?vuserDistressed ->
-			if (STgtuserDistressed(vuserDistressed, smedium)) then MonitoringRule3 else Monitoring3
-		,0)
-	within EmotionRecognitionDetected -> MTrigger 
-		[] InformUser -> Monitoring3
-		[] InformUser -> Monitoring3
+	Monitoring2 = SKIP
+	Monitoring3 = SKIP
 within StartBy(consentGrantedwithinXmonths?vconsentGrantedwithinXmonths ->
 	StartBy(competentIndicatorRequired?vcompetentIndicatorRequired ->
 		StartBy(competentToGrantConsent?vcompetentToGrantConsent ->
@@ -719,28 +821,8 @@ within DressingStarted -> MTrigger
 
 MonitoringRule4 = let
 	Monitoring1 = DressinginClotingX -> SKIP
-	Monitoring2 = let
-		MTrigger = StartBy(dressPreferenceTypeA?vdressPreferenceTypeA ->
-			StartBy(genderTypeB?vgenderTypeB ->
-				if ((vdressPreferenceTypeA) and (vgenderTypeB)) then MonitoringRule4 else Monitoring2
-			,0)
-		,0)
-	within DressingStarted -> MTrigger 
-		[] DressinginClotingX -> Monitoring2
-		[] InformUser -> Monitoring2
-		[] DressinginClotingX -> Monitoring2
-		[] InformUser -> Monitoring2
-	Monitoring3 = let
-		MTrigger = StartBy(dressPreferenceTypeA?vdressPreferenceTypeA ->
-			StartBy(genderTypeB?vgenderTypeB ->
-				if ((vdressPreferenceTypeA) and (vgenderTypeB)) then MonitoringRule4 else Monitoring3
-			,0)
-		,0)
-	within DressingStarted -> MTrigger 
-		[] DressinginClotingX -> Monitoring3
-		[] InformUser -> Monitoring3
-		[] DressinginClotingX -> Monitoring3
-		[] InformUser -> Monitoring3
+	Monitoring2 = SKIP
+	Monitoring3 = SKIP
 	Monitoring4 = InformUser -> SKIP
 within StartBy(userAdvices?vuserAdvices ->
 	StartBy(medicalEmergency?vmedicalEmergency ->
@@ -770,15 +852,9 @@ TriggerRule5 = InteractionStarted -> SKIP	[] InformUserThisIsAgentnotHuman -> Tr
 
 MonitoringRule5 = let
 	Monitoring1 = InformUserThisIsAgentnotHuman -> SKIP
-	Monitoring2 = InteractionStarted -> MonitoringRule5	[] InformUserThisIsAgentnotHuman -> Monitoring2
-	
-		[] InformUserThisIsAgentnotHuman -> Monitoring2
-	Monitoring3 = InteractionStarted -> MonitoringRule5	[] InformUserThisIsAgentnotHuman -> Monitoring3
-	
-		[] InformUserThisIsAgentnotHuman -> Monitoring3
-	Monitoring4 = InteractionStarted -> MonitoringRule5	[] InformUserThisIsAgentnotHuman -> Monitoring4
-	
-		[] InformUserThisIsAgentnotHuman -> Monitoring4
+	Monitoring2 = SKIP
+	Monitoring3 = SKIP
+	Monitoring4 = SKIP
 within StartBy(medicalEmergency?vmedicalEmergency ->
 	StartBy(userConfused?vuserConfused ->
 		StartBy(theUserHasBeenInformed?vtheUserHasBeenInformed ->
@@ -845,50 +921,10 @@ within DressingStarted -> MTrigger
 MonitoringRule7 = let
 	Monitoring1 = ObtainAssent -> SKIP
 	Monitoring2 = CheckForandObtainProxy -> SKIP
-	Monitoring3 = let
-		MTrigger = StartBy(admininisteringMedication?vadmininisteringMedication ->
-			if (vadmininisteringMedication) then MonitoringRule7 else Monitoring3
-		,0)
-	within DressingStarted -> MTrigger 
-		[] ObtainAssent -> Monitoring3
-		[] CheckForandObtainProxy -> Monitoring3
-		[] StopActivity -> Monitoring3
-		[] ObtainAssent -> Monitoring3
-		[] CheckForandObtainProxy -> Monitoring3
-		[] StopActivity -> Monitoring3
-	Monitoring4 = let
-		MTrigger = StartBy(admininisteringMedication?vadmininisteringMedication ->
-			if (vadmininisteringMedication) then MonitoringRule7 else Monitoring4
-		,0)
-	within DressingStarted -> MTrigger 
-		[] ObtainAssent -> Monitoring4
-		[] CheckForandObtainProxy -> Monitoring4
-		[] StopActivity -> Monitoring4
-		[] ObtainAssent -> Monitoring4
-		[] CheckForandObtainProxy -> Monitoring4
-		[] StopActivity -> Monitoring4
-	Monitoring5 = let
-		MTrigger = StartBy(admininisteringMedication?vadmininisteringMedication ->
-			if (vadmininisteringMedication) then MonitoringRule7 else Monitoring5
-		,0)
-	within DressingStarted -> MTrigger 
-		[] ObtainAssent -> Monitoring5
-		[] CheckForandObtainProxy -> Monitoring5
-		[] StopActivity -> Monitoring5
-		[] ObtainAssent -> Monitoring5
-		[] CheckForandObtainProxy -> Monitoring5
-		[] StopActivity -> Monitoring5
-	Monitoring6 = let
-		MTrigger = StartBy(admininisteringMedication?vadmininisteringMedication ->
-			if (vadmininisteringMedication) then MonitoringRule7 else Monitoring6
-		,0)
-	within DressingStarted -> MTrigger 
-		[] ObtainAssent -> Monitoring6
-		[] CheckForandObtainProxy -> Monitoring6
-		[] StopActivity -> Monitoring6
-		[] ObtainAssent -> Monitoring6
-		[] CheckForandObtainProxy -> Monitoring6
-		[] StopActivity -> Monitoring6
+	Monitoring3 = SKIP
+	Monitoring4 = SKIP
+	Monitoring5 = SKIP
+	Monitoring6 = SKIP
 	Monitoring7 = StopActivity -> SKIP
 within StartBy(userCompetenceIndicator?vuserCompetenceIndicator ->
 	StartBy(medicalEmergency?vmedicalEmergency ->
@@ -962,8 +998,9 @@ within StartBy(roomTemperature?vroomTemperature ->
 ARule12 = {|roomTemperature, DressingComplete, userUnderDressed, DressingStarted|}
 SLEECRule12 = timed_priority(Rule12)
 
--- Rule22 when CurtainOpenRqt then CurtainsOpened within 6 seconds 
--- unless (userUnderDressed) then RefuseRequest within 3 seconds
+
+-- Rule22 when CurtainOpenRqt then CurtainsOpened within 60 seconds 
+-- unless (userUnderDressed) then RefuseRequest within 30 seconds
 -- unless ((userDistressed) > (smedium)) then CurtainsOpened within 60 seconds
 
 Rule22 = TriggerRule22; MonitoringRule22; Rule22
@@ -989,6 +1026,7 @@ within StartBy(userUnderDressed?vuserUnderDressed ->
 ARule22 = {|RefuseRequest, userDistressed, CurtainOpenRqt, userUnderDressed, CurtainsOpened|}
 SLEECRule22 = timed_priority(Rule22)
 
+
 -- Rule32 when UserFallen then SupportCalled within 1 minutes 
 -- unless (not (assentToSupportCalls))
 -- unless (emergency)
@@ -1000,12 +1038,8 @@ TriggerRule32 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule32
 
 MonitoringRule32 = let
 	Monitoring1 = StartBy(SupportCalled -> SKIP,(1 * 60))
-	Monitoring2 = UserFallen -> MonitoringRule32	[] SupportCalled -> Monitoring2
-	
-		[] SupportCalled -> Monitoring2
-	Monitoring3 = UserFallen -> MonitoringRule32	[] SupportCalled -> Monitoring3
-	
-		[] SupportCalled -> Monitoring3
+	Monitoring2 = SKIP
+	Monitoring3 = SKIP
 within StartBy(assentToSupportCalls?vassentToSupportCalls ->
 	StartBy(emergency?vemergency ->
 		if (vemergency) then Monitoring3
@@ -1030,11 +1064,7 @@ TriggerRule42 = DressingAbandoned -> SKIP	[] RetryAgreed -> TriggerRule42
 
 MonitoringRule42 = TimedInterruptSeq(RetryAgreed,(3 * 60),let
 	Monitoring1 = SupportCalled -> SKIP
-	Monitoring2 = DressingAbandoned -> MonitoringRule42	[] RetryAgreed -> Monitoring2
-		[] SupportCalled -> Monitoring2
-	
-		[] RetryAgreed -> Monitoring2
-		[] SupportCalled -> Monitoring2
+	Monitoring2 = SKIP
 within StartBy(assentToSupportCalls?vassentToSupportCalls ->
 	if (not (vassentToSupportCalls)) then Monitoring2
 	else (Monitoring1)
@@ -1095,51 +1125,8 @@ MonitoringRule23 = SupportCalled -> SKIP
 ARule23 = {|userUnresponsive, SupportCalled, FallAssessed|}
 SLEECRule23 = timed_priority(Rule23)
 
--- Rule33 when OpenCurtainsRequested and (userUndressed) then not CurtainsOpened within 6 seconds 
 
-Rule33 = TriggerRule33; MonitoringRule33; Rule33
-
-TriggerRule33 = let
-	MTrigger = StartBy(userUndressed?vuserUndressed ->
-		if (vuserUndressed) then SKIP else TriggerRule33
-	,0)
-within OpenCurtainsRequested -> MTrigger 
-	[] CurtainsOpened -> TriggerRule33
-
-MonitoringRule33 = WAIT((6 * 1))
-
--- alphabet for Rule33 
-ARule33 = {|OpenCurtainsRequested, userUndressed, CurtainsOpened|}
-SLEECRule33 = timed_priority(Rule33)
-
--- Rule43 when UserFallen then SupportCalled 
-
-Rule43 = TriggerRule43; MonitoringRule43; Rule43
-
-TriggerRule43 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule43
-
-
-MonitoringRule43 = SupportCalled -> SKIP
-
--- alphabet for Rule43 
-ARule43 = {|SupportCalled, UserFallen|}
-SLEECRule43 = timed_priority(Rule43)
-
--- Rule53 when UserFallen then SupportCalled within 1 minutes 
-
-Rule53 = TriggerRule53; MonitoringRule53; Rule53
-
-TriggerRule53 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule53
-
-
-MonitoringRule53 = StartBy(SupportCalled -> SKIP,(1 * 60))
-
--- alphabet for Rule53 
-ARule53 = {|SupportCalled, UserFallen|}
-SLEECRule53 = timed_priority(Rule53)
-
-
--- Rule63 when UserFallen then HealthChecked within 3 seconds
+-- Rule63 when UserFallen then HealthChecked within 30 seconds
 -- otherwise SupportCalled within 60 seconds 
 
 Rule63 = TriggerRule63; MonitoringRule63; Rule63
@@ -1148,83 +1135,30 @@ TriggerRule63 = UserFallen -> SKIP	[] HealthChecked -> TriggerRule63
 	[] SupportCalled -> TriggerRule63
 
 
-MonitoringRule63 = TimedInterruptSeq(HealthChecked,(3 * 1),StartBy(SupportCalled -> SKIP,(60 * 1)))
+MonitoringRule63 = TimedInterruptSeq(HealthChecked,(30 * 1),StartBy(SupportCalled -> SKIP,(60 * 1)))
 
 -- alphabet for Rule63 
 ARule63 = {|SupportCalled, UserFallen, HealthChecked|}
 SLEECRule63 = timed_priority(Rule63)
 
 
--- Rule73 when OpenCurtainsRequested then CurtainsOpened within 6 seconds 
+-- Rule73 when OpenCurtainsRequested then CurtainsOpened within 60 seconds 
 
 Rule73 = TriggerRule73; MonitoringRule73; Rule73
 
 TriggerRule73 = OpenCurtainsRequested -> SKIP	[] CurtainsOpened -> TriggerRule73
 
 
-MonitoringRule73 = StartBy(CurtainsOpened -> SKIP,(6 * 1))
+MonitoringRule73 = StartBy(CurtainsOpened -> SKIP,(60 * 1))
 
 -- alphabet for Rule73 
 ARule73 = {|OpenCurtainsRequested, CurtainsOpened|}
 SLEECRule73 = timed_priority(Rule73)
-
-
--- Rule83 when CurtainOpenRqt then CurtainsOpened within 6 seconds 
--- unless (userUndressed) then RefuseRequest within 3 seconds
--- unless ((userDistressed) > (smedium)) then CurtainsOpened within 6 seconds
-
-Rule83 = TriggerRule83; MonitoringRule83; Rule83
-
-TriggerRule83 = CurtainOpenRqt -> SKIP	[] CurtainsOpened -> TriggerRule83
-	[] RefuseRequest -> TriggerRule83
-	[] CurtainsOpened -> TriggerRule83
-
-
-MonitoringRule83 = let
-	Monitoring1 = StartBy(CurtainsOpened -> SKIP,(6 * 1))
-	Monitoring2 = StartBy(RefuseRequest -> SKIP,(3 * 1))
-	Monitoring3 = StartBy(CurtainsOpened -> SKIP,(6 * 1))
-within StartBy(userUndressed?vuserUndressed ->
-	StartBy(userDistressed?vuserDistressed ->
-		if (STgtuserDistressed(vuserDistressed, smedium)) then Monitoring3
-		else (if (vuserUndressed) then Monitoring2
-		else (Monitoring1))
-	,0)
-,0)
-
--- alphabet for Rule83 
-ARule83 = {|RefuseRequest, userDistressed, CurtainOpenRqt, userUndressed, CurtainsOpened|}
-SLEECRule83 = timed_priority(Rule83)
 }
 
-Timed(et) {
-	RCSpec1 = timed_priority(
-			let
-				AlphaRule = ARule1
-				Measures = ARuleToGMeasureSet(AlphaRule)
-			within
-				(
-					GMemoryRenameSet(SLEECRule1 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
-					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
-				) \GMemoryInternalEvents(Measures)
-	)
-}
+csp-end
 
-Timed(et) {
-	RC1 = timed_priority(
-		let
-			AlphaRule = ARule1
-			Measures = ARuleToGMeasureSet(AlphaRule)
-		within
-			(
-				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
-				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
-			) \GMemoryInternalEvents(Measures)
-	)
-}
-
+timed csp RCSpec2 associated to Dressing csp-begin
 Timed(et) {
 	RCSpec2 = timed_priority(
 			let
@@ -1238,7 +1172,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC2 csp-begin
 Timed(et) {
 	RC2 = timed_priority(
 		let
@@ -1252,7 +1188,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec3 csp-begin
 Timed(et) {
 	RCSpec3 = timed_priority(
 			let
@@ -1266,7 +1204,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC3 csp-begin
 Timed(et) {
 	RC3 = timed_priority(
 		let
@@ -1280,7 +1220,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec4 csp-begin
 Timed(et) {
 	RCSpec4 = timed_priority(
 			let
@@ -1294,7 +1236,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC4 csp-begin
 Timed(et) {
 	RC4 = timed_priority(
 		let
@@ -1308,7 +1252,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec5 csp-begin
 Timed(et) {
 	RCSpec5 = timed_priority(
 			let
@@ -1322,7 +1268,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC5 csp-begin
 Timed(et) {
 	RC5 = timed_priority(
 		let
@@ -1336,7 +1284,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec6 csp-begin
 Timed(et) {
 	RCSpec6 = timed_priority(
 			let
@@ -1350,7 +1300,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC6 csp-begin
 Timed(et) {
 	RC6 = timed_priority(
 		let
@@ -1364,7 +1316,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec7 csp-begin
 Timed(et) {
 	RCSpec7 = timed_priority(
 			let
@@ -1378,7 +1332,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC7 csp-begin
 Timed(et) {
 	RC7 = timed_priority(
 		let
@@ -1392,7 +1348,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec8 csp-begin
 Timed(et) {
 	RCSpec8 = timed_priority(
 			let
@@ -1406,7 +1364,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC8 csp-begin
 Timed(et) {
 	RC8 = timed_priority(
 		let
@@ -1420,7 +1380,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec12 csp-begin
 Timed(et) {
 	RCSpec12 = timed_priority(
 			let
@@ -1434,7 +1396,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC12 csp-begin
 Timed(et) {
 	RC12 = timed_priority(
 		let
@@ -1448,7 +1412,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec22 csp-begin
 Timed(et) {
 	RCSpec22 = timed_priority(
 			let
@@ -1462,7 +1428,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC22 csp-begin
 Timed(et) {
 	RC22 = timed_priority(
 		let
@@ -1476,7 +1444,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec32 csp-begin
 Timed(et) {
 	RCSpec32 = timed_priority(
 			let
@@ -1490,7 +1460,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC32 csp-begin
 Timed(et) {
 	RC32 = timed_priority(
 		let
@@ -1504,7 +1476,10 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+
+timed csp RCSpec42 csp-begin
 Timed(et) {
 	RCSpec42 = timed_priority(
 			let
@@ -1518,7 +1493,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC42 csp-begin
 Timed(et) {
 	RC42 = timed_priority(
 		let
@@ -1532,7 +1509,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec52 csp-begin
 Timed(et) {
 	RCSpec52 = timed_priority(
 			let
@@ -1546,7 +1525,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC52 csp-begin
 Timed(et) {
 	RC52 = timed_priority(
 		let
@@ -1560,7 +1541,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec13 csp-begin
 Timed(et) {
 	RCSpec13 = timed_priority(
 			let
@@ -1574,7 +1557,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC13 csp-begin
 Timed(et) {
 	RC13 = timed_priority(
 		let
@@ -1588,7 +1573,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec23 csp-begin
 Timed(et) {
 	RCSpec23 = timed_priority(
 			let
@@ -1602,7 +1589,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC23 csp-begin
 Timed(et) {
 	RC23 = timed_priority(
 		let
@@ -1616,91 +1605,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
-Timed(et) {
-	RCSpec33 = timed_priority(
-			let
-				AlphaRule = ARule33
-				Measures = ARuleToGMeasureSet(AlphaRule)
-			within
-				(
-					GMemoryRenameSet(SLEECRule33 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
-					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
-				) \GMemoryInternalEvents(Measures)
-	)
-}
-
-Timed(et) {
-	RC33 = timed_priority(
-		let
-			AlphaRule = ARule33
-			Measures = ARuleToGMeasureSet(AlphaRule)
-		within
-			(
-				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
-				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
-			) \GMemoryInternalEvents(Measures)
-	)
-}
-
-Timed(et) {
-	RCSpec43 = timed_priority(
-			let
-				AlphaRule = ARule43
-				Measures = ARuleToGMeasureSet(AlphaRule)
-			within
-				(
-					GMemoryRenameSet(SLEECRule43 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
-					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
-				) \GMemoryInternalEvents(Measures)
-	)
-}
-
-Timed(et) {
-	RC43 = timed_priority(
-		let
-			AlphaRule = ARule43
-			Measures = ARuleToGMeasureSet(AlphaRule)
-		within
-			(
-				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
-				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
-			) \GMemoryInternalEvents(Measures)
-	)
-}
-
-Timed(et) {
-	RCSpec53 = timed_priority(
-			let
-				AlphaRule = ARule53
-				Measures = ARuleToGMeasureSet(AlphaRule)
-			within
-				(
-					GMemoryRenameSet(SLEECRule53 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
-					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
-				) \GMemoryInternalEvents(Measures)
-	)
-}
-
-Timed(et) {
-	RC53 = timed_priority(
-		let
-			AlphaRule = ARule53
-			Measures = ARuleToGMeasureSet(AlphaRule)
-		within
-			(
-				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
-				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
-			) \GMemoryInternalEvents(Measures)
-	)
-}
-
+timed csp RCSpec63 csp-begin
 Timed(et) {
 	RCSpec63 = timed_priority(
 			let
@@ -1714,7 +1621,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC63 csp-begin
 Timed(et) {
 	RC63 = timed_priority(
 		let
@@ -1728,7 +1637,9 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RCSpec73 csp-begin
 Timed(et) {
 	RCSpec73 = timed_priority(
 			let
@@ -1742,7 +1653,9 @@ Timed(et) {
 				) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
 
+timed csp RC73 csp-begin
 Timed(et) {
 	RC73 = timed_priority(
 		let
@@ -1756,95 +1669,28 @@ Timed(et) {
 			) \GMemoryInternalEvents(Measures)
 	)
 }
+csp-end
+ 
+//timed assertion Check1 : RC refines Spec1 in the traces model
 
-Timed(et) {
-	RCSpec83 = timed_priority(
-			let
-				AlphaRule = ARule83
-				Measures = ARuleToGMeasureSet(AlphaRule)
-			within
-				(
-					GMemoryRenameSet(SLEECRule83 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
-					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
-				) \GMemoryInternalEvents(Measures)
-	)
-}
-
-Timed(et) {
-	RC83 = timed_priority(
-		let
-			AlphaRule = ARule83
-			Measures = ARuleToGMeasureSet(AlphaRule)
-		within
-			(
-				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
-				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
-				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
-			) \GMemoryInternalEvents(Measures)
-	)
-}
-
--- Check1 - refinement
-assert RCSpec1 [T= RC1
-
--- Check2 - refinement
-assert RCSpec2 [T= RC2
-
--- Check3 - refinement
-assert RCSpec3 [T= RC3
-
--- Check4 - refinement
-assert RCSpec4 [T= RC4
-
--- Check5 - refinement
-assert RCSpec5 [T= RC5
-
--- Check6 - refinement
-assert RCSpec6 [T= RC6
-
--- Check7 - refinement
-assert RCSpec7 [T= RC7
-
--- Check8 - refinement
-assert RCSpec8 [T= RC8
-
--- Check12 - refinement
-assert RCSpec12 [T= RC12
-
--- Check22 - refinement
-assert RCSpec22 [T= RC22
-
--- Check32 - refinement
-assert RCSpec32 [T= RC32
-
--- Check42 - refinement
-assert RCSpec42 [T= RC42
-
--- Check52 - refinement
-assert RCSpec52 [T= RC52
-
--- Check13 - refinement
-assert RCSpec13 [T= RC13
-
--- Check23 - refinement
-assert RCSpec23 [T= RC23
-
--- Check33 - refinement
-assert RCSpec33 [T= RC33
-
--- Check43 - refinement
-assert RCSpec43 [T= RC43
-
--- Check53 - refinement
-assert RCSpec53 [T= RC53
-
--- Check63 - refinement
-assert RCSpec63 [T= RC63
-
--- Check73 - refinement
-assert RCSpec73 [T= RC73
-
--- Check83 - refinement
-assert RCSpec83 [T= RC83
-
+//timed assertion Check1 : RC1 refines RCSpec1 in the traces model
+timed assertion Check2 : RC2 refines RCSpec2 in the traces model
+// irrelevant: timed assertion Check3 : RC3 refines RCSpec3 in the traces model
+timed assertion Check4 : RC4 refines RCSpec4 in the traces model
+// irrelevant: timed assertion Check5 : RC5 refines RCSpec5 in the traces model
+// irrelevant: timed assertion Check6 : RC6 refines RCSpec6 in the traces model
+timed assertion Check7 : RC7 refines RCSpec7 in the traces model
+// irrelevant: timed assertion Check8 : RC8 refines RCSpec8 in the traces model
+timed assertion Check12 : RC12 refines RCSpec12 in the traces model
+timed assertion Check22 : RC22 refines RCSpec22 in the traces model
+timed assertion Check32 : RC32 refines RCSpec32 in the traces model
+timed assertion Check42 : RC42 refines RCSpec42 in the traces model
+timed assertion Check52 : RC52 refines RCSpec52 in the traces model
+timed assertion Check13 : RC13 refines RCSpec13 in the traces model
+// irrelevant: timed assertion Check23 : RC23 refines RCSpec23 in the traces model
+//timed assertion Check33 : RC33 refines RCSpec33 in the traces model
+//timed assertion Check43 : RC43 refines RCSpec43 in the traces model
+//timed assertion Check53 : RC53 refines RCSpec53 in the traces model
+// irrelevant: timed assertion Check63 : RC63 refines RCSpec63 in the traces model
+// irrelevant: timed assertion Check73 : RC73 refines RCSpec73 in the traces model
+//timed assertion Check83 : RC83 refines RCSpec83 in the traces model
