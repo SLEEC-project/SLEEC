@@ -56,7 +56,6 @@ class SLEECGenerator extends AbstractGenerator {
 		}
 
 		fsa.generateFile(resource.getURI().trimFileExtension().lastSegment() + '.csp', '''
-			include "tick-tock.csp"
 			
 			--Specify the integer intervals for type Int e.g. {0..30}. 
 			
@@ -92,14 +91,17 @@ class SLEECGenerator extends AbstractGenerator {
 				.map[ rule | show(rule) + '\n' + R(rule) ]
 				.join('')»
 				
-			-- ASSERTIONS --
-			
-			«resource.allContents
-							.filter(Rule)
-							.toList
-							.generateAssertions»
-			
 			}
+		''')
+		
+		fsa.generateFile(resource.getURI().trimFileExtension().lastSegment() + '-assertions.csp', ''' 
+			-- ASSERTIONS --
+			include "tick-tock.csp"
+			include "«resource.getURI().trimFileExtension().lastSegment()».csp"			
+			«resource.allContents
+										.filter(Rule)
+										.toList
+										.generateAssertions»
 		''')
 	}
 
@@ -137,7 +139,13 @@ class SLEECGenerator extends AbstractGenerator {
 			'''
 			// [[measure mID : T]]D
 			Measure: '''
-				channel «d.name» : «T(d.type, d.name)»
+				channel «d.name», i_«d.name» : «T(d.type, d.name)»
+				Mem_«d.name»(o__) =
+					let
+						Mem =  «d.name»?x__ -> (Provide(x__) /\ tock -> Mem)
+						Provide(x__) = RUN(union({|i_«d.name».x__|},o__))
+					within
+						Mem
 			'''
 			// constant cID = v]]D
 			Constant: '''
@@ -200,7 +208,7 @@ class SLEECGenerator extends AbstractGenerator {
 			
 			Trigger«rID» = «TG(trig, alpha, 'SKIP', 'Trigger'+rID)»
 			
-			Monitoring«rID» = «RDS(resp, trig, alpha,  'Monitoring'+rID)»
+			Monitoring«rID» = «RDS(resp)»
 			
 			-- alphabet for «rID» 
 			A«rID» = {|«alphabetString(r)»|}
@@ -248,22 +256,22 @@ class SLEECGenerator extends AbstractGenerator {
 	}
 
 	// -----------------------------------------------------------
-	private def RDS(Response resp, Trigger t, Iterable<String> ARDS, String mp) {
+	private def RDS(Response resp) {
 		val dfts = resp.defeater
 		// [[resp,trig,ARDS,mp]]RDS
 		if (dfts.isEmpty)
-			C(resp.constraint, t, ARDS, mp)
+			C(resp.constraint)
 		// [[resp dfts,trig,ARDS,mp]]RDS
 		else
 			'''
 				let
-					«LRDS(resp, dfts, t, ARDS, mp, 1)»
+					«LRDS(resp, dfts, 1)»
 				within «CDS(dfts.flatMap[alphaMtree], dfts, dfts.size+1)»
 			'''
 	}
 
 	// -----------------------------------------------------------
-	private def CharSequence C(Constraint const,  Trigger t, Iterable<String> ARDS, String mp) {
+	private def CharSequence C(Constraint const) {
 		val eID = const.event.name
 		val v = const.value
 		val tU = const.unit
@@ -284,32 +292,31 @@ class SLEECGenerator extends AbstractGenerator {
 		}
 		// [[eID within v tU otherwise resp, trig, ARDS, mp]]C
 		else {
-			'''TimedInterruptSeq(«eID»,«norm(v, tU)»,«RDS(resp,t,ARDS,mp)»)'''
+			'''TimedInterruptSeq(«eID»,«norm(v, tU)»,«RDS(resp)»)'''
 
 		}
 	}
 
 	// -----------------------------------------------------------
-	private def LRDS(Response resp, Trigger trig, Iterable<String> AR, String mp, Integer n) {
+	private def LRDS(Response resp, Integer n) {
 		// [[<resp>,trig,AR,mp,n]]
 		if (resp !== null)
 			'''
-				Monitoring«n» = «C(resp.constraint,trig,AR,mp)»
+				Monitoring«n» = «C(resp.constraint)»
 			'''
 		// [[<NOREP>,trig,AR,mp,n]]
 		else
 			'''
-				Monitoring«n» = «TG(trig, AR,mp, '''Monitoring«n»''')»
-				«AR.map[ '''	[] «it» -> Monitoring«n»''' ].join('\n')»
+				Monitoring«n» = SKIP
 			'''
 	}
 
 	// [[<resp>^resps,trig,AR,mp,n]]LRDS
-	private def CharSequence LRDS(Response resp, Iterable<Defeater> dfts, Trigger trig, Iterable<String> AR, String mp,
+	private def CharSequence LRDS(Response resp, Iterable<Defeater> dfts,
 		Integer n) { '''
-		«LRDS(resp, trig, AR, mp, n)»
+		«LRDS(resp, n)»
 		«if(!dfts.isEmpty)
-			LRDS(dfts.head.response, dfts.tail, trig, AR, mp, n+1)»
+			LRDS(dfts.head.response, dfts.tail, n+1)»
 	'''
 }
 	// -----------------------------------------------------------	
@@ -348,7 +355,11 @@ class SLEECGenerator extends AbstractGenerator {
 	private def generateAssertions(List<Rule> rules) {
 
 		var assertions = ''
+		var assertions_part = ''
 		var measurePrint = ''
+		assertions += '''Timed(et) {
+
+'''
 
 		for (i : 0 ..< rules.size - 1) {
 
@@ -370,10 +381,8 @@ class SLEECGenerator extends AbstractGenerator {
 					var firstRuleMeasures = alphaMtree(firstRule)
 					var secondRuleMeasures = alphaMtree(secondRule)
 					assertions += '''
-						
-						
-						
 					'''
+				
 					assertions += '''-- Checking «firstRule.name» with «secondRule.name»:
 					'''
 					assertions += '''intersection«firstRule.name»«secondRule.name» = 
@@ -404,30 +413,35 @@ class SLEECGenerator extends AbstractGenerator {
     VEnv«element»(x__) = «element»!x__ -> VEnv«element»(x__) 
   '''
 					}
-
-					assertions += '''  within 
-	
+					
+						assertions += '''  within
+  
   «CP(firstRule, secondRule, String.join(",",unionMeasures))»
   SLEEC«firstRule.name»«secondRule.name» = timed_priority(intersection«firstRule.name»«secondRule.name»)
 					
   assert SLEEC«firstRule.name»«secondRule.name»:[deadlock-free]					
-  assert not MSN::C3(timed_priority(SLEEC«firstRule.name»«secondRule.name» \{|«String.join(",",unionMeasures)»|})) [T= MSN::C3(timed_priority(SLEEC«firstRule.name» \{|«String.join(",",firstRuleMeasures)»|}))
-  assert not MSN::C3(timed_priority(SLEEC«firstRule.name»«secondRule.name» \{|«String.join(",",unionMeasures)»|})) [T= MSN::C3(timed_priority(SLEEC«secondRule.name» \{|«String.join(",",secondRuleMeasures)»|}))
- 				
- --assert not MSN::C3(SLEEC«firstRule.name») [T= MSN::C3(SLEEC«firstRule.name»«secondRule.name»)
-					
+  			
   SLEEC«firstRule.name»«secondRule.name»CF   = prioritise(
-  timed_priority(intersection«firstRule.name»«secondRule.name»)
-  [[ tock <- tock, tock <- tock' ]],
-  <diff(Events,{|tock',tock|}),{|tock|}>)\{|tock|}
+  	timed_priority(intersection«firstRule.name»«secondRule.name»)
+  	[[ tock <- tock, tock <- tock' ]],
+  	<diff(Events,{|tock',tock|}),{|tock|}>)\{|tock|}
 										
   assert SLEEC«firstRule.name»«secondRule.name»CF  :[divergence-free]
+  
   '''
+ 
+					
+//Rule1 wrt Rule2
+assertions+= wrt(firstRule, secondRule, unionMeasures)
+//Rule2 wrt Rule1
+assertions+= wrt(secondRule, firstRule, unionMeasures)   
 
 				}
-
 			}
 		}
+		assertions += '''
+			}'''
+		
 		if (assertions === '') {
 			return '''-- No intersections of rules; no assertions can be made. --'''
 		} else {
@@ -443,6 +457,181 @@ class SLEECGenerator extends AbstractGenerator {
 				Env«firstRule.name»«secondRule.name»
 		'''
 	}
+	
+	private def wrt(Rule firstRule, Rule secondRule,  LinkedHashSet<String> unionMeasures) {
+		var assertions = ''
+		var assertions_part = ''
+		if (unionMeasures.size == 0) {
+			assertions += '''   «firstRule.name»_wrt_«secondRule.name» =
+		let
+		-- The external 'm' channels for every measure of («firstRule.name» or «secondRule.name»)
+		MemoryExternalEvents = {||}
+		-- The internal 'i_m' channels for every measure of («firstRule.name» or «secondRule.name»)
+		MemoryInternalEvents = {||}
+		-- Common events of «firstRule.name» and «secondRule.name»
+		CommonEvents = union(A«firstRule.name»,A«secondRule.name»)
+		-- Common events of «firstRule.name» and «secondRule.name», except for those of measures:
+		CommonProvideEvents = diff(CommonEvents,MemoryExternalEvents)
+		
+		-- The memory process
+		Memory = 
+				TRUN(CommonProvideEvents)
+				MemoryInOrder = SKIP
+				within
+					timed_priority(
+						(
+							(SLEEC«firstRule.name»)
+						    [| union(diff(A«firstRule.name»,MemoryExternalEvents),MemoryInternalEvents) |]
+						    (
+						    -- Generalised parallel composition of all measure processes
+						       Memory
+						       [| MemoryExternalEvents |]
+						       MemoryInOrder
+						    )
+						 ) \MemoryInternalEvents
+				     ) 
+						        						 						      '''
+		}else if (unionMeasures.size == 1) {
+			val element = unionMeasures.get(0)
+			assertions += '''   «firstRule.name»_wrt_«secondRule.name» =
+		let
+		-- The external 'm' channels for every measure of («firstRule.name» or «secondRule.name»)
+		MemoryExternalEvents = {|«element»|}
+		-- The internal 'i_m' channels for every measure of («firstRule.name» or «secondRule.name»)
+		MemoryInternalEvents = {|i_«element»|}
+		-- Common events of «firstRule.name» and «secondRule.name»
+		CommonEvents = union(A«firstRule.name»,A«secondRule.name»)
+		-- Common events of «firstRule.name» and «secondRule.name», except for those of measures:
+		CommonProvideEvents = diff(CommonEvents,MemoryExternalEvents)
+		
+		-- The memory process
+		Memory = 
+				 Mem_«element»(CommonProvideEvents)
+			     MemoryInOrder = «element»?x__ -> MemoryInOrder
+			     within
+					timed_priority(
+						 (
+						 	(
+						     SLEEC«firstRule.name» [[
+						     «element» <- i_«element»
+						     ]]
+						    )
+						    [| union(diff(A«firstRule.name»,MemoryExternalEvents),MemoryInternalEvents) |]
+						    (
+						    -- Generalised parallel composition of all measure processes
+						        Memory
+						        [| MemoryExternalEvents |]
+						        MemoryInOrder
+						    )
+						 ) \MemoryInternalEvents
+				     ) 
+						        						 						      '''
+						     				     
+  
+		}else{ // (unionMeasures.size >1)
+		assertions += '''   «firstRule.name»_wrt_«secondRule.name» =
+		let
+		-- The external 'm' channels for every measure of («firstRule.name» or «secondRule.name»)
+		MemoryExternalEvents = {|'''
+						       for (m : 0 ..< unionMeasures.size) { 
+						       val element = unionMeasures.get(m)
+						       	
+						       	if (m == 0) {
+						       	assertions+= '''«element»'''
+						       	}else if (m > 0) {
+						       		assertions+= ''',«element»'''
+						       	}
+						       }
+						       assertions+='''|}'''
+						       assertions+='''   -- The internal 'i_m' channels for every measure of («firstRule.name» or «secondRule.name»)
+		MemoryInternalEvents = {|'''
+						         for (m : 0 ..< unionMeasures.size) { 
+						       val element = unionMeasures.get(m)
+						       	
+						       	if (m == 0) {
+						       	assertions+= '''i_«element»'''
+						       	}else if (m > 0) {
+						       		assertions+= ''',i_«element»'''
+						       	}
+						       }
+						        assertions+='''|}'''
+						        assertions+='''
+						        -- Common events of «firstRule.name» and «secondRule.name»
+						        CommonEvents = union(A«firstRule.name»,A«secondRule.name»)
+						        -- Common events of «firstRule.name» and «secondRule.name», except for those of measures:
+						        CommonProvideEvents = diff(CommonEvents,MemoryExternalEvents)
+						         -- The memory process
+						        Memory = '''
+							assertions_part = ''
+							for (m : 0 ..< unionMeasures.size) {
+							val element = unionMeasures.get(m)
+							if (m == 0) {
+								assertions_part += '''(Mem_«element»(CommonProvideEvents)''' 
+							}else if (m > 0 && m < unionMeasures.size-1) {
+								assertions_part += ''' [| CommonProvideEvents |] (Mem_«element»(CommonProvideEvents)
+								'''
+							}else if (m == unionMeasures.size-1) {
+							assertions_part += ''' [| CommonProvideEvents |] Mem_«element»(CommonProvideEvents)
+								'''}
+								}
+							for (m : 0 ..< unionMeasures.size-1) {
+							assertions_part += ''')
+							'''
+							}
+							assertions += assertions_part
+						
+						
+						//assertions += nestedParalel(assertions_part)
+						
+							assertions+= '''MemoryInOrder = '''
+						for (m : 0 ..< unionMeasures.size) {
+							val element = unionMeasures.get(m)
+							
+							if (m == 0) {
+								assertions += '''«element»?x__'''
+							} else if (m > 0) {
+								assertions += '''-> «element»?x__ 
+								'''
+							}
+						}
+						
+						assertions+= '''-> MemoryInOrder
+						'''
+							
+						assertions+= '''within
+		timed_priority(
+						 (
+							(
+							SLEEC«firstRule.name»[[ '''
+						for (m : 0 ..< unionMeasures.size) {
+							val element = unionMeasures.get(m)
+							
+							if (m == 0) {
+								assertions += '''«element» <- i_«element»'''
+								
+
+							} else if (m > 0) {
+								assertions += ''',
+							«element» <- i_«element»
+								'''
+							}
+						}
+							assertions += ''' ]]
+							)
+							[| union(diff(A«firstRule.name»,MemoryExternalEvents),MemoryInternalEvents) |]
+							(
+							-- Generalised parallel composition of all measure processes
+							Memory
+							[| MemoryExternalEvents |]
+							MemoryInOrder
+						    )
+						 ) \MemoryInternalEvents
+				     ) 
+																			      '''
+						}
+					
+	}
+	
 
 	// -----------------------------------------------------------
 	// helper functions used in the translation rules:
@@ -719,13 +908,11 @@ class SLEECGenerator extends AbstractGenerator {
 		-- CHANGE LOG
 		---------------------------------------------------------------------------
 		--
-		-- 12-Apr-2023 : Added TimedInterruptSeq(e,d,Q), a version of
-		--				TimedInterrupt(e -> SKIP,d,Q) that can be used for processes
-		--				where Q leads to a recursion.
+		-- 4-Oct-2023 : Added TRUN(X) to include tock implicitly.
 		--
 		-- 7-Sep-2022 : Included revised versions of the following operators:
 		--
-		--				* TimedInterrupt operator now admits terminating
+		--				* 	TimedInterrupt operator now admits terminating
 		--					processes in the first operand.
 		--				*	Added TCHAOS, the bottom of the refinement order in
 		--					tick-tock.
@@ -831,10 +1018,10 @@ class SLEECGenerator extends AbstractGenerator {
 		       RT__(d__,Q__)) \ {finishedp__, finishedq__, timeout__}); SKIP
 		
 			TimedInterruptSeq(e__,d__,Q__) =
-					let
-						TT(n__) = if n__ < d__ then TimeOut_1(e__ -> SKIP,TT(n__ + 1)) else Q__
-					within
-						TT(0)
+				let
+					TT(n__) = if n__ < d__ then TimeOut_1(e__ -> SKIP,TT(n__ + 1)) else Q__
+				within
+					TT(0)
 		
 			-- Timeout process:
 			--
@@ -845,6 +1032,8 @@ class SLEECGenerator extends AbstractGenerator {
 				(P__ /+Events+\ (TimedInterrupt(Some__,d__,STOP);RUN(Events)))
 				[]
 				(WAIT(d__);Q__)
+		
+			TRUN(X__) = RUN(union({tock},X__))
 		}
 		
 		---------------------------------------------------------------------------
@@ -1035,6 +1224,7 @@ class SLEECGenerator extends AbstractGenerator {
 		
 		endmodule
 		---------------------------------------------------------------------------
+
 
 	'''
 		)
