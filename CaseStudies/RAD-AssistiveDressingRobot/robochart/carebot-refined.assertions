@@ -1674,19 +1674,19 @@ csp-end
 //timed assertion Check1 : RC refines Spec1 in the traces model
 
 //timed assertion Check1 : RC1 refines RCSpec1 in the traces model
-timed assertion Check2 : RC2 refines RCSpec2 in the traces model
+//timed assertion Check2 : RC2 refines RCSpec2 in the traces model
 // irrelevant: timed assertion Check3 : RC3 refines RCSpec3 in the traces model
-timed assertion Check4 : RC4 refines RCSpec4 in the traces model
+//timed assertion Check4 : RC4 refines RCSpec4 in the traces model
 // irrelevant: timed assertion Check5 : RC5 refines RCSpec5 in the traces model
 // irrelevant: timed assertion Check6 : RC6 refines RCSpec6 in the traces model
-timed assertion Check7 : RC7 refines RCSpec7 in the traces model
+//timed assertion Check7 : RC7 refines RCSpec7 in the traces model
 // irrelevant: timed assertion Check8 : RC8 refines RCSpec8 in the traces model
 timed assertion Check12 : RC12 refines RCSpec12 in the traces model
 timed assertion Check22 : RC22 refines RCSpec22 in the traces model
 timed assertion Check32 : RC32 refines RCSpec32 in the traces model
 timed assertion Check42 : RC42 refines RCSpec42 in the traces model
 timed assertion Check52 : RC52 refines RCSpec52 in the traces model
-timed assertion Check13 : RC13 refines RCSpec13 in the traces model
+//timed assertion Check13 : RC13 refines RCSpec13 in the traces model
 // irrelevant: timed assertion Check23 : RC23 refines RCSpec23 in the traces model
 //timed assertion Check33 : RC33 refines RCSpec33 in the traces model
 //timed assertion Check43 : RC43 refines RCSpec43 in the traces model

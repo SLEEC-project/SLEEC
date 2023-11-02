@@ -1,7 +1,7 @@
 
 --
 -- RoboChart generator version 3.0.0.202306261132
--- Automatically generated on 19-10-2023 12:31:29
+-- Automatically generated on 02-11-2023 11:20:40
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -59,8 +59,8 @@ exports
 	-- Declaring call and ret events for undefined operations
 	channel DressCall: core_int
 	channel RetryCall
-	channel CallSupportDecisionCall
 	channel ClearCall
+	channel CallSupportDecisionCall
 	
 	enterSS = {|
 	i0::enter,
@@ -92,8 +92,8 @@ exports
 		SupportCalled
 	,	DressCall,
 		RetryCall,
-		CallSupportDecisionCall,
-		ClearCall
+		ClearCall,
+		CallSupportDecisionCall
 		|}
 
 	-- Nodes --
@@ -348,8 +348,8 @@ exports
 	CALL__Dress(id__,
 				param_temp) 	= DressCall.param_temp -> SKIP
 	CALL__Retry(id__) 	= RetryCall -> SKIP
-	CALL__CallSupportDecision(id__) 	= CallSupportDecisionCall -> SKIP
 	CALL__Clear(id__) 	= ClearCall -> SKIP
+	CALL__CallSupportDecision(id__) 	= CallSupportDecisionCall -> SKIP
 	
 	-- END of Operation calls --
 	

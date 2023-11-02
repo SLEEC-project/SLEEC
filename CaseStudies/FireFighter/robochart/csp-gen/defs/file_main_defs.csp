@@ -1,13 +1,13 @@
 
 --
 -- RoboChart generator version 3.0.0.202306261132
--- Automatically generated on 04-10-2023 17:51:44
+-- Automatically generated on 02-11-2023 11:14:05
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
 --
 
--- data definitions used by /Firefighter-example/main.rct
+-- data definitions used by platform:/resource/Firefighter-example/main.rct
 datatype windScale = windScale_light | windScale_moderate | windScale_strong
 windScale_is(windScale_light,windScale_light) = true
 windScale_is(_,windScale_light) = false

@@ -11,13 +11,14 @@
     <semanticResources>common.rct</semanticResources>
     <semanticResources>system.assertions</semanticResources>
     <semanticResources>carebot.assertions</semanticResources>
+    <semanticResources>carebot-refined.assertions</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_g6DxcHfMEe2I4-b3ZWmElA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/circus.robocalc.robochart.graphical/description/robochart.odesign#//@ownedViewpoints[name='RoboChartID']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_0svGQKMEEe2Oz68xJ2Ku6Q" name="common" repPath="#_0st4IKMEEe2Oz68xJ2Ku6Q" changeId="e8911939-5eb7-4bec-bcb4-ac365decb3f0">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/circus.robocalc.robochart.graphical/description/robochart.odesign#//@ownedViewpoints[name='RoboChartID']/@ownedRepresentations[name='SpecificationID']"/>
         <target xmi:type="robochart:RCPackage" href="common.rct#/"/>
       </ownedRepresentationDescriptors>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_RU9-EKMdEe2Z9pnrhqv9jg" name="system" repPath="#_RU9XAKMdEe2Z9pnrhqv9jg" changeId="118b406c-903a-40ec-9544-87a2aeb90a69">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_RU9-EKMdEe2Z9pnrhqv9jg" name="system" repPath="#_RU9XAKMdEe2Z9pnrhqv9jg" changeId="4bdac01a-4162-4e23-a305-a26ec1257d8d">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/circus.robocalc.robochart.graphical/description/robochart.odesign#//@ownedViewpoints[name='RoboChartID']/@ownedRepresentations[name='SpecificationID']"/>
         <target xmi:type="robochart:RCPackage" href="system.rct#/"/>
       </ownedRepresentationDescriptors>
@@ -25,7 +26,7 @@
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/circus.robocalc.robochart.graphical/description/robochart.odesign#//@ownedViewpoints[name='RoboChartID']/@ownedRepresentations[name='SpecificationID']"/>
         <target xmi:type="robochart:RCPackage" href="system.rct#/"/>
       </ownedRepresentationDescriptors>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_Oe-kIM_aEe29ML-8iIxLiw" name="Dressing" repPath="#_Oe2BQM_aEe29ML-8iIxLiw" changeId="b5a4a98d-285c-4556-8ce1-a093f4b9e320">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_Oe-kIM_aEe29ML-8iIxLiw" name="Dressing" repPath="#_Oe2BQM_aEe29ML-8iIxLiw" changeId="0003086f-0052-4692-91bd-d74d8c270dbd">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/circus.robocalc.robochart.graphical/description/robochart.odesign#//@ownedViewpoints[name='RoboChartID']/@ownedRepresentations[name='SpecificationID']"/>
         <target xmi:type="robochart:RCPackage" href="system.rct#/"/>
       </ownedRepresentationDescriptors>
@@ -4418,7 +4419,7 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/circus.robocalc.robochart.graphical/description/robochart.odesign#//@ownedViewpoints[name='RoboChartID']/@ownedRepresentations[name='SpecificationID']/@defaultLayer/@edgeMappings[name='TransitionID']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_RVSuOqMdEe2Z9pnrhqv9jg" name="[not retry/\sinceEntry(Abandoned)>=60]/CallSupportDecision()" sourceNode="_RVGg9qMdEe2Z9pnrhqv9jg" targetNode="_RVGg8KMdEe2Z9pnrhqv9jg">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_RVSuOqMdEe2Z9pnrhqv9jg" name="[not retry/\sinceEntry(Abandoned)>=120]/CallSupportDecision()" sourceNode="_RVGg9qMdEe2Z9pnrhqv9jg" targetNode="_RVGg8KMdEe2Z9pnrhqv9jg">
       <target xmi:type="robochart:Transition" href="system.rct#//@machines.0/@transitions.5"/>
       <semanticElements xmi:type="robochart:Transition" href="system.rct#//@machines.0/@transitions.5"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_RVSuO6MdEe2Z9pnrhqv9jg" size="2" routingStyle="manhattan">
@@ -15357,7 +15358,7 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/circus.robocalc.robochart.graphical/description/robochart.odesign#//@ownedViewpoints[name='RoboChartID']/@ownedRepresentations[name='SpecificationID']/@defaultLayer/@edgeMappings[name='TransitionID']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_Oe7hPs_aEe29ML-8iIxLiw" name="[not retry/\sinceEntry(Abandoned)>=60]/CallSupportDecision()" sourceNode="_Oe65_s_aEe29ML-8iIxLiw" targetNode="_Oe656M_aEe29ML-8iIxLiw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_Oe7hPs_aEe29ML-8iIxLiw" name="[not retry/\sinceEntry(Abandoned)>=120]/CallSupportDecision()" sourceNode="_Oe65_s_aEe29ML-8iIxLiw" targetNode="_Oe656M_aEe29ML-8iIxLiw">
       <target xmi:type="robochart:Transition" href="system.rct#//@machines.0/@transitions.5"/>
       <semanticElements xmi:type="robochart:Transition" href="system.rct#//@machines.0/@transitions.5"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_Oe7hP8_aEe29ML-8iIxLiw" size="2" routingStyle="manhattan">

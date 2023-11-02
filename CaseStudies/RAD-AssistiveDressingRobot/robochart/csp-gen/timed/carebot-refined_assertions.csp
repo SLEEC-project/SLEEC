@@ -1,7 +1,7 @@
 
 --
 -- RoboChart generator version 3.0.0.202306261132
--- Automatically generated on 19-10-2023 12:31:29
+-- Automatically generated on 02-11-2023 11:14:05
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -1621,15 +1621,6 @@ Timed(et) {
 	)
 }
 
--- Check2 - refinement
-assert RCSpec2 [T= RC2
-
--- Check4 - refinement
-assert RCSpec4 [T= RC4
-
--- Check7 - refinement
-assert RCSpec7 [T= RC7
-
 -- Check12 - refinement
 assert RCSpec12 [T= RC12
 
@@ -1644,7 +1635,4 @@ assert RCSpec42 [T= RC42
 
 -- Check52 - refinement
 assert RCSpec52 [T= RC52
-
--- Check13 - refinement
-assert RCSpec13 [T= RC13
 

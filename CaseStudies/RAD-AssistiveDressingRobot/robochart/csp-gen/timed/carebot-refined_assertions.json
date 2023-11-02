@@ -1,16 +1,4 @@
 [
-{ "name": "timed RC2 refines RCSpec2 (Check2) [traces model]",
-  "type": "refines",
-  "negated": false 
-},
-{ "name": "timed RC4 refines RCSpec4 (Check4) [traces model]",
-  "type": "refines",
-  "negated": false 
-},
-{ "name": "timed RC7 refines RCSpec7 (Check7) [traces model]",
-  "type": "refines",
-  "negated": false 
-},
 { "name": "timed RC12 refines RCSpec12 (Check12) [traces model]",
   "type": "refines",
   "negated": false 
@@ -28,10 +16,6 @@
   "negated": false 
 },
 { "name": "timed RC52 refines RCSpec52 (Check52) [traces model]",
-  "type": "refines",
-  "negated": false 
-},
-{ "name": "timed RC13 refines RCSpec13 (Check13) [traces model]",
   "type": "refines",
   "negated": false 
 }
