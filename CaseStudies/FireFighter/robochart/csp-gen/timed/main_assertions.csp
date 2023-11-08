@@ -1,7 +1,7 @@
 
 --
--- RoboChart generator version 3.0.0.202302061250
--- Automatically generated on 18-05-2023 15:32:58
+-- RoboChart generator version 3.0.0.202306261132
+-- Automatically generated on 02-11-2023 11:14:05
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -170,7 +170,51 @@ Measures =
      temperature,
      windSpeed
   |}
+
+datatype Measure = 
+	m_personNearby | 
+	m_temperature | 
+	m_windSpeed
+
+m2in(m_personNearby) = {|personNearby|}
+m2in(m_temperature) = {|temperature|}
+m2in(m_windSpeed) = {|windSpeed|}
+
+GMemory(m__,i__,o__) =
+	let
+        Mem = m__?x__ -> (Provide(x__) /\ tock -> Mem)
+        Provide(x__) = RUN(union({|i__.x__|},o__))
+    within
+        Mem
+
+GMem(m_personNearby,o__) = GMemory(personNearby,i_personNearby,o__)
+GMem(m_temperature,o__) = GMemory(temperature,i_temperature,o__)
+GMem(m_windSpeed,o__) = GMemory(windSpeed,i_windSpeed,o__)
+
+GMemExternal(m_personNearby) = {|personNearby|}
+GMemExternal(m_temperature) = {|temperature|}
+GMemExternal(m_windSpeed) = {|windSpeed|}
+
+GMemInternal(m_personNearby) = {|i_personNearby|}
+GMemInternal(m_temperature) = {|i_temperature|}
+GMemInternal(m_windSpeed) = {|i_windSpeed|}
+
+GMemHide(P__,m_personNearby) = P__[[personNearby <- i_personNearby]]
+GMemHide(P__,m_temperature) = P__[[temperature <- i_temperature]]
+GMemHide(P__,m_windSpeed) = P__[[windSpeed <- i_windSpeed]]
+
+GMemorySet(s__,o__) = [| union({tock},o__) |] e__ : s__ @ GMem(e__,o__)
+GMemoryRenameSet(P__,s__) = GMemoryRenameSeq(P__,seq(s__))
+GMemoryRenameSeq(P__,<>) = P__
+GMemoryRenameSeq(P__,<s__>^ms) = GMemHide(GMemoryRenameSeq(P__,ms),s__)
+
+GMemoryInternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemInternal(m__) }
+GMemoryExternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemExternal(m__) }
+
+ARuleToGMeasureSet(alpha) = { m__ | m__ <- Measure, inter(m2in(m__),alpha) == m2in(m__) }
 	
+SUVEvents = Capabilities
+
 instance MSN = model_shifting(Capabilities)
 Timed(et) {
 
@@ -227,16 +271,17 @@ SLEECRule3 = timed_priority(Rule3)
 
 Rule4 = TriggerRule4; MonitoringRule4; Rule4
 
-TriggerRule4 = CameraStart -> SKIP
+TriggerRule4 = CameraStart -> SKIP [] SoundAlarm -> TriggerRule4 [] GoHome -> TriggerRule4
 
 MonitoringRule4 = let
 	Monitoring1 = SoundAlarm -> SKIP
 	Monitoring2 = GoHome -> SKIP
-	Monitoring3 = CameraStart -> MonitoringRule4
-		[] personNearby?x -> Monitoring3
-		[] temperature?x -> Monitoring3
-		[] SoundAlarm -> Monitoring3
-		[] GoHome -> Monitoring3
+	Monitoring3 = SKIP -- Changed in new revision of the semantics.
+		-- CameraStart -> MonitoringRule4
+		-- [] personNearby?x -> Monitoring3
+		-- [] temperature?x -> Monitoring3
+		-- [] SoundAlarm -> Monitoring3
+		-- [] GoHome -> Monitoring3
 within StartBy(personNearby?vpersonNearby ->
 	StartBy(temperature?vtemperature ->
 		if ((vtemperature) > (35)) then Monitoring3
@@ -249,7 +294,6 @@ within StartBy(personNearby?vpersonNearby ->
 ARule4 = {|CameraStart, GoHome, personNearby, temperature, SoundAlarm|}
 SLEECRule4 = timed_priority(Rule4)
 
-
 -- For the measures, we can define an environment process that holds
 -- the value of each measure, so that the order in which they are
 -- read is masquerared for the purposes of verification.
@@ -258,38 +302,6 @@ channel i_personNearby : Bool
 channel i_temperature : TemperatureRange
 channel i_windSpeed : STwindSpeed
 
-Memory = 
-	--	StartBy(personNearby?x__ -> Measure_personNearby(x__),0)
-	--|||	StartBy(temperature?x__ -> Measure_temperature(x__),0)
-	--|||	StartBy(windSpeed?x__ -> Measure_windSpeed(x__),0)
-		personNearby?x__ -> Measure_personNearby(x__)
-	|||	temperature?x__ -> Measure_temperature(x__)
-	|||	windSpeed?x__ -> Measure_windSpeed(x__)
-	
-Measure_personNearby(x__) =
-	personNearby?x__ -> Measure_personNearby(x__)
-	[]
-	i_personNearby!x__ -> Measure_personNearby(x__)
-	
-Measure_temperature(x__) =
-	temperature?x__ -> Measure_temperature(x__)
-	[]
-	i_temperature!x__ -> Measure_temperature(x__)
-	
-Measure_windSpeed(x__) =
-	windSpeed?x__ -> Measure_windSpeed(x__)
-	[]
-	i_windSpeed!x__ -> Measure_windSpeed(x__)	
-}
-
-MRename(P__) = 
-	P__[[ 	personNearby <- i_personNearby,
-			temperature <- i_temperature,
-			windSpeed <- i_windSpeed
-		]]
-		
-MeasureInternalChannels = {|i_personNearby,i_temperature,i_windSpeed|}
-
 CapabilitiesSUV =
   {|
   	BatteryCritical,
@@ -297,58 +309,129 @@ CapabilitiesSUV =
   	SoundAlarm,
   	GoHome
   |}
-
-Timed(et) {
-Spec1 = timed_priority(
-			(
-				(MRename(SLEECRule1) [|ARule1|] TCHAOS(union(Capabilities,CapabilitiesSUV))) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
 }
 
 Timed(et) {
-Spec2 = timed_priority(
+	RC1 = timed_priority(
+		let
+			AlphaRule = ARule1
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				(MRename(SLEECRule2) [|ARule2|] TCHAOS(union(Capabilities,CapabilitiesSUV))) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-
-Timed(et) {
-Spec3 = timed_priority(
-			(
-				(MRename(SLEECRule3) [|ARule3|] TCHAOS(union(Capabilities,CapabilitiesSUV))) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
-}
-
-Timed(et) { 
-	RC = timed_priority(
-		--(
-			--MRename(
-				Rename(UAV::O__(1))\{|UAV::terminate|};STOP
-			--)
-			--[| MeasureInternalChannels |]
-			--Memory
-		--) \MeasureInternalChannels
+				GMemoryRenameSet(Rename(Rename(UAV::O__(1))\{|UAV::terminate|});STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
 	)
 }
--- Alphabet of RC will be the same as that of Capabilities, since Rename
--- applies renaming of RC events to those used as Capabilities.
-RC__sem__events = union(Capabilities,CapabilitiesSUV)
 
--- Check1 - refinement
-assert Spec1 [T= RC
+Timed(et) {
+RSpec1 = timed_priority(
+			let
+				AlphaRule = ARule1
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule1 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
 
--- Check2 - refinement
-assert Spec2 [T= RC
+Timed(et) {
+	RC2 = timed_priority(
+		let
+			AlphaRule = ARule2
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(Rename(UAV::O__(1))\{|UAV::terminate|});STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
 
--- Check3 - refinement
-assert Spec3 [T= RC
+Timed(et) {
+RSpec2 = timed_priority(
+			let
+				AlphaRule = ARule2
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule2 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+
+Timed(et) {
+RSpec3 = timed_priority(
+			let
+				AlphaRule = ARule3
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule3 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+
+Timed(et) {
+	RC3 = timed_priority(
+		let
+			AlphaRule = ARule3
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(Rename(UAV::O__(1))\{|UAV::terminate|});STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+
+Timed(et) {
+RSpec4 = timed_priority(
+			let
+				AlphaRule = ARule4
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule4 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+
+Timed(et) {
+	RC4 = timed_priority(
+		let
+			AlphaRule = ARule4
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
+			(
+				GMemoryRenameSet(Rename(Rename(UAV::O__(1))\{|UAV::terminate|});STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
+}
+
+-- RCheck1 - refinement
+assert RSpec1 [T= RC1
+
+-- RCheck2 - refinement
+assert RSpec2 [T= RC2
+
+-- RCheck3 - refinement
+assert RSpec3 [T= RC3
+
+-- RCheck4 - refinement
+assert RSpec4 [T= RC4
 

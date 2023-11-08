@@ -1,7 +1,7 @@
 
 --
--- RoboChart generator version 3.0.0.202302061250
--- Automatically generated on 18-05-2023 15:31:36
+-- RoboChart generator version 3.0.0.202306261132
+-- Automatically generated on 02-11-2023 11:20:40
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -98,11 +98,11 @@ exports
 	localClockResets = {||}
 	
 	
-	channel get_CLID_Idle : core_clock_type 
 	channel get_CLID_OpenCurtains : core_clock_type 
+	channel get_CLID_Idle : core_clock_type 
 	--channel increment__
 	
-	CLID_Idle_clock_type(id__) = 
+	CLID_OpenCurtains_clock_type(id__) = 
 		let
 			max = (clock_type_max(Union({
 	{}
@@ -111,7 +111,7 @@ exports
 	within
 		if member(max,core_clock_type) then ctype else error("core_clock_type is not wide enough")
 	
-	CLID_OpenCurtains_clock_type(id__) = 
+	CLID_Idle_clock_type(id__) = 
 		let
 			max = (clock_type_max(Union({
 	{}
@@ -480,7 +480,7 @@ exports
 		
 		Behaviour(id__) = 
 			dbisim((let
-				stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_OpenCurtains,OpenCurtains::entered|}
+				stateClockSync = {|get_CLID_OpenCurtains,OpenCurtains::entered,get_CLID_Idle,Idle::entered|}
 			 within
 				(MachineBody(id__) [| union(stateClockSync,{terminate}) |] StateClocks(id__)) \ union(stateClockSync,enteredSS)
 			)
@@ -488,20 +488,20 @@ exports
 		
 		IteratedBehaviour(id__) = 
 			dbisim((let
-				stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_OpenCurtains,OpenCurtains::entered|}
+				stateClockSync = {|get_CLID_OpenCurtains,OpenCurtains::entered,get_CLID_Idle,Idle::entered|}
 			 within
 				(dbisim(
 					sbisim(
 						dbisim(
 							sbisim(
 								MachineBody(id__)
-								[| {|get_CLID_OpenCurtains,OpenCurtains::entered,terminate|} |]
-								dbisim(Clock_CLID_OpenCurtains(id__,0))
-							)\{|get_CLID_OpenCurtains|}
+								[| {|get_CLID_Idle,Idle::entered,terminate|} |]
+								dbisim(Clock_CLID_Idle(id__,0))
+							)\{|get_CLID_Idle|}
 						)
-						[| {|get_CLID_Idle,Idle::entered,terminate|} |]
-						dbisim(Clock_CLID_Idle(id__,0))
-					)\{|get_CLID_Idle|}
+						[| {|get_CLID_OpenCurtains,OpenCurtains::entered,terminate|} |]
+						dbisim(Clock_CLID_OpenCurtains(id__,0))
+					)\{|get_CLID_OpenCurtains|}
 				)
 				) \ union(stateClockSync,enteredSS)
 			)
@@ -621,7 +621,7 @@ exports
 		
 		Behaviour_VS_O(id__) = 
 			dbisim((let
-				stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_OpenCurtains,OpenCurtains::entered|}
+				stateClockSync = {|get_CLID_OpenCurtains,OpenCurtains::entered,get_CLID_Idle,Idle::entered|}
 			 within
 				(MachineBody_VS_O(id__) [| union(stateClockSync,{terminate}) |] StateClocks(id__)) \ diff(union(stateClockSync,enteredSS),enteredSS)
 			)
@@ -629,20 +629,20 @@ exports
 		
 		IteratedBehaviour_VS_O(id__) = 
 			dbisim((let
-				stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_OpenCurtains,OpenCurtains::entered|}
+				stateClockSync = {|get_CLID_OpenCurtains,OpenCurtains::entered,get_CLID_Idle,Idle::entered|}
 			 within
 				(dbisim(
 					sbisim(
 						dbisim(
 							sbisim(
 								MachineBody_VS_O(id__)
-								[| {|get_CLID_OpenCurtains,OpenCurtains::entered,terminate|} |]
-								dbisim(Clock_CLID_OpenCurtains(id__,0))
-							)\{|get_CLID_OpenCurtains|}
+								[| {|get_CLID_Idle,Idle::entered,terminate|} |]
+								dbisim(Clock_CLID_Idle(id__,0))
+							)\{|get_CLID_Idle|}
 						)
-						[| {|get_CLID_Idle,Idle::entered,terminate|} |]
-						dbisim(Clock_CLID_Idle(id__,0))
-					)\{|get_CLID_Idle|}
+						[| {|get_CLID_OpenCurtains,OpenCurtains::entered,terminate|} |]
+						dbisim(Clock_CLID_OpenCurtains(id__,0))
+					)\{|get_CLID_OpenCurtains|}
 				)
 				) \ diff(union(stateClockSync,enteredSS),enteredSS)
 			)
@@ -734,13 +734,6 @@ exports
 		
 		clockSync = {||}
 		
-		Clock_CLID_Idle(id__,x__) = 
-			TimeOut_1(
-				Idle::entered -> Clock_CLID_Idle(id__,0)
-				[]
-				get_CLID_Idle!x__ -> Clock_CLID_Idle(id__,x__)
-				[]
-				terminate -> SKIP,Clock_CLID_Idle(id__,clock_type_plus(x__,1,CLID_Idle_clock_type(id__))))
 		Clock_CLID_OpenCurtains(id__,x__) = 
 			TimeOut_1(
 				OpenCurtains::entered -> Clock_CLID_OpenCurtains(id__,0)
@@ -748,13 +741,20 @@ exports
 				get_CLID_OpenCurtains!x__ -> Clock_CLID_OpenCurtains(id__,x__)
 				[]
 				terminate -> SKIP,Clock_CLID_OpenCurtains(id__,clock_type_plus(x__,1,CLID_OpenCurtains_clock_type(id__))))
+		Clock_CLID_Idle(id__,x__) = 
+			TimeOut_1(
+				Idle::entered -> Clock_CLID_Idle(id__,0)
+				[]
+				get_CLID_Idle!x__ -> Clock_CLID_Idle(id__,x__)
+				[]
+				terminate -> SKIP,Clock_CLID_Idle(id__,clock_type_plus(x__,1,CLID_Idle_clock_type(id__))))
 		
-		StateClocks(id__) = dbisim(Clock_CLID_Idle(id__,0))
+		StateClocks(id__) = dbisim(Clock_CLID_OpenCurtains(id__,0))
 		[| { terminate } |] (
-		dbisim(Clock_CLID_OpenCurtains(id__,0))
+		dbisim(Clock_CLID_Idle(id__,0))
 		)
 		
-		stateClockSync = {|get_CLID_Idle,Idle::entered,get_CLID_OpenCurtains,OpenCurtains::entered|}
+		stateClockSync = {|get_CLID_OpenCurtains,OpenCurtains::entered,get_CLID_Idle,Idle::entered|}
 		
 		-- Shared memory
 		-- Shared memory variables

@@ -93,7 +93,7 @@ stm DressingService {
 	transition t5 {
 		from Abandoned
 		to Idle
-	condition not retry /\ sinceEntry ( Abandoned ) >= 60
+	condition not retry /\ sinceEntry ( Abandoned ) >= 120
 		action CallSupportDecision ( )
 	}
 var assent : boolean

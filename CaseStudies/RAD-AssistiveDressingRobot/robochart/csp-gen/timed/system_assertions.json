@@ -1,25 +1,17 @@
 [
-{ "name": "timed RC refines Spec1 (Check1) [traces model]",
+{ "name": "timed RC1 refines RSpec1 (RCheck1) [traces model]",
   "type": "refines",
   "negated": false 
 },
-{ "name": "timed RC refines Spec2 (Check2) [traces model]",
+{ "name": "timed RC2 refines RSpec2 (RCheck2) [traces model]",
   "type": "refines",
   "negated": false 
 },
-{ "name": "timed RC refines Spec3 (Check3) [traces model]",
+{ "name": "timed RC3 refines RSpec3 (RCheck3) [traces model]",
   "type": "refines",
   "negated": false 
 },
-{ "name": "timed RC refines Spec4 (Check4) [traces model]",
-  "type": "refines",
-  "negated": false 
-},
-{ "name": "timed RC4_1 refines Spec4 (Check4Mod1) [traces model]",
-  "type": "refines",
-  "negated": false 
-},
-{ "name": "timed RC4_2 refines Spec4 (Check4Mod2) [traces model]",
+{ "name": "timed RC4 refines RSpec4 (RCheck4) [traces model]",
   "type": "refines",
   "negated": false 
 }

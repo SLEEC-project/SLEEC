@@ -1,7 +1,7 @@
 
 --
--- RoboChart generator version 3.0.0.202302061250
--- Automatically generated on 18-05-2023 15:31:36
+-- RoboChart generator version 3.0.0.202306261132
+-- Automatically generated on 02-11-2023 11:14:06
 --
 -- Iterated compression status: true
 -- Assertions compression status: false
@@ -190,6 +190,54 @@ Measures =
   
 SUVEvents = union(Capabilities,{|system::Module::CallSupportCall|})
 	
+datatype Measure = 
+	m_userUnderDressed | 
+	m_roomTemperature | 
+	m_userDistressed | 
+	m_assentToSupportCalls
+
+m2in(m_userUnderDressed) = {|userUnderDressed|}
+m2in(m_roomTemperature) = {|roomTemperature|}
+m2in(m_userDistressed) = {|userDistressed|}
+m2in(m_assentToSupportCalls) = {|assentToSupportCalls|}
+
+GMemory(m__,i__,o__) =
+	let
+        Mem = m__?x__ -> (Provide(x__) /\ tock -> Mem)
+        Provide(x__) = RUN(union({|i__.x__|},o__))
+    within
+        Mem
+
+GMem(m_userUnderDressed,o__) = GMemory(userUnderDressed,i_userUnderDressed,o__)
+GMem(m_roomTemperature,o__) = GMemory(roomTemperature,i_roomTemperature,o__)
+GMem(m_userDistressed,o__) = GMemory(userDistressed,i_userDistressed,o__)
+GMem(m_assentToSupportCalls,o__) = GMemory(assentToSupportCalls,i_assentToSupportCalls,o__)
+
+GMemExternal(m_userUnderDressed) = {|userUnderDressed|}
+GMemExternal(m_roomTemperature) = {|roomTemperature|}
+GMemExternal(m_userDistressed) = {|userDistressed|}
+GMemExternal(m_assentToSupportCalls) = {|assentToSupportCalls|}
+
+GMemInternal(m_userUnderDressed) = {|i_userUnderDressed|}
+GMemInternal(m_roomTemperature) = {|i_roomTemperature|}
+GMemInternal(m_userDistressed) = {|i_userDistressed|}
+GMemInternal(m_assentToSupportCalls) = {|i_assentToSupportCalls|}
+
+GMemHide(P__,m_userUnderDressed) = P__[[userUnderDressed <- i_userUnderDressed]]
+GMemHide(P__,m_roomTemperature) = P__[[roomTemperature <- i_roomTemperature]]
+GMemHide(P__,m_userDistressed) = P__[[userDistressed <- i_userDistressed]]
+GMemHide(P__,m_assentToSupportCalls) = P__[[assentToSupportCalls <- i_assentToSupportCalls]]
+
+GMemorySet(s__,o__) = [| union({tock},o__) |] e__ : s__ @ GMem(e__,o__)
+GMemoryRenameSet(P__,s__) = GMemoryRenameSeq(P__,seq(s__))
+GMemoryRenameSeq(P__,<>) = P__
+GMemoryRenameSeq(P__,<s__>^ms) = GMemHide(GMemoryRenameSeq(P__,ms),s__)
+
+GMemoryInternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemInternal(m__) }
+GMemoryExternalEvents(s__) = { e__ | m__ <- s__, e__ <- GMemExternal(m__) }
+
+ARuleToGMeasureSet(alpha) = { m__ | m__ <- Measure, inter(m2in(m__),alpha) == m2in(m__) }
+
 instance MSN = model_shifting(Capabilities)
 Timed(et) {
 
@@ -261,7 +309,7 @@ TriggerRule3 = UserFallen -> SKIP	[] SupportCalled -> TriggerRule3
 
 MonitoringRule3 = let
 	Monitoring1 = TimedInterruptSeq(SupportCalled,60,SKIP)
-	Monitoring2 = UserFallen -> MonitoringRule3	[] SupportCalled -> Monitoring2
+	Monitoring2 = SKIP -- Changed from: UserFallen -> MonitoringRule3	[] SupportCalled -> Monitoring2
 	 
 		[] SupportCalled -> Monitoring2
 within StartBy(assentToSupportCalls?vassentToSupportCalls ->
@@ -275,8 +323,8 @@ TRule3 = {|UserFallen|}
 RRule3 = {|SupportCalled|}
 SLEECRule3 = timed_priority(Rule3)
 
--- Rule4 when DressingAbandoned then RetryAgreed within 2 minutes
--- otherwise SupportCalled 
+-- Rule4 when DressingAbandoned then { RetryAgreed within 2 minutes
+-- otherwise { SupportCalled unless not assentToSupportCalls } }
 
 Rule4 = TriggerRule4; MonitoringRule4; Rule4
 
@@ -286,11 +334,11 @@ TriggerRule4 = DressingAbandoned -> SKIP	[] RetryAgreed -> TriggerRule4
 
 MonitoringRule4 = TimedInterruptSeq(RetryAgreed,(2 * 60),let
 	Monitoring1 = SupportCalled -> SKIP
-	Monitoring2 = DressingAbandoned -> MonitoringRule4	[] RetryAgreed -> Monitoring2
-		[] SupportCalled -> Monitoring2
-	
-		[] RetryAgreed -> Monitoring2
-		[] SupportCalled -> Monitoring2
+	Monitoring2 = SKIP -- Changed from before
+		--	DressingAbandoned -> MonitoringRule4	[] RetryAgreed -> Monitoring2
+		-- [] SupportCalled -> Monitoring2
+		-- [] RetryAgreed -> Monitoring2
+		-- [] SupportCalled -> Monitoring2
 within StartBy(assentToSupportCalls?vassentToSupportCalls ->
 	if (not (vassentToSupportCalls)) then Monitoring2
 	else (Monitoring1)
@@ -322,153 +370,129 @@ channel i_roomTemperature : core_int
 channel i_assentToSupportCalls : Bool
 channel i_userDistressed : STuserDistressed
 
-Memory = 
-		userUnderDressed?x__ -> Measure_userUnderDressed(x__)
-	|||	roomTemperature?x__ -> Measure_roomTemperature(x__)
-	||| assentToSupportCalls?x__ -> Measure_assentToSupportCalls(x__)
-	||| userDistressed?x__ -> Measure_userDistressed(x__)
-	
-Measure_userUnderDressed(x__) =
-	userUnderDressed?x__ -> Measure_userUnderDressed(x__)
-	[]
-	i_userUnderDressed!x__ -> Measure_userUnderDressed(x__)
-	
-Measure_roomTemperature(x__) =
-	roomTemperature?x__ -> Measure_roomTemperature(x__)
-	[]
-	i_roomTemperature!x__ -> Measure_roomTemperature(x__)
-	
-Measure_assentToSupportCalls(x__) =
-	assentToSupportCalls?x__ -> Measure_assentToSupportCalls(x__)
-	[]
-	i_assentToSupportCalls!x__ -> Measure_assentToSupportCalls(x__)
-	
-Measure_userDistressed(x__) =
-	userDistressed?x__ -> Measure_userDistressed(x__)
-	[]
-	i_userDistressed!x__ -> Measure_userDistressed(x__)
 }
 
-MRename(P__) = 
-	P__[[ 	userDistressed <- i_userDistressed,
-			userUnderDressed <- i_userUnderDressed,
-			roomTemperature <- i_roomTemperature,
-			assentToSupportCalls <- i_assentToSupportCalls
-		]]
-		
-MeasureInternalChannels = {|i_userUnderDressed,i_roomTemperature, i_assentToSupportCalls, i_userDistressed|}
+Timed(et) {
+RSpec1 = timed_priority(
+			let
+				AlphaRule = ARule1
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule1 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
 
 Timed(et) {
-Spec1 = timed_priority(
+	RC1 = timed_priority(
+		let
+			AlphaRule = ARule1
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				MRename(SLEECRule1 [|ARule1|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 
 Timed(et) {
-Spec2 = timed_priority(
+RSpec2 = timed_priority(
+			let
+				AlphaRule = ARule2
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule2 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+
+Timed(et) {
+	RC2 = timed_priority(
+		let
+			AlphaRule = ARule2
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				MRename(SLEECRule2 [|ARule2|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 
 Timed(et) {
-Spec3 = timed_priority(
+RSpec3 = timed_priority(
+			let
+				AlphaRule = ARule3
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule3 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+
+Timed(et) {
+	RC3 = timed_priority(
+		let
+			AlphaRule = ARule3
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				MRename(SLEECRule3 [|ARule3|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 
 Timed(et) {
-Spec4 = timed_priority(
+RSpec4 = timed_priority(
+			let
+				AlphaRule = ARule4
+				Measures = ARuleToGMeasureSet(AlphaRule)
+			within
+				(
+					GMemoryRenameSet(SLEECRule4 ||| CRUN(diff(SUVEvents,AlphaRule)),Measures)
+					[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+					GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+				) \GMemoryInternalEvents(Measures)
+	)
+}
+
+Timed(et) {
+	RC4 = timed_priority(
+		let
+			AlphaRule = ARule4
+			Measures = ARuleToGMeasureSet(AlphaRule)
+		within
 			(
-				MRename(SLEECRule4 [|ARule4|] TCHAOS(SUVEvents)) 
-				[| MeasureInternalChannels |]
-				Memory
-			)\MeasureInternalChannels
-		)
+				GMemoryRenameSet(Rename(system::Module::D__(1));STOP,Measures)
+				[| union(diff(SUVEvents,GMemoryExternalEvents(Measures)),GMemoryInternalEvents(Measures)) |]
+				GMemorySet(Measures,diff(SUVEvents,GMemoryExternalEvents(Measures)))
+			) \GMemoryInternalEvents(Measures)
+	)
 }
 
-RC = Rename(system::Module::D__(1))
--- Alphabet of RC will be the same as that of Capabilities, since Rename
--- applies renaming of RC events to those used as Capabilities.
-RC__sem__events = Capabilities
+-- RCheck1 - refinement
+assert RSpec1 [T= RC1
 
-RC4_1 = Rename(system::Module::D__(1)) 
-		[| {|UserFallen,DressingStarted|} |]
-	    (CHAOS({|DressingStarted|}) /\ UserFallen -> SKIP)
+-- RCheck2 - refinement
+assert RSpec2 [T= RC2
 
--- Alphabet of RC will be the same as that of Capabilities, since Rename
--- applies renaming of RC events to those used as Capabilities.
-RC4_1__sem__events = Capabilities
+-- RCheck3 - refinement
+assert RSpec3 [T= RC3
 
-RC4_2 = Rename(system::Module::D__(1)) 
-		[| {|UserFallen,DressingStarted|} |]
-	  --(CHAOS({|DressingStarted|}) /\ UserFallen -> SKIP)
-	  (DressingStarted -> SKIP
-	   []
-	   UserFallen -> SKIP
-	  )
-
--- Alphabet of RC will be the same as that of Capabilities, since Rename
--- applies renaming of RC events to those used as Capabilities.
-RC4_2__sem__events = Capabilities
-
-channel l_assentToSupportCalls, r_assentToSupportCalls : Bool
-
-Timed(et) {
-	
--- Checking Rule3 with Rule4:
-intersectionRule3Rule4 = 
-  let
-EnvRule3Rule4 = EnvassentToSupportCalls
-    EnvassentToSupportCalls = assentToSupportCalls?x__ -> VEnvassentToSupportCalls(x__)
-    VEnvassentToSupportCalls(x__) = assentToSupportCalls!x__ -> VEnvassentToSupportCalls(x__) 
-  within 
-	
-  (Rule3[|diff(inter({|SupportCalled, UserFallen|}, {|RetryAgreed, SupportCalled, DressingAbandoned|}),{|assentToSupportCalls|})|]Rule4)
-  [| {|assentToSupportCalls|} |]
-  	EnvRule3Rule4
-  SLEECRule3Rule4 = timed_priority(intersectionRule3Rule4)
-					
-  assert SLEECRule3Rule4:[deadlock-free]					
-  assert not MSN::C3(timed_priority(SLEECRule3Rule4 \{|assentToSupportCalls|})) [T= MSN::C3(timed_priority(SLEECRule3 \{|assentToSupportCalls|}))
-					
- --assert not MSN::C3(SLEECRule3) [T= MSN::C3(SLEECRule3Rule4)
-					
-  SLEECRule3Rule4CF   = prioritise(
-  timed_priority(intersectionRule3Rule4)
-  [[ tock <- tock, tock <- tock' ]],
-  <diff(Events,{|tock',tock|}),{|tock|}>)\{|tock|}
-										
-  assert SLEECRule3Rule4CF  :[divergence-free]
-
-}
-
--- Check1 - refinement
-assert Spec1 [T= RC
-
--- Check2 - refinement
-assert Spec2 [T= RC
-
--- Check3 - refinement
-assert Spec3 [T= RC
-
--- Check4 - refinement
-assert Spec4 [T= RC
-
--- Check4Mod1 - refinement
-assert Spec4 [T= RC4_1
-
--- Check4Mod2 - refinement
-assert Spec4 [T= RC4_2
+-- RCheck4 - refinement
+assert RSpec4 [T= RC4
 
