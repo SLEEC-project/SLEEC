@@ -433,8 +433,15 @@ class SLEECGenerator extends AbstractGenerator {
 					
 //Rule1 wrt Rule2
 assertions+= wrt(firstRule, secondRule, unionMeasures)
+
 //Rule2 wrt Rule1
 assertions+= wrt(secondRule, firstRule, unionMeasures)   
+assertions += '''assert not «firstRule.name»_wrt_«secondRule.name» [T= «secondRule.name»_wrt_«firstRule.name» 
+'''
+assertions += '''assert not «secondRule.name»_wrt_«firstRule.name» [T= «firstRule.name»_wrt_«secondRule.name» 
+
+'''
+
 
 				}
 			}
@@ -628,8 +635,7 @@ assertions+= wrt(secondRule, firstRule, unionMeasures)
 						 ) \MemoryInternalEvents
 				     ) 
 																			      '''
-						}
-					
+						}					
 	}
 	
 
