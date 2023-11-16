@@ -82,7 +82,7 @@ class SLEECGenerator extends AbstractGenerator {
 								.join(',' + '\n   ')»
 			  |}
 				
-			instance MSN = MS(Capabilities)
+			
 			Timed(et) {
 			
 			«resource.allContents
@@ -642,7 +642,7 @@ assertions += '''assert not «secondRule.name»_wrt_«firstRule.name» [T= «fir
 	// -----------------------------------------------------------
 	// helper functions used in the translation rules:
 	// Returns string of all eventIDs and measureIDs of a rule
-	private def alphabetString(Rule r) {
+	protected def alphabetString(Rule r) {
 
 		val Set<String> ruleAlphabet = new HashSet<String>(generateAlphabet(r))
 		var String alphString = ''
@@ -658,7 +658,7 @@ assertions += '''assert not «secondRule.name»_wrt_«firstRule.name» [T= «fir
 	}
 
 	// Returns a set of all eventIDs and measureIDs of a rule
-	private def generateAlphabet(Rule r) {
+	protected def generateAlphabet(Rule r) {
 
 		// creates an alphabet containing all the event IDs and measure IDs used in a rule		
 		var Set<String> ruleAlphabet = new HashSet<String>()
@@ -672,7 +672,7 @@ assertions += '''assert not «secondRule.name»_wrt_«firstRule.name» [T= «fir
 	}
 
 	// Returns a list of all the MeasureIds in AST
-	private def <T extends EObject> List<String> alphaMtree(T AST) {
+	protected def <T extends EObject> List<String> alphaMtree(T AST) {
 		// eAllContents does not include the root of the tree
 		// so this will return an empty list if AST is an instance of Atom, which is an error
 		// so first check that AST is an instance of atom
@@ -698,7 +698,7 @@ assertions += '''assert not «secondRule.name»_wrt_«firstRule.name» [T= «fir
 	}
 
 	// Returns a list of all the EventIds in AST
-	private def <T extends EObject> List<String> alphaE(T AST) {
+	protected def <T extends EObject> List<String> alphaE(T AST) {
 		// eAllContents does not include the root of the tree
 		// so this will return an empty list if AST is an instance of Atom, which is an error
 		// so first check that AST is an instance of atom
