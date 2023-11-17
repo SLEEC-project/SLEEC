@@ -83,7 +83,7 @@ class SLEECGenerator extends AbstractGenerator {
 			  |}
 				
 			
-			Timed(et) {
+			Timed(OneStep) {
 			
 			«resource.allContents
 				.filter(Rule)
@@ -159,7 +159,7 @@ class SLEECGenerator extends AbstractGenerator {
 			Boolean:
 				'Bool'
 			Numeric:
-				'Int'
+				'core_int'
 			Scale: {
 				val sps = t.scaleParams.map[name]
 				'''
@@ -357,7 +357,7 @@ class SLEECGenerator extends AbstractGenerator {
 		var assertions = ''
 		var assertions_part = ''
 		var measurePrint = ''
-		assertions += '''Timed(et) {
+		assertions += '''Timed(OneStep) {
 
 '''
 
@@ -982,7 +982,7 @@ assertions += '''assert not «secondRule.name»_wrt_«firstRule.name» [T= «fir
 		channel tock, tock'
 		
 		-- For definition of timed sections, no time is added implicitly.
-		et(_) = 0
+		OneStep(_) = 0
 		
 		-- Timelock (untimed STOP)
 		USTOP = STOP
@@ -990,7 +990,7 @@ assertions += '''assert not «secondRule.name»_wrt_«firstRule.name» [T= «fir
 		-- Untimed interrupt
 		UInt(P__,Q__) = P__ /\ Q__
 		
-		Timed(et) {
+		Timed(OneStep) {
 		
 			-- Timed SKIP
 			TSKIP = SKIP
