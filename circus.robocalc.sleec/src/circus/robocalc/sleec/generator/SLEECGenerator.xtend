@@ -54,7 +54,12 @@ class SLEECGenerator extends AbstractGenerator {
 		if (!ticktock.exists()) {
 			generateTickTock(resource, fsa, context)
 		}
-
+		
+		val instantiatons = new File("../src-gen/ticktock.csp")
+		if (!instantiatons.exists()) {
+			generateInstantiations(resource, fsa, context)
+		}
+		
 		fsa.generateFile(resource.getURI().trimFileExtension().lastSegment() + '.csp', '''
 			
 			--Specify the integer intervals for type Int e.g. {0..30}. 
@@ -97,6 +102,7 @@ class SLEECGenerator extends AbstractGenerator {
 		fsa.generateFile(resource.getURI().trimFileExtension().lastSegment() + '-assertions.csp', ''' 
 			-- ASSERTIONS --
 			include "tick-tock.csp"
+			include "instantiations.csp"
 			include "«resource.getURI().trimFileExtension().lastSegment()».csp"			
 			«resource.allContents
 										.filter(Rule)
@@ -861,6 +867,17 @@ assertions += '''assert not «secondRule.name»_wrt_«firstRule.name» [T= «fir
 
 	private def isScaleID(String measureID) {
 		this.scaleIDs.contains(measureID)
+	}
+	
+	private def generateInstantiations(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+		fsa.generateFile('instantiations.csp',
+			'''
+			-- This file contains user-adjustable parameters for model-checking.
+			
+			-- core_int : the domain of the numeric type.
+			nametype core_int = { -2..2}
+			'''
+		)
 	}
 
 	// -----------------------------------------------------------
